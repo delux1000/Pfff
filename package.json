@@ -1,0 +1,20 @@
+{
+  "name": "simple-html-server",
+  "version": "1.0.0",
+  "description": "A simple server to serve HTML files from public directory",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "server",
+    "html",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT"
+}
