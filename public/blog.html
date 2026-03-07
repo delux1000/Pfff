@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog – Recruitment Insights | Perfections Recruitment Agency Ltd</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* ----- RESET & GLOBAL ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; background: #ffffff; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; }
+    
+    /* ----- top contact bar (your details) ----- */
+    .top-bar { background: #0A3D62; color: white; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #1f5a88; }
+    .top-bar .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .top-bar a { color: white; text-decoration: none; margin-right: 20px; white-space: nowrap; font-weight: 400; }
+    .top-bar i { margin-right: 6px; color: #9fc9ff; width: 18px; text-align: center; }
+    .top-bar a:hover i { color: white; }
+    
+    /* ----- header / navigation ----- */
+    .main-header { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.02); padding: 18px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #edf2f7; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo h1 { font-size: 28px; font-weight: 700; color: #0A3D62; margin: 0; line-height: 1.2; letter-spacing: -0.3px; }
+    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; letter-spacing: 0.2px; display: block; }
+    .nav { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
+    .nav a { color: #2d3c4c; text-decoration: none; font-weight: 500; font-size: 16px; padding: 6px 0; transition: 0.2s; border-bottom: 2px solid transparent; }
+    .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    
+    /* ----- buttons & sections ----- */
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
+    .btn:hover { background: #134b77; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(10,61,98,0.2); }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; box-shadow: none; }
+    .btn-outline:hover { background: #0A3D62; color: white; }
+    .btn-small { padding: 8px 20px; font-size: 14px; }
+    
+    .section { padding: 80px 0; }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; font-weight: 700; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #3c8dbc, #0A3D62); border-radius: 4px; }
+    .section-title p { font-size: 18px; color: #4a5a6a; max-width: 700px; margin: 20px auto 0; }
+    
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+    
+    /* Blog cards */
+    .blog-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.02); transition: all 0.3s ease; border: 1px solid #ecf3fa; }
+    .blog-card:hover { transform: translateY(-8px); box-shadow: 0 30px 50px rgba(10,61,98,0.08); border-color: #bdd8f0; }
+    .blog-image { height: 200px; background: #d4e2f0; display: flex; align-items: center; justify-content: center; color: #0A3D62; font-size: 48px; }
+    .blog-content { padding: 28px; }
+    .blog-meta { display: flex; gap: 20px; font-size: 14px; color: #5e6f8d; margin-bottom: 12px; }
+    .blog-meta i { margin-right: 5px; color: #3c8dbc; }
+    .blog-card h3 { font-size: 22px; margin-bottom: 15px; color: #0A3D62; line-height: 1.4; }
+    .blog-card p { color: #475569; margin-bottom: 20px; }
+    .read-more { color: #0A3D62; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .read-more i { transition: 0.2s; }
+    .read-more:hover i { transform: translateX(5px); }
+    
+    /* Funding specific */
+    .funding-highlight { background: #0A3D62; color: white; padding: 40px; border-radius: 30px; }
+    .funding-highlight h3 { color: white; font-size: 28px; }
+    .badge { background: #e0f0ff; color: #0A3D62; padding: 6px 16px; border-radius: 40px; font-size: 14px; font-weight: 600; display: inline-block; }
+    
+    .bg-soft { background: #f8fafd; }
+    
+    /* footer */
+    .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
+    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; }
+    .footer h4 { color: white; margin-bottom: 28px; font-size: 18px; font-weight: 600; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
+    .footer ul { list-style: none; }
+    .footer li { margin-bottom: 14px; }
+    .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; display: inline-block; }
+    .footer a:hover { color: white; transform: translateX(6px); }
+    .footer i { margin-right: 12px; color: #9fc9ff; width: 22px; }
+    .footer .contact-info p { margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; font-size: 15px; }
+    
+    @media (max-width: 768px) {
+      .top-bar .container { flex-direction: column; text-align: center; gap: 6px; }
+      .nav { justify-content: center; gap: 16px; margin-top: 10px; }
+      .logo h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- top contact bar (your details) -->
+  <div class="top-bar">
+    <div class="container">
+      <div><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</div>
+      <div>
+        <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
+        <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
+        <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
+        <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- header navigation (active = blog) -->
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1>Perfections Recruitment</h1>
+        <span>Agency Ltd · working across United Kingdom</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="candidates.html">Candidates</a>
+        <a href="employers.html">Employers</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html" class="active">Blog</a>
+        <a href="funding.html">Funding</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BLOG PAGE – MAIN CONTENT -->
+  
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Recruitment insights & news</h2>
+        <p>Expert advice, industry trends, and updates from the Perfections team.</p>
+      </div>
+      
+      <!-- featured post -->
+      <div class="blog-card" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 50px;">
+        <div class="blog-image" style="height: 100%; min-height: 300px; background: #b6cde0; font-size: 80px;">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="blog-content" style="padding: 40px;">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> 3 Mar 2025</span>
+            <span><i class="fas fa-user"></i> Akinkunmi Okuseinde</span>
+          </div>
+          <h3 style="font-size: 28px;">UK job market outlook 2025: what employers need to know</h3>
+          <p style="font-size: 16px;">Demand for tech and construction roles remains high, while salary expectations shift. We break down the latest data and offer tips for attracting top talent this year.</p>
+          <a href="#" class="read-more">Read full article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <!-- blog grid -->
+      <div class="grid-3">
+        <!-- post 2 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-file-alt"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 20 Feb 2025</span></div>
+            <h3>10 CV mistakes that cost you the interview</h3>
+            <p>From typos to missing keywords – our consultants share the most common errors and how to fix them.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- post 3 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-building"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 5 Feb 2025</span></div>
+            <h3>How to retain your best staff in 2025</h3>
+            <p>Retention strategies that work: flexible work, culture, and career development.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- post 4 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-hard-hat"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 22 Jan 2025</span></div>
+            <h3>Construction labour shortages: regional guide</h3>
+            <p>Where the gaps are and how to find skilled workers quickly.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- post 5 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-laptop-code"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 10 Jan 2025</span></div>
+            <h3>Remote vs hybrid: what tech candidates want</h3>
+            <p>New data on developer preferences and how to structure your offers.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- post 6 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-pound-sign"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 18 Dec 2024</span></div>
+            <h3>IR35 changes: a quick refresher for 2025</h3>
+            <p>What contractors and engagers need to know about off-payroll rules.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- post 7 -->
+        <div class="blog-card">
+          <div class="blog-image"><i class="fas fa-user-md"></i></div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> 2 Dec 2024</span></div>
+            <h3>Healthcare recruitment: coping with demand</h3>
+            <p>Strategies for NHS trusts and care homes facing staffing pressures.</p>
+            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- load more -->
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="#" class="btn btn-outline">Load more articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <h4>Perfections Recruitment Agency Ltd</h4>
+        <p>11 Chequers Close, Corby, NN18 8QD, Northamptonshire. <br> UK‑wide recruitment specialist.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="candidates.html">Candidates</a></li>
+          <li><a href="employers.html">Employers</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="jobs.html">Latest jobs</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="funding.html">Funding</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="contact-info">
+          <p><i class="fas fa-phone-alt"></i> 07521 627390</p>
+          <p><i class="fas fa-phone-alt"></i> 07399 283446</p>
+          <p><i class="fas fa-phone-alt"></i> 01536 850341</p>
+          <p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="copyright">
+    © 2025 Perfections Recruitment Agency Ltd. All rights reserved. Designed with <i class="fas fa-heart" style="color: #ffa7a7;"></i> for UK recruitment
+  </div>
+</body>
+</html>
