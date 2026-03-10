@@ -3,90 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services – Perfections Recruitment Agency Ltd</title>
-  <!-- Google Fonts & Font Awesome -->
+  <title>Our Services – Perfections Recruitment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; background: #ffffff; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    a { text-decoration: none; }
     
-    /* header */
-    .main-header { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.02); padding: 18px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .logo h1 { font-size: 28px; font-weight: 700; color: #0A3D62; margin: 0; line-height: 1.2; letter-spacing: -0.3px; }
-    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; display: block; }
-    .nav { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-    .nav a { color: #2d3c4c; font-weight: 500; font-size: 15px; padding: 6px 0; border-bottom: 2px solid transparent; }
+    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo h1 { font-size: 28px; color: #0A3D62; }
+    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
     
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
-    .btn:hover { background: #134b77; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(10,61,98,0.2); }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; box-shadow: none; }
-    .btn-outline:hover { background: #0A3D62; color: white; }
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
     
     .section { padding: 80px 0; }
     .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; font-weight: 700; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #3c8dbc, #0A3D62); border-radius: 4px; }
-    .section-title p { font-size: 18px; color: #4a5a6a; max-width: 700px; margin: 20px auto 0; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
     
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
     
-    .service-card { background: white; border-radius: 24px; padding: 36px 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.02); transition: all 0.3s ease; border: 1px solid #ecf3fa; }
-    .service-card:hover { transform: translateY(-10px); box-shadow: 0 30px 50px rgba(10,61,98,0.08); border-color: #bdd8f0; }
-    .service-card i { font-size: 52px; color: #0A3D62; margin-bottom: 24px; display: inline-block; background: #e8f0fe; padding: 16px; border-radius: 20px; transition: 0.2s; }
-    .service-card:hover i { background: #0A3D62; color: white; }
-    .service-card h3 { font-size: 24px; margin-bottom: 16px; color: #0A3D62; font-weight: 700; }
-    .service-card p { color: #475569; margin-bottom: 20px; font-size: 16px; }
+    .service-card { background: white; border-radius: 24px; padding: 36px 28px; border: 1px solid #ecf3fa; }
+    .service-card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; }
+    .service-card h3 { font-size: 24px; color: #0A3D62; margin-bottom: 15px; }
     .feature-list { list-style: none; margin-top: 20px; }
-    .feature-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 15px; }
-    .feature-list i { font-size: 18px; color: #0A3D62; background: transparent; padding: 0; margin: 0; width: 24px; }
+    .feature-list li { margin-bottom: 10px; }
+    .feature-list i { color: #0A3D62; margin-right: 10px; }
+    
+    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
+    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
     
     .bg-soft { background: #f8fafd; }
-    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
-    .stat-item { text-align: center; }
-    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; line-height: 1.2; }
-    .stat-label { font-size: 16px; color: #3a546d; }
-    
-    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
-    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
-    .contact-row i { margin-right: 8px; color: #3c8dbc; }
     
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; }
-    .footer h4 { color: white; margin-bottom: 28px; font-size: 18px; font-weight: 600; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
-    .footer ul { list-style: none; }
-    .footer li { margin-bottom: 14px; }
-    .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; display: inline-block; }
-    .footer a:hover { color: white; transform: translateX(6px); }
-    .footer i { margin-right: 12px; color: #9fc9ff; width: 22px; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; font-size: 15px; }
+    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
+    .footer a { color: #e0eefb; text-decoration: none; }
+    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
     
     @media (max-width: 768px) {
-      .nav { justify-content: center; gap: 12px; }
-      .logo h1 { font-size: 24px; text-align: center; }
+      .nav { justify-content: center; }
+      .logo h1 { text-align: center; }
     }
   </style>
 </head>
 <body>
-  <!-- contact row (no address) -->
-  <div class="contact-row">
-    <div class="container">
-      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-    </div>
-  </div>
-
-  <!-- header -->
   <header class="main-header">
     <div class="container">
       <div class="logo">
@@ -109,176 +79,38 @@
     </div>
   </header>
 
-  <!-- SERVICES PAGE MAIN CONTENT -->
   <section class="section">
     <div class="container">
-      <div class="section-title">
-        <h2>Recruitment solutions across the UK</h2>
-        <p>From our Corby headquarters to every corner of Britain — we deliver tailored staffing solutions for every sector.</p>
-      </div>
+      <div class="section-title"><h2>Recruitment solutions across the UK</h2></div>
       
-      <!-- core services grid -->
-      <div class="grid-3" style="margin-bottom: 40px;">
-        <!-- Permanent placement -->
-        <div class="service-card">
-          <i class="fas fa-briefcase"></i>
-          <h3>Permanent placement</h3>
-          <p>We find high-calibre permanent staff who stay. Rigorous interviewing, competency checks and cultural fit assessments for roles at any level.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Graduate to director level</li>
-            <li><i class="fas fa-check-circle"></i> 12-month guarantee</li>
-            <li><i class="fas fa-check-circle"></i> Sector specialists</li>
-          </ul>
-        </div>
-        <!-- Temporary & contract -->
-        <div class="service-card">
-          <i class="fas fa-calendar-alt"></i>
-          <h3>Temporary & contract</h3>
-          <p>Immediate cover for peak times, projects or absences. All temps are interviewed, reference-checked and ready to hit the ground running.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Same-day shortlist</li>
-            <li><i class="fas fa-check-circle"></i> Weekly payroll / CIS</li>
-            <li><i class="fas fa-check-circle"></i> Flexible extensions</li>
-          </ul>
-        </div>
-        <!-- Executive search -->
-        <div class="service-card">
-          <i class="fas fa-chart-pie"></i>
-          <h3>Executive search</h3>
-          <p>Discreet, targeted headhunting for senior leadership and board-level appointments. We map the market and engage passive talent.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Tailored longlists</li>
-            <li><i class="fas fa-check-circle"></i> Competitor analysis</li>
-            <li><i class="fas fa-check-circle"></i> Bespoke assessment</li>
-          </ul>
-        </div>
-        <!-- IT & tech -->
-        <div class="service-card">
-          <i class="fas fa-laptop-code"></i>
-          <h3>IT & tech recruitment</h3>
-          <p>Developers, DevOps, data, cybersecurity & IT leadership. Remote, hybrid or on-site – we understand tech.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Permanent & contract</li>
-            <li><i class="fas fa-check-circle"></i> Tech tests optional</li>
-            <li><i class="fas fa-check-circle"></i> Start-up to enterprise</li>
-          </ul>
-        </div>
-        <!-- Construction & trades -->
-        <div class="service-card">
-          <i class="fas fa-hard-hat"></i>
-          <h3>Construction & trades</h3>
-          <p>Site managers, quantity surveyors, skilled labourers and CSCS‑card holders for projects nationwide.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Temporary & permanent</li>
-            <li><i class="fas fa-check-circle"></i> Compliance managed</li>
-            <li><i class="fas fa-check-circle"></i> Major project experience</li>
-          </ul>
-        </div>
-        <!-- Healthcare & medical -->
-        <div class="service-card">
-          <i class="fas fa-clinic-medical"></i>
-          <h3>Healthcare & medical</h3>
-          <p>RGNs, care assistants, AHPs and support workers for NHS trusts, care homes and private hospitals.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> DBS & revalidation</li>
-            <li><i class="fas fa-check-circle"></i> Flexible shifts</li>
-            <li><i class="fas fa-check-circle"></i> Nationwide placements</li>
-          </ul>
-        </div>
+      <div class="grid-3">
+        <div class="service-card"><i class="fas fa-briefcase"></i><h3>Permanent placement</h3><p>High-calibre permanent staff for roles at any level. 12-month guarantee.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Graduate to director</li><li><i class="fas fa-check-circle"></i> Sector specialists</li></ul></div>
+        <div class="service-card"><i class="fas fa-calendar-alt"></i><h3>Temporary & contract</h3><p>Immediate cover for peaks and projects. Same-day shortlists available.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Weekly payroll</li><li><i class="fas fa-check-circle"></i> CIS managed</li></ul></div>
+        <div class="service-card"><i class="fas fa-chart-pie"></i><h3>Executive search</h3><p>Discreet headhunting for senior leadership and board-level appointments.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Market mapping</li><li><i class="fas fa-check-circle"></i> Passive talent</li></ul></div>
+        <div class="service-card"><i class="fas fa-laptop-code"></i><h3>IT & tech</h3><p>Developers, DevOps, data, cybersecurity – permanent and contract.</p></div>
+        <div class="service-card"><i class="fas fa-hard-hat"></i><h3>Construction</h3><p>Site managers, surveyors, skilled labour for projects nationwide.</p></div>
+        <div class="service-card"><i class="fas fa-clinic-medical"></i><h3>Healthcare</h3><p>RGNs, carers, AHPs for NHS trusts and private hospitals.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- stats section -->
   <section class="section bg-soft">
     <div class="container">
-      <div class="section-title">
-        <h2>Trusted by employers & job seekers</h2>
-        <p>Our numbers speak for themselves – we deliver across the whole United Kingdom.</p>
-      </div>
       <div class="stats">
-        <div class="stat-item"><span class="stat-number">350+</span> <span class="stat-label">annual placements</span></div>
-        <div class="stat-item"><span class="stat-number">27</span> <span class="stat-label">UK counties covered</span></div>
-        <div class="stat-item"><span class="stat-number">92%</span> <span class="stat-label">client retention</span></div>
-        <div class="stat-item"><span class="stat-number">1,200+</span> <span class="stat-label">active candidates</span></div>
+        <div><span class="stat-number">350+</span><br>annual placements</div>
+        <div><span class="stat-number">27</span><br>UK counties</div>
+        <div><span class="stat-number">92%</span><br>client retention</div>
       </div>
     </div>
   </section>
 
-  <!-- recruitment process -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Simple, transparent process</h2>
-        <p>We make recruitment hassle‑free from start to offer.</p>
-      </div>
-      <div class="grid-4">
-        <div class="service-card" style="text-align: center; padding: 30px 20px;">
-          <i class="fas fa-comments" style="background: transparent; font-size: 44px;"></i>
-          <h3 style="font-size: 20px;">1. Understand</h3>
-          <p>We listen to your needs, role requirements and culture.</p>
-        </div>
-        <div class="service-card" style="text-align: center; padding: 30px 20px;">
-          <i class="fas fa-search" style="background: transparent; font-size: 44px;"></i>
-          <h3 style="font-size: 20px;">2. Source & screen</h3>
-          <p>We use our network, database and headhunting to find the best.</p>
-        </div>
-        <div class="service-card" style="text-align: center; padding: 30px 20px;">
-          <i class="fas fa-user-check" style="background: transparent; font-size: 44px;"></i>
-          <h3 style="font-size: 20px;">3. Shortlist</h3>
-          <p>Only relevant, interview‑ready candidates are presented.</p>
-        </div>
-        <div class="service-card" style="text-align: center; padding: 30px 20px;">
-          <i class="fas fa-handshake" style="background: transparent; font-size: 44px;"></i>
-          <h3 style="font-size: 20px;">4. Offer & aftercare</h3>
-          <p>We support through offer, onboarding and beyond.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section bg-soft">
-    <div class="container" style="text-align: center;">
-      <h2 style="font-size: 32px; color: #0A3D62; margin-bottom: 20px;">Ready to hire or looking for a new role?</h2>
-      <p style="font-size: 18px; max-width: 700px; margin: 0 auto 30px;">Speak to our team today. We're based in Corby but cover the whole UK.</p>
-      <a href="contact.html" class="btn" style="margin-right: 15px;"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email us</a>
-    </div>
-  </section>
-
-  <!-- footer -->
   <footer class="footer">
     <div class="container">
-      <div>
-        <h4>Perfections Recruitment Agency Ltd</h4>
-        <p>UK‑wide recruitment specialist.<br>Corby, Northamptonshire</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="candidates.html">Candidates</a></li>
-          <li><a href="employers.html">Employers</a></li>
-          <li><a href="testimonials.html">Testimonials</a></li>
-          <li><a href="jobs.html">Latest jobs</a></li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="funding.html">Funding</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <p><i class="fas fa-phone-alt"></i> 07521 627390</p>
-        <p><i class="fas fa-phone-alt"></i> 07399 283446</p>
-        <p><i class="fas fa-phone-alt"></i> 01536 850341</p>
-        <p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
-      </div>
+      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p><p>📞 07521 627390<br>✉️ Akinkunmiokuseinde@gmail.com</p></div>
+      <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="jobs.html">Jobs</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
     </div>
   </footer>
-  <div class="copyright">
-    © 2025 Perfections Recruitment Agency Ltd. All rights reserved.
-  </div>
+  <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
 </body>
 </html>
