@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Candidates – Perfections Recruitment Agency Ltd</title>
+  <title>For Employers – Perfections Recruitment Agency Ltd</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     
     .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
     .logo h1 { font-size: 28px; color: #0A3D62; }
     .logo span { font-size: 13px; color: #3c8dbc; display: block; }
     .nav { display: flex; gap: 20px; flex-wrap: wrap; }
@@ -35,19 +35,26 @@
     
     .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #ecf3fa; }
     .card i { font-size: 40px; color: #0A3D62; margin-bottom: 15px; }
+    .card ul { list-style: none; margin-top: 15px; }
+    .card li { margin-bottom: 8px; }
+    .card li i { color: #0A3D62; margin-right: 8px; font-size: 14px; }
     
     .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
     .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
     .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
     .contact-row i { margin-right: 8px; color: #3c8dbc; }
     
+    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
+    
+    .bg-soft { background: #f8fafd; }
+    
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
     .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
     .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
     .footer a { color: #e0eefb; text-decoration: none; }
     .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
-    
-    .bg-soft { background: #f8fafd; }
     
     @media (max-width: 768px) {
       .nav { justify-content: center; }
@@ -75,8 +82,8 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
-        <a href="candidates.html" class="active">Candidates</a>
-        <a href="employers.html">Employers</a>
+        <a href="candidates.html">Candidates</a>
+        <a href="employers.html" class="active">Employers</a>
         <a href="jobs.html">Jobs</a>
         <a href="testimonials.html">Testimonials</a>
         <a href="contact.html">Contact</a>
@@ -92,91 +99,115 @@
     <div class="container">
       <div class="grid-2" style="align-items: center;">
         <div>
-          <h2 style="font-size: 42px; color: #0A3D62; margin-bottom: 20px;">Find your perfect role</h2>
-          <p style="font-size: 18px; margin-bottom: 30px;">Whether you're looking for your first job, next career move, or flexible temporary work – we're here to help. Thousands of candidates have found success with Perfections.</p>
-          <a href="jobs.html" class="btn"><i class="fas fa-search"></i> Search jobs</a>
-          <a href="#register" class="btn btn-outline" style="margin-left: 15px;"><i class="fas fa-user-plus"></i> Register with us</a>
+          <h2 style="font-size: 48px; color: #0A3D62; margin-bottom: 20px;">Hire better, faster, across the UK</h2>
+          <p style="font-size: 18px; margin-bottom: 30px;">Whether you need one permanent hire or a team of temporary staff, we deliver quality candidates quickly. Sector specialists, nationwide reach, and a personal touch.</p>
+          <a href="contact.html" class="btn"><i class="fas fa-paper-plane"></i> Post a vacancy</a>
+          <div style="margin-top: 30px; display: flex; gap: 30px; flex-wrap: wrap;">
+            <div><span style="font-weight: 700; color: #0A3D62;">500+</span> placements/year</div>
+            <div><span style="font-weight: 700; color: #0A3D62;">92%</span> client retention</div>
+            <div><span style="font-weight: 700; color: #0A3D62;">10 days</span> avg. time-to-hire</div>
+          </div>
         </div>
         <div style="text-align: center;">
-          <i class="fas fa-users" style="font-size: 180px; color: #0A3D62; opacity: 0.8;"></i>
+          <i class="fas fa-building" style="font-size: 180px; color: #0A3D62; opacity: 0.8;"></i>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- how we help -->
+  <!-- solutions -->
   <section class="section">
     <div class="container">
       <div class="section-title">
-        <h2>How we support you</h2>
-        <p>From CV advice to interview prep – we're with you every step.</p>
+        <h2>Recruitment solutions for every need</h2>
       </div>
       <div class="grid-3">
-        <div class="card"><i class="fas fa-file-alt"></i><h3>CV & interview coaching</h3><p>Free resources and one-to-one guidance to help you stand out.</p></div>
-        <div class="card"><i class="fas fa-bell"></i><h3>Personalised job alerts</h3><p>Get notified when your ideal role lands in our system.</p></div>
-        <div class="card"><i class="fas fa-chart-line"></i><h3>Career progression</h3><p>We support you from first job to senior leadership.</p></div>
-        <div class="card"><i class="fas fa-clock"></i><h3>Flexible & temp work</h3><p>Need immediate income? We have temp roles across the UK.</p></div>
-        <div class="card"><i class="fas fa-comments"></i><h3>Dedicated consultant</h3><p>You'll have a single point of contact who understands your goals.</p></div>
-        <div class="card"><i class="fas fa-check-circle"></i><h3>Honest feedback</h3><p>We give constructive feedback after every interview.</p></div>
+        <div class="card">
+          <i class="fas fa-briefcase"></i>
+          <h3>Permanent recruitment</h3>
+          <p>From entry-level to board appointments. 12-month guarantee included.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Sector specialists</li>
+            <li><i class="fas fa-check-circle"></i> Volume campaigns</li>
+          </ul>
+        </div>
+        <div class="card">
+          <i class="fas fa-clock"></i>
+          <h3>Temporary & contract</h3>
+          <p>Flexible staffing for peaks, projects, or maternity cover.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Same-day shortlists</li>
+            <li><i class="fas fa-check-circle"></i> Weekly payroll</li>
+          </ul>
+        </div>
+        <div class="card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Executive search</h3>
+          <p>Discreet headhunting for senior leadership roles.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Market mapping</li>
+            <li><i class="fas fa-check-circle"></i> Passive talent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- stats -->
+  <section class="section bg-soft">
+    <div class="container">
+      <div class="stats">
+        <div class="stat-item"><span class="stat-number">500+</span><br>annual placements</div>
+        <div class="stat-item"><span class="stat-number">27</span><br>UK counties covered</div>
+        <div class="stat-item"><span class="stat-number">92%</span><br>client retention</div>
+        <div class="stat-item"><span class="stat-number">10</span><br>days to hire</div>
       </div>
     </div>
   </section>
 
   <!-- sectors -->
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="section-title">
-        <h2>Sectors we specialise in</h2>
-      </div>
-      <div class="grid-4">
-        <div class="card" style="text-align: center;"><i class="fas fa-laptop-code"></i><h3>IT & Tech</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-hard-hat"></i><h3>Construction</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-clinic-medical"></i><h3>Healthcare</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-briefcase"></i><h3>Office & Admin</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-truck"></i><h3>Logistics</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-chart-pie"></i><h3>Finance</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-headset"></i><h3>Customer Service</h3></div>
-        <div class="card" style="text-align: center;"><i class="fas fa-graduation-cap"></i><h3>Graduate</h3></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- testimonial -->
   <section class="section">
     <div class="container">
       <div class="section-title">
-        <h2>Success stories</h2>
+        <h2>Sectors we cover</h2>
       </div>
-      <div class="grid-3">
-        <div class="card" style="border-left: 4px solid #0A3D62;">
-          <p>"After months of searching, Perfections found me a marketing manager role in Manchester that fits my skills perfectly."</p>
-          <p style="margin-top: 15px; font-weight: 600;">— James O'Brien</p>
-        </div>
-        <div class="card" style="border-left: 4px solid #0A3D62;">
-          <p>"I was looking for my first IT role after bootcamp. My consultant believed in me and got me a junior developer position in Bristol."</p>
-          <p style="margin-top: 15px; font-weight: 600;">— Priya Kapoor</p>
-        </div>
-        <div class="card" style="border-left: 4px solid #0A3D62;">
-          <p>"The team found me temporary work quickly when I moved to Corby. Within months I was offered a permanent role."</p>
-          <p style="margin-top: 15px; font-weight: 600;">— Tom Lewis</p>
-        </div>
+      <div class="grid-4">
+        <div class="card" style="text-align: center;">IT & Tech</div>
+        <div class="card" style="text-align: center;">Construction</div>
+        <div class="card" style="text-align: center;">Healthcare</div>
+        <div class="card" style="text-align: center;">Office & Professional</div>
+        <div class="card" style="text-align: center;">Logistics</div>
+        <div class="card" style="text-align: center;">Engineering</div>
+        <div class="card" style="text-align: center;">Finance</div>
+        <div class="card" style="text-align: center;">Education</div>
       </div>
     </div>
   </section>
 
-  <!-- register -->
-  <section id="register" class="section bg-soft">
+  <!-- funding highlight -->
+  <section class="section bg-soft">
+    <div class="container">
+      <div style="background: #0A3D62; color: white; padding: 50px; border-radius: 30px; text-align: center;">
+        <h3 style="font-size: 32px; color: white; margin-bottom: 20px;">Unlock up to £5,000 per hire</h3>
+        <p style="color: #e0eefb; margin-bottom: 30px;">We help you access apprenticeship grants and recruitment incentives.</p>
+        <a href="funding.html" class="btn" style="background: white; color: #0A3D62;">Discover funding</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact form -->
+  <section class="section">
     <div class="container">
       <div class="grid-2">
         <div>
-          <h3 style="font-size: 28px; color: #0A3D62;">Register with us</h3>
-          <p>Send us your details and we'll match you to relevant opportunities.</p>
+          <h3 style="font-size: 32px; color: #0A3D62;">Ready to start hiring?</h3>
+          <p>Tell us about your vacancy and we'll get back to you within 24 hours.</p>
         </div>
         <div>
           <form>
-            <input type="text" placeholder="Full name" style="width:100%; padding:15px; margin-bottom:15px; border-radius:50px; border:1px solid #d0ddee;">
-            <input type="email" placeholder="Email" style="width:100%; padding:15px; margin-bottom:15px; border-radius:50px; border:1px solid #d0ddee;">
-            <button class="btn">Register now</button>
+            <input type="text" placeholder="Your name" style="width:100%; padding:15px; margin-bottom:15px; border-radius:50px; border:1px solid #d0ddee;">
+            <input type="email" placeholder="Work email" style="width:100%; padding:15px; margin-bottom:15px; border-radius:50px; border:1px solid #d0ddee;">
+            <button class="btn">Send enquiry</button>
           </form>
         </div>
       </div>
