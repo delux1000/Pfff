@@ -23,26 +23,47 @@
     
     .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; border: none; cursor: pointer; font-size: 16px; }
     .btn-small { padding: 8px 20px; font-size: 14px; }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
     
     .section { padding: 80px 0; }
     .section-title { text-align: center; margin-bottom: 60px; }
     .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
     .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    .section-title p { color: #4a5a6a; max-width: 700px; margin: 20px auto 0; }
     
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
     
     .job-card { background: white; border-radius: 20px; padding: 28px; border: 1px solid #e6edf5; transition: 0.2s; height: 100%; display: flex; flex-direction: column; }
-    .job-card:hover { border-color: #0A3D62; box-shadow: 0 10px 25px rgba(10,61,98,0.05); }
+    .job-card:hover { border-color: #0A3D62; box-shadow: 0 10px 25px rgba(10,61,98,0.05); transform: translateY(-3px); }
     .job-card h3 { font-size: 22px; color: #0A3D62; margin-bottom: 8px; }
-    .job-company { font-weight: 600; color: #334155; margin-bottom: 10px; }
-    .job-meta { display: flex; gap: 20px; flex-wrap: wrap; color: #4a5a6a; margin: 12px 0; font-size: 14px; }
-    .job-meta i { margin-right: 5px; color: #3c8dbc; width: 18px; }
-    .job-description { color: #475569; font-size: 14px; margin: 10px 0; flex-grow: 1; }
-    .job-date { font-size: 13px; color: #64748b; margin-top: 15px; }
-    .loading { text-align: center; padding: 50px; font-size: 18px; color: #0A3D62; }
-    .error { text-align: center; padding: 50px; color: #dc2626; }
-    .search-box { background: white; border-radius: 60px; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; border: 1px solid #e6edf5; }
-    .search-box input { flex: 1; min-width: 200px; border: none; padding: 15px 20px; border-radius: 50px; outline: none; font-size: 16px; }
+    .job-company { font-weight: 600; color: #334155; margin-bottom: 10px; font-size: 16px; }
+    .job-company i { color: #3c8dbc; margin-right: 5px; }
+    .job-meta { display: flex; gap: 15px; flex-wrap: wrap; color: #4a5a6a; margin: 12px 0; font-size: 14px; }
+    .job-meta span { display: flex; align-items: center; }
+    .job-meta i { margin-right: 5px; color: #3c8dbc; width: 16px; }
+    .job-description { color: #475569; font-size: 14px; margin: 10px 0; flex-grow: 1; line-height: 1.6; }
+    .job-date { font-size: 13px; color: #64748b; margin-top: 15px; display: flex; align-items: center; }
+    .job-date i { margin-right: 5px; color: #3c8dbc; }
+    .job-tag { background: #e8f0fe; color: #0A3D62; padding: 4px 12px; border-radius: 40px; font-size: 12px; font-weight: 600; display: inline-block; margin-right: 8px; margin-bottom: 8px; }
+    
+    .loading, .error, .no-results { text-align: center; padding: 60px; font-size: 18px; }
+    .loading i { color: #0A3D62; }
+    .error { color: #dc2626; }
+    .no-results { color: #4a5a6a; }
+    
+    .search-container { background: white; border-radius: 60px; padding: 5px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; border: 1px solid #e6edf5; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+    .search-container input { flex: 1; min-width: 250px; border: none; padding: 15px 25px; border-radius: 50px; outline: none; font-size: 16px; }
+    .search-container button { border-radius: 50px; padding: 15px 35px; }
+    
+    .filter-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+    .filter-btn { background: white; border: 1px solid #e6edf5; padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: 500; transition: 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background: #0A3D62; color: white; border-color: #0A3D62; }
+    
+    .stats-bar { background: white; border-radius: 20px; padding: 20px; margin-bottom: 30px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; border: 1px solid #e6edf5; }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 28px; font-weight: 700; color: #0A3D62; }
+    .stat-label { font-size: 14px; color: #64748b; }
     
     .bg-soft { background: #f8fafd; }
     
@@ -56,8 +77,9 @@
     .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
     
     @media (max-width: 768px) {
-      .nav { justify-content: center; }
-      .logo h1 { text-align: center; }
+      .nav { justify-content: center; gap: 15px; }
+      .logo h1 { text-align: center; font-size: 24px; }
+      .search-container button { width: 100%; }
     }
   </style>
 </head>
@@ -88,23 +110,59 @@
     <div class="container">
       <div class="section-title">
         <h2>Live jobs across the UK</h2>
-        <p>Real-time job listings from across the United Kingdom</p>
+        <p>Browse thousands of opportunities from top employers</p>
       </div>
       
-      <!-- search box -->
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Job title or keyword (e.g., developer, nurse, manager)" value="developer">
-        <button class="btn" id="searchBtn"><i class="fas fa-search"></i> Search jobs</button>
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item"><span class="stat-value" id="jobCount">0</span> <span class="stat-label">Jobs Found</span></div>
+        <div class="stat-item"><span class="stat-value" id="companyCount">0</span> <span class="stat-label">Companies</span></div>
+        <div class="stat-item"><span class="stat-value" id="locationCount">0</span> <span class="stat-label">Locations</span></div>
       </div>
       
-      <!-- jobs container -->
+      <!-- Search Box -->
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Job title, keywords, or company (e.g., developer, nurse, Google)" value="developer">
+        <button class="btn" id="searchBtn"><i class="fas fa-search"></i> Search Jobs</button>
+      </div>
+      
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Jobs</button>
+        <button class="filter-btn" data-filter="it">IT & Tech</button>
+        <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+        <button class="filter-btn" data-filter="construction">Construction</button>
+        <button class="filter-btn" data-filter="finance">Finance</button>
+        <button class="filter-btn" data-filter="retail">Retail</button>
+      </div>
+      
+      <!-- Jobs Container -->
       <div id="jobsContainer" class="grid-2"></div>
       
-      <!-- loading and error states -->
+      <!-- Loading and Error States -->
       <div id="loading" class="loading" style="display: none;">
-        <i class="fas fa-spinner fa-spin"></i> Loading jobs...
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <p style="margin-top: 20px;">Loading jobs...</p>
       </div>
-      <div id="error" class="error" style="display: none;"></div>
+      <div id="error" class="error" style="display: none;">
+        <i class="fas fa-exclamation-circle fa-3x"></i>
+        <p style="margin-top: 20px;" id="errorMessage"></p>
+        <button class="btn btn-outline" style="margin-top: 20px;" onclick="retryLoad()">Try Again</button>
+      </div>
+      <div id="noResults" class="no-results" style="display: none;">
+        <i class="fas fa-search fa-3x" style="color: #94a3b8;"></i>
+        <p style="margin-top: 20px;">No jobs found. Try different keywords.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 32px; color: #0A3D62; margin-bottom: 20px;">Can't find what you're looking for?</h2>
+      <p style="font-size: 18px; margin-bottom: 30px;">Register with us and we'll notify you when matching jobs appear.</p>
+      <a href="candidates.html#register" class="btn" style="margin-right: 15px;"><i class="fas fa-user-plus"></i> Register as Candidate</a>
+      <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
     </div>
   </section>
 
@@ -113,7 +171,7 @@
       <div>
         <h4>Perfections Recruitment</h4>
         <p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p>
-        <p>📞 07521 627390<br>📞 01536 850341<br>✉️ Akinkunmiokuseinde@gmail.com</p>
+        <p><i class="fas fa-phone-alt"></i> 07521 627390<br><i class="fas fa-phone-alt"></i> 01536 850341<br><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
       </div>
       <div>
         <h4>Explore</h4>
@@ -143,149 +201,314 @@
   <div class="copyright">© 2025 Perfections Recruitment Agency Ltd. All rights reserved.</div>
 
   <script>
-    // Use The Muse API (free, no key required for basic usage)
-    // Fallback to Adzuna API with public key (rate limited but works for demo)
+    // Job data store
+    let currentJobs = [];
+    let filteredJobs = [];
+    let currentFilter = 'all';
+    
+    // DOM elements
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
     const jobsContainer = document.getElementById('jobsContainer');
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error');
-
-    async function fetchJobs(keyword = 'developer') {
-      // Show loading
-      jobsContainer.innerHTML = '';
-      loadingDiv.style.display = 'block';
-      errorDiv.style.display = 'none';
-      
-      try {
-        // Using The Muse API (free, no key needed)
-        // Note: This is a public API that doesn't require authentication
-        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.themuse.com/api/v1/jobs?page=1&descending=true&query=${keyword}`)}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch jobs');
-        }
-        
-        const data = await response.json();
-        const jobs = JSON.parse(data.contents).results;
-        
-        loadingDiv.style.display = 'none';
-        
-        if (!jobs || jobs.length === 0) {
-          jobsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 50px;">No jobs found. Try another search term.</div>';
-          return;
-        }
-        
-        // Display jobs
-        jobsContainer.innerHTML = jobs.map(job => `
-          <div class="job-card">
-            <h3>${job.name || 'Job title not available'}</h3>
-            <div class="job-company">${job.company?.name || 'Company not specified'}</div>
-            <div class="job-meta">
-              <span><i class="fas fa-map-marker-alt"></i> ${job.locations?.map(l => l.name).join(', ') || 'Location not specified'}</span>
-              <span><i class="fas fa-briefcase"></i> ${job.levels?.map(l => l.name).join(', ') || 'Level not specified'}</span>
-            </div>
-            <div class="job-meta">
-              <span><i class="fas fa-clock"></i> ${job.categories?.map(c => c.name).join(', ') || 'Category not specified'}</span>
-            </div>
-            <div class="job-description">${job.contents ? job.contents.substring(0, 150) + '...' : 'Description not available'}</div>
-            <div class="job-date">Posted: ${job.publication_date ? new Date(job.publication_date).toLocaleDateString() : 'Date not available'}</div>
-            <a href="${job.refs?.landing_page || '#'}" target="_blank" class="btn btn-small" style="margin-top: 15px; align-self: flex-start;">Apply on company site</a>
-          </div>
-        `).join('');
-        
-      } catch (error) {
-        console.error('Error fetching jobs:', error);
-        loadingDiv.style.display = 'none';
-        errorDiv.style.display = 'block';
-        errorDiv.innerHTML = 'Unable to load jobs. Showing sample jobs instead.';
-        
-        // Show sample jobs as fallback
-        showSampleJobs();
-      }
-    }
-
-    function showSampleJobs() {
-      const sampleJobs = [
-        {
-          name: 'Senior Software Developer',
-          company: { name: 'Tech Corp London' },
-          locations: [{ name: 'London' }],
-          levels: [{ name: 'Senior' }],
-          categories: [{ name: 'Engineering' }],
-          contents: 'Looking for an experienced developer with Java and Spring Boot experience. Remote options available.',
-          publication_date: new Date().toISOString(),
-          refs: { landing_page: '#' }
-        },
-        {
-          name: 'Project Manager',
-          company: { name: 'Construction Solutions' },
-          locations: [{ name: 'Birmingham' }],
-          levels: [{ name: 'Mid-Senior' }],
-          categories: [{ name: 'Project Management' }],
-          contents: 'Experienced project manager needed for major infrastructure project. Must have NEC4 experience.',
-          publication_date: new Date().toISOString(),
-          refs: { landing_page: '#' }
-        },
-        {
-          name: 'Registered Nurse',
-          company: { name: 'NHS Trust' },
-          locations: [{ name: 'Northampton' }],
-          levels: [{ name: 'Entry Level' }],
-          categories: [{ name: 'Healthcare' }],
-          contents: 'Immediate starts available for RGNs at local NHS trust. Flexible shifts and competitive pay.',
-          publication_date: new Date().toISOString(),
-          refs: { landing_page: '#' }
-        },
-        {
-          name: 'Sales Assistant',
-          company: { name: 'Retail Store' },
-          locations: [{ name: 'Corby' }],
-          levels: [{ name: 'Entry Level' }],
-          categories: [{ name: 'Retail' }],
-          contents: 'Part-time sales assistant needed for busy retail store. Must be available weekends.',
-          publication_date: new Date().toISOString(),
-          refs: { landing_page: '#' }
-        }
-      ];
-      
-      jobsContainer.innerHTML = sampleJobs.map(job => `
-        <div class="job-card">
-          <h3>${job.name}</h3>
-          <div class="job-company">${job.company.name}</div>
-          <div class="job-meta">
-            <span><i class="fas fa-map-marker-alt"></i> ${job.locations[0].name}</span>
-            <span><i class="fas fa-briefcase"></i> ${job.levels[0].name}</span>
-          </div>
-          <div class="job-meta">
-            <span><i class="fas fa-clock"></i> ${job.categories[0].name}</span>
-          </div>
-          <div class="job-description">${job.contents}</div>
-          <div class="job-date">Posted: ${new Date(job.publication_date).toLocaleDateString()}</div>
-          <a href="${job.refs.landing_page}" class="btn btn-small" style="margin-top: 15px; align-self: flex-start;">View job</a>
-        </div>
-      `).join('');
-    }
-
-    // Search button click
-    searchBtn.addEventListener('click', () => {
+    const errorMessage = document.getElementById('errorMessage');
+    const noResultsDiv = document.getElementById('noResults');
+    const jobCountSpan = document.getElementById('jobCount');
+    const companyCountSpan = document.getElementById('companyCount');
+    const locationCountSpan = document.getElementById('locationCount');
+    
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFilter = e.target.dataset.filter;
+        filterAndDisplayJobs();
+      });
+    });
+    
+    // Search function
+    function performSearch() {
       const keyword = searchInput.value.trim();
       if (keyword) {
         fetchJobs(keyword);
       } else {
         fetchJobs('developer');
       }
-    });
-
-    // Load initial jobs
-    fetchJobs('developer');
-
-    // Also allow enter key
+    }
+    
+    // Retry function
+    window.retryLoad = function() {
+      performSearch();
+    };
+    
+    // Filter and display jobs based on current filter
+    function filterAndDisplayJobs() {
+      let jobsToDisplay = [...currentJobs];
+      
+      // Apply filter
+      if (currentFilter !== 'all') {
+        const filterMap = {
+          'it': ['developer', 'engineer', 'software', 'tech', 'it', 'programmer', 'data'],
+          'healthcare': ['nurse', 'healthcare', 'medical', 'doctor', 'clinical', 'care', 'hospital'],
+          'construction': ['construction', 'builder', 'site', 'project manager', 'quantity surveyor', 'civil'],
+          'finance': ['finance', 'accountant', 'banking', 'financial', 'analyst', 'audit'],
+          'retail': ['retail', 'sales', 'store', 'assistant', 'customer service']
+        };
+        
+        const keywords = filterMap[currentFilter] || [];
+        jobsToDisplay = jobsToDisplay.filter(job => {
+          const jobText = (job.title + ' ' + job.company + ' ' + job.description).toLowerCase();
+          return keywords.some(keyword => jobText.includes(keyword.toLowerCase()));
+        });
+      }
+      
+      filteredJobs = jobsToDisplay;
+      displayJobs(jobsToDisplay);
+      updateStats();
+    }
+    
+    // Display jobs
+    function displayJobs(jobs) {
+      if (!jobs || jobs.length === 0) {
+        jobsContainer.innerHTML = '';
+        noResultsDiv.style.display = 'block';
+        return;
+      }
+      
+      noResultsDiv.style.display = 'none';
+      
+      jobsContainer.innerHTML = jobs.map(job => `
+        <div class="job-card">
+          <h3>${escapeHtml(job.title || 'Position Available')}</h3>
+          <div class="job-company"><i class="fas fa-building"></i> ${escapeHtml(job.company || 'Company Confidential')}</div>
+          <div class="job-meta">
+            <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(job.location || 'UK Wide')}</span>
+            <span><i class="fas fa-briefcase"></i> ${escapeHtml(job.type || 'Full Time')}</span>
+          </div>
+          <div class="job-meta">
+            <span><i class="fas fa-tag"></i> ${escapeHtml(job.category || 'General')}</span>
+            <span><i class="fas fa-pound-sign"></i> ${escapeHtml(job.salary || 'Competitive')}</span>
+          </div>
+          <div class="job-description">${escapeHtml(job.description || 'Please contact us for more information about this position.')}</div>
+          <div class="job-date"><i class="fas fa-calendar-alt"></i> Posted: ${escapeHtml(job.posted || 'Recently')}</div>
+          <a href="${job.applyUrl || '#'}" target="_blank" class="btn btn-small" style="margin-top: 15px; align-self: flex-start;" onclick="return handleApply(event, '${job.title}')">
+            <i class="fas fa-paper-plane"></i> Apply Now
+          </a>
+        </div>
+      `).join('');
+    }
+    
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Handle apply button
+    function handleApply(event, jobTitle) {
+      event.preventDefault();
+      window.location.href = `contact.html?subject=Application for ${encodeURIComponent(jobTitle)}`;
+    }
+    
+    // Update stats
+    function updateStats() {
+      const uniqueCompanies = [...new Set(currentJobs.map(j => j.company).filter(Boolean))];
+      const uniqueLocations = [...new Set(currentJobs.map(j => j.location).filter(Boolean))];
+      
+      jobCountSpan.textContent = currentJobs.length;
+      companyCountSpan.textContent = uniqueCompanies.length;
+      locationCountSpan.textContent = uniqueLocations.length;
+    }
+    
+    // Fetch jobs function
+    async function fetchJobs(keyword) {
+      // Show loading
+      jobsContainer.innerHTML = '';
+      loadingDiv.style.display = 'block';
+      errorDiv.style.display = 'none';
+      noResultsDiv.style.display = 'none';
+      
+      try {
+        // Using multiple free APIs with fallbacks
+        let jobs = [];
+        let success = false;
+        
+        // Try CORS-friendly APIs in sequence
+        const apis = [
+          // API 1: The Muse (free, no key)
+          async () => {
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://www.themuse.com/api/public/jobs?page=1&location=United%20Kingdom&query=${keyword}`)}`);
+            const data = await response.json();
+            const museJobs = JSON.parse(data.contents).results || [];
+            return museJobs.map(job => ({
+              title: job.name,
+              company: job.company?.name,
+              location: job.locations?.[0]?.name || 'UK',
+              type: job.categories?.[0]?.name || 'Full Time',
+              category: job.levels?.[0]?.name || 'Professional',
+              salary: 'Competitive',
+              description: job.contents?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
+              posted: new Date(job.publication_date).toLocaleDateString(),
+              applyUrl: job.refs?.landing_page
+            }));
+          },
+          
+          // API 2: GitHub Jobs (free)
+          async () => {
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://jobs.github.com/positions.json?description=${keyword}&location=uk`)}`);
+            const data = await response.json();
+            const githubJobs = JSON.parse(data.contents) || [];
+            return githubJobs.map(job => ({
+              title: job.title,
+              company: job.company,
+              location: job.location,
+              type: job.type,
+              category: 'Technology',
+              salary: 'Competitive',
+              description: job.description?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
+              posted: new Date(job.created_at).toLocaleDateString(),
+              applyUrl: job.url
+            }));
+          }
+        ];
+        
+        // Try each API until one works
+        for (const api of apis) {
+          try {
+            jobs = await api();
+            if (jobs && jobs.length > 0) {
+              success = true;
+              break;
+            }
+          } catch (e) {
+            console.log('API failed, trying next...');
+          }
+        }
+        
+        if (!success || jobs.length === 0) {
+          // Fallback to sample data
+          jobs = generateSampleJobs(keyword);
+        }
+        
+        currentJobs = jobs;
+        
+        loadingDiv.style.display = 'none';
+        
+        if (jobs.length > 0) {
+          filterAndDisplayJobs();
+        } else {
+          noResultsDiv.style.display = 'block';
+        }
+        
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+        loadingDiv.style.display = 'none';
+        
+        // Show sample jobs as fallback
+        currentJobs = generateSampleJobs(keyword);
+        filterAndDisplayJobs();
+        
+        // Show warning but still display jobs
+        errorDiv.style.display = 'block';
+        errorMessage.textContent = 'Using sample jobs. For live jobs, please refresh.';
+      }
+    }
+    
+    // Generate sample jobs
+    function generateSampleJobs(keyword) {
+      const sampleJobs = [
+        {
+          title: 'Senior Software Developer',
+          company: 'Tech Innovations Ltd',
+          location: 'London / Remote',
+          type: 'Permanent',
+          category: 'IT & Tech',
+          salary: '£55,000 - £70,000',
+          description: 'Leading fintech company seeks experienced developer with Java, Spring Boot, and AWS. Great benefits and hybrid working.',
+          posted: '2 days ago',
+          applyUrl: '#'
+        },
+        {
+          title: 'Registered Nurse',
+          company: 'NHS Trust',
+          location: 'Northampton',
+          type: 'Permanent / Temporary',
+          category: 'Healthcare',
+          salary: '£28,000 - £42,000',
+          description: 'Immediate starts available for RGNs. Flexible shifts, NHS pension, and ongoing training provided.',
+          posted: '1 day ago',
+          applyUrl: '#'
+        },
+        {
+          title: 'Project Manager',
+          company: 'Construction Solutions',
+          location: 'Birmingham',
+          type: 'Contract',
+          category: 'Construction',
+          salary: '£350 - £450/day',
+          description: 'Major infrastructure project seeking experienced PM with NEC4 experience. 6-month contract with extension.',
+          posted: '3 days ago',
+          applyUrl: '#'
+        },
+        {
+          title: 'Sales Assistant',
+          company: 'Retail Group',
+          location: 'Corby',
+          type: 'Part Time',
+          category: 'Retail',
+          salary: '£10.50 - £12.00/hour',
+          description: 'Weekend sales assistant needed. Customer service experience preferred. Immediate start.',
+          posted: '5 days ago',
+          applyUrl: '#'
+        },
+        {
+          title: 'Marketing Manager',
+          company: 'Digital Agency',
+          location: 'Manchester',
+          type: 'Permanent',
+          category: 'Marketing',
+          salary: '£35,000 - £45,000',
+          description: 'Lead marketing campaigns for growing tech agency. Experience with B2B and digital required.',
+          posted: '1 week ago',
+          applyUrl: '#'
+        },
+        {
+          title: 'Quantity Surveyor',
+          company: 'Construction Ltd',
+          location: 'Leeds',
+          type: 'Contract',
+          category: 'Construction',
+          salary: '£300 - £400/day',
+          description: 'Commercial QS needed for large residential project. Must have NEC3/4 experience.',
+          posted: '4 days ago',
+          applyUrl: '#'
+        }
+      ];
+      
+      // Filter based on keyword
+      return sampleJobs.filter(job => 
+        job.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        job.description.toLowerCase().includes(keyword.toLowerCase()) ||
+        job.category.toLowerCase().includes(keyword.toLowerCase())
+      );
+    }
+    
+    // Search button click
+    searchBtn.addEventListener('click', performSearch);
+    
+    // Enter key
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        searchBtn.click();
+        performSearch();
       }
     });
+    
+    // Load initial jobs
+    fetchJobs('developer');
   </script>
 </body>
 </html>
