@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us – Perfections Recruitment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; color: #1e293b; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
     .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
     .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
     .logo h1 { font-size: 28px; color: #0A3D62; }
@@ -16,28 +20,89 @@
     .nav { display: flex; gap: 20px; flex-wrap: wrap; }
     .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    
     .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
+    
     .section { padding: 80px 0; }
     .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
-    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
-    .contact-row i { margin-right: 8px; color: #3c8dbc; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    
+    .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #ecf3fa; text-align: center; }
+    .card i { font-size: 40px; color: #0A3D62; margin-bottom: 15px; }
+    
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
     .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
+    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
     .footer a { color: #e0eefb; text-decoration: none; }
     .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
-    @media (max-width: 768px) { .nav { justify-content: center; } }
+    
+    @media (max-width: 768px) {
+      .nav { justify-content: center; }
+      .logo h1 { text-align: center; }
+    }
   </style>
 </head>
 <body>
-  <div class="contact-row"><div class="container">[same contact links]</div></div>
-  <header class="main-header"><div class="container"><div class="logo"><h1>Perfections Recruitment</h1><span>Agency Ltd · UK wide</span></div><nav class="nav">[same nav with active=about]</nav></div></header>
-  <section class="section"><div class="container"><div class="section-title"><h2>About Perfections Recruitment</h2></div><div class="grid-2"><div><p>Founded in Corby, we've grown into a trusted recruitment partner operating across the whole United Kingdom. Our mission is simple: create perfect matches between talented people and great employers.</p><p>With decades of combined experience, our consultants understand local markets and national trends. We treat every candidate and client as a long-term partner.</p></div><div style="background:#e8f0fe; padding:40px; border-radius:30px; text-align:center;"><i class="fas fa-users" style="font-size:120px; color:#0A3D62;"></i></div></div></div></section>
-  <footer class="footer">[same footer]</footer>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1>Perfections Recruitment</h1>
+        <span>Agency Ltd · working across United Kingdom</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="services.html">Services</a>
+        <a href="candidates.html">Candidates</a>
+        <a href="employers.html">Employers</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+        <a href="funding.html">Funding</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title"><h2>About Perfections Recruitment</h2></div>
+      <div class="grid-2">
+        <div>
+          <p style="font-size: 18px; margin-bottom: 20px;">Founded in Corby, we've grown into a trusted recruitment partner operating across the whole United Kingdom. Our mission is simple: create perfect matches between talented people and great employers.</p>
+          <p>With decades of combined experience, our consultants understand local markets and national trends. We treat every candidate and client as a long-term partner, not just a placement.</p>
+          <p style="margin-top: 20px;"><strong>📞 07521 627390</strong> | <strong>✉️ Akinkunmiokuseinde@gmail.com</strong></p>
+        </div>
+        <div style="background: #e8f0fe; border-radius: 30px; padding: 40px; text-align: center;">
+          <i class="fas fa-users" style="font-size: 120px; color: #0A3D62;"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: #f8fafd;">
+    <div class="container">
+      <div class="section-title"><h2>Our values</h2></div>
+      <div class="grid-3">
+        <div class="card"><i class="fas fa-handshake"></i><h3>Integrity</h3><p>Honest, transparent advice – always.</p></div>
+        <div class="card"><i class="fas fa-map-marker-alt"></i><h3>UK-wide</h3><p>From Scotland to the South Coast.</p></div>
+        <div class="card"><i class="fas fa-user-check"></i><h3>Personal service</h3><p>You speak to a real consultant.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p><p>📞 07521 627390<br>✉️ Akinkunmiokuseinde@gmail.com</p></div>
+      <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+    </div>
+  </footer>
   <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
 </body>
 </html>
