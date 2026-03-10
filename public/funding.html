@@ -3,87 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Funding & Grants – Support for Employers | Perfections Recruitment</title>
-  <!-- Google Fonts & Font Awesome -->
+  <title>Funding & Grants – Perfections Recruitment Agency Ltd</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* same global styles as blog */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; background: #ffffff; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    a { text-decoration: none; }
     
-    .top-bar { background: #0A3D62; color: white; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #1f5a88; }
-    .top-bar .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .top-bar a { color: white; text-decoration: none; margin-right: 20px; white-space: nowrap; font-weight: 400; }
-    .top-bar i { margin-right: 6px; color: #9fc9ff; width: 18px; text-align: center; }
-    
-    .main-header { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.02); padding: 18px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .logo h1 { font-size: 28px; font-weight: 700; color: #0A3D62; margin: 0; line-height: 1.2; letter-spacing: -0.3px; }
-    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; display: block; }
-    .nav { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
-    .nav a { color: #2d3c4c; font-weight: 500; font-size: 16px; padding: 6px 0; transition: 0.2s; border-bottom: 2px solid transparent; }
+    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo h1 { font-size: 28px; color: #0A3D62; }
+    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
     
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
-    .btn:hover { background: #134b77; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(10,61,98,0.2); }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; box-shadow: none; }
-    .btn-outline:hover { background: #0A3D62; color: white; }
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
     
     .section { padding: 80px 0; }
     .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; font-weight: 700; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #3c8dbc, #0A3D62); border-radius: 4px; }
-    .section-title p { font-size: 18px; color: #4a5a6a; max-width: 700px; margin: 20px auto 0; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
     
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
     
-    .funding-card { background: white; border-radius: 24px; padding: 36px 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.02); border: 1px solid #ecf3fa; transition: 0.3s; }
-    .funding-card:hover { transform: translateY(-5px); box-shadow: 0 30px 50px rgba(10,61,98,0.08); border-color: #bdd8f0; }
-    .funding-card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; background: #e8f0fe; padding: 16px; border-radius: 20px; }
-    .funding-card h3 { font-size: 24px; margin-bottom: 15px; color: #0A3D62; }
+    .funding-card { background: white; border-radius: 24px; padding: 36px 28px; border: 1px solid #ecf3fa; }
+    .funding-card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; }
+    .funding-card h3 { font-size: 24px; color: #0A3D62; margin-bottom: 15px; }
     .funding-card .amount { font-size: 32px; font-weight: 800; color: #0A3D62; margin: 15px 0 5px; }
-    .badge { background: #e0f0ff; color: #0A3D62; padding: 4px 12px; border-radius: 40px; font-size: 14px; font-weight: 600; display: inline-block; margin-bottom: 15px; }
+    .badge { background: #e0f0ff; color: #0A3D62; padding: 4px 12px; border-radius: 40px; display: inline-block; margin-bottom: 15px; }
+    
+    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
+    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
+    .contact-row i { margin-right: 8px; color: #3c8dbc; }
     
     .bg-soft { background: #f8fafd; }
+    .funding-highlight { background: #0A3D62; color: white; padding: 50px; border-radius: 30px; }
     
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; }
-    .footer h4 { color: white; margin-bottom: 28px; font-size: 18px; font-weight: 600; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
-    .footer ul { list-style: none; }
-    .footer li { margin-bottom: 14px; }
-    .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; display: inline-block; }
-    .footer a:hover { color: white; transform: translateX(6px); }
-    .footer i { margin-right: 12px; color: #9fc9ff; width: 22px; }
-    .footer .contact-info p { margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; font-size: 15px; }
+    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
+    .footer a { color: #e0eefb; text-decoration: none; }
+    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
     
     @media (max-width: 768px) {
-      .top-bar .container { flex-direction: column; text-align: center; gap: 6px; }
-      .nav { justify-content: center; gap: 16px; }
+      .nav { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <!-- top bar (same) -->
-  <div class="top-bar">
+  <div class="contact-row">
     <div class="container">
-      <div><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</div>
-      <div>
-        <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-        <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-        <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-      </div>
+      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
+      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
+      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
+      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
     </div>
   </div>
 
-  <!-- header (active = funding) -->
   <header class="main-header">
     <div class="container">
       <div class="logo">
@@ -106,46 +89,40 @@
     </div>
   </header>
 
-  <!-- FUNDING PAGE – MAIN CONTENT -->
-  
   <section class="section">
     <div class="container">
       <div class="section-title">
         <h2>Funding & grants for employers</h2>
-        <p>We help UK businesses access recruitment incentives, apprenticeships funding, and wage subsidies.</p>
+        <p>We help UK businesses access recruitment incentives and wage subsidies.</p>
       </div>
       
-      <!-- intro highlight -->
-      <div class="funding-highlight" style="background: #0A3D62; color: white; padding: 50px; border-radius: 30px; margin-bottom: 60px;">
+      <div class="funding-highlight" style="margin-bottom: 60px;">
         <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
           <div style="flex: 1;">
             <span class="badge" style="background: white; color: #0A3D62;">Free consultation</span>
             <h3 style="font-size: 32px; color: white; margin: 20px 0;">Unlock up to £5,000 per hire</h3>
-            <p style="color: #e0eefb; font-size: 18px;">Many employers don't claim the funding they're entitled to. We guide you through available grants, apprenticeships, and local schemes.</p>
+            <p style="color: #e0eefb;">Many employers don't claim the funding they're entitled to. We guide you through available grants, apprenticeships, and local schemes.</p>
           </div>
-          <div style="flex: 0 0 auto;">
+          <div>
             <a href="contact.html" class="btn" style="background: white; color: #0A3D62;">Claim your review</a>
           </div>
         </div>
       </div>
       
-      <!-- funding options grid -->
       <div class="grid-3">
         <div class="funding-card">
           <i class="fas fa-graduation-cap"></i>
           <span class="badge">Apprenticeships</span>
           <h3>Apprenticeship Levy & grants</h3>
-          <p>Funding for training apprentices aged 16+ – up to 100% of training costs covered for small businesses.</p>
+          <p>Funding for training apprentices – up to 100% of training costs covered for small businesses.</p>
           <div class="amount">£1,000 - £5,000</div>
-          <p style="font-size: 14px;">per apprentice</p>
         </div>
         <div class="funding-card">
           <i class="fas fa-briefcase"></i>
-          <span class="badge">Kickstart (legacy)</span>
+          <span class="badge">Youth employment</span>
           <h3>Youth employment schemes</h3>
-          <p>Grants for hiring young people (16-24). We help with applications and compliance.</p>
+          <p>Grants for hiring young people (16-24). We help with applications.</p>
           <div class="amount">Up to £3,500</div>
-          <p style="font-size: 14px;">per placement</p>
         </div>
         <div class="funding-card">
           <i class="fas fa-hospital"></i>
@@ -153,15 +130,13 @@
           <h3>NHS & social care funding</h3>
           <p>Specific grants for care providers, including recruitment and retention payments.</p>
           <div class="amount">£2,000 - £8,000</div>
-          <p style="font-size: 14px;">per role</p>
         </div>
         <div class="funding-card">
           <i class="fas fa-tools"></i>
           <span class="badge">Construction</span>
           <h3>CITB grants</h3>
-          <p>Funding for construction employers to train new entrants and upskill existing staff.</p>
+          <p>Funding for construction employers to train new entrants and upskill staff.</p>
           <div class="amount">Up to £6,000</div>
-          <p style="font-size: 14px;">per employee</p>
         </div>
         <div class="funding-card">
           <i class="fas fa-universal-access"></i>
@@ -169,7 +144,6 @@
           <h3>Access to Work</h3>
           <p>Grants to support disabled employees or those with health conditions.</p>
           <div class="amount">Up to £62,900</div>
-          <p style="font-size: 14px;">per person</p>
         </div>
         <div class="funding-card">
           <i class="fas fa-chart-line"></i>
@@ -177,83 +151,33 @@
           <h3>Regional funding</h3>
           <p>We identify local authority grants and devolved schemes in your area.</p>
           <div class="amount">Varies</div>
-          <p style="font-size: 14px;"> bespoke</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- how it works -->
   <section class="section bg-soft">
     <div class="container">
       <div class="section-title">
         <h2>How we help you access funding</h2>
-        <p>Simple steps to secure financial support for your recruitment.</p>
       </div>
       <div class="grid-3">
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-search" style="background: transparent;"></i>
-          <h3>1. Discovery</h3>
-          <p>We review your business and hiring plans to identify eligible funding.</p>
-        </div>
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-file-signature" style="background: transparent;"></i>
-          <h3>2. Application support</h3>
-          <p>Our team helps prepare and submit grant applications.</p>
-        </div>
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-hand-holding-usd" style="background: transparent;"></i>
-          <h3>3. Ongoing advice</h3>
-          <p>We stay updated on new schemes and claim deadlines.</p>
-        </div>
+        <div class="funding-card" style="text-align: center;"><i class="fas fa-search"></i><h3>1. Discovery</h3><p>We review your business and hiring plans to identify eligible funding.</p></div>
+        <div class="funding-card" style="text-align: center;"><i class="fas fa-file-signature"></i><h3>2. Application support</h3><p>Our team helps prepare and submit grant applications.</p></div>
+        <div class="funding-card" style="text-align: center;"><i class="fas fa-hand-holding-usd"></i><h3>3. Ongoing advice</h3><p>We stay updated on new schemes and claim deadlines.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="section">
     <div class="container" style="text-align: center;">
       <h2 style="font-size: 32px; color: #0A3D62;">Ready to claim what you're owed?</h2>
-      <p style="margin: 20px 0 30px; font-size: 18px;">Speak to our funding team today – no obligation.</p>
+      <p style="margin: 20px 0;">Speak to our funding team today – no obligation.</p>
       <a href="contact.html" class="btn">Contact us now</a>
     </div>
   </section>
 
-  <!-- FOOTER (same) -->
-  <footer class="footer">
-    <div class="container">
-      <div>
-        <h4>Perfections Recruitment Agency Ltd</h4>
-        <p>11 Chequers Close, Corby, NN18 8QD, Northamptonshire. <br> UK‑wide recruitment specialist.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="candidates.html">Candidates</a></li>
-          <li><a href="employers.html">Employers</a></li>
-          <li><a href="testimonials.html">Testimonials</a></li>
-          <li><a href="jobs.html">Latest jobs</a></li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="funding.html">Funding</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <div class="contact-info">
-          <p><i class="fas fa-phone-alt"></i> 07521 627390</p>
-          <p><i class="fas fa-phone-alt"></i> 07399 283446</p>
-          <p><i class="fas fa-phone-alt"></i> 01536 850341</p>
-          <p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
-          <p><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <div class="copyright">
-    © 2025 Perfections Recruitment Agency Ltd. All rights reserved.
-  </div>
+  <footer class="footer">[same footer]</footer>
+  <div class="copyright">© 2026 Perfections Recruitment Agency Ltd</div>
 </body>
 </html>
