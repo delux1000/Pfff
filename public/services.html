@@ -3,37 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services – Perfections Recruitment Agency Ltd | UK wide</title>
+  <title>Our Services – Perfections Recruitment Agency Ltd</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* ----- RESET & GLOBAL ----- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; background: #ffffff; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; }
     
-    /* ----- top contact bar (your details) ----- */
-    .top-bar { background: #0A3D62; color: white; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #1f5a88; }
-    .top-bar .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .top-bar a { color: white; text-decoration: none; margin-right: 20px; white-space: nowrap; font-weight: 400; }
-    .top-bar i { margin-right: 6px; color: #9fc9ff; width: 18px; text-align: center; }
-    .top-bar a:hover i { color: white; }
-    
-    /* ----- header / navigation ----- */
+    /* header */
     .main-header { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.02); padding: 18px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #edf2f7; }
     .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .logo h1 { font-size: 28px; font-weight: 700; color: #0A3D62; margin: 0; line-height: 1.2; letter-spacing: -0.3px; }
-    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; letter-spacing: 0.2px; display: block; }
-    .nav { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
-    .nav a { color: #2d3c4c; text-decoration: none; font-weight: 500; font-size: 16px; padding: 6px 0; transition: 0.2s; border-bottom: 2px solid transparent; }
+    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; display: block; }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    .nav a { color: #2d3c4c; font-weight: 500; font-size: 15px; padding: 6px 0; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
     
-    /* ----- buttons & sections ----- */
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
     .btn:hover { background: #134b77; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(10,61,98,0.2); }
     .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; box-shadow: none; }
     .btn-outline:hover { background: #0A3D62; color: white; }
@@ -63,6 +54,11 @@
     .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; line-height: 1.2; }
     .stat-label { font-size: 16px; color: #3a546d; }
     
+    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
+    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
+    .contact-row i { margin-right: 8px; color: #3c8dbc; }
+    
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
     .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; }
     .footer h4 { color: white; margin-bottom: 28px; font-size: 18px; font-weight: 600; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
@@ -71,32 +67,26 @@
     .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; display: inline-block; }
     .footer a:hover { color: white; transform: translateX(6px); }
     .footer i { margin-right: 12px; color: #9fc9ff; width: 22px; }
-    .footer .contact-info p { margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
     .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; font-size: 15px; }
     
     @media (max-width: 768px) {
-      .top-bar .container { flex-direction: column; text-align: center; gap: 6px; }
-      .nav { justify-content: center; gap: 16px; margin-top: 10px; }
-      .logo h1 { font-size: 24px; }
-      .section-title h2 { font-size: 32px; }
+      .nav { justify-content: center; gap: 12px; }
+      .logo h1 { font-size: 24px; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <!-- top contact bar (your details) -->
-  <div class="top-bar">
+  <!-- contact row (no address) -->
+  <div class="contact-row">
     <div class="container">
-      <div><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</div>
-      <div>
-        <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-        <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-        <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-      </div>
+      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
+      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
+      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
+      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
     </div>
   </div>
 
-  <!-- header navigation (active = services) -->
+  <!-- header -->
   <header class="main-header">
     <div class="container">
       <div class="logo">
@@ -119,9 +109,7 @@
     </div>
   </header>
 
-  <!-- SERVICES PAGE – MAIN CONTENT (fully detailed) -->
-  
-  <!-- intro section -->
+  <!-- SERVICES PAGE MAIN CONTENT -->
   <section class="section">
     <div class="container">
       <div class="section-title">
@@ -129,9 +117,9 @@
         <p>From our Corby headquarters to every corner of Britain — we deliver tailored staffing solutions for every sector.</p>
       </div>
       
-      <!-- core services grid - 6 main services (full descriptions) -->
+      <!-- core services grid -->
       <div class="grid-3" style="margin-bottom: 40px;">
-        <!-- service 1: Permanent placement -->
+        <!-- Permanent placement -->
         <div class="service-card">
           <i class="fas fa-briefcase"></i>
           <h3>Permanent placement</h3>
@@ -142,7 +130,7 @@
             <li><i class="fas fa-check-circle"></i> Sector specialists</li>
           </ul>
         </div>
-        <!-- service 2: Temporary & contract -->
+        <!-- Temporary & contract -->
         <div class="service-card">
           <i class="fas fa-calendar-alt"></i>
           <h3>Temporary & contract</h3>
@@ -153,7 +141,7 @@
             <li><i class="fas fa-check-circle"></i> Flexible extensions</li>
           </ul>
         </div>
-        <!-- service 3: Executive search -->
+        <!-- Executive search -->
         <div class="service-card">
           <i class="fas fa-chart-pie"></i>
           <h3>Executive search</h3>
@@ -164,7 +152,7 @@
             <li><i class="fas fa-check-circle"></i> Bespoke assessment</li>
           </ul>
         </div>
-        <!-- service 4: IT & tech recruitment -->
+        <!-- IT & tech -->
         <div class="service-card">
           <i class="fas fa-laptop-code"></i>
           <h3>IT & tech recruitment</h3>
@@ -175,7 +163,7 @@
             <li><i class="fas fa-check-circle"></i> Start-up to enterprise</li>
           </ul>
         </div>
-        <!-- service 5: Construction & trades -->
+        <!-- Construction & trades -->
         <div class="service-card">
           <i class="fas fa-hard-hat"></i>
           <h3>Construction & trades</h3>
@@ -186,7 +174,7 @@
             <li><i class="fas fa-check-circle"></i> Major project experience</li>
           </ul>
         </div>
-        <!-- service 6: Healthcare & medical -->
+        <!-- Healthcare & medical -->
         <div class="service-card">
           <i class="fas fa-clinic-medical"></i>
           <h3>Healthcare & medical</h3>
@@ -201,7 +189,7 @@
     </div>
   </section>
 
-  <!-- sector stats / Why us? (added for richness) -->
+  <!-- stats section -->
   <section class="section bg-soft">
     <div class="container">
       <div class="section-title">
@@ -217,7 +205,7 @@
     </div>
   </section>
 
-  <!-- recruitment process (extra value) -->
+  <!-- recruitment process -->
   <section class="section">
     <div class="container">
       <div class="section-title">
@@ -249,7 +237,7 @@
     </div>
   </section>
 
-  <!-- call to action / contact -->
+  <!-- CTA -->
   <section class="section bg-soft">
     <div class="container" style="text-align: center;">
       <h2 style="font-size: 32px; color: #0A3D62; margin-bottom: 20px;">Ready to hire or looking for a new role?</h2>
@@ -259,12 +247,12 @@
     </div>
   </section>
 
-  <!-- FOOTER (exactly as original, full details) -->
+  <!-- footer -->
   <footer class="footer">
     <div class="container">
       <div>
         <h4>Perfections Recruitment Agency Ltd</h4>
-        <p>11 Chequers Close, Corby, NN18 8QD, Northamptonshire. <br> UK‑wide recruitment specialist.</p>
+        <p>UK‑wide recruitment specialist.<br>Corby, Northamptonshire</p>
       </div>
       <div>
         <h4>Explore</h4>
@@ -282,18 +270,15 @@
       </div>
       <div>
         <h4>Contact</h4>
-        <div class="contact-info">
-          <p><i class="fas fa-phone-alt"></i> 07521 627390</p>
-          <p><i class="fas fa-phone-alt"></i> 07399 283446</p>
-          <p><i class="fas fa-phone-alt"></i> 01536 850341</p>
-          <p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
-          <p><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</p>
-        </div>
+        <p><i class="fas fa-phone-alt"></i> 07521 627390</p>
+        <p><i class="fas fa-phone-alt"></i> 07399 283446</p>
+        <p><i class="fas fa-phone-alt"></i> 01536 850341</p>
+        <p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p>
       </div>
     </div>
   </footer>
   <div class="copyright">
-    © 2025 Perfections Recruitment Agency Ltd. All rights reserved. Designed with <i class="fas fa-heart" style="color: #ffa7a7;"></i> for UK recruitment
+    © 2025 Perfections Recruitment Agency Ltd. All rights reserved.
   </div>
 </body>
 </html>
