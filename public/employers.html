@@ -3,114 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Employers – Perfections Recruitment Agency Ltd | UK-wide hiring solutions</title>
-  <!-- Google Fonts & Font Awesome -->
+  <title>For Employers – Perfections Recruitment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* ----- RESET & GLOBAL ----- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; background: #ffffff; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    a { text-decoration: none; }
     
-    /* ----- top contact bar (your details) ----- */
-    .top-bar { background: #0A3D62; color: white; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #1f5a88; }
-    .top-bar .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .top-bar a { color: white; text-decoration: none; margin-right: 20px; white-space: nowrap; font-weight: 400; }
-    .top-bar i { margin-right: 6px; color: #9fc9ff; width: 18px; text-align: center; }
-    .top-bar a:hover i { color: white; }
-    
-    /* ----- header / navigation ----- */
-    .main-header { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.02); padding: 18px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .logo h1 { font-size: 28px; font-weight: 700; color: #0A3D62; margin: 0; line-height: 1.2; letter-spacing: -0.3px; }
-    .logo span { font-size: 13px; color: #3c8dbc; font-weight: 500; letter-spacing: 0.2px; display: block; }
-    .nav { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
-    .nav a { color: #2d3c4c; text-decoration: none; font-weight: 500; font-size: 16px; padding: 6px 0; transition: 0.2s; border-bottom: 2px solid transparent; }
+    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo h1 { font-size: 28px; color: #0A3D62; }
+    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
     
-    /* ----- buttons & sections ----- */
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; transition: 0.25s; border: none; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(10,61,98,0.1); }
-    .btn:hover { background: #134b77; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(10,61,98,0.2); }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; box-shadow: none; }
-    .btn-outline:hover { background: #0A3D62; color: white; }
-    .btn-small { padding: 8px 20px; font-size: 14px; }
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
     
     .section { padding: 80px 0; }
     .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; font-weight: 700; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #3c8dbc, #0A3D62); border-radius: 4px; }
-    .section-title p { font-size: 18px; color: #4a5a6a; max-width: 700px; margin: 20px auto 0; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
     
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
     
-    /* Cards */
-    .card { background: white; border-radius: 24px; padding: 36px 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.02); transition: all 0.3s ease; border: 1px solid #ecf3fa; height: 100%; }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 30px 50px rgba(10,61,98,0.08); border-color: #bdd8f0; }
-    .card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; display: inline-block; background: #e8f0fe; padding: 16px; border-radius: 20px; transition: 0.2s; }
-    .card:hover i { background: #0A3D62; color: white; }
-    .card h3 { font-size: 24px; margin-bottom: 15px; color: #0A3D62; font-weight: 700; }
-    .card p { color: #475569; margin-bottom: 15px; }
-    .card ul { list-style: none; margin-top: 15px; }
-    .card li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .card li i { font-size: 16px; background: transparent; padding: 0; color: #0A3D62; margin: 0; }
+    .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #ecf3fa; }
+    .card i { font-size: 40px; color: #0A3D62; margin-bottom: 15px; }
     
-    /* Testimonial cards */
-    .testimonial-card { background: #f8fbfe; border-left: 4px solid #0A3D62; border-radius: 20px; padding: 30px; }
-    .testimonial-card p { font-style: italic; color: #334155; }
-    .testimonial-author { margin-top: 20px; font-weight: 600; color: #0A3D62; display: flex; align-items: center; gap: 10px; }
+    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
+    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
     
     .bg-soft { background: #f8fafd; }
+    .funding-box { background: #0A3D62; color: white; padding: 50px; border-radius: 30px; }
     
-    /* stats */
-    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
-    .stat-item { text-align: center; }
-    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; line-height: 1.2; }
-    .stat-label { font-size: 16px; color: #3a546d; }
-    
-    /* process steps */
-    .step { text-align: center; padding: 30px; background: white; border-radius: 24px; border: 1px solid #ecf3fa; }
-    .step .step-number { width: 50px; height: 50px; background: #0A3D62; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 700; font-size: 24px; }
-    
-    /* Footer */
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px; }
-    .footer h4 { color: white; margin-bottom: 28px; font-size: 18px; font-weight: 600; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; }
-    .footer ul { list-style: none; }
-    .footer li { margin-bottom: 14px; }
-    .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; display: inline-block; }
-    .footer a:hover { color: white; transform: translateX(6px); }
-    .footer i { margin-right: 12px; color: #9fc9ff; width: 22px; }
-    .footer .contact-info p { margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; font-size: 15px; }
+    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
+    .footer a { color: #e0eefb; text-decoration: none; }
+    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
     
     @media (max-width: 768px) {
-      .top-bar .container { flex-direction: column; text-align: center; gap: 6px; }
-      .nav { justify-content: center; gap: 16px; margin-top: 10px; }
-      .logo h1 { font-size: 24px; }
+      .nav { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <!-- top contact bar (your details) -->
-  <div class="top-bar">
-    <div class="container">
-      <div><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</div>
-      <div>
-        <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-        <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-        <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- header navigation (active = employers) -->
   <header class="main-header">
     <div class="container">
       <div class="logo">
@@ -133,298 +75,36 @@
     </div>
   </header>
 
-  <!-- EMPLOYERS PAGE – MAIN CONTENT (rewritten) -->
-  
-  <!-- HERO SECTION -->
-  <section class="section bg-soft" style="padding: 60px 0;">
-    <div class="container">
-      <div class="grid-2" style="align-items: center;">
-        <div>
-          <h2 style="font-size: 48px; color: #0A3D62; margin-bottom: 20px; line-height: 1.2;">Hire better, faster, across the UK</h2>
-          <p style="font-size: 18px; margin-bottom: 30px; color: #334155;">Whether you need one permanent hire or a team of temporary staff, we deliver quality candidates quickly. Sector specialists, nationwide reach, and a personal touch.</p>
-          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="contact.html" class="btn"><i class="fas fa-paper-plane"></i> Post a vacancy</a>
-            <a href="#why-choose" class="btn btn-outline"><i class="fas fa-chevron-down"></i> Why choose us</a>
-          </div>
-          <div style="margin-top: 30px; display: flex; gap: 30px; flex-wrap: wrap;">
-            <div><span style="font-weight: 700; color: #0A3D62;">500+</span> placements/year</div>
-            <div><span style="font-weight: 700; color: #0A3D62;">92%</span> client retention</div>
-            <div><span style="font-weight: 700; color: #0A3D62;">10 days</span> avg. time-to-hire</div>
-          </div>
-        </div>
-        <div style="text-align: center; background: #e0f0fe; border-radius: 30px; padding: 40px;">
-          <i class="fas fa-building" style="font-size: 180px; color: #0A3D62; opacity: 0.8;"></i>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OUR HIRING SOLUTIONS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Recruitment solutions for every need</h2>
-        <p>Flexible, cost-effective options tailored to your business.</p>
-      </div>
-      <div class="grid-3">
-        <!-- Permanent -->
-        <div class="card">
-          <i class="fas fa-briefcase"></i>
-          <h3>Permanent recruitment</h3>
-          <p>From entry-level to board appointments. We use targeted search, competency interviews, and cultural fit assessments.</p>
-          <ul>
-            <li><i class="fas fa-check-circle"></i> 12-month guarantee</li>
-            <li><i class="fas fa-check-circle"></i> Sector specialists</li>
-            <li><i class="fas fa-check-circle"></i> Volume campaigns welcome</li>
-          </ul>
-        </div>
-        <!-- Temporary & Contract -->
-        <div class="card">
-          <i class="fas fa-clock"></i>
-          <h3>Temporary & contract</h3>
-          <p>Flexible staffing for peaks, projects, or maternity cover. Same-day shortlists and fully managed payroll.</p>
-          <ul>
-            <li><i class="fas fa-check-circle"></i> Weekly payroll / CIS</li>
-            <li><i class="fas fa-check-circle"></i> Temp-to-perm options</li>
-            <li><i class="fas fa-check-circle"></i> All compliance handled</li>
-          </ul>
-        </div>
-        <!-- Executive Search -->
-        <div class="card">
-          <i class="fas fa-chart-line"></i>
-          <h3>Executive search</h3>
-          <p>Discreet headhunting for senior leadership roles. Market mapping, competitor analysis, and passive talent engagement.</p>
-          <ul>
-            <li><i class="fas fa-check-circle"></i> Board-level appointments</li>
-            <li><i class="fas fa-check-circle"></i> Tailored longlists</li>
-            <li><i class="fas fa-check-circle"></i> Bespoke assessment</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY CHOOSE US (with stats) -->
-  <section id="why-choose" class="section bg-soft">
-    <div class="container">
-      <div class="section-title">
-        <h2>Why UK employers choose Perfections</h2>
-        <p>We're more than just a recruitment agency – we're your hiring partner.</p>
-      </div>
-      <div class="stats" style="margin-bottom: 50px;">
-        <div class="stat-item"><span class="stat-number">500+</span> <span class="stat-label">annual placements</span></div>
-        <div class="stat-item"><span class="stat-number">27</span> <span class="stat-label">UK counties covered</span></div>
-        <div class="stat-item"><span class="stat-number">92%</span> <span class="stat-label">client retention</span></div>
-        <div class="stat-item"><span class="stat-number">10</span> <span class="stat-label">days avg. to hire</span></div>
-      </div>
-      <div class="grid-3">
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-tachometer-alt" style="background: transparent;"></i>
-          <h3>Speed</h3>
-          <p>Average time-to-hire: 10 days for permanent, 48 hours for temporary. We move fast without compromising quality.</p>
-        </div>
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-check-double" style="background: transparent;"></i>
-          <h3>Quality</h3>
-          <p>Multi-stage screening, competency-based interviews, and rigorous reference checks – every time.</p>
-        </div>
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-pound-sign" style="background: transparent;"></i>
-          <h3>Value</h3>
-          <p>Competitive fees and a 12-month guarantee on permanent placements. No hidden costs.</p>
-        </div>
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-map-marker-alt" style="background: transparent;"></i>
-          <h3>UK-wide</h3>
-          <p>We source locally and nationally – from Inverness to Plymouth. Wherever you are, we're there.</p>
-        </div>
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-file-invoice" style="background: transparent;"></i>
-          <h3>Funding expertise</h3>
-          <p>We help you access apprenticeship grants, Kickstart (legacy) funds, and local recruitment incentives.</p>
-        </div>
-        <div class="card" style="text-align: center; padding: 30px;">
-          <i class="fas fa-handshake" style="background: transparent;"></i>
-          <h3>Partnership</h3>
-          <p>We become an extension of your HR team – responsive, transparent, and committed to your success.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INDUSTRIES WE COVER -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Sectors we specialise in</h2>
-        <p>Deep expertise across key industries.</p>
-      </div>
-      <div class="grid-4">
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-laptop-code"></i> IT & Tech</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-hard-hat"></i> Construction</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-clinic-medical"></i> Healthcare</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-briefcase"></i> Office & Professional</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-truck"></i> Logistics & Warehouse</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-chart-line"></i> Sales & Marketing</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-cogs"></i> Engineering & Manufacturing</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-graduation-cap"></i> Education</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-chart-pie"></i> Finance & Accounting</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-headset"></i> Customer Service</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-gavel"></i> Legal</div>
-        <div class="card" style="padding: 25px; text-align: center;"><i class="fas fa-oil-can"></i> Oil & Gas</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS (process) -->
   <section class="section bg-soft">
     <div class="container">
-      <div class="section-title">
-        <h2>Our simple, transparent process</h2>
-        <p>From briefing to offer – we make hiring hassle-free.</p>
-      </div>
-      <div class="grid-4">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Briefing</h3>
-          <p>We listen to your needs, role requirements, and company culture.</p>
+      <div class="grid-2">
+        <div>
+          <h2 style="font-size: 48px; color: #0A3D62;">Hire better, faster</h2>
+          <p style="font-size: 18px; margin: 20px 0;">Permanent, temporary or executive – we deliver quality candidates across the UK.</p>
+          <a href="contact.html" class="btn">Post a vacancy</a>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Sourcing</h3>
-          <p>We use our network, database, and targeted headhunting to find the best.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Screening</h3>
-          <p>Rigorous interviews, skills assessments, and reference checks.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <h3>Shortlist</h3>
-          <p>Only relevant, interview-ready candidates presented to you.</p>
-        </div>
+        <div style="text-align: center;"><i class="fas fa-building" style="font-size: 150px; color: #0A3D62;"></i></div>
       </div>
     </div>
   </section>
 
-  <!-- FUNDING HIGHLIGHT -->
   <section class="section">
     <div class="container">
-      <div style="background: #0A3D62; color: white; padding: 50px; border-radius: 30px;">
-        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
-          <div style="flex: 1;">
-            <span style="background: white; color: #0A3D62; padding: 4px 12px; border-radius: 40px; font-size: 14px; font-weight: 600;">Funding & grants</span>
-            <h3 style="font-size: 32px; color: white; margin: 20px 0;">Unlock up to £5,000 per hire</h3>
-            <p style="color: #e0eefb; font-size: 18px;">Many employers don't claim the funding they're entitled to. We guide you through apprenticeships, local grants, and recruitment incentives.</p>
-          </div>
-          <div style="flex: 0 0 auto;">
-            <a href="funding.html" class="btn" style="background: white; color: #0A3D62;">Discover funding</a>
-          </div>
-        </div>
+      <div class="stats">
+        <div><span class="stat-number">500+</span><br>placements/year</div>
+        <div><span class="stat-number">92%</span><br>client retention</div>
+        <div><span class="stat-number">10</span><br>days to hire</div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="section-title">
-        <h2>Trusted by employers across the UK</h2>
-      </div>
-      <div class="grid-3">
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left" style="color: #3c8dbc; font-size: 24px; margin-bottom: 10px;"></i>
-          <p>"Perfections placed three senior developers in our London office within weeks. The candidates were exactly what we needed and have settled in brilliantly. Outstanding service."</p>
-          <div class="testimonial-author"><i class="fas fa-user-circle"></i> Sarah Chen, CTO, Finora</div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left" style="color: #3c8dbc; font-size: 24px; margin-bottom: 10px;"></i>
-          <p>"We've used Perfections for temporary warehouse staff across our Midlands sites. They're responsive, professional and always send well-vetted people. Our go-to agency."</p>
-          <div class="testimonial-author"><i class="fas fa-user-circle"></i> Mark Williams, HR Manager, LogiCorp</div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left" style="color: #3c8dbc; font-size: 24px; margin-bottom: 10px;"></i>
-          <p>"The executive search team at Perfections helped us find a new Finance Director in under six weeks. They understood our culture and presented only relevant candidates. Highly recommend."</p>
-          <div class="testimonial-author"><i class="fas fa-user-circle"></i> James Derrick, CEO, Derrick Group</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT FORM / ENQUIRY -->
-  <section class="section">
-    <div class="container">
-      <div class="grid-2" style="align-items: center;">
-        <div>
-          <h3 style="font-size: 32px; color: #0A3D62; margin-bottom: 20px;">Ready to start hiring?</h3>
-          <p style="font-size: 18px; margin-bottom: 30px;">Tell us about your vacancy and we'll get back to you within 24 hours. No obligation, just a friendly chat about your needs.</p>
-          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <div><i class="fas fa-phone-alt" style="color: #0A3D62;"></i> 01536 850341</div>
-            <div><i class="fas fa-envelope" style="color: #0A3D62;"></i> Akinkunmiokuseinde@gmail.com</div>
-          </div>
-        </div>
-        <div>
-          <form action="#" method="post" style="background: #f8fafd; padding: 40px; border-radius: 30px;">
-            <div style="margin-bottom: 15px;">
-              <input type="text" placeholder="Your name *" style="width: 100%; padding: 15px; border-radius: 50px; border: 1px solid #d0ddee;">
-            </div>
-            <div style="margin-bottom: 15px;">
-              <input type="email" placeholder="Work email *" style="width: 100%; padding: 15px; border-radius: 50px; border: 1px solid #d0ddee;">
-            </div>
-            <div style="margin-bottom: 15px;">
-              <input type="text" placeholder="Job title / role to fill" style="width: 100%; padding: 15px; border-radius: 50px; border: 1px solid #d0ddee;">
-            </div>
-            <div style="margin-bottom: 15px;">
-              <textarea placeholder="Brief description (optional)" rows="3" style="width: 100%; padding: 15px; border-radius: 30px; border: 1px solid #d0ddee;"></textarea>
-            </div>
-            <button type="submit" class="btn">Send enquiry</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER (complete) -->
   <footer class="footer">
     <div class="container">
-      <div>
-        <h4>Perfections Recruitment Agency Ltd</h4>
-        <p>11 Chequers Close, Corby, NN18 8QD, Northamptonshire. <br> UK‑wide recruitment specialist.</p>
-        <p style="margin-top: 20px;">
-          <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" style="color: white; margin-right: 15px;"><i class="fab fa-twitter"></i></a>
-          <a href="#" style="color: white;"><i class="fab fa-facebook-f"></i></a>
-        </p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="candidates.html">Candidates</a></li>
-          <li><a href="employers.html">Employers</a></li>
-          <li><a href="testimonials.html">Testimonials</a></li>
-          <li><a href="jobs.html">Latest jobs</a></li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="funding.html">Funding</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <div class="contact-info">
-          <p><i class="fas fa-phone-alt"></i> <a href="tel:07521627390" style="color: #e0eefb;">07521 627390</a></p>
-          <p><i class="fas fa-phone-alt"></i> <a href="tel:07399283446" style="color: #e0eefb;">07399 283446</a></p>
-          <p><i class="fas fa-phone-alt"></i> <a href="tel:01536850341" style="color: #e0eefb;">01536 850341</a></p>
-          <p><i class="fas fa-envelope"></i> <a href="mailto:Akinkunmiokuseinde@gmail.com" style="color: #e0eefb;">Akinkunmiokuseinde@gmail.com</a></p>
-          <p><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD, Northamptonshire</p>
-        </div>
-      </div>
+      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p><p>📞 07521 627390<br>✉️ Akinkunmiokuseinde@gmail.com</p></div>
+      <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
     </div>
   </footer>
-  <div class="copyright">
-    © 2025 Perfections Recruitment Agency Ltd. All rights reserved. Designed for UK recruitment
-  </div>
+  <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
 </body>
 </html>
