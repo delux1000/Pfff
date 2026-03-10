@@ -3,19 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jobs – Latest Opportunities | Perfections Recruitment Agency Ltd</title>
-  <!-- same styles as candidates page -->
+  <title>Latest Jobs – Perfections Recruitment Agency Ltd</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>/* same global styles - copy from above */</style>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
+    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo h1 { font-size: 28px; color: #0A3D62; }
+    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+    .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    
+    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; border: none; cursor: pointer; }
+    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
+    .btn-small { padding: 8px 20px; font-size: 14px; }
+    
+    .section { padding: 80px 0; }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
+    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+    
+    .job-card { background: white; border-radius: 20px; padding: 28px; border: 1px solid #e6edf5; transition: 0.2s; }
+    .job-card:hover { border-color: #0A3D62; box-shadow: 0 10px 25px rgba(10,61,98,0.05); }
+    .job-card h3 { font-size: 22px; color: #0A3D62; margin-bottom: 8px; }
+    .job-meta { display: flex; gap: 20px; flex-wrap: wrap; color: #4a5a6a; margin: 12px 0; font-size: 15px; }
+    .job-meta i { margin-right: 5px; color: #3c8dbc; width: 18px; }
+    .job-tags { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+    .tag { background: #e8f0fe; color: #0A3D62; padding: 4px 12px; border-radius: 40px; font-size: 13px; font-weight: 600; }
+    
+    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
+    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
+    .contact-row i { margin-right: 8px; color: #3c8dbc; }
+    
+    .bg-soft { background: #f8fafd; }
+    
+    .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
+    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
+    .footer a { color: #e0eefb; text-decoration: none; }
+    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
+    
+    @media (max-width: 768px) {
+      .nav { justify-content: center; }
+      .logo h1 { text-align: center; }
+    }
+  </style>
 </head>
 <body>
-  <div class="top-bar">[same top bar]</div>
+  <div class="contact-row">
+    <div class="container">
+      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
+      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
+      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
+      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
+    </div>
+  </div>
+
   <header class="main-header">
     <div class="container">
-      <div class="logo">[same logo]</div>
+      <div class="logo">
+        <h1>Perfections Recruitment</h1>
+        <span>Agency Ltd · working across United Kingdom</span>
+      </div>
       <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -40,62 +99,45 @@
         <p>Browse our latest opportunities – updated daily.</p>
       </div>
       
-      <!-- search/filter (simple) -->
+      <!-- search -->
       <div style="background: white; border-radius: 60px; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 50px; border: 1px solid #e6edf5;">
         <input type="text" placeholder="Job title or keyword" style="flex: 3; min-width: 200px; border: none; padding: 15px 20px; border-radius: 50px; outline: none;">
         <input type="text" placeholder="Location" style="flex: 2; min-width: 150px; border: none; padding: 15px 20px; border-radius: 50px; outline: none;">
-        <button class="btn" style="flex: 0 0 auto;">Search jobs</button>
+        <button class="btn">Search jobs</button>
       </div>
 
       <!-- job listings -->
-      <div class="grid-2" style="gap: 20px;">
-        <!-- job 1 -->
+      <div class="grid-2">
         <div class="job-card">
           <h3>Senior Software Developer</h3>
           <div class="job-meta">
             <span><i class="fas fa-map-marker-alt"></i> London / remote</span>
             <span><i class="fas fa-clock"></i> Permanent</span>
           </div>
-          <div class="job-tags">
-            <span class="tag">Java</span>
-            <span class="tag">Spring</span>
-            <span class="tag">AWS</span>
-          </div>
+          <div class="job-tags"><span class="tag">Java</span><span class="tag">Spring</span><span class="tag">AWS</span></div>
           <p><strong>£55,000 - £70,000</strong> + benefits</p>
-          <p style="margin: 10px 0;">Leading fintech seeks experienced developer for core platform team.</p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
-        <!-- job 2 -->
         <div class="job-card">
           <h3>Project Manager (Construction)</h3>
           <div class="job-meta">
             <span><i class="fas fa-map-marker-alt"></i> Birmingham</span>
             <span><i class="fas fa-clock"></i> Permanent</span>
           </div>
-          <div class="job-tags">
-            <span class="tag">Civils</span>
-            <span class="tag">APM</span>
-          </div>
+          <div class="job-tags"><span class="tag">Civils</span><span class="tag">APM</span></div>
           <p><strong>£50,000 - £65,000</strong> + car allowance</p>
-          <p style="margin: 10px 0;">Major infrastructure project – must have NEC experience.</p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
-        <!-- job 3 -->
         <div class="job-card">
           <h3>Registered General Nurse</h3>
           <div class="job-meta">
             <span><i class="fas fa-map-marker-alt"></i> Northampton</span>
-            <span><i class="fas fa-clock"></i> Temporary / perm</span>
+            <span><i class="fas fa-clock"></i> Temporary</span>
           </div>
-          <div class="job-tags">
-            <span class="tag">NHS</span>
-            <span class="tag">Flexible</span>
-          </div>
-          <p><strong>£22 - £35/hour</strong> depending on shift</p>
-          <p style="margin: 10px 0;">Immediate starts available at local NHS trust.</p>
+          <div class="job-tags"><span class="tag">NHS</span><span class="tag">Flexible</span></div>
+          <p><strong>£22 - £35/hour</strong></p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
-        <!-- job 4 -->
         <div class="job-card">
           <h3>Sales Assistant</h3>
           <div class="job-meta">
@@ -103,49 +145,37 @@
             <span><i class="fas fa-clock"></i> Temporary</span>
           </div>
           <p><strong>£10.50/hour</strong> · immediate start</p>
-          <p style="margin: 10px 0;">Retail role, must be available weekends.</p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
-        <!-- job 5 -->
         <div class="job-card">
           <h3>Marketing Manager</h3>
           <div class="job-meta">
             <span><i class="fas fa-map-marker-alt"></i> Manchester</span>
             <span><i class="fas fa-clock"></i> Permanent</span>
           </div>
-          <div class="job-tags">
-            <span class="tag">B2B</span>
-            <span class="tag">Digital</span>
-          </div>
+          <div class="job-tags"><span class="tag">B2B</span><span class="tag">Digital</span></div>
           <p><strong>£40,000 - £50,000</strong></p>
-          <p style="margin: 10px 0;">Lead marketing for growing tech company.</p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
-        <!-- job 6 -->
         <div class="job-card">
           <h3>Quantity Surveyor</h3>
           <div class="job-meta">
             <span><i class="fas fa-map-marker-alt"></i> Leeds</span>
             <span><i class="fas fa-clock"></i> Contract</span>
           </div>
-          <div class="job-tags">
-            <span class="tag">Civils</span>
-            <span class="tag">NEC4</span>
-          </div>
+          <div class="job-tags"><span class="tag">Civils</span><span class="tag">NEC4</span></div>
           <p><strong>£300-£400/day</strong> (outside IR35)</p>
-          <p style="margin: 10px 0;">6-month contract with possible extension.</p>
           <a href="#" class="btn btn-small">Apply now</a>
         </div>
       </div>
 
-      <!-- pagination -->
       <div style="text-align: center; margin-top: 50px;">
         <a href="#" class="btn btn-outline">Load more jobs</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA to register -->
+  <!-- CTA -->
   <section class="section">
     <div class="container" style="text-align: center;">
       <h2 style="font-size: 28px; color: #0A3D62;">Don't see the right role?</h2>
@@ -154,7 +184,13 @@
     </div>
   </section>
 
-  <footer class="footer">[same footer]</footer>
-  <div class="copyright">[same copyright]</div>
+  <footer class="footer">
+    <div class="container">
+      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p></div>
+      <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="candidates.html">Candidates</a></li></ul></div>
+      <div><h4>Contact</h4><p><i class="fas fa-phone-alt"></i> 07521 627390</p><p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p></div>
+    </div>
+  </footer>
+  <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
 </body>
 </html>
