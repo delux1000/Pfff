@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testimonials – Perfections Recruitment Agency Ltd</title>
+  <title>Testimonials – Perfections Recruitment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -27,28 +27,15 @@
     .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
     
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
     
-    .testimonial-card { background: white; border-radius: 24px; padding: 36px 32px; box-shadow: 0 15px 35px rgba(0,0,0,0.02); border: 1px solid #ecf3fa; position: relative; }
-    .testimonial-card i.fa-quote-left { font-size: 32px; color: #3c8dbc; opacity: 0.3; position: absolute; top: 25px; right: 30px; }
-    .testimonial-card p { font-size: 17px; color: #334155; margin: 20px 0 25px; font-style: italic; }
-    .testimonial-author { display: flex; align-items: center; gap: 15px; }
-    .author-avatar { width: 50px; height: 50px; background: #e0f0fe; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0A3D62; font-weight: 600; }
-    .author-info h4 { font-size: 18px; color: #0A3D62; font-weight: 700; }
-    .author-info p { font-size: 14px; color: #5e6f8d; margin: 0; font-style: normal; }
+    .testimonial-card { background: white; border-radius: 24px; padding: 30px; border-left: 4px solid #0A3D62; box-shadow: 0 15px 35px rgba(0,0,0,0.02); }
+    .testimonial-card p { font-style: italic; margin-bottom: 15px; }
+    .testimonial-author { font-weight: 600; color: #0A3D62; }
     
-    .rating { color: #fbbf24; margin-bottom: 15px; }
-    .rating i { margin-right: 4px; }
-    
-    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
-    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
-    .contact-row i { margin-right: 8px; color: #3c8dbc; }
+    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
+    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
     
     .bg-soft { background: #f8fafd; }
-    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
-    .stat-item { text-align: center; }
-    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
     
     .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
     .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
@@ -62,15 +49,6 @@
   </style>
 </head>
 <body>
-  <div class="contact-row">
-    <div class="container">
-      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-    </div>
-  </div>
-
   <header class="main-header">
     <div class="container">
       <div class="logo">
@@ -95,84 +73,31 @@
 
   <section class="section">
     <div class="container">
-      <div class="section-title">
-        <h2>Trusted by clients & candidates</h2>
-        <p>Real stories from people we've helped across the UK.</p>
-      </div>
+      <div class="section-title"><h2>Trusted by clients & candidates</h2></div>
       
       <div class="stats">
-        <div class="stat-item"><span class="stat-number">500+</span> placements</div>
-        <div class="stat-item"><span class="stat-number">98%</span> satisfaction</div>
-        <div class="stat-item"><span class="stat-number">4.9</span> Trustpilot</div>
+        <div><span class="stat-number">500+</span><br>placements</div>
+        <div><span class="stat-number">98%</span><br>satisfaction</div>
+        <div><span class="stat-number">4.9</span><br>Trustpilot</div>
       </div>
     </div>
   </section>
 
-  <!-- client testimonials -->
   <section class="section bg-soft">
     <div class="container">
-      <div class="section-title"><h2>What our clients say</h2></div>
       <div class="grid-3">
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p>"Perfections placed three senior developers in our London office within weeks. Outstanding service from start to finish."</p>
-          <div class="testimonial-author"><div class="author-avatar">SC</div><div class="author-info"><h4>Sarah Chen</h4><p>CTO, Finora</p></div></div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p>"We've used Perfections for temporary warehouse staff across our Midlands sites. Responsive, professional and always well-vetted people."</p>
-          <div class="testimonial-author"><div class="author-avatar">MW</div><div class="author-info"><h4>Mark Williams</h4><p>HR Manager, LogiCorp</p></div></div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p>"The executive search team helped us find a new Finance Director in under six weeks. They understood our culture perfectly."</p>
-          <div class="testimonial-author"><div class="author-avatar">JD</div><div class="author-info"><h4>James Derrick</h4><p>CEO, Derrick Group</p></div></div>
-        </div>
+        <div class="testimonial-card"><p>"Perfections placed three senior developers in our London office within weeks. Outstanding service."</p><div class="testimonial-author">— Sarah Chen, Finora</div></div>
+        <div class="testimonial-card"><p>"They supported me throughout my job search. Now I work as a marketing manager in Manchester."</p><div class="testimonial-author">— James O'Brien</div></div>
+        <div class="testimonial-card"><p>"Professional, responsive and truly UK‑wide reach. Our go‑to agency for temporary staff."</p><div class="testimonial-author">— Mark Williams, LogiCorp</div></div>
       </div>
-    </div>
-  </section>
-
-  <!-- candidate testimonials -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title"><h2>Hear from our candidates</h2></div>
-      <div class="grid-3">
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <p>"After months of searching, Perfections found me a marketing manager role in Manchester that fits my skills perfectly."</p>
-          <div class="testimonial-author"><div class="author-avatar">JO</div><div class="author-info"><h4>James O'Brien</h4><p>Marketing Manager</p></div></div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <p>"I was looking for my first IT role after bootcamp. My consultant believed in me and got me a junior developer position."</p>
-          <div class="testimonial-author"><div class="author-avatar">PK</div><div class="author-info"><h4>Priya Kapoor</h4><p>Junior Developer</p></div></div>
-        </div>
-        <div class="testimonial-card">
-          <i class="fas fa-quote-left"></i>
-          <p>"The team found me temporary work quickly when I moved to Corby. Within months I was offered a permanent role."</p>
-          <div class="testimonial-author"><div class="author-avatar">TL</div><div class="author-info"><h4>Tom Lewis</h4><p>Warehouse Supervisor</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section bg-soft">
-    <div class="container" style="text-align: center;">
-      <h3 style="font-size: 28px; color: #0A3D62;">Share your experience</h3>
-      <p style="margin: 20px 0;">We'd love to hear your story.</p>
-      <a href="contact.html" class="btn">Leave a review</a>
     </div>
   </section>
 
   <footer class="footer">
     <div class="container">
-      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p></div>
+      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p><p>📞 07521 627390<br>✉️ Akinkunmiokuseinde@gmail.com</p></div>
       <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div><h4>Contact</h4><p><i class="fas fa-phone-alt"></i> 07521 627390</p><p><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</p></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
     </div>
   </footer>
   <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
