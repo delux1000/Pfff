@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ===== FAVICON - UK FLAG & GLOBAL THEME ===== -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/1x1/gb.svg">
+  <link rel="apple-touch-icon" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
+  <link rel="shortcut icon" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
+  
+  <!-- Microsoft Tiles -->
+  <meta name="msapplication-TileImage" content="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
+  <meta name="msapplication-TileColor" content="#0A3D62">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0A3D62">
+  
+  <!-- Site Name -->
+  <meta name="application-name" content="Perfections Recruitment">
+  
+  <!-- ===== META TAGS FOR SEO ===== -->
+  <title>Perfections Recruitment Agency Ltd | UK & Global Recruitment Specialists</title>
+  <meta name="description" content="Perfections Recruitment: Premier recruitment agency serving the United Kingdom and global markets. Permanent, temporary, and executive search solutions.">
+  <meta name="keywords" content="recruitment agency UK, jobs UK, employment agency, global recruitment, executive search, permanent placement, temporary staffing, Corby recruitment">
+  <meta name="author" content="Perfections Recruitment Agency Ltd">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Perfections Recruitment Agency Ltd | UK & Global Recruitment">
+  <meta property="og:description" content="Connecting talent with opportunity across the United Kingdom and globally. Your trusted recruitment partner.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:url" content="https://perfectionsrecruitmentagency.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Perfections Recruitment Agency Ltd">
+  <meta name="twitter:description" content="UK & Global Recruitment Specialists">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://perfectionsrecruitmentagency.com">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- Flag Icons CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+  
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0A3D62;
+      --primary-dark: #052e4a;
+      --primary-light: #1f5a88;
+      --secondary: #3c8dbc;
+      --accent: #ff6b35;
+      --accent-light: #ff8c5a;
+      --dark: #1e293b;
+      --gray: #64748b;
+      --light-gray: #f1f5f9;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --whatsapp: #25D366;
+      --telegram: #0088cc;
+      --uk-blue: #012169;
+      --uk-red: #C8102E;
+      --uk-white: #FFFFFF;
+      
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 30px;
+      --radius-full: 9999px;
+      
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== UK FLAG ELEMENTS ===== */
+    .uk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--uk-blue), var(--uk-red));
+      color: var(--white);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .uk-badge i {
+      font-size: 16px;
+    }
+    
+    .global-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .flag-icon-gb {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 2px;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--secondary);
+      margin-bottom: 12px;
+      background: rgba(60, 141, 188, 0.1);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+    }
+    
+    .section-tag .flag-icon {
+      width: 20px;
+      height: 15px;
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .section-title span {
+      color: var(--secondary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title span::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      border-radius: var(--radius-full);
+    }
+    
+    .section-title .flag-icon {
+      display: inline-block;
+      width: 30px;
+      height: 20px;
+      margin-left: 10px;
+      vertical-align: middle;
+      border-radius: 3px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: var(--radius-full);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 10px 20px -5px rgba(10, 61, 98, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 25px -5px rgba(10, 61, 98, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 10px 20px -5px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-uk {
+      background: linear-gradient(135deg, var(--uk-blue), var(--uk-red));
+      color: var(--white);
+    }
+    
+    .btn-uk:hover {
+      background: linear-gradient(135deg, var(--uk-red), var(--uk-blue));
+    }
+
+    .btn-telegram {
+      background: var(--telegram);
+      color: var(--white);
+    }
+
+    .btn-telegram:hover {
+      background: #006699;
+    }
+
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: var(--white);
+    }
+
+    .btn-whatsapp:hover {
+      background: #128C7E;
+    }
+
+    .btn-sm {
+      padding: 10px 24px;
+      font-size: 14px;
+    }
+
+    .btn-lg {
+      padding: 16px 40px;
+      font-size: 18px;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* ===== HEADER & NAVIGATION ===== */
+    .main-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(60, 141, 188, 0.1);
+    }
+
+    .main-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo h1 {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo h1::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 20px;
+      background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 3px;
+    }
+
+    .logo span {
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .logo span i {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav a {
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 10px 16px;
+      border-radius: var(--radius-full);
+      transition: var(--transition);
+      text-decoration: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .nav a .flag-icon {
+      width: 16px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+      background: rgba(10, 61, 98, 0.05);
+    }
+
+    .nav a.active {
+      color: var(--white);
+      background: var(--primary);
+      box-shadow: 0 4px 10px rgba(10, 61, 98, 0.2);
+    }
+    
+    .nav a.active .flag-icon {
+      filter: brightness(1.2);
+    }
+
+    .nav a.active:hover {
+      background: var(--primary-light);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* ===== CONNECTION STATUS ===== */
+    .connection-status {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--white);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-md);
+      z-index: 1001;
+      border: 1px solid rgba(60, 141, 188, 0.2);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .status-dot.connected {
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .status-dot.connecting {
+      background: var(--warning);
+      animation: pulse 1.5s infinite;
+    }
+
+    .status-dot.disconnected {
+      background: var(--error);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(60, 141, 188, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(10, 61, 98, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero .container {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(60, 141, 188, 0.1);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      color: var(--secondary);
+      font-size: 16px;
+    }
+
+    .hero-badge span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--primary);
+    }
+
+    .hero-title span {
+      color: var(--secondary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title span::before {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(60, 141, 188, 0.2);
+      z-index: -1;
+    }
+    
+    .hero-title .flag-icon-gb {
+      display: inline-block;
+      width: 40px;
+      height: 30px;
+      margin-left: 10px;
+      vertical-align: middle;
+      border-radius: 4px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-text {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .stat-label .flag-icon {
+      width: 16px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      border: 2px dashed var(--secondary);
+      border-radius: var(--radius-lg);
+      z-index: -1;
+    }
+    
+    .hero-image .uk-flag-overlay {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 60px;
+      background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      transform: rotate(10deg);
+      filter: drop-shadow(var(--shadow-md));
+    }
+
+    /* ===== SERVICES SECTION ===== */
+    .services {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(60, 141, 188, 0.1);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      transition: height 0.3s ease;
+      z-index: -1;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-card:hover::before {
+      height: 100%;
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(10, 61, 98, 0.1), rgba(60, 141, 188, 0.1));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .service-icon i {
+      font-size: 32px;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon i {
+      transform: scale(1.1);
+      color: var(--secondary);
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .service-card h3 .flag-icon {
+      width: 20px;
+      height: 15px;
+      border-radius: 2px;
+    }
+
+    .service-card p {
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--secondary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .service-link i {
+      transition: var(--transition);
+    }
+
+    .service-link:hover {
+      color: var(--primary);
+    }
+
+    .service-link:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ===== GLOBAL REACH SECTION ===== */
+    .global-reach {
+      padding: 60px 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+    }
+    
+    .global-reach .container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .global-map {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .global-map i {
+      font-size: 120px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .global-content {
+      flex: 2;
+    }
+    
+    .global-content h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .global-content h2 .flag-icon {
+      width: 40px;
+      height: 30px;
+      border-radius: 4px;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .global-content p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .global-stats {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .global-stat {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+      min-width: 120px;
+    }
+    
+    .global-stat .number {
+      font-size: 28px;
+      font-weight: 800;
+    }
+    
+    .global-stat .label {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* ===== CHAT WIDGET ===== */
+    .chat-widget {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+    }
+
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--telegram), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .chat-button:hover {
+      transform: scale(1.1);
+    }
+
+    .chat-button .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--accent);
+      color: var(--white);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+
+    .chat-popup {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 350px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      display: none;
+      border: 1px solid rgba(60, 141, 188, 0.2);
+    }
+
+    .chat-popup.active {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+    }
+    
+    .chat-header h4 .flag-icon {
+      width: 20px;
+      height: 15px;
+      border-radius: 2px;
+    }
+
+    .chat-header h4 i {
+      font-size: 20px;
+    }
+
+    .chat-close {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .chat-close:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .chat-messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 20px;
+      background: #f8fafd;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-message {
+      display: flex;
+      flex-direction: column;
+      max-width: 80%;
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+    }
+
+    .chat-message.admin {
+      align-self: flex-start;
+    }
+
+    .message-bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      word-wrap: break-word;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .chat-message.user .message-bubble {
+      background: var(--primary);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-message.admin .message-bubble {
+      background: var(--white);
+      color: var(--dark);
+      border: 1px solid rgba(60, 141, 188, 0.2);
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-time {
+      font-size: 10px;
+      color: var(--gray);
+      margin-top: 4px;
+      margin-left: 8px;
+    }
+
+    .chat-message.user .message-time {
+      text-align: right;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1px solid rgba(60, 141, 188, 0.2);
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: var(--gray);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); background: var(--gray); }
+      30% { transform: translateY(-10px); background: var(--secondary); }
+    }
+
+    .chat-input-area {
+      padding: 15px;
+      background: var(--white);
+      border-top: 1px solid rgba(60, 141, 188, 0.1);
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid rgba(60, 141, 188, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .chat-input-area input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(60, 141, 188, 0.1);
+    }
+
+    .chat-input-area input:disabled {
+      background: var(--light-gray);
+      cursor: not-allowed;
+    }
+
+    .chat-input-area button {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-input-area button:hover:not(:disabled) {
+      background: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    .chat-input-area button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .email-request {
+      padding: 20px;
+      background: #f8fafd;
+      border-bottom: 1px solid rgba(60, 141, 188, 0.1);
+    }
+
+    .email-request h5 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .email-request h5 .flag-icon {
+      width: 16px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .email-input-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .email-input-group input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid rgba(60, 141, 188, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 14px;
+    }
+
+    .email-input-group input:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    .email-input-group button {
+      padding: 12px 20px;
+      background: var(--telegram);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 14px;
+    }
+
+    .email-input-group button:hover {
+      background: #006699;
+      transform: translateY(-2px);
+    }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .back-to-top::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 40px;
+      background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      top: -20px;
+      left: -5px;
+      opacity: 0.3;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--secondary);
+      transform: translateY(-5px);
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0 40px;
+      }
+      
+      .hero-title {
+        font-size: 48px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero .container {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .hero-stats {
+        justify-content: center;
+      }
+      
+      .hero-text {
+        margin: 0 auto 30px;
+      }
+      
+      .hero-image {
+        order: -1;
+      }
+      
+      .services-grid,
+      .blog-grid,
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .global-reach .container {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .global-stats {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 0;
+      }
+      
+      .nav.show {
+        display: flex;
+      }
+      
+      .nav a {
+        width: 100%;
+      }
+      
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .section-title {
+        font-size: 32px;
+      }
+      
+      .services-grid,
+      .blog-grid,
+      .testimonials-grid,
+      .jobs-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+      
+      .chat-popup {
+        width: 300px;
+      }
+      
+      .connection-status {
+        top: 10px;
+        right: 10px;
+        font-size: 10px;
+        padding: 6px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .hero-buttons .btn {
+        width: 100%;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+      
+      .newsletter-form button {
+        width: 100%;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- CONNECTION STATUS -->
+  <div class="connection-status" id="connectionStatus">
+    <span class="status-dot connecting" id="statusDot"></span>
+    <span id="statusText">Connecting to chat...</span>
+    <span class="flag-icon flag-icon-gb" style="margin-left: 5px;"></span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1>Perfections Recruitment</h1>
+        <span><i class="fas fa-globe-europe"></i> UK & Global Recruitment Specialists</span>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="nav" id="mainNav">
+        <a href="index.html" class="active"><span class="flag-icon flag-icon-gb"></span> Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="candidates.html">Candidates</a>
+        <a href="employers.html">Employers</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+        <a href="funding.html">Funding</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+        <div class="hero-badge">
+          <i class="fas fa-crown"></i>
+          <span>Premium Recruitment Agency</span>
+          <span class="flag-icon flag-icon-gb"></span>
+        </div>
+        <h1 class="hero-title">
+          Recruitment that works across <span>the United Kingdom</span>
+          <span class="flag-icon flag-icon-gb"></span>
+        </h1>
+        <p class="hero-text">
+          Permanent · Temporary · Executive search. We connect the right talent with the right employers – from Corby to the whole UK, and globally.
+        </p>
+        <div class="hero-buttons">
+          <a href="contact.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-paper-plane"></i> Start Hiring
+          </a>
+          <a href="candidates.html" class="btn btn-outline btn-lg">
+            <i class="fas fa-users"></i> Find a Job
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">UK Placements</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">27</span>
+            <span class="stat-label">UK Counties</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">92%</span>
+            <span class="stat-label">Client Retention</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">Global Partners</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Recruitment Meeting">
+        <div class="uk-flag-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="services">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Our Services</span>
+        <h2 class="section-title">Comprehensive <span>Recruitment</span> Solutions</h2>
+        <p class="section-subtitle">Tailored staffing solutions for every sector across the United Kingdom</p>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3>Permanent Placement</h3>
+          <p>High-calibre permanent staff for long-term roles across all sectors. 12-month guarantee included.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-icon">
+            <i class="fas fa-calendar-week"></i>
+          </div>
+          <h3>Temporary Staffing</h3>
+          <p>Flexible, vetted staff for short-term assignments. Same-day shortlists available.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-icon">
+            <i class="fas fa-chart-network"></i>
+          </div>
+          <h3>Executive Search</h3>
+          <p>Board-level and senior leadership recruitment nationwide. Discreet, targeted headhunting.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="service-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>IT & Tech Recruitment</h3>
+          <p>Developers, DevOps, data, cybersecurity & IT leadership. Remote, hybrid or on-site.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="service-icon">
+            <i class="fas fa-hard-hat"></i>
+          </div>
+          <h3>Construction & Trades</h3>
+          <p>Site managers, quantity surveyors, skilled labourers for projects nationwide.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="service-icon">
+            <i class="fas fa-clinic-medical"></i>
+          </div>
+          <h3>Healthcare & Medical</h3>
+          <p>RGNs, care assistants, AHPs for NHS trusts, care homes and private hospitals.</p>
+          <a href="services.html" class="service-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL REACH SECTION -->
+  <section class="global-reach">
+    <div class="container">
+      <div class="global-map" data-aos="fade-right">
+        <i class="fas fa-globe-americas"></i>
+      </div>
+      <div class="global-content" data-aos="fade-left">
+        <h2>
+          UK & Global Recruitment
+          <span class="flag-icon flag-icon-gb"></span>
+          <span class="flag-icon flag-icon-us"></span>
+          <span class="flag-icon flag-icon-eu"></span>
+          <span class="flag-icon flag-icon-au"></span>
+        </h2>
+        <p>Based in Corby, serving the United Kingdom and expanding globally. We connect British talent with international opportunities and bring global expertise to UK employers.</p>
+        <div class="global-stats">
+          <div class="global-stat">
+            <div class="number">15+</div>
+            <div class="label">Countries</div>
+          </div>
+          <div class="global-stat">
+            <div class="number">50+</div>
+            <div class="label">Global Partners</div>
+          </div>
+          <div class="global-stat">
+            <div class="number">24/7</div>
+            <div class="label">Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT WIDGET (Hidden Admin Access) -->
+  <div class="chat-widget">
+    <div class="chat-button" id="chatButton">
+      <i class="fab fa-telegram-plane"></i>
+      <span class="badge" id="chatBadge">1</span>
+    </div>
+    <div class="chat-popup" id="chatPopup">
+      <div class="chat-header">
+        <h4><i class="fab fa-telegram"></i> Perfections Chat <span class="flag-icon flag-icon-gb"></span></h4>
+        <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <!-- Email Collection (Required for chat) - NO ADMIN CODE DISPLAYED -->
+      <div class="email-request" id="emailRequest">
+        <h5><span class="flag-icon flag-icon-gb"></span> Enter your email to start chatting</h5>
+        <div class="email-input-group">
+          <input type="email" id="chatEmail" placeholder="your@email.com" value="">
+          <button id="startChatBtn"><i class="fab fa-telegram"></i> Start</button>
+        </div>
+        <!-- Admin hint completely removed - no mention of admin code -->
+      </div>
+      
+      <div class="chat-messages" id="chatMessages" style="display: none;"></div>
+      
+      <div class="typing-indicator" id="typingIndicator" style="display: none;">
+        <span></span><span></span><span></span>
+      </div>
+      
+      <div class="chat-input-area" id="chatInputArea" style="display: none;">
+        <input type="text" id="chatInput" placeholder="Type your message..." disabled>
+        <button id="chatSend" disabled><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Chat Integration Script - No Admin Code Displayed -->
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    // ===== CHAT SYSTEM WITH HIDDEN ADMIN ACCESS =====
+    const WS_URL = `ws://${window.location.host}`;
+    const ADMIN_CODE = '338989'; // Hidden - never displayed to users
+    
+    let ws = null;
+    let userId = localStorage.getItem('chatUserId');
+    let userEmail = localStorage.getItem('chatEmail');
+    let userName = localStorage.getItem('chatUserName');
+    let isAdmin = false;
+    
+    // DOM Elements
+    const chatButton = document.getElementById('chatButton');
+    const chatPopup = document.getElementById('chatPopup');
+    const chatClose = document.getElementById('chatClose');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatInputArea = document.getElementById('chatInputArea');
+    const emailRequest = document.getElementById('emailRequest');
+    const chatEmail = document.getElementById('chatEmail');
+    const startChatBtn = document.getElementById('startChatBtn');
+    const chatBadge = document.getElementById('chatBadge');
+    const typingIndicator = document.getElementById('typingIndicator');
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+
+    // Load saved email
+    if (userEmail) {
+      chatEmail.value = userEmail;
+    }
+
+    // Toggle chat popup
+    chatButton.addEventListener('click', () => {
+      chatPopup.classList.toggle('active');
+      if (chatPopup.classList.contains('active')) {
+        chatBadge.style.display = 'none';
+        if (userId) {
+          connectWebSocket();
+        }
+      }
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatPopup.classList.remove('active');
+    });
+
+    // Close chat when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!chatButton.contains(e.target) && !chatPopup.contains(e.target)) {
+        chatPopup.classList.remove('active');
+      }
+    });
+
+    // Start chat with email (HIDDEN ADMIN ACCESS - no hint shown)
+    startChatBtn.addEventListener('click', async () => {
+      const email = chatEmail.value.trim();
+      
+      if (!email) {
+        alert('Please enter your email');
+        return;
+      }
+
+      // HIDDEN ADMIN CHECK - no message shown to user
+      if (email === ADMIN_CODE) {
+        isAdmin = true;
+        userName = 'Admin';
+        userId = `admin_${Date.now()}`;
+        localStorage.setItem('chatUserId', userId);
+        localStorage.setItem('chatUserName', userName);
+        localStorage.setItem('isAdmin', 'true');
+        
+        emailRequest.style.display = 'none';
+        chatMessages.style.display = 'flex';
+        chatInputArea.style.display = 'flex';
+        chatInput.disabled = false;
+        chatSend.disabled = false;
+        
+        connectWebSocket();
+        
+        // Add welcome message for admin (only visible to admin)
+        addMessage({
+          text: '👑 Welcome to Admin Panel. You have access to all features.',
+          isAdmin: true,
+          timestamp: new Date()
+        });
+        
+        return; // Exit without any confirmation
+      }
+
+      // Validate email format for regular users
+      if (!email.includes('@') || !email.includes('.')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
+      try {
+        // Check if user exists
+        const checkResponse = await fetch('/api/user/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        
+        const checkData = await checkResponse.json();
+        
+        if (checkData.exists) {
+          userId = checkData.userId;
+          userName = checkData.userName;
+        } else {
+          // Create new user
+          const createResponse = await fetch('/api/user/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              email, 
+              userName: email.split('@')[0] 
+            })
+          });
+          
+          const createData = await createResponse.json();
+          userId = createData.userId;
+          userName = createData.userName;
+        }
+
+        // Store in localStorage
+        localStorage.setItem('chatUserId', userId);
+        localStorage.setItem('chatEmail', email);
+        localStorage.setItem('chatUserName', userName);
+        userEmail = email;
+
+        // Show chat interface
+        emailRequest.style.display = 'none';
+        chatMessages.style.display = 'flex';
+        chatInputArea.style.display = 'flex';
+        chatInput.disabled = false;
+        chatSend.disabled = false;
+
+        connectWebSocket();
+
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('Failed to start chat. Please try again.');
+      }
+    });
+
+    // Connect to WebSocket
+    function connectWebSocket() {
+      if (ws && ws.readyState === WebSocket.OPEN) return;
+
+      statusDot.className = 'status-dot connecting';
+      statusText.textContent = 'Connecting...';
+
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+      ws.onopen = () => {
+        console.log('WebSocket connected');
+        statusDot.className = 'status-dot connected';
+        statusText.textContent = 'Connected';
+
+        // Register user
+        ws.send(JSON.stringify({
+          type: 'register',
+          userId: userId,
+          userName: userName,
+          email: userEmail,
+          isAdmin: isAdmin
+        }));
+
+        // Load chat history
+        loadChatHistory();
+      };
+
+      ws.onclose = () => {
+        console.log('WebSocket disconnected');
+        statusDot.className = 'status-dot disconnected';
+        statusText.textContent = 'Disconnected';
+
+        // Try to reconnect after 5 seconds
+        setTimeout(connectWebSocket, 5000);
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        statusDot.className = 'status-dot disconnected';
+        statusText.textContent = 'Connection error';
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        
+        if (data.type === 'history') {
+          displayChatHistory(data.messages);
+        }
+        
+        if (data.type === 'new_message') {
+          receiveMessage(data.message);
+        }
+        
+        if (data.type === 'typing') {
+          if (data.isTyping) {
+            typingIndicator.style.display = 'flex';
+          } else {
+            typingIndicator.style.display = 'none';
+          }
+        }
+      };
+    }
+
+    // Load chat history
+    async function loadChatHistory() {
+      try {
+        const response = await fetch(`/api/user/${userId}/messages`);
+        const messages = await response.json();
+        displayChatHistory(messages);
+      } catch (error) {
+        console.error('Failed to load chat history:', error);
+      }
+    }
+
+    // Display chat history
+    function displayChatHistory(messages) {
+      chatMessages.innerHTML = '';
+      
+      if (messages.length === 0) {
+        // Welcome message (different for admin vs user)
+        addMessage({
+          text: isAdmin ? 
+            '👑 Welcome to Admin Panel. You can monitor all conversations.' :
+            '👋 Welcome to Perfections Recruitment! How can we help you today?',
+          isAdmin: true,
+          timestamp: new Date()
+        });
+        return;
+      }
+
+      messages.forEach(msg => {
+        addMessage({
+          text: msg.message,
+          isAdmin: msg.isAdmin,
+          timestamp: new Date(msg.timestamp)
+        });
+      });
+
+      scrollToBottom();
+    }
+
+    // Add message to chat
+    function addMessage({ text, isAdmin, timestamp }) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message ${isAdmin ? 'admin' : 'user'}`;
+      
+      const timeStr = timestamp.toLocaleTimeString([], { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+      
+      messageDiv.innerHTML = `
+        <div class="message-bubble">
+          ${escapeHtml(text)}
+        </div>
+        <span class="message-time">${timeStr}</span>
+      `;
+      
+      chatMessages.appendChild(messageDiv);
+      scrollToBottom();
+    }
+
+    // Receive new message
+    function receiveMessage(msg) {
+      addMessage({
+        text: msg.message,
+        isAdmin: msg.isAdmin,
+        timestamp: new Date(msg.timestamp || Date.now())
+      });
+      
+      // Play notification sound if chat is not active
+      if (!chatPopup.classList.contains('active')) {
+        chatBadge.style.display = 'flex';
+      }
+    }
+
+    // Send message
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+
+      // Send to server
+      ws.send(JSON.stringify({
+        type: 'chat',
+        userId: userId,
+        userName: userName,
+        text: text,
+        isAdmin: isAdmin
+      }));
+
+      // Add to UI immediately
+      addMessage({
+        text: text,
+        isAdmin: isAdmin,
+        timestamp: new Date()
+      });
+
+      chatInput.value = '';
+
+      // Send typing indicator (stop typing)
+      ws.send(JSON.stringify({
+        type: 'typing',
+        isTyping: false
+      }));
+    }
+
+    // Send typing indicator
+    let typingTimeout;
+    chatInput.addEventListener('input', () => {
+      if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+      clearTimeout(typingTimeout);
+
+      ws.send(JSON.stringify({
+        type: 'typing',
+        isTyping: true
+      }));
+
+      typingTimeout = setTimeout(() => {
+        ws.send(JSON.stringify({
+          type: 'typing',
+          isTyping: false
+        }));
+      }, 2000);
+    });
+
+    // Send message on Enter
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    chatSend.addEventListener('click', sendMessage);
+
+    // Scroll to bottom
+    function scrollToBottom() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ===== MOBILE MENU =====
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('show');
+      const icon = mobileMenuBtn.querySelector('i');
+      if (mainNav.classList.contains('show')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('show');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      });
+    });
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Auto-reconnect on page visibility change
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && userId) {
+        connectWebSocket();
+      }
+    });
+
+    // Check connection every 30 seconds
+    setInterval(() => {
+      if (ws && ws.readyState !== WebSocket.OPEN && userId) {
+        connectWebSocket();
+      }
+    }, 30000);
+  </script>
+</body>
+</html>
