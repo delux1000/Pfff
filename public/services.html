@@ -1,116 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services – Perfections Recruitment</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Perfections Recruitment Agency Ltd</title>
     
-    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    .logo h1 { font-size: 28px; color: #0A3D62; }
-    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
-    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
-    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
-    .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
     
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    .section { padding: 80px 0; }
-    .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    .service-card { background: white; border-radius: 24px; padding: 36px 28px; border: 1px solid #ecf3fa; }
-    .service-card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; }
-    .service-card h3 { font-size: 24px; color: #0A3D62; margin-bottom: 15px; }
-    .feature-list { list-style: none; margin-top: 20px; }
-    .feature-list li { margin-bottom: 10px; }
-    .feature-list i { color: #0A3D62; margin-right: 10px; }
-    
-    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
-    .stat-number { font-size: 44px; font-weight: 800; color: #0A3D62; }
-    
-    .bg-soft { background: #f8fafd; }
-    
-    .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
-    .footer a { color: #e0eefb; text-decoration: none; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
-    
-    @media (max-width: 768px) {
-      .nav { justify-content: center; }
-      .logo h1 { text-align: center; }
-    }
-  </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A3D62;
+            --primary-dark: #052e4a;
+            --primary-light: #1f5a88;
+            --secondary: #3c8dbc;
+            --accent: #ff6b35;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --light: #f8fafc;
+            --white: #ffffff;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header (same as index.html) */
+        .main-header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+            background: rgba(10,61,98,0.05);
+        }
+
+        .nav a.active {
+            color: var(--white);
+            background: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-main {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(60,141,188,0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .service-icon i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .feature-list i {
+            color: var(--secondary);
+            font-size: 16px;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .process-step h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-section .btn {
+            background: var(--white);
+            color: var(--primary);
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+        .cta-section .btn:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        /* Footer (same as index.html) */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+
+        .footer-contact a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+            }
+            .nav.show {
+                display: flex;
+            }
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="container">
-      <div class="logo">
-        <h1>Perfections Recruitment</h1>
-        <span>Agency Ltd · working across United Kingdom</span>
-      </div>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html" class="active">Services</a>
-        <a href="candidates.html">Candidates</a>
-        <a href="employers.html">Employers</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact</a>
-        <a href="careers.html">Careers</a>
-        <a href="blog.html">Blog</a>
-        <a href="funding.html">Funding</a>
-      </nav>
-    </div>
-  </header>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Perfections Recruitment</h1>
+                <span>Agency Ltd · working across United Kingdom</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html" class="active">Services</a>
+                <a href="candidates.html">Candidates</a>
+                <a href="employers.html">Employers</a>
+                <a href="jobs.html">Jobs</a>
+                <a href="testimonials.html">Testimonials</a>
+                <a href="contact.html">Contact</a>
+                <a href="careers.html">Careers</a>
+                <a href="blog.html">Blog</a>
+                <a href="funding.html">Funding</a>
+            </nav>
+        </div>
+    </header>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-title"><h2>Recruitment solutions across the UK</h2></div>
-      
-      <div class="grid-3">
-        <div class="service-card"><i class="fas fa-briefcase"></i><h3>Permanent placement</h3><p>High-calibre permanent staff for roles at any level. 12-month guarantee.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Graduate to director</li><li><i class="fas fa-check-circle"></i> Sector specialists</li></ul></div>
-        <div class="service-card"><i class="fas fa-calendar-alt"></i><h3>Temporary & contract</h3><p>Immediate cover for peaks and projects. Same-day shortlists available.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Weekly payroll</li><li><i class="fas fa-check-circle"></i> CIS managed</li></ul></div>
-        <div class="service-card"><i class="fas fa-chart-pie"></i><h3>Executive search</h3><p>Discreet headhunting for senior leadership and board-level appointments.</p><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Market mapping</li><li><i class="fas fa-check-circle"></i> Passive talent</li></ul></div>
-        <div class="service-card"><i class="fas fa-laptop-code"></i><h3>IT & tech</h3><p>Developers, DevOps, data, cybersecurity – permanent and contract.</p></div>
-        <div class="service-card"><i class="fas fa-hard-hat"></i><h3>Construction</h3><p>Site managers, surveyors, skilled labour for projects nationwide.</p></div>
-        <div class="service-card"><i class="fas fa-clinic-medical"></i><h3>Healthcare</h3><p>RGNs, carers, AHPs for NHS trusts and private hospitals.</p></div>
-      </div>
-    </div>
-  </section>
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Recruitment Services</h1>
+            <p>Comprehensive solutions tailored to your needs</p>
+        </div>
+    </section>
 
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="stats">
-        <div><span class="stat-number">350+</span><br>annual placements</div>
-        <div><span class="stat-number">27</span><br>UK counties</div>
-        <div><span class="stat-number">92%</span><br>client retention</div>
-      </div>
-    </div>
-  </section>
+    <section class="services-main">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Permanent Placement</h3>
+                    <p>We find high-calibre permanent staff who stay. Rigorous interviewing, competency checks and cultural fit assessments for roles at any level.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Graduate to director level</li>
+                        <li><i class="fas fa-check-circle"></i> 12-month guarantee</li>
+                        <li><i class="fas fa-check-circle"></i> Sector specialists</li>
+                    </ul>
+                </div>
 
-  <footer class="footer">
-    <div class="container">
-      <div><h4>Perfections Recruitment</h4><p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p><p>📞 07521 627390<br>✉️ Akinkunmiokuseinde@gmail.com</p></div>
-      <div><h4>Explore</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="jobs.html">Jobs</a></li></ul></div>
-      <div><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
-    </div>
-  </footer>
-  <div class="copyright">© 2025 Perfections Recruitment Agency Ltd</div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Temporary & Contract</h3>
+                    <p>Immediate cover for peak times, projects or absences. All temps are interviewed, reference-checked and ready to hit the ground running.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Same-day shortlist</li>
+                        <li><i class="fas fa-check-circle"></i> Weekly payroll / CIS</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible extensions</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Executive Search</h3>
+                    <p>Discreet, targeted headhunting for senior leadership and board-level appointments. We map the market and engage passive talent.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Tailored longlists</li>
+                        <li><i class="fas fa-check-circle"></i> Competitor analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Bespoke assessment</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>IT & Tech Recruitment</h3>
+                    <p>Developers, DevOps, data, cybersecurity & IT leadership. Remote, hybrid or on-site – we understand tech.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Permanent & contract</li>
+                        <li><i class="fas fa-check-circle"></i> Tech tests optional</li>
+                        <li><i class="fas fa-check-circle"></i> Start-up to enterprise</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Construction & Trades</h3>
+                    <p>Site managers, quantity surveyors, skilled labourers and CSCS‑card holders for projects nationwide.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Temporary & permanent</li>
+                        <li><i class="fas fa-check-circle"></i> Compliance managed</li>
+                        <li><i class="fas fa-check-circle"></i> Major project experience</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <h3>Healthcare & Medical</h3>
+                    <p>RGNs, care assistants, AHPs and support workers for NHS trusts, care homes and private hospitals.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> DBS & revalidation</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible shifts</li>
+                        <li><i class="fas fa-check-circle"></i> Nationwide placements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Our Process</span>
+                <h2 class="section-title">Simple, <span>Transparent</span> Recruitment</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>Understand</h3>
+                    <p>We listen to your needs, role requirements and culture.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <h3>Source & Screen</h3>
+                    <p>We use our network, database and headhunting to find the best.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <h3>Shortlist</h3>
+                    <p>Only relevant, interview‑ready candidates are presented.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">4</div>
+                    <h3>Offer & Aftercare</h3>
+                    <p>We support through offer, onboarding and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to find your perfect match?</h2>
+            <p>Whether you're hiring or looking for a new role, we're here to help.</p>
+            <a href="contact.html" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Perfections Recruitment</div>
+                    <p>Your trusted recruitment partner, based in the United Kingdom.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="jobs.html">Latest Jobs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@perfectionsrecruitmentagency.com">info@perfectionsrecruitmentagency.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+441536850341">01536 850341</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+447521627390">07521 627390</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
