@@ -1,226 +1,953 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Funding & Grants – Perfections Recruitment</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funding & Grants - Perfections Recruitment Agency Ltd</title>
     
-    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    .logo h1 { font-size: 28px; color: #0A3D62; }
-    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
-    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
-    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
-    .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
     
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    .section { padding: 80px 0; }
-    .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    .funding-card { background: white; border-radius: 24px; padding: 36px 28px; border: 1px solid #ecf3fa; transition: 0.3s; }
-    .funding-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(10,61,98,0.1); }
-    .funding-card i { font-size: 48px; color: #0A3D62; margin-bottom: 20px; background: #e8f0fe; padding: 16px; border-radius: 20px; display: inline-block; }
-    .funding-card h3 { font-size: 24px; color: #0A3D62; margin-bottom: 15px; }
-    .funding-card .amount { font-size: 32px; font-weight: 800; color: #0A3D62; margin: 15px 0 5px; }
-    .badge { background: #e0f0ff; color: #0A3D62; padding: 4px 12px; border-radius: 40px; display: inline-block; margin-bottom: 15px; font-weight: 600; font-size: 14px; }
-    
-    .bg-soft { background: #f8fafd; }
-    .funding-highlight { background: #0A3D62; color: white; padding: 60px; border-radius: 30px; }
-    
-    .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
-    .footer a { color: #e0eefb; text-decoration: none; transition: 0.2s; }
-    .footer a:hover { color: white; padding-left: 5px; }
-    .footer ul { list-style: none; }
-    .footer li { margin-bottom: 10px; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
-    
-    @media (max-width: 768px) {
-      .nav { justify-content: center; }
-      .logo h1 { text-align: center; }
-      .funding-highlight { padding: 40px 20px; }
-    }
-  </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A3D62;
+            --primary-dark: #052e4a;
+            --primary-light: #1f5a88;
+            --secondary: #3c8dbc;
+            --accent: #ff6b35;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .main-header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+            background: rgba(10,61,98,0.05);
+        }
+
+        .nav a.active {
+            color: var(--white);
+            background: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .funding-hero {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .hero-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .hero-btn {
+            background: var(--white);
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .hero-btn:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Funding Grid */
+        .funding-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .funding-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .funding-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .funding-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .funding-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .funding-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .funding-icon i {
+            font-size: 30px;
+            color: var(--primary);
+        }
+
+        .funding-badge {
+            background: var(--success);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .funding-card h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .funding-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .funding-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .funding-note {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .funding-features {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .funding-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .funding-features i {
+            color: var(--success);
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .process-step h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .process-step p {
+            color: var(--gray);
+        }
+
+        /* Eligibility Section */
+        .eligibility-section {
+            padding: 60px 0;
+            background: var(--light);
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .eligibility-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .eligibility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .eligibility-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .eligibility-icon i {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .eligibility-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .eligibility-card p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline-white:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+
+        .footer-contact a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+            }
+            .nav.show {
+                display: flex;
+            }
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="container">
-      <div class="logo">
-        <h1>Perfections Recruitment</h1>
-        <span>Agency Ltd · working across United Kingdom</span>
-      </div>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="candidates.html">Candidates</a>
-        <a href="employers.html">Employers</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact</a>
-        <a href="careers.html">Careers</a>
-        <a href="blog.html">Blog</a>
-        <a href="funding.html" class="active">Funding</a>
-      </nav>
-    </div>
-  </header>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Perfections Recruitment</h1>
+                <span>Agency Ltd · working across United Kingdom</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="candidates.html">Candidates</a>
+                <a href="employers.html">Employers</a>
+                <a href="jobs.html">Jobs</a>
+                <a href="testimonials.html">Testimonials</a>
+                <a href="contact.html">Contact</a>
+                <a href="careers.html">Careers</a>
+                <a href="blog.html">Blog</a>
+                <a href="funding.html" class="active">Funding</a>
+            </nav>
+        </div>
+    </header>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Funding & grants for employers</h2>
-        <p>We help UK businesses access recruitment incentives, apprenticeships funding, and wage subsidies.</p>
-      </div>
-      
-      <div class="funding-highlight" style="margin-bottom: 60px;">
-        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
-          <div style="flex: 1;">
-            <span class="badge" style="background: white; color: #0A3D62;">Free consultation</span>
-            <h3 style="font-size: 36px; color: white; margin: 20px 0;">Unlock up to £5,000 per hire</h3>
-            <p style="color: #e0eefb; font-size: 18px;">Many employers don't claim the funding they're entitled to. We guide you through available grants, apprenticeships, and local schemes across the UK.</p>
-          </div>
-          <div>
-            <a href="contact.html" class="btn" style="background: white; color: #0A3D62; font-size: 18px;">Claim your review</a>
-          </div>
+    <section class="page-header">
+        <div class="container">
+            <h1>Funding & Grants</h1>
+            <p>Support for UK employers – unlock up to £5,000 per hire</p>
         </div>
-      </div>
-      
-      <div class="grid-3">
-        <div class="funding-card">
-          <i class="fas fa-graduation-cap"></i>
-          <span class="badge">Apprenticeships</span>
-          <h3>Apprenticeship Levy & grants</h3>
-          <p>Funding for training apprentices aged 16+ – up to 100% of training costs covered for small businesses. We help with application and levy transfer.</p>
-          <div class="amount">£1,000 - £5,000</div>
-          <p style="color: #64748b;">per apprentice</p>
-        </div>
-        <div class="funding-card">
-          <i class="fas fa-briefcase"></i>
-          <span class="badge">Youth employment</span>
-          <h3>Youth employment schemes</h3>
-          <p>Grants for hiring young people (16-24). We help with applications and compliance for all available schemes.</p>
-          <div class="amount">Up to £3,500</div>
-          <p style="color: #64748b;">per placement</p>
-        </div>
-        <div class="funding-card">
-          <i class="fas fa-hospital"></i>
-          <span class="badge">Health & care</span>
-          <h3>NHS & social care funding</h3>
-          <p>Specific grants for care providers, including recruitment and retention payments. Support for both permanent and temporary staff.</p>
-          <div class="amount">£2,000 - £8,000</div>
-          <p style="color: #64748b;">per role</p>
-        </div>
-        <div class="funding-card">
-          <i class="fas fa-tools"></i>
-          <span class="badge">Construction</span>
-          <h3>CITB grants</h3>
-          <p>Funding for construction employers to train new entrants and upskill existing staff. Including short courses and full qualifications.</p>
-          <div class="amount">Up to £6,000</div>
-          <p style="color: #64748b;">per employee</p>
-        </div>
-        <div class="funding-card">
-          <i class="fas fa-universal-access"></i>
-          <span class="badge">Disability support</span>
-          <h3>Access to Work</h3>
-          <p>Grants to support disabled employees or those with health conditions. Covers equipment, support workers, and transport.</p>
-          <div class="amount">Up to £62,900</div>
-          <p style="color: #64748b;">per person</p>
-        </div>
-        <div class="funding-card">
-          <i class="fas fa-chart-line"></i>
-          <span class="badge">Local grants</span>
-          <h3>Regional funding</h3>
-          <p>We identify local authority grants and devolved schemes in your area. Many regions offer additional hiring incentives.</p>
-          <div class="amount">Varies</div>
-          <p style="color: #64748b;">bespoke</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="section-title">
-        <h2>How we help you access funding</h2>
-        <p>Simple steps to secure financial support for your recruitment.</p>
-      </div>
-      <div class="grid-3">
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-search" style="background: transparent;"></i>
-          <h3>1. Discovery</h3>
-          <p>We review your business and hiring plans to identify eligible funding opportunities.</p>
+    <section class="funding-hero">
+        <div class="container">
+            <div class="hero-box" data-aos="fade-up">
+                <div class="hero-content">
+                    <span class="hero-badge">Free consultation</span>
+                    <h2>Unlock up to £5,000 per hire</h2>
+                    <p>Many employers don't claim the funding they're entitled to. We guide you through available grants, apprenticeships, and local schemes.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">£5k+</div>
+                            <div class="stat-label">Per hire</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Free support</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24h</div>
+                            <div class="stat-label">Response time</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="hero-btn">Claim your review</a>
+            </div>
         </div>
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-file-signature" style="background: transparent;"></i>
-          <h3>2. Application support</h3>
-          <p>Our team helps prepare and submit grant applications, saving you time and ensuring accuracy.</p>
-        </div>
-        <div class="funding-card" style="text-align: center;">
-          <i class="fas fa-hand-holding-usd" style="background: transparent;"></i>
-          <h3>3. Ongoing advice</h3>
-          <p>We stay updated on new schemes and claim deadlines, keeping you informed of every opportunity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="container" style="text-align: center;">
-      <h2 style="font-size: 36px; color: #0A3D62; margin-bottom: 20px;">Ready to claim what you're owed?</h2>
-      <p style="font-size: 18px; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Speak to our funding team today for a free, no-obligation consultation.</p>
-      <a href="contact.html" class="btn" style="margin-right: 15px;"><i class="fas fa-phone-alt"></i> Contact us now</a>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email us</a>
-    </div>
-  </section>
+    <section class="funding-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Available Funding</span>
+                <h2 class="section-title">Recruitment <span>grants</span> & incentives</h2>
+                <p class="section-subtitle">We help UK businesses access the financial support they're entitled to</p>
+            </div>
+            <div class="funding-grid">
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="funding-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span class="funding-badge">Apprenticeships</span>
+                    <h3>Apprenticeship Levy & grants</h3>
+                    <p>Funding for training apprentices aged 16+ – up to 100% of training costs covered for small businesses. We help with application and levy transfer.</p>
+                    <div class="funding-amount">£1,000 - £5,000</div>
+                    <div class="funding-note">per apprentice</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> 100% training costs for under 50 employees</li>
+                        <li><i class="fas fa-check-circle"></i> Additional £1,000 for 16-18 year olds</li>
+                        <li><i class="fas fa-check-circle"></i> Levy transfer available</li>
+                    </ul>
+                </div>
 
-  <footer class="footer">
-    <div class="container">
-      <div>
-        <h4>Perfections Recruitment</h4>
-        <p>UK‑wide recruitment specialists.<br>Corby, Northamptonshire</p>
-        <p>📞 07521 627390<br>📞 01536 850341<br>✉️ Akinkunmiokuseinde@gmail.com</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="candidates.html">Candidates</a></li>
-          <li><a href="employers.html">Employers</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="testimonials.html">Testimonials</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="funding.html">Funding</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Terms of use</a></li>
-          <li><a href="#">Cookie policy</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-  <div class="copyright">© 2025 Perfections Recruitment Agency Ltd. All rights reserved.</div>
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="funding-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <span class="funding-badge">Youth employment</span>
+                    <h3>Youth employment schemes</h3>
+                    <p>Grants for hiring young people (16-24). We help with applications and compliance for all available schemes across the UK.</p>
+                    <div class="funding-amount">Up to £3,500</div>
+                    <div class="funding-note">per placement</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> Wage subsidies available</li>
+                        <li><i class="fas fa-check-circle"></i> Mentor support included</li>
+                        <li><i class="fas fa-check-circle"></i> 6-12 month placements</li>
+                    </ul>
+                </div>
+
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="funding-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <span class="funding-badge">Health & care</span>
+                    <h3>NHS & social care funding</h3>
+                    <p>Specific grants for care providers, including recruitment and retention payments. Support for both permanent and temporary staff.</p>
+                    <div class="funding-amount">£2,000 - £8,000</div>
+                    <div class="funding-note">per role</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> Retention payments available</li>
+                        <li><i class="fas fa-check-circle"></i> Training grants included</li>
+                        <li><i class="fas fa-check-circle"></i> Quick application process</li>
+                    </ul>
+                </div>
+
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="funding-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <span class="funding-badge">Construction</span>
+                    <h3>CITB grants</h3>
+                    <p>Funding for construction employers to train new entrants and upskill existing staff. Including short courses and full qualifications.</p>
+                    <div class="funding-amount">Up to £6,000</div>
+                    <div class="funding-note">per employee</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> Short course funding</li>
+                        <li><i class="fas fa-check-circle"></i> Apprenticeship support</li>
+                        <li><i class="fas fa-check-circle"></i> SME bonus available</li>
+                    </ul>
+                </div>
+
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="funding-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <span class="funding-badge">Disability support</span>
+                    <h3>Access to Work</h3>
+                    <p>Grants to support disabled employees or those with health conditions. Covers equipment, support workers, and transport.</p>
+                    <div class="funding-amount">Up to £62,900</div>
+                    <div class="funding-note">per person</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> Equipment funding</li>
+                        <li><i class="fas fa-check-circle"></i> Support worker costs</li>
+                        <li><i class="fas fa-check-circle"></i> Travel to work support</li>
+                    </ul>
+                </div>
+
+                <div class="funding-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="funding-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="funding-badge">Local grants</span>
+                    <h3>Regional funding</h3>
+                    <p>We identify local authority grants and devolved schemes in your area. Many regions offer additional hiring incentives.</p>
+                    <div class="funding-amount">Varies</div>
+                    <div class="funding-note">bespoke</div>
+                    <ul class="funding-features">
+                        <li><i class="fas fa-check-circle"></i> London weighting available</li>
+                        <li><i class="fas fa-check-circle"></i> Devolved nation grants</li>
+                        <li><i class="fas fa-check-circle"></i> Combined authority funds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">How it works</span>
+                <h2 class="section-title">Simple, <span>3-step</span> process</h2>
+                <p class="section-subtitle">We make accessing funding hassle-free</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>Discovery</h3>
+                    <p>We review your business and hiring plans to identify eligible funding opportunities tailored to your needs.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <h3>Application support</h3>
+                    <p>Our team helps prepare and submit grant applications, saving you time and ensuring accuracy.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <h3>Ongoing advice</h3>
+                    <p>We stay updated on new schemes and claim deadlines, keeping you informed of every opportunity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="eligibility-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Eligibility</span>
+                <h2 class="section-title">Who can <span>apply</span></h2>
+            </div>
+            <div class="eligibility-grid">
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4>SMEs</h4>
+                    <p>Small and medium enterprises with under 250 employees</p>
+                </div>
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h4>Care providers</h4>
+                    <p>Care homes, domiciliary care, and supported living</p>
+                </div>
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h4>Construction firms</h4>
+                    <p>Contractors, subcontractors, and building companies</p>
+                </div>
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Startups</h4>
+                    <p>New businesses hiring their first employees</p>
+                </div>
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h4>Retail & hospitality</h4>
+                    <p>Shops, restaurants, hotels, and leisure businesses</p>
+                </div>
+                <div class="eligibility-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="eligibility-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h4>Manufacturing</h4>
+                    <p>Factories, production facilities, and industrial units</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to claim what you're owed?</h2>
+            <p>Speak to our funding team today for a free, no-obligation consultation.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-white"><i class="fas fa-phone-alt"></i> Contact us now</a>
+                <a href="mailto:info@perfectionsrecruitmentagency.com" class="btn btn-outline-white"><i class="fas fa-envelope"></i> Email us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Perfections Recruitment</div>
+                    <p>Your trusted recruitment partner, based in the United Kingdom.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="jobs.html">Latest Jobs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@perfectionsrecruitmentagency.com">info@perfectionsrecruitmentagency.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+441536850341">01536 850341</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+447521627390">07521 627390</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
