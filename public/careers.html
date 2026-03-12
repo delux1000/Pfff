@@ -1,152 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Careers – Join Our Team | Perfections Recruitment</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Join Our Team - Perfections Recruitment Agency Ltd</title>
     
-    .main-header { background: white; padding: 18px 0; border-bottom: 1px solid #edf2f7; }
-    .main-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    .logo h1 { font-size: 28px; color: #0A3D62; }
-    .logo span { font-size: 13px; color: #3c8dbc; display: block; }
-    .nav { display: flex; gap: 20px; flex-wrap: wrap; }
-    .nav a { color: #2d3c4c; font-weight: 500; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
-    .nav a:hover, .nav a.active { color: #0A3D62; border-bottom-color: #0A3D62; }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
     
-    .btn { background: #0A3D62; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600; }
-    .btn-outline { background: transparent; border: 2px solid #0A3D62; color: #0A3D62; }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    .section { padding: 80px 0; }
-    .section-title { text-align: center; margin-bottom: 60px; }
-    .section-title h2 { font-size: 40px; color: #0A3D62; position: relative; display: inline-block; padding-bottom: 16px; }
-    .section-title h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #3c8dbc; }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #ecf3fa; }
-    .card i { font-size: 40px; color: #0A3D62; margin-bottom: 15px; }
-    
-    .job-card { background: white; border-radius: 20px; padding: 28px; border: 1px solid #e6edf5; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
-    .job-card h3 { color: #0A3D62; }
-    .job-meta { display: flex; gap: 20px; flex-wrap: wrap; color: #4a5a6a; margin: 10px 0; }
-    .badge { background: #e0f0ff; color: #0A3D62; padding: 4px 12px; border-radius: 40px; font-size: 14px; }
-    
-    .contact-row { background: #f8fafd; padding: 20px 0; border-bottom: 1px solid #e2e8f0; }
-    .contact-row .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-    .contact-row a { color: #0A3D62; font-weight: 500; text-decoration: none; }
-    .contact-row i { margin-right: 8px; color: #3c8dbc; }
-    
-    .bg-soft { background: #f8fafd; }
-    
-    .footer { background: #0A3D62; color: #e0eefb; padding: 70px 0 20px; }
-    .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-    .footer h4 { color: white; border-bottom: 1px solid #3c8dbc; padding-bottom: 12px; margin-bottom: 20px; }
-    .footer a { color: #e0eefb; text-decoration: none; }
-    .copyright { background: #052e4a; color: #b0c9e5; text-align: center; padding: 22px 0; }
-    
-    @media (max-width: 768px) {
-      .nav { justify-content: center; }
-    }
-  </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A3D62;
+            --primary-dark: #052e4a;
+            --primary-light: #1f5a88;
+            --secondary: #3c8dbc;
+            --accent: #ff6b35;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .main-header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+            background: rgba(10,61,98,0.05);
+        }
+
+        .nav a.active {
+            color: var(--white);
+            background: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .careers-hero {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h2 {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image i {
+            font-size: 200px;
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-icon i {
+            font-size: 30px;
+            color: var(--primary);
+        }
+
+        .benefit-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: var(--gray);
+        }
+
+        /* Job Openings */
+        .jobs-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .jobs-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .job-opening {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .job-opening:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .job-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .job-meta i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+
+        .job-badge {
+            background: var(--success);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .apply-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .apply-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-quote {
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .team-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .team-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .team-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .team-info p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline-white:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+
+        .footer-contact a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+            }
+            .nav.show {
+                display: flex;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .job-opening {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="contact-row">
-    <div class="container">
-      <a href="tel:07521627390"><i class="fas fa-phone-alt"></i> 07521 627390</a>
-      <a href="tel:07399283446"><i class="fas fa-phone-alt"></i> 07399 283446</a>
-      <a href="tel:01536850341"><i class="fas fa-phone-alt"></i> 01536 850341</a>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com"><i class="fas fa-envelope"></i> Akinkunmiokuseinde@gmail.com</a>
-    </div>
-  </div>
-
-  <header class="main-header">
-    <div class="container">
-      <div class="logo">
-        <h1>Perfections Recruitment</h1>
-        <span>Agency Ltd · working across United Kingdom</span>
-      </div>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="candidates.html">Candidates</a>
-        <a href="employers.html">Employers</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact</a>
-        <a href="careers.html" class="active">Careers</a>
-        <a href="blog.html">Blog</a>
-        <a href="funding.html">Funding</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="grid-2" style="align-items: center;">
-        <div>
-          <h2 style="font-size: 42px; color: #0A3D62; margin-bottom: 20px;">Join the Perfections team</h2>
-          <p style="font-size: 18px;">We're always looking for passionate recruitment professionals to help us connect talent with opportunity across the UK.</p>
-          <div style="margin-top: 30px;"><span class="badge">Top employer 2024</span> <span class="badge">Fast-growing</span></div>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Perfections Recruitment</h1>
+                <span>Agency Ltd · working across United Kingdom</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="candidates.html">Candidates</a>
+                <a href="employers.html">Employers</a>
+                <a href="jobs.html">Jobs</a>
+                <a href="testimonials.html">Testimonials</a>
+                <a href="contact.html">Contact</a>
+                <a href="careers.html" class="active">Careers</a>
+                <a href="blog.html">Blog</a>
+                <a href="funding.html">Funding</a>
+            </nav>
         </div>
-        <div style="text-align: center;"><i class="fas fa-users" style="font-size: 150px; color: #0A3D62;"></i></div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-title"><h2>Why work with us</h2></div>
-      <div class="grid-3">
-        <div class="card"><i class="fas fa-gem"></i><h3>Uncapped commission</h3><p>Industry-leading commission structure. Your earnings reflect your success.</p></div>
-        <div class="card"><i class="fas fa-laptop-house"></i><h3>Flexible working</h3><p>Mix of office (Corby) and remote work. We trust you to deliver.</p></div>
-        <div class="card"><i class="fas fa-chart-simple"></i><h3>Clear progression</h3><p>From trainee to director – we map out your career path.</p></div>
-        <div class="card"><i class="fas fa-heart"></i><h3>Great benefits</h3><p>28 days holiday, pension, regular team socials.</p></div>
-        <div class="card"><i class="fas fa-brain"></i><h3>Ongoing training</h3><p>In-house learning and external courses.</p></div>
-        <div class="card"><i class="fas fa-handshake"></i><h3>Supportive culture</h3><p>Collaborative teams and open door policy.</p></div>
-      </div>
-    </div>
-  </section>
+    <section class="page-header">
+        <div class="container">
+            <h1>Join Our Team</h1>
+            <p>Build your career with Perfections Recruitment</p>
+        </div>
+    </section>
 
-  <section class="section bg-soft">
-    <div class="container">
-      <div class="section-title"><h2>Current openings</h2></div>
-      
-      <div class="job-card">
-        <div><h3>Senior Recruitment Consultant</h3><div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> Corby / Hybrid</span><span><i class="fas fa-clock"></i> Permanent</span></div><p><strong>£30k-£45k + uncapped commission</strong></p></div>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn">Apply</a>
-      </div>
-      
-      <div class="job-card">
-        <div><h3>Trainee Recruitment Consultant</h3><div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> Corby</span><span><i class="fas fa-clock"></i> Permanent</span></div><p><strong>£22k-£25k + commission</strong></p></div>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn">Apply</a>
-      </div>
-      
-      <div class="job-card">
-        <div><h3>Business Development Manager</h3><div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> Remote / UK</span><span><i class="fas fa-clock"></i> Permanent</span></div><p><strong>£40k-£55k + bonus</strong></p></div>
-        <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn">Apply</a>
-      </div>
-    </div>
-  </section>
+    <section class="careers-hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content" data-aos="fade-right">
+                    <h2>Grow with us</h2>
+                    <p>At Perfections Recruitment, we believe in investing in our people. We offer a supportive, high-energy environment where you can build a rewarding career in recruitment.</p>
+                    <div>
+                        <span class="hero-badge"><i class="fas fa-trophy"></i> Top Employer 2025</span>
+                        <span class="hero-badge"><i class="fas fa-chart-line"></i> Fast-growing agency</span>
+                        <span class="hero-badge"><i class="fas fa-hand-holding-heart"></i> Great team culture</span>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="section">
-    <div class="container" style="text-align: center;">
-      <h2 style="font-size: 32px; color: #0A3D62;">Ready to join us?</h2>
-      <p style="margin: 20px 0;">Send your CV to our hiring team.</p>
-      <a href="mailto:Akinkunmiokuseinde@gmail.com" class="btn">Send your CV</a>
-    </div>
-  </section>
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Why Join Us</span>
+                <h2 class="section-title">More than just a <span>job</span></h2>
+                <p class="section-subtitle">Build a career you're proud of with excellent benefits and support</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Uncapped Commission</h3>
+                    <p>Industry-leading commission structure. Your earnings reflect your success with no caps.</p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="benefit-icon">
+                        <i class="fas fa-laptop-house"></i>
+                    </div>
+                    <h3>Flexible Working</h3>
+                    <p>Mix of office (Corby) and remote work. We trust you to deliver, wherever you are.</p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-simple"></i>
+                    </div>
+                    <h3>Clear Progression</h3>
+                    <p>From trainee to director – we map out your career path with regular reviews and promotions.</p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Great Benefits</h3>
+                    <p>28 days holiday, pension, regular team socials, and wellbeing support.</p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="benefit-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Ongoing Training</h3>
+                    <p>In-house learning, external courses and access to industry events.</p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="benefit-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Supportive Culture</h3>
+                    <p>Collaborative teams, open door policy, and recognition for hard work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer class="footer">[same footer]</footer>
-  <div class="copyright">© 2026 Perfections Recruitment Agency Ltd</div>
+    <section class="jobs-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Open Positions</span>
+                <h2 class="section-title">Current <span>opportunities</span></h2>
+                <p class="section-subtitle">Join our team in Corby or work remotely across the UK</p>
+            </div>
+            <div class="jobs-list">
+                <div class="job-opening" data-aos="fade-up">
+                    <div class="job-info">
+                        <h3>Senior Recruitment Consultant</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Corby / Hybrid</span>
+                            <span><i class="fas fa-clock"></i> Permanent, full-time</span>
+                            <span><i class="fas fa-pound-sign"></i> £30k-£45k + uncapped commission</span>
+                        </div>
+                        <p><span class="job-badge">IT & Tech</span> <span class="job-badge">Construction</span></p>
+                    </div>
+                    <a href="mailto:info@perfectionsrecruitmentagency.com?subject=Senior Recruitment Consultant application" class="apply-btn">Apply now</a>
+                </div>
+
+                <div class="job-opening" data-aos="fade-up" data-aos-delay="100">
+                    <div class="job-info">
+                        <h3>Trainee Recruitment Consultant</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Corby (office based)</span>
+                            <span><i class="fas fa-clock"></i> Permanent, full-time</span>
+                            <span><i class="fas fa-pound-sign"></i> £22k-£25k + commission</span>
+                        </div>
+                        <p><span class="job-badge">Entry Level</span> <span class="job-badge">Full Training</span></p>
+                    </div>
+                    <a href="mailto:info@perfectionsrecruitmentagency.com?subject=Trainee Recruitment Consultant application" class="apply-btn">Apply now</a>
+                </div>
+
+                <div class="job-opening" data-aos="fade-up" data-aos-delay="200">
+                    <div class="job-info">
+                        <h3>Business Development Manager</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Remote / UK wide</span>
+                            <span><i class="fas fa-clock"></i> Permanent, full-time</span>
+                            <span><i class="fas fa-pound-sign"></i> £40k-£55k + bonus</span>
+                        </div>
+                        <p><span class="job-badge">Construction</span> <span class="job-badge">Industrial</span></p>
+                    </div>
+                    <a href="mailto:info@perfectionsrecruitmentagency.com?subject=Business Development Manager application" class="apply-btn">Apply now</a>
+                </div>
+
+                <div class="job-opening" data-aos="fade-up" data-aos-delay="300">
+                    <div class="job-info">
+                        <h3>Marketing Executive</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Corby / Hybrid</span>
+                            <span><i class="fas fa-clock"></i> Permanent, full-time</span>
+                            <span><i class="fas fa-pound-sign"></i> £25k-£30k + benefits</span>
+                        </div>
+                        <p><span class="job-badge">Digital Marketing</span> <span class="job-badge">Content</span></p>
+                    </div>
+                    <a href="mailto:info@perfectionsrecruitmentagency.com?subject=Marketing Executive application" class="apply-btn">Apply now</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color: var(--gray);">Don't see the right role? Send us a speculative application →</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Team Voices</span>
+                <h2 class="section-title">What our <span>team says</span></h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+                    <p class="team-quote">"I joined as a trainee two years ago. Now I'm leading my own desk and mentoring new starters. The support here is incredible."</p>
+                    <div class="team-author">
+                        <div class="team-avatar">E</div>
+                        <div class="team-info">
+                            <h4>Emily</h4>
+                            <p>Senior Consultant</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+                    <p class="team-quote">"The flexibility to work remotely while still feeling part of a team is rare. Great commission structure too."</p>
+                    <div class="team-author">
+                        <div class="team-avatar">D</div>
+                        <div class="team-info">
+                            <h4>David</h4>
+                            <p>Business Development</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+                    <p class="team-quote">"I love the variety – one day I'm recruiting for a startup, the next for a blue‑chip. Never a dull moment."</p>
+                    <div class="team-author">
+                        <div class="team-avatar">A</div>
+                        <div class="team-info">
+                            <h4>Aisha</h4>
+                            <p>Recruitment Consultant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to join us?</h2>
+            <p>Send your CV and a brief cover letter to our hiring team. We'll be in touch within 3 working days.</p>
+            <div class="cta-buttons">
+                <a href="mailto:info@perfectionsrecruitmentagency.com?subject=Job application" class="btn btn-white"><i class="fas fa-paper-plane"></i> Send your CV</a>
+                <a href="tel:+441536850341" class="btn btn-outline-white"><i class="fas fa-phone-alt"></i> Call us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Perfections Recruitment</div>
+                    <p>Your trusted recruitment partner, based in the United Kingdom.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="jobs.html">Latest Jobs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@perfectionsrecruitmentagency.com">info@perfectionsrecruitmentagency.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+441536850341">01536 850341</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+447521627390">07521 627390</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
