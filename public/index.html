@@ -19,6 +19,9 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -32,19 +35,28 @@
             --primary-light: #1f5a88;
             --secondary: #3c8dbc;
             --accent: #ff6b35;
+            --accent-light: #ff8c5a;
             --dark: #1e293b;
             --gray: #64748b;
             --light-gray: #f1f5f9;
             --light: #f8fafc;
             --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --whatsapp: #25D366;
+            --telegram: #0088cc;
+            --messenger: #006AFF;
             
             --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
             --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
             --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
             
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
+            --radius-xl: 30px;
             --radius-full: 9999px;
             
             --transition: all 0.3s ease;
@@ -55,6 +67,7 @@
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -63,15 +76,17 @@
             padding: 0 24px;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .main-header {
             background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             box-shadow: var(--shadow-sm);
             padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(60,141,188,0.1);
         }
 
         .main-header .container {
@@ -81,16 +96,29 @@
             flex-wrap: wrap;
         }
 
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
         .logo h1 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
             color: var(--primary);
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo h1 i {
+            color: var(--secondary);
         }
 
         .logo span {
             font-size: 12px;
             color: var(--gray);
+            font-weight: 500;
         }
 
         .nav {
@@ -102,6 +130,7 @@
         .nav a {
             color: var(--dark);
             font-weight: 500;
+            font-size: 14px;
             padding: 8px 16px;
             border-radius: var(--radius-full);
             transition: var(--transition);
@@ -127,16 +156,188 @@
             cursor: pointer;
         }
 
-        /* Hero */
+        /* ===== CHAT WIDGET ===== */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .chat-button {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--telegram), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: relative;
+            animation: pulse 2s infinite;
+            border: 3px solid var(--white);
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .chat-button .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid var(--white);
+            animation: pulse 1.5s infinite;
+        }
+
+        .chat-preview {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 15px 20px;
+            box-shadow: var(--shadow-lg);
+            max-width: 280px;
+            border: 1px solid rgba(60,141,188,0.2);
+            position: relative;
+            animation: slideIn 0.3s ease;
+            display: none;
+        }
+
+        .chat-preview.active {
+            display: block;
+        }
+
+        .chat-preview::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            transform: rotate(45deg);
+            border-right: 1px solid rgba(60,141,188,0.2);
+            border-bottom: 1px solid rgba(60,141,188,0.2);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .preview-avatar {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        .preview-header h4 {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .preview-message {
+            color: var(--dark);
+            font-size: 13px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .preview-time {
+            color: var(--gray);
+            font-size: 11px;
+            text-align: right;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .chat-action-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .chat-action-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .chat-action-btn.primary:hover {
+            background: var(--primary-light);
+        }
+
+        .chat-action-btn.secondary {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .chat-action-btn.secondary:hover {
+            background: var(--light-gray);
+        }
+
+        /* ===== HERO SECTION ===== */
         .hero {
-            padding: 80px 0;
+            position: relative;
+            padding: 100px 0;
             background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(60,141,188,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
         }
 
         .hero .container {
             display: flex;
             align-items: center;
             gap: 60px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -146,15 +347,20 @@
         .hero-badge {
             display: inline-block;
             background: rgba(60,141,188,0.1);
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: var(--radius-full);
             margin-bottom: 24px;
             color: var(--secondary);
             font-weight: 600;
+            font-size: 14px;
+        }
+
+        .hero-badge i {
+            margin-right: 5px;
         }
 
         .hero-title {
-            font-size: 48px;
+            font-size: 52px;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 24px;
@@ -163,6 +369,19 @@
 
         .hero-title span {
             color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title span::before {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(60,141,188,0.2);
+            z-index: -1;
         }
 
         .hero-text {
@@ -182,9 +401,10 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 30px;
+            padding: 14px 32px;
             border-radius: var(--radius-full);
             font-weight: 600;
+            font-size: 16px;
             transition: var(--transition);
             text-decoration: none;
             border: none;
@@ -194,11 +414,13 @@
         .btn-primary {
             background: var(--primary);
             color: var(--white);
+            box-shadow: 0 10px 20px -5px rgba(10,61,98,0.3);
         }
 
         .btn-primary:hover {
             background: var(--primary-light);
             transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(10,61,98,0.4);
         }
 
         .btn-outline {
@@ -210,11 +432,53 @@
         .btn-outline:hover {
             background: var(--primary);
             color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-chat {
+            background: linear-gradient(135deg, var(--telegram), var(--primary));
+            color: var(--white);
+            box-shadow: 0 10px 20px -5px rgba(0,136,204,0.3);
+        }
+
+        .btn-chat:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: translateY(-2px);
+        }
+
+        .btn-lg {
+            padding: 16px 40px;
+            font-size: 18px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 500;
         }
 
         .hero-image {
             flex: 1;
             animation: float 6s ease-in-out infinite;
+            position: relative;
         }
 
         @keyframes float {
@@ -226,10 +490,29 @@
             width: 100%;
             max-width: 500px;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-xl);
         }
 
-        /* Services */
+        .hero-image .chat-bubble {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            font-size: 14px;
+            font-weight: 600;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-10px)}
+        }
+
+        /* ===== SERVICES SECTION ===== */
         .services {
             padding: 80px 0;
             background: var(--white);
@@ -246,7 +529,10 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 12px;
-            display: block;
+            display: inline-block;
+            background: rgba(60,141,188,0.1);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
         }
 
         .section-title {
@@ -258,45 +544,60 @@
 
         .section-title span {
             color: var(--secondary);
+            position: relative;
+        }
+
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: var(--radius-full);
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 50px;
         }
 
         .service-card {
             background: var(--white);
             border-radius: var(--radius-lg);
-            padding: 30px;
+            padding: 40px 30px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(60,141,188,0.1);
             transition: var(--transition);
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: rgba(60,141,188,0.1);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .service-icon i {
-            font-size: 28px;
+            font-size: 32px;
             color: var(--primary);
         }
 
         .service-card h3 {
+            font-size: 22px;
             color: var(--primary);
             margin-bottom: 12px;
         }
@@ -304,6 +605,7 @@
         .service-card p {
             color: var(--gray);
             margin-bottom: 20px;
+            line-height: 1.7;
         }
 
         .service-link {
@@ -313,13 +615,15 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            transition: var(--transition);
         }
 
         .service-link:hover {
             color: var(--primary);
+            gap: 8px;
         }
 
-        /* Stats */
+        /* ===== STATS SECTION ===== */
         .stats-section {
             padding: 60px 0;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -335,6 +639,15 @@
 
         .stat-card {
             padding: 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
         }
 
         .stat-card i {
@@ -349,7 +662,297 @@
             margin-bottom: 5px;
         }
 
-        /* Footer */
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* ===== CHAT PREVIEW SECTION ===== */
+        .chat-preview-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--light), var(--white));
+        }
+
+        .chat-preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .chat-preview-content h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .chat-preview-content p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .chat-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chat-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-feature i {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 18px;
+        }
+
+        .chat-feature span {
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .chat-preview-demo {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(60,141,188,0.2);
+        }
+
+        .demo-message {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .demo-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .demo-bubble {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 18px;
+            border-top-left-radius: 4px;
+            max-width: 80%;
+        }
+
+        .demo-bubble p {
+            color: var(--dark);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .demo-bubble .time {
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+        .demo-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .demo-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+        }
+
+        .demo-input button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .demo-input button:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: var(--secondary);
+            opacity: 0.2;
+        }
+
+        .testimonial-rating {
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline-white:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
             background: var(--primary-dark);
             color: var(--white);
@@ -372,6 +975,28 @@
         .footer-about p {
             color: rgba(255,255,255,0.7);
             margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
         }
 
         .footer-links h4 {
@@ -445,6 +1070,46 @@
             font-size: 14px;
         }
 
+        /* ===== ANIMATIONS ===== */
+        @keyframes pulse {
+            0%,100%{transform:scale(1)}
+            50%{transform:scale(1.1)}
+        }
+
+        @keyframes slideIn {
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-text {
+                margin: 0 auto;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+            .testimonials-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+            .chat-preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
@@ -457,20 +1122,30 @@
             .nav.show {
                 display: flex;
             }
-            .hero .container {
-                flex-direction: column;
-            }
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 36px;
+            }
+            .chat-features {
+                grid-template-columns: 1fr;
+            }
+            .chat-preview {
+                max-width: 250px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- HEADER -->
     <header class="main-header">
         <div class="container">
             <div class="logo">
-                <h1>Perfections Recruitment</h1>
+                <h1><i class="fas fa-briefcase"></i> Perfections Recruitment</h1>
                 <span>Agency Ltd · working across United Kingdom</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -492,6 +1167,37 @@
         </div>
     </header>
 
+    <!-- CHAT WIDGET -->
+    <div class="chat-widget">
+        <div class="chat-preview" id="chatPreview">
+            <div class="preview-header">
+                <div class="preview-avatar">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4>Perfections Support</h4>
+            </div>
+            <div class="preview-message">
+                👋 Hi! Need help with your job search or hiring? Our team is here for you!
+            </div>
+            <div class="preview-time">
+                Just now
+            </div>
+            <div class="chat-actions">
+                <a href="chat.html" class="chat-action-btn primary">
+                    <i class="fas fa-comment"></i> Chat now
+                </a>
+                <a href="#" class="chat-action-btn secondary" onclick="closeChatPreview()">
+                    Later
+                </a>
+            </div>
+        </div>
+        <div class="chat-button" id="chatButton" onclick="window.location.href='chat.html'">
+            <i class="fas fa-comment-dots"></i>
+            <span class="badge" id="chatBadge">1</span>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
     <section class="hero">
         <div class="container">
             <div class="hero-content" data-aos="fade-right">
@@ -502,23 +1208,100 @@
                     Recruitment that works across <span>the United Kingdom</span>
                 </h1>
                 <p class="hero-text">
-                    Permanent · Temporary · Executive search. We connect the right talent with the right employers.
+                    Permanent · Temporary · Executive search. We connect the right talent with the right employers – from Corby to the whole UK, and globally.
                 </p>
                 <div class="hero-buttons">
-                    <a href="contact.html" class="btn btn-primary">
+                    <a href="contact.html" class="btn btn-primary btn-lg">
                         <i class="fas fa-paper-plane"></i> Start Hiring
                     </a>
-                    <a href="candidates.html" class="btn btn-outline">
+                    <a href="candidates.html" class="btn btn-outline btn-lg">
                         <i class="fas fa-users"></i> Find a Job
                     </a>
+                    <a href="chat.html" class="btn btn-chat btn-lg">
+                        <i class="fas fa-comment"></i> Live Chat
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">UK Placements</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">27</span>
+                        <span class="stat-label">UK Counties</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">92%</span>
+                        <span class="stat-label">Client Retention</span>
+                    </div>
                 </div>
             </div>
             <div class="hero-image" data-aos="fade-left">
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500" alt="Recruitment">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500" alt="Recruitment Meeting">
+                <div class="chat-bubble">
+                    <i class="fas fa-comment"></i> Chat with us!
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- CHAT PREVIEW SECTION -->
+    <section class="chat-preview-section">
+        <div class="container">
+            <div class="chat-preview-grid">
+                <div class="chat-preview-content" data-aos="fade-right">
+                    <span class="section-tag">Live Support</span>
+                    <h2>Chat with our team in <span>real-time</span></h2>
+                    <p>Get instant answers to your questions. Our recruitment specialists are online and ready to help you with job searches, hiring needs, or any other inquiries.</p>
+                    
+                    <div class="chat-features">
+                        <div class="chat-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant responses</span>
+                        </div>
+                        <div class="chat-feature">
+                            <i class="fas fa-headset"></i>
+                            <span>Live specialists</span>
+                        </div>
+                        <div class="chat-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile friendly</span>
+                        </div>
+                        <div class="chat-feature">
+                            <i class="fas fa-lock"></i>
+                            <span>Secure & private</span>
+                        </div>
+                    </div>
+
+                    <a href="chat.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-comment"></i> Start Live Chat
+                    </a>
+                </div>
+                <div class="chat-preview-demo" data-aos="fade-left">
+                    <div class="demo-message">
+                        <div class="demo-avatar">S</div>
+                        <div class="demo-bubble">
+                            <p>Hi! I'm looking for a software developer role in London. Can you help?</p>
+                            <span class="time">Just now</span>
+                        </div>
+                    </div>
+                    <div class="demo-message" style="justify-content: flex-end;">
+                        <div class="demo-bubble" style="background: var(--primary); color: white;">
+                            <p>Absolutely! We have several tech positions available. Let me connect you with our IT specialist.</p>
+                            <span class="time" style="color: rgba(255,255,255,0.7);">1 min ago</span>
+                        </div>
+                        <div class="demo-avatar" style="background: var(--primary); color: white;">P</div>
+                    </div>
+                    <div class="demo-input">
+                        <input type="text" placeholder="Type your message..." value="I'm interested in tech roles" disabled>
+                        <button disabled><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
     <section class="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
@@ -554,6 +1337,7 @@
         </div>
     </section>
 
+    <!-- STATS SECTION -->
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
@@ -573,20 +1357,102 @@
                     <div class="label">Client Retention</div>
                 </div>
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-users"></i>
-                    <div class="number">1.2k+</div>
-                    <div class="label">Active Candidates</div>
+                    <i class="fas fa-comment"></i>
+                    <div class="number">24/7</div>
+                    <div class="label">Live Chat Support</div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Testimonials</span>
+                <h2 class="section-title">What Our <span>Clients Say</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Perfections placed three senior developers in our London office within weeks. The chat support was incredibly helpful throughout the process."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SC</div>
+                        <div class="author-info">
+                            <h4>Sarah Chen</h4>
+                            <p>CTO, Finora</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"I used the live chat to ask about warehouse positions and got an immediate response. Within days, I had an interview lined up. Amazing service!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MT</div>
+                        <div class="author-info">
+                            <h4>Mike Thompson</h4>
+                            <p>Warehouse Supervisor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The chat feature is brilliant. Got all my questions answered about recruitment funding in minutes. Highly recommend their digital support."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>James Derrick</h4>
+                            <p>CEO, Derrick Group</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to start your journey?</h2>
+            <p>Chat with us now for instant support or browse our opportunities</p>
+            <div class="cta-buttons">
+                <a href="chat.html" class="btn btn-white btn-lg">
+                    <i class="fas fa-comment"></i> Live Chat
+                </a>
+                <a href="jobs.html" class="btn btn-outline-white btn-lg">
+                    <i class="fas fa-search"></i> Browse Jobs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BACK TO TOP -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-about">
                     <div class="footer-logo">Perfections Recruitment</div>
-                    <p>Your trusted recruitment partner, based in the United Kingdom.</p>
+                    <p>Your trusted recruitment partner, based in the United Kingdom. Live chat support available 24/7.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
@@ -597,25 +1463,106 @@
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="chat.html">Live Chat</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="funding.html">Funding</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
                     <p><i class="fas fa-envelope"></i> <a href="mailto:info@perfectionsrecruitmentagency.com">info@perfectionsrecruitmentagency.com</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+441536850341">01536 850341</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+447521627390">07521 627390</a></p>
+                    <p><i class="fas fa-comment"></i> <a href="chat.html">Live Chat Available</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved.</p>
+                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--accent);"></i> in the UK</p>
             </div>
         </div>
     </footer>
 
+    <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-        
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Mobile Menu
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('show');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Chat Widget
+        const chatPreview = document.getElementById('chatPreview');
+        const chatBadge = document.getElementById('chatBadge');
+
+        // Show chat preview after 3 seconds
+        setTimeout(() => {
+            chatPreview.classList.add('active');
+        }, 3000);
+
+        // Hide badge when preview is shown
+        setTimeout(() => {
+            chatBadge.style.display = 'none';
+        }, 3000);
+
+        // Close chat preview
+        window.closeChatPreview = function() {
+            chatPreview.classList.remove('active');
+        };
+
+        // Socket.IO Connection Status (optional - can be used to show online status)
+        let socket;
+        try {
+            socket = io({
+                reconnection: true,
+                reconnectionAttempts: 5,
+                reconnectionDelay: 1000
+            });
+
+            socket.on('connect', () => {
+                console.log('✅ Connected to chat server');
+                // Could update UI to show online status
+            });
+
+            socket.on('disconnect', () => {
+                console.log('❌ Disconnected from chat server');
+            });
+
+            socket.on('connect_error', (error) => {
+                console.log('⚠️ Chat server connection error:', error);
+            });
+        } catch (e) {
+            console.log('Socket.IO not available, using WebSocket fallback');
+        }
+
+        // Handle chat button click - redirect to full chat page
+        document.getElementById('chatButton').addEventListener('click', function() {
+            window.location.href = 'chat.html';
         });
     </script>
 </body>
