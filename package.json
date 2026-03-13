@@ -1,11 +1,14 @@
 {
   "name": "perfections-recruitment",
-  "version": "1.0.0",
-  "description": "Perfections Recruitment Agency - Complete System with Telegram Bot",
+  "version": "2.0.0",
+  "description": "Perfections Recruitment Agency - Complete System with Telegram Bot, Socket.IO Chat, and Real-time Messaging",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'Build complete'"
+    "dev": "nodemon server.js",
+    "build": "echo 'Build complete'",
+    "generate-jobs": "node scripts/generate-jobs.js",
+    "backup": "node scripts/backup.js"
   },
   "engines": {
     "node": "18.x",
@@ -13,6 +16,8 @@
   },
   "dependencies": {
     "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "ws": "^8.14.2",
     "node-telegram-bot-api": "^0.64.0",
     "node-fetch": "^2.7.0",
@@ -26,5 +31,8 @@
     "node-cron": "^3.0.3",
     "dotenv": "^16.3.1",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
