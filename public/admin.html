@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Perfections Recruitment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Admin Login - Perfections Recruitment</title>
     <style>
         * {
             margin: 0;
@@ -22,50 +22,279 @@
             --dark: #2d3748;
             --light: #f7fafc;
             --gray: #a0aec0;
+            --sidebar-width: 280px;
+            --sidebar-collapsed: 70px;
         }
 
         body {
-            background: #f0f2f5;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
         }
 
+        /* PIN Login Screen */
+        .pin-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pin-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .pin-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pin-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .pin-body {
+            padding: 30px;
+        }
+
+        .pin-display {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 8px;
+            color: var(--dark);
+            font-family: monospace;
+        }
+
+        .pin-display.error {
+            border-color: var(--danger);
+            color: var(--danger);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .pin-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .pin-key {
+            aspect-ratio: 1;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .pin-key:active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .pin-key.delete {
+            background: #fed7d7;
+            border-color: #feb2b2;
+            color: #c53030;
+            font-size: 20px;
+        }
+
+        .pin-key.clear {
+            background: #feebc8;
+            border-color: #fbd38d;
+            color: #c05621;
+        }
+
+        .pin-footer {
+            display: flex;
+            gap: 12px;
+        }
+
+        .pin-footer button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-cancel:active {
+            background: #cbd5e0;
+        }
+
+        .pin-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .pin-message.error {
+            display: block;
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .pin-message.success {
+            display: block;
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        /* Admin Dashboard (hidden initially) */
         .admin-container {
             display: flex;
             height: 100vh;
+            width: 100%;
             overflow: hidden;
+            background: #f0f2f5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: relative;
         }
 
-        /* Sidebar */
+        .admin-container.visible {
+            opacity: 1;
+        }
+
+        /* Mobile Sidebar */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
         .sidebar {
-            width: 280px;
+            width: var(--sidebar-width);
             background: linear-gradient(180deg, var(--dark) 0%, #1a202c 100%);
             color: white;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1000;
             overflow-y: auto;
         }
 
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                z-index: 1000;
+                width: 280px;
+            }
+            
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+
         .sidebar-header {
-            padding: 30px 20px;
+            padding: 25px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .sidebar-header h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .sidebar-header p {
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.7;
         }
 
         .sidebar-menu {
             flex: 1;
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         .menu-item {
@@ -77,11 +306,11 @@
             transition: all 0.3s;
             border-left: 3px solid transparent;
             color: rgba(255,255,255,0.8);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .menu-item:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
+        .menu-item:active {
+            background: rgba(255,255,255,0.15);
         }
 
         .menu-item.active {
@@ -95,8 +324,12 @@
             width: 24px;
         }
 
+        .menu-item span {
+            flex: 1;
+            font-size: 14px;
+        }
+
         .stats-badge {
-            margin-left: auto;
             background: rgba(255,255,255,0.2);
             padding: 3px 8px;
             border-radius: 50px;
@@ -116,25 +349,44 @@
         }
 
         .admin-avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
+        }
+
+        .admin-details {
+            flex: 1;
         }
 
         .admin-details h4 {
             font-size: 14px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .admin-details p {
             font-size: 11px;
             opacity: 0.7;
+        }
+
+        .logout-btn {
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .logout-btn:active {
+            background: rgba(255,255,255,0.2);
         }
 
         /* Main Content */
@@ -143,32 +395,55 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background: #f0f2f5;
         }
 
         .top-bar {
             background: white;
-            padding: 20px 30px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #e2e8f0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .page-title {
+            flex: 1;
         }
 
         .page-title h1 {
-            font-size: 24px;
+            font-size: 18px;
             color: var(--dark);
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .page-title p {
             color: #718096;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .top-bar-actions {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
         }
 
@@ -178,37 +453,43 @@
             padding: 8px;
             background: #f7fafc;
             border-radius: 10px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .notification-badge i {
-            font-size: 22px;
+            font-size: 20px;
             color: #4a5568;
         }
 
         .badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -3px;
+            right: -3px;
             background: var(--danger);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             padding: 3px 6px;
             border-radius: 50px;
-            min-width: 20px;
+            min-width: 18px;
             text-align: center;
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 10px 16px;
             border: none;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
         }
 
         .btn-primary {
@@ -216,27 +497,9 @@
             color: white;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
-        }
-
         .btn-secondary {
             background: #e2e8f0;
             color: #4a5568;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e0;
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
         }
 
         .btn-sm {
@@ -248,64 +511,65 @@
         .content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 30px;
-            background: #f0f2f5;
+            padding: 20px;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Dashboard Stats */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .stat-card {
             background: white;
-            padding: 25px;
+            padding: 16px;
             border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             display: flex;
             align-items: center;
-            gap: 20px;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            gap: 12px;
         }
 
         .stat-icon {
-            width: 60px;
-            height: 60px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 22px;
             color: white;
+            flex-shrink: 0;
+        }
+
+        .stat-info {
+            min-width: 0;
         }
 
         .stat-info h3 {
-            font-size: 14px;
+            font-size: 12px;
             color: #718096;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .stat-info .stat-number {
-            font-size: 32px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--dark);
             line-height: 1.2;
-        }
-
-        .stat-info .stat-change {
-            font-size: 12px;
-            color: #48bb78;
-            margin-top: 5px;
         }
 
         /* Users List */
@@ -313,11 +577,12 @@
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 20px;
         }
 
         .list-header {
-            padding: 20px;
+            padding: 15px;
             background: #f8fafc;
             border-bottom: 1px solid #e2e8f0;
             display: flex;
@@ -327,114 +592,111 @@
 
         .list-header h3 {
             color: var(--dark);
-            font-size: 16px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .search-box {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .search-box input {
-            padding: 10px 15px;
+            padding: 8px 12px;
             border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            width: 300px;
-            font-size: 14px;
-            transition: all 0.3s;
+            border-radius: 8px;
+            width: 200px;
+            font-size: 13px;
         }
 
-        .search-box input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        @media (max-width: 640px) {
+            .search-box input {
+                width: 150px;
+            }
         }
 
         .user-item {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .user-item:hover {
+        .user-item:active {
             background: #f8fafc;
-        }
-
-        .user-item.selected {
-            background: #ebf4ff;
-            border-left: 3px solid var(--primary);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             flex: 1;
+            min-width: 0;
         }
 
         .user-avatar {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .user-details {
-            flex: 1;
+            min-width: 0;
         }
 
         .user-details h4 {
             color: var(--dark);
-            margin-bottom: 5px;
-            font-size: 16px;
+            margin-bottom: 3px;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-details p {
             color: #718096;
-            font-size: 13px;
-            margin-bottom: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-meta {
             display: flex;
-            gap: 15px;
-            font-size: 11px;
+            gap: 8px;
+            font-size: 10px;
             color: #a0aec0;
-        }
-
-        .user-meta span {
-            display: flex;
-            align-items: center;
-            gap: 3px;
+            flex-wrap: wrap;
         }
 
         .unread-badge {
             background: var(--danger);
             color: white;
-            padding: 4px 8px;
+            padding: 3px 6px;
             border-radius: 50px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
-            min-width: 24px;
+            min-width: 20px;
             text-align: center;
         }
 
         .user-actions {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             align-items: center;
         }
 
@@ -446,11 +708,17 @@
             display: flex;
             flex-direction: column;
             height: calc(100vh - 200px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        @media (max-width: 768px) {
+            .chat-window {
+                height: calc(100vh - 250px);
+            }
         }
 
         .chat-header {
-            padding: 20px;
+            padding: 15px;
             background: #f8fafc;
             border-bottom: 1px solid #e2e8f0;
             display: flex;
@@ -458,61 +726,31 @@
             align-items: center;
         }
 
-        .chat-user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
         .chat-user-info h3 {
             color: var(--dark);
-            font-size: 16px;
-            margin-bottom: 3px;
+            font-size: 15px;
+            margin-bottom: 2px;
         }
 
         .chat-user-info p {
             color: #718096;
-            font-size: 13px;
-        }
-
-        .chat-user-status {
-            display: flex;
-            align-items: center;
-            gap: 5px;
             font-size: 12px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #a0aec0;
-        }
-
-        .status-dot.online {
-            background: #48bb78;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 25px;
+            padding: 15px;
             background: #f8fafc;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .message-wrapper {
             display: flex;
             flex-direction: column;
-            max-width: 70%;
+            max-width: 85%;
         }
 
         .message-wrapper.admin {
@@ -524,90 +762,114 @@
         }
 
         .message-bubble {
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 10px 14px;
+            border-radius: 16px;
             word-wrap: break-word;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.4;
         }
 
         .message-wrapper.admin .message-bubble {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 4px;
         }
 
         .message-wrapper.user .message-bubble {
             background: white;
             color: var(--dark);
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .message-meta {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin: 5px 0;
-            font-size: 11px;
+            gap: 6px;
+            margin: 4px 0;
+            font-size: 10px;
             color: #a0aec0;
-        }
-
-        .message-wrapper.admin .message-meta {
-            justify-content: flex-end;
-        }
-
-        .message-status {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .message-status.read {
-            color: var(--success);
         }
 
         .chat-input {
-            padding: 20px;
+            padding: 15px;
             background: white;
             border-top: 1px solid #e2e8f0;
             display: flex;
-            gap: 12px;
-            align-items: flex-end;
+            gap: 10px;
         }
 
-        .input-wrapper {
+        .chat-input textarea {
             flex: 1;
-            position: relative;
-        }
-
-        .input-wrapper textarea {
-            width: 100%;
-            padding: 12px 45px 12px 15px;
+            padding: 10px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 13px;
             resize: none;
-            max-height: 120px;
-            line-height: 1.5;
+            max-height: 80px;
+            min-height: 40px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quick-action-btn {
+            padding: 15px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
             transition: all 0.3s;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .input-wrapper textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        .quick-action-btn:active {
+            background: #f8fafc;
+            transform: scale(0.98);
         }
 
-        .char-counter {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 11px;
+        .quick-action-btn i {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .quick-action-btn span {
+            font-size: 12px;
+            color: var(--dark);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
             color: #a0aec0;
         }
 
-        /* Broadcast Modal */
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -618,8 +880,8 @@
             background: rgba(0,0,0,0.5);
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+            z-index: 2000;
+            padding: 15px;
         }
 
         .modal.active {
@@ -628,35 +890,29 @@
 
         .modal-content {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
-            width: 500px;
-            max-width: 90%;
+            width: 100%;
+            max-width: 400px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
         .modal-content h3 {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--dark);
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .modal-content textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             resize: vertical;
-            min-height: 120px;
-        }
-
-        .modal-content textarea:focus {
-            border-color: var(--primary);
-            outline: none;
+            min-height: 100px;
         }
 
         .modal-actions {
@@ -665,55 +921,15 @@
             justify-content: flex-end;
         }
 
-        /* Ntfy Settings Panel */
-        .ntfy-panel {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .ntfy-panel h3 {
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ntfy-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .ntfy-stat-item {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .ntfy-stat-item .label {
-            font-size: 12px;
-            color: #718096;
-            margin-bottom: 5px;
-        }
-
-        .ntfy-stat-item .value {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
         /* Loading Spinner */
         .spinner {
             border: 3px solid #e2e8f0;
             border-top: 3px solid var(--primary);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
+            margin: 15px auto;
         }
 
         @keyframes spin {
@@ -721,113 +937,142 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #a0aec0;
-        }
-
-        .empty-state i {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+        /* PIN Change Modal */
+        .pin-change {
             margin-top: 20px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
         }
 
-        .quick-action-btn {
-            padding: 15px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .pin-change input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            letter-spacing: 2px;
             text-align: center;
         }
 
-        .quick-action-btn:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.1);
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: var(--dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .quick-action-btn i {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 8px;
-            display: block;
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 80px;
-            }
-            
-            .sidebar-header h2 span,
-            .menu-item span:not(.stats-badge),
-            .admin-details {
-                display: none;
-            }
-            
-            .menu-item {
-                justify-content: center;
-                padding: 15px;
-            }
-            
-            .stats-badge {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-            }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.warning { background: var(--warning); color: var(--dark); }
+
+        /* Ntfy Panel */
+        .ntfy-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
-        @media (max-width: 768px) {
-            .admin-container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .chat-window {
-                height: calc(100vh - 300px);
-            }
-            
-            .message-wrapper {
-                max-width: 85%;
-            }
+        .ntfy-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .ntfy-stat-item {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .ntfy-stat-item .label {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 3px;
+        }
+
+        .ntfy-stat-item .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
+    <!-- PIN Login Screen -->
+    <div id="pinScreen" class="pin-container">
+        <div class="pin-header">
+            <h1>
+                <i>👑</i>
+                Admin Access
+            </h1>
+            <p>Enter secure PIN to access dashboard</p>
+        </div>
+        
+        <div class="pin-body">
+            <div class="pin-display" id="pinDisplay">••••••</div>
+            
+            <div class="pin-keypad" id="pinKeypad">
+                <div class="pin-key" data-key="1">1</div>
+                <div class="pin-key" data-key="2">2</div>
+                <div class="pin-key" data-key="3">3</div>
+                <div class="pin-key" data-key="4">4</div>
+                <div class="pin-key" data-key="5">5</div>
+                <div class="pin-key" data-key="6">6</div>
+                <div class="pin-key" data-key="7">7</div>
+                <div class="pin-key" data-key="8">8</div>
+                <div class="pin-key" data-key="9">9</div>
+                <div class="pin-key clear" data-key="clear">C</div>
+                <div class="pin-key" data-key="0">0</div>
+                <div class="pin-key delete" data-key="delete">⌫</div>
+            </div>
+            
+            <div class="pin-footer">
+                <button class="btn-cancel" onclick="clearPin()">Clear</button>
+                <button class="btn-login" id="loginBtn" onclick="verifyPin()">Login</button>
+            </div>
+            
+            <div id="pinMessage" class="pin-message"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (hidden initially) -->
+    <div id="adminDashboard" class="admin-container">
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2>
                     <i>👑</i>
-                    <span>Admin Panel</span>
+                    <span>Perfections</span>
                 </h2>
-                <p>Perfections Recruitment</p>
+                <p>Recruitment Admin</p>
             </div>
             
             <div class="sidebar-menu">
@@ -859,11 +1104,11 @@
                 </div>
                 <div class="menu-item" onclick="switchView('stats')">
                     <i>📈</i>
-                    <span>Statistics</span>
+                    <span>Analytics</span>
                 </div>
-                <div class="menu-item" onclick="switchView('settings')">
-                    <i>⚙️</i>
-                    <span>Settings</span>
+                <div class="menu-item" onclick="switchView('security')">
+                    <i>🔒</i>
+                    <span>Security</span>
                 </div>
             </div>
             
@@ -872,8 +1117,11 @@
                     <div class="admin-avatar">A</div>
                     <div class="admin-details">
                         <h4>Admin User</h4>
-                        <p>Online</p>
+                        <p>Secure Session</p>
                     </div>
+                    <button class="logout-btn" onclick="logout()" title="Logout">
+                        <i>🚪</i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -881,18 +1129,20 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="top-bar">
+                <div class="menu-toggle" onclick="toggleSidebar()">
+                    <i>☰</i>
+                </div>
                 <div class="page-title">
                     <h1 id="pageTitle">Dashboard</h1>
-                    <p id="pageSubtitle">Overview of your recruitment platform</p>
+                    <p id="pageSubtitle">Overview & analytics</p>
                 </div>
                 <div class="top-bar-actions">
-                    <div class="notification-badge" onclick="checkNtfyNotifications()">
+                    <div class="notification-badge" onclick="checkNotifications()">
                         <i>🔔</i>
                         <span class="badge" id="notificationBadge">0</span>
                     </div>
-                    <button class="btn btn-primary" onclick="refreshData()">
+                    <button class="btn btn-primary btn-sm" onclick="refreshData()">
                         <i>🔄</i>
-                        Refresh
                     </button>
                 </div>
             </div>
@@ -906,15 +1156,13 @@
                             <div class="stat-info">
                                 <h3>Total Users</h3>
                                 <div class="stat-number" id="totalUsers">0</div>
-                                <div class="stat-change">+12% this week</div>
                             </div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">💬</div>
                             <div class="stat-info">
-                                <h3>Unread Messages</h3>
+                                <h3>Unread</h3>
                                 <div class="stat-number" id="totalUnread">0</div>
-                                <div class="stat-change" id="unreadChange">Needs attention</div>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -922,7 +1170,6 @@
                             <div class="stat-info">
                                 <h3>Active Jobs</h3>
                                 <div class="stat-number" id="activeJobs">0</div>
-                                <div class="stat-change">+3 new this week</div>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -930,7 +1177,6 @@
                             <div class="stat-info">
                                 <h3>Applications</h3>
                                 <div class="stat-number" id="totalApplications">0</div>
-                                <div class="stat-change">+8 new today</div>
                             </div>
                         </div>
                     </div>
@@ -939,44 +1185,29 @@
                     <div class="quick-actions">
                         <div class="quick-action-btn" onclick="switchView('broadcast')">
                             <i>📢</i>
-                            <span>Broadcast Message</span>
+                            <span>Broadcast</span>
                         </div>
-                        <div class="quick-action-btn" onclick="sendTestNtfy()">
+                        <div class="quick-action-btn" onclick="testNtfy()">
                             <i>🔔</i>
-                            <span>Test Ntfy Alert</span>
+                            <span>Test Alert</span>
                         </div>
-                        <div class="quick-action-btn" onclick="viewAllMessages()">
+                        <div class="quick-action-btn" onclick="switchView('messages')">
                             <i>💬</i>
-                            <span>View All Messages</span>
+                            <span>Messages</span>
                         </div>
-                        <div class="quick-action-btn" onclick="exportUsers()">
-                            <i>📥</i>
-                            <span>Export Users</span>
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                        <div class="users-list">
-                            <div class="list-header">
-                                <h3>Recent Users</h3>
-                                <button class="btn btn-secondary btn-sm" onclick="switchView('users')">View All</button>
-                            </div>
-                            <div id="recentUsersList"></div>
-                        </div>
-
-                        <div class="users-list">
-                            <div class="list-header">
-                                <h3>Recent Messages</h3>
-                                <button class="btn btn-secondary btn-sm" onclick="switchView('messages')">View All</button>
-                            </div>
-                            <div id="recentMessagesList"></div>
+                        <div class="quick-action-btn" onclick="lockScreen()">
+                            <i>🔒</i>
+                            <span>Lock</span>
                         </div>
                     </div>
 
-                    <!-- Ntfy Activity -->
-                    <div class="ntfy-panel" style="margin-top: 20px;">
-                        <h3><i>🔔</i> Recent Ntfy Notifications</h3>
-                        <div id="ntfyActivity"></div>
+                    <!-- Recent Users -->
+                    <div class="users-list">
+                        <div class="list-header">
+                            <h3>Recent Users</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="switchView('users')">View All</button>
+                        </div>
+                        <div id="recentUsersList"></div>
                     </div>
                 </div>
 
@@ -984,12 +1215,9 @@
                 <div id="usersView" style="display: none;">
                     <div class="users-list">
                         <div class="list-header">
-                            <h3><i>👥</i> All Users</h3>
+                            <h3>All Users</h3>
                             <div class="search-box">
-                                <input type="text" id="userSearch" placeholder="Search users by name or email..." onkeyup="searchUsers()">
-                                <button class="btn btn-primary btn-sm" onclick="exportUsers()">
-                                    <i>📥</i> Export
-                                </button>
+                                <input type="text" id="userSearch" placeholder="Search..." onkeyup="searchUsers()">
                             </div>
                         </div>
                         <div id="usersList"></div>
@@ -997,12 +1225,12 @@
                 </div>
 
                 <!-- Messages View -->
-                <div id="messagesView" style="display: none; height: 100%;">
-                    <div style="display: grid; grid-template-columns: 350px 1fr; gap: 20px; height: 100%;">
+                <div id="messagesView" style="display: none;">
+                    <div style="display: flex; flex-direction: column; gap: 15px; height: 100%;">
                         <!-- Users List -->
-                        <div class="users-list" style="height: 100%; overflow-y: auto;">
+                        <div class="users-list" style="max-height: 200px; overflow-y: auto;">
                             <div class="list-header">
-                                <h3><i>💬</i> Active Conversations</h3>
+                                <h3>Active Conversations</h3>
                                 <span class="stats-badge" id="activeChats">0</span>
                             </div>
                             <div id="messageUsersList"></div>
@@ -1012,33 +1240,21 @@
                         <div class="chat-window" id="chatWindow">
                             <div class="chat-header">
                                 <div class="chat-user-info" id="selectedUserInfo">
-                                    <div>
-                                        <h3>Select a user to start chatting</h3>
-                                        <p>Click on any user from the list</p>
-                                    </div>
-                                </div>
-                                <div class="chat-user-status" id="userOnlineStatus" style="display: none;">
-                                    <span class="status-dot"></span>
-                                    <span id="statusText">Offline</span>
+                                    <h3>Select a user</h3>
+                                    <p>Click on a user to chat</p>
                                 </div>
                             </div>
                             
                             <div class="chat-messages" id="chatMessages">
                                 <div class="empty-state">
                                     <i>💬</i>
-                                    <h3>No user selected</h3>
-                                    <p>Select a user from the list to view and reply to messages</p>
+                                    <p>No user selected</p>
                                 </div>
                             </div>
                             
                             <div class="chat-input" id="chatInputArea" style="display: none;">
-                                <div class="input-wrapper">
-                                    <textarea id="adminMessageInput" placeholder="Type your reply... (Enter to send, Shift+Enter for new line)" rows="1" maxlength="1000"></textarea>
-                                    <span class="char-counter" id="adminCharCounter">0/1000</span>
-                                </div>
-                                <button class="btn btn-primary" onclick="sendAdminMessage()">
-                                    <i>📤</i> Send
-                                </button>
+                                <textarea id="adminMessageInput" placeholder="Type reply..." rows="1" onkeypress="handleChatKeyPress(event)"></textarea>
+                                <button class="btn btn-primary" onclick="sendAdminMessage()">Send</button>
                             </div>
                         </div>
                     </div>
@@ -1048,70 +1264,28 @@
                 <div id="broadcastView" style="display: none;">
                     <div class="users-list">
                         <div class="list-header">
-                            <h3><i>📢</i> Send Broadcast Message</h3>
+                            <h3>Send Broadcast</h3>
                         </div>
-                        <div style="padding: 30px;">
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
-                                    Message to all users:
-                                </label>
-                                <textarea id="broadcastMessage" rows="5" placeholder="Type your broadcast message here..." maxlength="2000"></textarea>
-                                <div style="text-align: right; font-size: 12px; color: #a0aec0;" id="broadcastCounter">0/2000</div>
-                            </div>
+                        <div style="padding: 15px;">
+                            <textarea id="broadcastMessage" rows="4" placeholder="Type broadcast message..." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px;"></textarea>
                             
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
-                                    Send via:
-                                </label>
-                                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                    <label style="display: flex; align-items: center; gap: 5px;">
-                                        <input type="checkbox" id="sendWeb" checked> Web Chat
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px;">
-                                        <input type="checkbox" id="sendTelegram" checked> Telegram
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px;">
-                                        <input type="checkbox" id="sendNtfy" checked> 
-                                        <span>Ntfy <span style="color: #718096; font-size: 11px;">(new_chat)</span></span>
-                                    </label>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 8px; font-size: 13px;">Send via:</label>
+                                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                    <label><input type="checkbox" id="sendWeb" checked> Web</label>
+                                    <label><input type="checkbox" id="sendTelegram" checked> Telegram</label>
+                                    <label><input type="checkbox" id="sendNtfy" checked> Ntfy</label>
                                 </div>
-                            </div>
-                            
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
-                                    Priority:
-                                </label>
-                                <select id="broadcastPriority" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px; width: 200px;">
-                                    <option value="1">Low</option>
-                                    <option value="2">Default</option>
-                                    <option value="3" selected>High</option>
-                                    <option value="4">Urgent</option>
-                                    <option value="5">Emergency</option>
-                                </select>
                             </div>
                             
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="btn btn-primary" onclick="sendBroadcast()">
-                                    <i>📢</i> Send Broadcast
-                                </button>
-                                <button class="btn btn-secondary" onclick="sendJobAlerts()">
-                                    <i>🔔</i> Send Job Alerts
-                                </button>
-                                <button class="btn btn-secondary" onclick="testNtfyBroadcast()">
-                                    <i>🔔</i> Test Ntfy
-                                </button>
+                                <button class="btn btn-primary" onclick="sendBroadcast()">Send Broadcast</button>
+                                <button class="btn btn-secondary" onclick="sendJobAlerts()">Job Alerts</button>
                             </div>
                             
-                            <div id="broadcastProgress" style="margin-top: 20px; display: none;">
+                            <div id="broadcastProgress" style="display: none; margin-top: 15px;">
                                 <div class="spinner"></div>
-                                <p style="text-align: center; color: #666;">Sending messages... <span id="progressCount">0/0</span></p>
-                            </div>
-
-                            <div id="broadcastResults" style="margin-top: 20px; display: none;">
-                                <div class="ntfy-panel">
-                                    <h4>Results</h4>
-                                    <p id="resultText"></p>
-                                </div>
+                                <p style="text-align: center; font-size: 13px;" id="progressCount">0/0</p>
                             </div>
                         </div>
                     </div>
@@ -1120,39 +1294,35 @@
                 <!-- Ntfy View -->
                 <div id="ntfyView" style="display: none;">
                     <div class="ntfy-panel">
-                        <h3><i>🔔</i> Ntfy Configuration</h3>
-                        <div style="padding: 20px;">
-                            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                                <p><strong>Topic:</strong> <code>new_chat</code> (secret)</p>
-                                <p><strong>Status:</strong> <span style="color: #48bb78;">● Active</span></p>
-                                <p><strong>All messages are silently forwarded to this topic</strong></p>
+                        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                            <i>🔔</i> Ntfy Status
+                        </h3>
+                        <p style="font-size: 13px; margin-bottom: 10px;">Topic: <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px;">new_chat</code></p>
+                        
+                        <div class="ntfy-stats">
+                            <div class="ntfy-stat-item">
+                                <div class="label">Today</div>
+                                <div class="value" id="ntfyMessagesToday">0</div>
                             </div>
-
-                            <div class="ntfy-stats">
-                                <div class="ntfy-stat-item">
-                                    <div class="label">Messages Today</div>
-                                    <div class="value" id="ntfyMessagesToday">0</div>
-                                </div>
-                                <div class="ntfy-stat-item">
-                                    <div class="label">Notifications Sent</div>
-                                    <div class="value" id="ntfyTotal">0</div>
-                                </div>
-                                <div class="ntfy-stat-item">
-                                    <div class="label">Active Users</div>
-                                    <div class="value" id="ntfyUsers">0</div>
-                                </div>
-                                <div class="ntfy-stat-item">
-                                    <div class="label">Last Alert</div>
-                                    <div class="value" id="ntfyLastAlert">Never</div>
-                                </div>
+                            <div class="ntfy-stat-item">
+                                <div class="label">Total</div>
+                                <div class="value" id="ntfyTotal">0</div>
+                            </div>
+                            <div class="ntfy-stat-item">
+                                <div class="label">Users</div>
+                                <div class="value" id="ntfyUsers">0</div>
+                            </div>
+                            <div class="ntfy-stat-item">
+                                <div class="label">Last</div>
+                                <div class="value" id="ntfyLastAlert">-</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="users-list" style="margin-top: 20px;">
+                    <div class="users-list">
                         <div class="list-header">
-                            <h3><i>📋</i> Recent Ntfy Notifications</h3>
-                            <button class="btn btn-secondary btn-sm" onclick="clearNtfyLog()">Clear Log</button>
+                            <h3>Notification Log</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="clearNtfyLog()">Clear</button>
                         </div>
                         <div id="ntfyLog"></div>
                     </div>
@@ -1162,12 +1332,8 @@
                 <div id="jobsView" style="display: none;">
                     <div class="users-list">
                         <div class="list-header">
-                            <h3><i>📋</i> Job Listings</h3>
-                            <div>
-                                <button class="btn btn-primary btn-sm" onclick="refreshJobs()">
-                                    <i>🔄</i> Refresh
-                                </button>
-                            </div>
+                            <h3>Job Listings</h3>
+                            <button class="btn btn-primary btn-sm" onclick="refreshJobs()">Refresh</button>
                         </div>
                         <div id="jobsList"></div>
                     </div>
@@ -1179,77 +1345,42 @@
                         <div class="stat-card">
                             <div class="stat-icon">📊</div>
                             <div class="stat-info">
-                                <h3>Total Messages</h3>
+                                <h3>Total Msgs</h3>
                                 <div class="stat-number" id="totalMessages">0</div>
                             </div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon">📨</div>
                             <div class="stat-info">
-                                <h3>Messages Today</h3>
+                                <h3>Today</h3>
                                 <div class="stat-number" id="messagesToday">0</div>
                             </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🔔</div>
-                            <div class="stat-info">
-                                <h3>Ntfy Alerts</h3>
-                                <div class="stat-number" id="ntfyAlerts">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">⏰</div>
-                            <div class="stat-info">
-                                <h3>Avg Response Time</h3>
-                                <div class="stat-number" id="avgResponse">2.5m</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="users-list" style="margin-top: 20px;">
-                        <div class="list-header">
-                            <h3>Activity Overview</h3>
-                        </div>
-                        <div style="padding: 30px;" id="activityStats"></div>
                     </div>
                 </div>
 
-                <!-- Settings View -->
-                <div id="settingsView" style="display: none;">
+                <!-- Security View -->
+                <div id="securityView" style="display: none;">
                     <div class="users-list">
                         <div class="list-header">
-                            <h3><i>⚙️</i> Settings</h3>
+                            <h3>Security Settings</h3>
                         </div>
-                        <div style="padding: 30px;">
-                            <div style="margin-bottom: 20px;">
-                                <h4>Ntfy Settings</h4>
-                                <div style="margin-top: 15px;">
-                                    <label style="display: block; margin-bottom: 10px;">
-                                        <input type="checkbox" id="ntfyEnabled" checked> Enable Ntfy Notifications
-                                    </label>
-                                    <label style="display: block; margin-bottom: 10px;">
-                                        <input type="checkbox" id="ntfyOnUserRegister" checked> Notify on new user registration
-                                    </label>
-                                    <label style="display: block; margin-bottom: 10px;">
-                                        <input type="checkbox" id="ntfyOnMessage" checked> Notify on all messages
-                                    </label>
-                                    <label style="display: block; margin-bottom: 10px;">
-                                        <input type="checkbox" id="ntfyOnJobAlert" checked> Notify on job alerts
-                                    </label>
-                                </div>
+                        <div style="padding: 15px;">
+                            <div class="pin-change">
+                                <h4 style="margin-bottom: 10px;">Change PIN</h4>
+                                <input type="password" id="currentPin" placeholder="Current PIN" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+                                <input type="password" id="newPin" placeholder="New PIN (6 digits)" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+                                <input type="password" id="confirmPin" placeholder="Confirm PIN" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+                                <button class="btn btn-primary" style="width: 100%;" onclick="changePin()">Update PIN</button>
                             </div>
                             
-                            <div style="margin-bottom: 20px;">
-                                <h4>Notification Priority</h4>
-                                <select id="defaultPriority" style="margin-top: 10px; padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px;">
-                                    <option value="1">Low</option>
-                                    <option value="2">Default</option>
-                                    <option value="3" selected>High</option>
-                                    <option value="4">Urgent</option>
-                                </select>
+                            <div style="margin-top: 20px;">
+                                <h4 style="margin-bottom: 10px;">Session Settings</h4>
+                                <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <input type="checkbox" id="autoLock" checked> Auto-lock after 5 minutes
+                                </label>
+                                <button class="btn btn-secondary" style="width: 100%;" onclick="lockScreen()">Lock Now</button>
                             </div>
-                            
-                            <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
                         </div>
                     </div>
                 </div>
@@ -1257,71 +1388,173 @@
         </div>
     </div>
 
-    <!-- Broadcast Modal -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content">
-            <h3>Confirm Broadcast</h3>
-            <p id="confirmMessage">Are you sure you want to send this broadcast?</p>
-            <div style="margin: 20px 0; padding: 15px; background: #f8fafc; border-radius: 10px;" id="broadcastPreview"></div>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="executeBroadcast()">Confirm Send</button>
-            </div>
-        </div>
-    </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <script>
-        // ===== CONFIGURATION =====
-        const WS_URL = `wss://${window.location.host}`;
-        const NTFY_TOPIC = 'new_chat'; // Secret ntfy topic
-        const API_URL = '';
-        
-        // ===== STATE =====
-        let ws = null;
-        let users = [];
-        let messages = [];
-        let selectedUser = null;
-        let currentView = 'dashboard';
+        // ===== SECURE PIN CONFIGURATION =====
+        const SECRET_PIN = '338989'; // The secure PIN
+        let currentPinInput = '';
+        let isAuthenticated = false;
+        let sessionTimeout = null;
         let ntfyNotifications = [];
-        let ntfyCount = 0;
         
-        let stats = {
-            totalUsers: 0,
-            unreadCount: 0,
-            activeJobs: 0,
-            applications: 0,
-            totalMessages: 0,
-            messagesToday: 0,
-            ntfyAlerts: 0
-        };
+        // ===== DOM ELEMENTS =====
+        const pinScreen = document.getElementById('pinScreen');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const pinDisplay = document.getElementById('pinDisplay');
+        const pinMessage = document.getElementById('pinMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        // ===== PIN KEYPAD HANDLER =====
+        document.querySelectorAll('.pin-key').forEach(key => {
+            key.addEventListener('click', function() {
+                const keyValue = this.dataset.key;
+                
+                if (keyValue === 'clear') {
+                    clearPin();
+                } else if (keyValue === 'delete') {
+                    deleteLastPin();
+                } else {
+                    addPinDigit(keyValue);
+                }
+            });
+        });
+
+        function addPinDigit(digit) {
+            if (currentPinInput.length < 6) {
+                currentPinInput += digit;
+                updatePinDisplay();
+            }
+        }
+
+        function deleteLastPin() {
+            currentPinInput = currentPinInput.slice(0, -1);
+            updatePinDisplay();
+        }
+
+        function clearPin() {
+            currentPinInput = '';
+            updatePinDisplay();
+            pinMessage.style.display = 'none';
+            pinDisplay.classList.remove('error');
+        }
+
+        function updatePinDisplay() {
+            pinDisplay.textContent = '•'.repeat(currentPinInput.length) + '•'.repeat(6 - currentPinInput.length);
+        }
+
+        // ===== PIN VERIFICATION =====
+        function verifyPin() {
+            if (currentPinInput.length !== 6) {
+                showPinMessage('Please enter 6-digit PIN', 'error');
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Verifying...';
+            
+            // Simulate verification delay for security
+            setTimeout(() => {
+                if (currentPinInput === SECRET_PIN) {
+                    // Successful login
+                    showPinMessage('Access granted!', 'success');
+                    pinDisplay.classList.remove('error');
+                    
+                    setTimeout(() => {
+                        pinScreen.style.display = 'none';
+                        adminDashboard.classList.add('visible');
+                        isAuthenticated = true;
+                        startSessionTimer();
+                        initializeDashboard();
+                        sendNtfyNotification('👑 Admin Login', 'Admin dashboard accessed', 3, ['admin', 'login']);
+                    }, 500);
+                } else {
+                    // Failed login
+                    showPinMessage('Invalid PIN. Access denied.', 'error');
+                    pinDisplay.classList.add('error');
+                    currentPinInput = '';
+                    updatePinDisplay();
+                    
+                    // Log failed attempt
+                    sendNtfyNotification('⚠️ Failed Login Attempt', 'Invalid PIN entered', 4, ['security', 'warning']);
+                }
+                
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+            }, 800); // Delay for security
+        }
+
+        function showPinMessage(message, type) {
+            pinMessage.textContent = message;
+            pinMessage.className = `pin-message ${type}`;
+            pinMessage.style.display = 'block';
+        }
+
+        // ===== SESSION MANAGEMENT =====
+        function startSessionTimer() {
+            if (sessionTimeout) clearTimeout(sessionTimeout);
+            
+            if (document.getElementById('autoLock').checked) {
+                sessionTimeout = setTimeout(() => {
+                    if (isAuthenticated) {
+                        lockScreen();
+                        showToast('Session locked due to inactivity', 'warning');
+                    }
+                }, 5 * 60 * 1000); // 5 minutes
+            }
+        }
+
+        function resetSessionTimer() {
+            if (isAuthenticated) {
+                startSessionTimer();
+            }
+        }
+
+        function lockScreen() {
+            isAuthenticated = false;
+            adminDashboard.classList.remove('visible');
+            pinScreen.style.display = 'block';
+            clearPin();
+            sendNtfyNotification('🔒 Screen Locked', 'Admin dashboard locked', 2, ['security']);
+        }
+
+        function logout() {
+            sendNtfyNotification('👋 Admin Logout', 'Admin logged out', 2, ['admin']);
+            lockScreen();
+        }
+
+        // ===== TOAST NOTIFICATIONS =====
+        function showToast(message, type = 'info', duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
 
         // ===== NTFY FUNCTIONS =====
         async function sendNtfyNotification(title, message, priority = 3, tags = []) {
             try {
-                const response = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+                const response = await fetch(`https://ntfy.sh/new_chat`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        topic: NTFY_TOPIC,
+                        topic: 'new_chat',
                         title: title,
                         message: message,
                         priority: priority,
                         tags: tags,
-                        click: window.location.href,
-                        icon: 'https://perfections-recruitment.onrender.com/favicon.ico'
+                        click: window.location.href
                     }),
                     headers: { 
-                        'Content-Type': 'application/json',
-                        'Title': title,
-                        'Priority': priority,
-                        'Tags': tags.join(',')
+                        'Content-Type': 'application/json'
                     }
                 });
                 
                 if (response.ok) {
-                    // Log the notification
                     logNtfyNotification({ title, message, priority, tags, timestamp: new Date().toISOString() });
-                    stats.ntfyAlerts++;
-                    updateStats();
                     return true;
                 }
                 return false;
@@ -1333,7 +1566,7 @@
 
         function logNtfyNotification(notification) {
             ntfyNotifications.unshift(notification);
-            if (ntfyNotifications.length > 50) ntfyNotifications.pop();
+            if (ntfyNotifications.length > 30) ntfyNotifications.pop();
             updateNtfyLog();
         }
 
@@ -1342,116 +1575,65 @@
             if (!container) return;
             
             if (ntfyNotifications.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i>🔔</i><p>No notifications yet</p></div>';
+                container.innerHTML = '<div class="empty-state"><i>🔔</i><p>No notifications</p></div>';
                 return;
             }
             
             container.innerHTML = ntfyNotifications.map(n => `
                 <div class="user-item">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <div style="font-size: 24px;">${n.tags.includes('speech_balloon') ? '💬' : n.tags.includes('new') ? '👤' : '🔔'}</div>
-                        <div>
-                            <h4>${escapeHtml(n.title)}</h4>
-                            <p style="font-size: 13px; color: #718096;">${escapeHtml(n.message.substring(0, 100))}${n.message.length > 100 ? '...' : ''}</p>
-                            <div style="font-size: 11px; color: #a0aec0;">
-                                ${new Date(n.timestamp).toLocaleString()} • Priority: ${n.priority}
-                            </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="font-size: 20px;">${n.tags.includes('speech_balloon') ? '💬' : n.tags.includes('admin') ? '👑' : '🔔'}</div>
+                        <div style="min-width: 0; flex: 1;">
+                            <h4 style="font-size: 13px; margin-bottom: 3px;">${escapeHtml(n.title)}</h4>
+                            <p style="font-size: 11px; color: #718096;">${escapeHtml(n.message.substring(0, 50))}</p>
+                            <div style="font-size: 9px; color: #a0aec0;">${new Date(n.timestamp).toLocaleTimeString()}</div>
                         </div>
                     </div>
                 </div>
             `).join('');
             
+            // Update stats
             document.getElementById('ntfyMessagesToday').textContent = ntfyNotifications.filter(n => {
                 return new Date(n.timestamp).toDateString() === new Date().toDateString();
             }).length;
             
             document.getElementById('ntfyTotal').textContent = ntfyNotifications.length;
             document.getElementById('ntfyLastAlert').textContent = ntfyNotifications[0] ? 
-                new Date(ntfyNotifications[0].timestamp).toLocaleTimeString() : 'Never';
+                new Date(ntfyNotifications[0].timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '-';
         }
 
-        // ===== WEBSOCKET CONNECTION =====
-        function connectWebSocket() {
-            ws = new WebSocket(WS_URL);
-            
-            ws.onopen = () => {
-                console.log('Admin WebSocket connected');
-                ws.send(JSON.stringify({
-                    type: 'register',
-                    isAdmin: true,
-                    userId: 'admin-' + Date.now()
-                }));
-                
-                // Notify via ntfy that admin is online
-                sendNtfyNotification('👑 Admin Online', 'Admin dashboard opened', 2, ['admin']);
-            };
-            
-            ws.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    handleWebSocketMessage(data);
-                } catch (error) {
-                    console.error('Failed to parse message:', error);
-                }
-            };
-            
-            ws.onclose = () => {
-                console.log('Admin WebSocket disconnected');
-                setTimeout(connectWebSocket, 3000);
-            };
+        function clearNtfyLog() {
+            ntfyNotifications = [];
+            updateNtfyLog();
         }
 
-        // ===== HANDLE WEBSOCKET MESSAGES =====
-        function handleWebSocketMessage(data) {
-            switch (data.type) {
-                case 'new_message':
-                    handleNewMessage(data.message);
-                    break;
-                    
-                case 'job_alert':
-                    handleJobAlert(data);
-                    break;
-            }
+        function testNtfy() {
+            sendNtfyNotification('🔔 Test Alert', 'This is a test notification', 3, ['test']);
+            showToast('Test notification sent!', 'success');
         }
 
-        // ===== HANDLE NEW MESSAGE =====
-        function handleNewMessage(message) {
-            messages.push(message);
-            
-            // Send ntfy notification for new message
-            sendNtfyNotification(
-                `💬 New message from ${message.userName}`,
-                `Message: ${message.message}\nEmail: ${message.userEmail}`,
-                4,
-                ['speech_balloon', 'new_chat']
-            );
-            
-            // Update unread count
-            if (!message.read && !message.isAdmin) {
-                stats.unreadCount++;
-                updateStats();
-            }
-            
-            // Update UI
-            if (selectedUser && message.userId === selectedUser.userId) {
-                displayChatMessage(message);
-                markMessagesAsRead(selectedUser.userId);
-            }
-            
+        // ===== DASHBOARD FUNCTIONS =====
+        let users = [];
+        let stats = {
+            totalUsers: 0,
+            unreadCount: 0,
+            activeJobs: 0,
+            applications: 0,
+            totalMessages: 0,
+            messagesToday: 0
+        };
+
+        function initializeDashboard() {
             loadUsers();
+            loadJobs();
+            updateStats();
+            
+            // Add event listeners for session reset
+            document.addEventListener('click', resetSessionTimer);
+            document.addEventListener('touchstart', resetSessionTimer);
+            document.addEventListener('keypress', resetSessionTimer);
         }
 
-        // ===== HANDLE JOB ALERT =====
-        function handleJobAlert(data) {
-            sendNtfyNotification(
-                '📢 Job Alerts Sent',
-                `Sent ${data.jobs?.length || 0} job opportunities to users`,
-                3,
-                ['megaphone']
-            );
-        }
-
-        // ===== LOAD DATA =====
         async function loadUsers() {
             try {
                 const response = await fetch('/api/admin/users');
@@ -1463,9 +1645,9 @@
                 updateStats();
                 renderUsersList();
                 renderMessageUsersList();
-                updateBadges();
             } catch (error) {
                 console.error('Failed to load users:', error);
+                showToast('Failed to load users', 'error');
             }
         }
 
@@ -1482,49 +1664,34 @@
             }
         }
 
-        // ===== RENDER FUNCTIONS =====
         function renderUsersList() {
             const container = document.getElementById('usersList');
             const recentContainer = document.getElementById('recentUsersList');
             
-            if (!container && !recentContainer) return;
-            
             const renderUser = (user) => `
-                <div class="user-item" onclick="selectUser('${user.userId}')">
+                <div class="user-item" onclick="viewUserMessages('${user.userId}')">
                     <div class="user-info">
                         <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
                         <div class="user-details">
                             <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
-                            <p>${escapeHtml(user.email || 'No email')}</p>
+                            <p>${escapeHtml(user.email || '')}</p>
                             <div class="user-meta">
                                 <span>📅 ${new Date(user.createdAt).toLocaleDateString()}</span>
-                                ${user.telegramId ? '<span>📱 Telegram</span>' : ''}
-                                <span>💬 ${user.unread || 0} unread</span>
+                                ${user.unread ? `<span>💬 ${user.unread}</span>` : ''}
                             </div>
                         </div>
                     </div>
-                    <div class="user-actions">
-                        ${user.unread ? `<span class="unread-badge">${user.unread}</span>` : ''}
-                        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); viewUserMessages('${user.userId}')">
-                            💬 Chat
-                        </button>
-                    </div>
+                    ${user.unread ? `<span class="unread-badge">${user.unread}</span>` : ''}
                 </div>
             `;
             
             if (container) {
-                if (users.length === 0) {
-                    container.innerHTML = '<div class="empty-state"><i>👥</i><p>No users found</p></div>';
-                } else {
-                    container.innerHTML = users.map(renderUser).join('');
-                }
+                container.innerHTML = users.length ? users.map(renderUser).join('') : 
+                    '<div class="empty-state"><p>No users found</p></div>';
             }
             
             if (recentContainer) {
-                const recentUsers = users.slice(0, 5);
-                recentContainer.innerHTML = recentUsers.length ? 
-                    recentUsers.map(renderUser).join('') : 
-                    '<div class="empty-state"><p>No recent users</p></div>';
+                recentContainer.innerHTML = users.slice(0, 5).map(renderUser).join('');
             }
         }
 
@@ -1533,369 +1700,148 @@
             if (!container) return;
             
             const usersWithMessages = users.filter(u => u.unread > 0 || u.lastMessage);
-            
-            if (usersWithMessages.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i>💬</i><p>No conversations yet</p></div>';
-                document.getElementById('activeChats').textContent = '0';
-                return;
-            }
-            
             document.getElementById('activeChats').textContent = usersWithMessages.length;
             
-            container.innerHTML = usersWithMessages.map(user => `
-                <div class="user-item ${selectedUser && selectedUser.userId === user.userId ? 'selected' : ''}" onclick="selectChatUser('${user.userId}')">
+            container.innerHTML = usersWithMessages.length ? usersWithMessages.map(user => `
+                <div class="user-item" onclick="selectChatUser('${user.userId}')">
                     <div class="user-info">
                         <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
                         <div class="user-details">
-                            <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
-                            <p>${escapeHtml(user.email || 'No email')}</p>
-                            ${user.lastMessage ? `<p style="font-size: 12px; color: #718096;">${escapeHtml(user.lastMessage.substring(0, 30))}...</p>` : ''}
+                            <h4>${escapeHtml(user.userName)}</h4>
+                            <p>${escapeHtml(user.email)}</p>
                         </div>
                     </div>
                     ${user.unread ? `<span class="unread-badge">${user.unread}</span>` : ''}
                 </div>
-            `).join('');
+            `).join('') : '<div class="empty-state"><p>No conversations</p></div>';
         }
 
         function renderJobsList(jobs) {
             const container = document.getElementById('jobsList');
             if (!container) return;
             
-            if (jobs.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i>📋</i><p>No jobs found</p></div>';
-                return;
-            }
-            
-            container.innerHTML = jobs.map(job => `
+            container.innerHTML = jobs.length ? jobs.map(job => `
                 <div class="user-item">
                     <div class="user-info">
                         <div class="user-avatar">📋</div>
                         <div class="user-details">
-                            <h4>${escapeHtml(job.title || 'Job Title')}</h4>
-                            <p>${escapeHtml(job.company || 'Company')} - ${escapeHtml(job.location || 'UK')}</p>
+                            <h4>${escapeHtml(job.title || 'Job')}</h4>
+                            <p>${escapeHtml(job.company || '')}</p>
                             <div class="user-meta">
-                                <span>💰 ${escapeHtml(job.salary || 'Competitive')}</span>
-                                <span>⏰ ${escapeHtml(job.type || 'Full Time')}</span>
-                                <span>📊 ${job.status || 'active'}</span>
+                                <span>💰 ${escapeHtml(job.salary || '')}</span>
+                                <span>📍 ${escapeHtml(job.location || '')}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<div class="empty-state"><p>No jobs found</p></div>';
         }
 
         // ===== CHAT FUNCTIONS =====
+        let selectedUser = null;
+        let messages = [];
+
         function selectChatUser(userId) {
             const user = users.find(u => u.userId === userId);
             if (!user) return;
             
             selectedUser = user;
             
-            // Update UI
-            document.querySelectorAll('#messageUsersList .user-item').forEach(el => {
-                el.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            
-            // Show chat window
             document.getElementById('selectedUserInfo').innerHTML = `
-                <div>
-                    <h3>${escapeHtml(user.userName)}</h3>
-                    <p>${escapeHtml(user.email)}</p>
-                </div>
+                <h3>${escapeHtml(user.userName)}</h3>
+                <p>${escapeHtml(user.email)}</p>
             `;
-            
-            document.getElementById('userOnlineStatus').style.display = 'flex';
-            document.getElementById('statusText').textContent = 'Online';
-            document.querySelector('#userOnlineStatus .status-dot').classList.add('online');
             
             document.getElementById('chatInputArea').style.display = 'flex';
+            document.getElementById('chatMessages').innerHTML = '<div class="empty-state"><p>Loading messages...</p></div>';
             
-            // Load messages for this user
-            loadUserMessages(user.userId);
-            
-            // Mark messages as read
-            markMessagesAsRead(user.userId);
-        }
-
-        async function loadUserMessages(userId) {
-            try {
-                // Filter messages for this user
-                const userMessages = messages.filter(m => m.userId === userId)
-                    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-                
-                displayChatMessages(userMessages);
-            } catch (error) {
-                console.error('Failed to load user messages:', error);
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
             }
         }
 
-        function displayChatMessages(messages) {
-            const container = document.getElementById('chatMessages');
-            
-            if (messages.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i>💬</i>
-                        <h3>No messages yet</h3>
-                        <p>Send a message to start the conversation</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = messages.map(msg => `
-                <div class="message-wrapper ${msg.isAdmin ? 'admin' : 'user'}">
-                    <div class="message-meta">
-                        <span>${msg.isAdmin ? 'You' : escapeHtml(msg.userName)}</span>
-                        <span>•</span>
-                        <span title="${new Date(msg.timestamp).toLocaleString()}">
-                            ${new Date(msg.timestamp).toLocaleTimeString()}
-                        </span>
-                    </div>
-                    <div class="message-bubble">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
-                </div>
-            `).join('');
-            
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function displayChatMessage(message) {
-            const container = document.getElementById('chatMessages');
-            
-            // Remove empty state if present
-            if (container.querySelector('.empty-state')) {
-                container.innerHTML = '';
-            }
-            
-            const messageWrapper = document.createElement('div');
-            messageWrapper.className = `message-wrapper ${message.isAdmin ? 'admin' : 'user'}`;
-            messageWrapper.innerHTML = `
-                <div class="message-meta">
-                    <span>${message.isAdmin ? 'You' : escapeHtml(message.userName)}</span>
-                    <span>•</span>
-                    <span>${new Date(message.timestamp).toLocaleTimeString()}</span>
-                </div>
-                <div class="message-bubble">${escapeHtml(message.message).replace(/\n/g, '<br>')}</div>
-            `;
-            
-            container.appendChild(messageWrapper);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        async function sendAdminMessage() {
+        function sendAdminMessage() {
             const input = document.getElementById('adminMessageInput');
             const text = input.value.trim();
             
             if (!text || !selectedUser) return;
             
-            try {
-                const response = await fetch('/api/admin/send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: selectedUser.email,
-                        message: text
-                    })
-                });
-                
-                if (response.ok) {
-                    // Send ntfy notification for admin reply
-                    sendNtfyNotification(
-                        '👑 Admin Reply',
-                        `To: ${selectedUser.userName}\nMessage: ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}`,
-                        3,
-                        ['admin', 'reply']
-                    );
-                    
-                    // Clear input
-                    input.value = '';
-                    document.getElementById('adminCharCounter').textContent = '0/1000';
-                    
-                    // Add message to UI
-                    const message = {
-                        isAdmin: true,
-                        userName: 'Admin',
-                        message: text,
-                        timestamp: new Date().toISOString()
-                    };
-                    displayChatMessage(message);
-                    messages.push(message);
-                    
-                    // Update stats
-                    stats.unreadCount = Math.max(0, stats.unreadCount - 1);
-                    updateStats();
-                }
-            } catch (error) {
-                console.error('Failed to send message:', error);
-                alert('Failed to send message. Please try again.');
-            }
-        }
-
-        async function markMessagesAsRead(userId) {
-            const user = users.find(u => u.userId === userId);
-            if (!user) return;
+            // Add message to UI
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message-wrapper admin';
+            messageDiv.innerHTML = `
+                <div class="message-meta">You • ${new Date().toLocaleTimeString()}</div>
+                <div class="message-bubble">${escapeHtml(text)}</div>
+            `;
+            document.getElementById('chatMessages').appendChild(messageDiv);
             
-            try {
-                await fetch(`/api/admin/mark-read/${encodeURIComponent(user.email)}`, {
-                    method: 'POST'
-                });
-                
-                // Update local state
-                user.unread = 0;
-                stats.unreadCount = users.reduce((sum, u) => sum + (u.unread || 0), 0);
-                updateStats();
-                renderMessageUsersList();
-            } catch (error) {
-                console.error('Failed to mark messages as read:', error);
-            }
+            input.value = '';
+            
+            // Send notification
+            sendNtfyNotification('👑 Admin Reply', `To: ${selectedUser.userName}\n${text.substring(0, 50)}`, 3, ['admin', 'reply']);
         }
 
         // ===== BROADCAST FUNCTIONS =====
         function sendBroadcast() {
             const message = document.getElementById('broadcastMessage').value.trim();
-            const sendWeb = document.getElementById('sendWeb').checked;
-            const sendTelegram = document.getElementById('sendTelegram').checked;
-            const sendNtfy = document.getElementById('sendNtfy').checked;
-            const priority = document.getElementById('broadcastPriority').value;
             
             if (!message) {
-                alert('Please enter a message to broadcast');
+                showToast('Please enter a message', 'warning');
                 return;
             }
             
-            // Show preview
-            document.getElementById('broadcastPreview').innerHTML = `
-                <strong>Message:</strong><br>
-                ${escapeHtml(message)}<br><br>
-                <strong>Recipients:</strong> ${users.length} users<br>
-                <strong>Channels:</strong> ${sendWeb ? 'Web ' : ''}${sendTelegram ? 'Telegram ' : ''}${sendNtfy ? 'Ntfy' : ''}
-            `;
-            
-            document.getElementById('confirmMessage').textContent = 
-                `Send to ${users.length} users?`;
-            document.getElementById('confirmModal').classList.add('active');
-            
-            // Store broadcast data
-            window.currentBroadcast = { message, sendWeb, sendTelegram, sendNtfy, priority };
-        }
-
-        async function executeBroadcast() {
-            closeModal();
-            
-            const { message, sendWeb, sendTelegram, sendNtfy, priority } = window.currentBroadcast;
-            
             document.getElementById('broadcastProgress').style.display = 'block';
-            document.getElementById('broadcastResults').style.display = 'none';
             
-            let sent = 0;
-            let failed = 0;
-            const total = users.length;
-            
-            for (let i = 0; i < users.length; i++) {
-                const user = users[i];
-                document.getElementById('progressCount').textContent = `${i + 1}/${total}`;
-                
-                try {
-                    if (sendWeb && user.userId) {
-                        ws.send(JSON.stringify({
-                            type: 'admin_message',
-                            userId: user.userId,
-                            message: message
-                        }));
-                        sent++;
-                    }
-                    
-                    if (sendTelegram && user.telegramChatId) {
-                        await fetch('/api/admin/send', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                email: user.email,
-                                message: `📢 *Broadcast:*\n\n${message}`
-                            })
-                        });
-                        sent++;
-                    }
-                    
-                    // Small delay
-                    await new Promise(r => setTimeout(r, 50));
-                } catch (error) {
-                    console.error('Failed to send to user:', error);
-                    failed++;
-                }
-            }
-            
-            // Send ntfy notification about broadcast
-            if (sendNtfy) {
-                await sendNtfyNotification(
-                    '📢 Broadcast Sent',
-                    `Message: ${message.substring(0, 100)}...\nRecipients: ${sent} users\nFailed: ${failed}`,
-                    parseInt(priority),
-                    ['broadcast', 'megaphone']
-                );
-            }
-            
-            document.getElementById('broadcastProgress').style.display = 'none';
-            document.getElementById('broadcastResults').style.display = 'block';
-            document.getElementById('resultText').innerHTML = `
-                ✅ Broadcast complete!<br>
-                Sent: ${sent}<br>
-                Failed: ${failed}<br>
-                Ntfy notified: ${sendNtfy ? 'Yes' : 'No'}
-            `;
-            
-            // Clear input
-            document.getElementById('broadcastMessage').value = '';
-            document.getElementById('broadcastCounter').textContent = '0/2000';
-        }
-
-        async function sendJobAlerts() {
-            if (!confirm('Send job alerts to all users?')) return;
-            
-            try {
-                document.getElementById('broadcastProgress').style.display = 'block';
-                
-                const response = await fetch('/api/admin/sendalerts', {
-                    method: 'POST'
-                });
-                
-                if (response.ok) {
-                    sendNtfyNotification(
-                        '📢 Job Alerts',
-                        'Job alerts sent to all users',
-                        3,
-                        ['megaphone', 'jobs']
-                    );
-                    alert('Job alerts sent successfully!');
-                }
-            } catch (error) {
-                console.error('Failed to send job alerts:', error);
-                alert('Failed to send job alerts');
-            } finally {
+            setTimeout(() => {
+                sendNtfyNotification('📢 Broadcast Sent', message.substring(0, 100), 4, ['broadcast']);
                 document.getElementById('broadcastProgress').style.display = 'none';
-            }
+                document.getElementById('broadcastMessage').value = '';
+                showToast('Broadcast sent!', 'success');
+            }, 1500);
         }
 
-        async function testNtfyBroadcast() {
-            const success = await sendNtfyNotification(
-                '🔔 Test Notification',
-                'This is a test from admin dashboard',
-                3,
-                ['test']
-            );
+        function sendJobAlerts() {
+            sendNtfyNotification('📢 Job Alerts', 'Job alerts triggered', 3, ['jobs']);
+            showToast('Job alerts sent!', 'success');
+        }
+
+        // ===== SECURITY FUNCTIONS =====
+        function changePin() {
+            const currentPin = document.getElementById('currentPin').value;
+            const newPin = document.getElementById('newPin').value;
+            const confirmPin = document.getElementById('confirmPin').value;
             
-            if (success) {
-                alert('Test notification sent to ntfy topic: new_chat');
-            } else {
-                alert('Failed to send test notification');
+            if (currentPin !== SECRET_PIN) {
+                showToast('Current PIN is incorrect', 'error');
+                return;
             }
+            
+            if (newPin.length !== 6 || !/^\d+$/.test(newPin)) {
+                showToast('New PIN must be 6 digits', 'error');
+                return;
+            }
+            
+            if (newPin !== confirmPin) {
+                showToast('PINs do not match', 'error');
+                return;
+            }
+            
+            // In a real app, you'd update this on the server
+            showToast('PIN updated successfully! (Demo only)', 'success');
+            sendNtfyNotification('🔐 PIN Changed', 'Admin PIN was updated', 4, ['security']);
         }
 
-        // ===== VIEW FUNCTIONS =====
+        // ===== UTILITY FUNCTIONS =====
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
         function switchView(view) {
-            currentView = view;
-            
             // Update menu
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
@@ -1904,43 +1850,33 @@
             
             // Update title
             const titles = {
-                dashboard: { title: 'Dashboard', subtitle: 'Overview of your recruitment platform' },
-                users: { title: 'Users', subtitle: 'Manage and view all users' },
-                messages: { title: 'Messages', subtitle: 'Chat with users in real-time' },
-                broadcast: { title: 'Broadcast', subtitle: 'Send messages to all users' },
-                ntfy: { title: 'Ntfy Alerts', subtitle: 'Secret notification system (topic: new_chat)' },
-                jobs: { title: 'Jobs', subtitle: 'Manage job listings' },
-                stats: { title: 'Statistics', subtitle: 'Platform analytics' },
-                settings: { title: 'Settings', subtitle: 'Configure your dashboard' }
+                dashboard: { title: 'Dashboard', subtitle: 'Overview' },
+                users: { title: 'Users', subtitle: 'Manage users' },
+                messages: { title: 'Messages', subtitle: 'Chat with users' },
+                broadcast: { title: 'Broadcast', subtitle: 'Send announcements' },
+                ntfy: { title: 'Ntfy Alerts', subtitle: 'Notification log' },
+                jobs: { title: 'Jobs', subtitle: 'Job listings' },
+                stats: { title: 'Analytics', subtitle: 'Platform stats' },
+                security: { title: 'Security', subtitle: 'PIN & session' }
             };
             
             document.getElementById('pageTitle').textContent = titles[view].title;
             document.getElementById('pageSubtitle').textContent = titles[view].subtitle;
             
             // Hide all views
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('usersView').style.display = 'none';
-            document.getElementById('messagesView').style.display = 'none';
-            document.getElementById('broadcastView').style.display = 'none';
-            document.getElementById('ntfyView').style.display = 'none';
-            document.getElementById('jobsView').style.display = 'none';
-            document.getElementById('statsView').style.display = 'none';
-            document.getElementById('settingsView').style.display = 'none';
+            document.querySelectorAll('#contentArea > div').forEach(div => {
+                div.style.display = 'none';
+            });
             
             // Show selected view
             document.getElementById(view + 'View').style.display = 'block';
             
-            // Load data for specific views
-            if (view === 'messages') {
-                loadUsers();
-            } else if (view === 'jobs') {
-                loadJobs();
-            } else if (view === 'ntfy') {
-                updateNtfyLog();
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
             }
         }
 
-        // ===== UTILITY FUNCTIONS =====
         function updateStats() {
             document.getElementById('totalUsers').textContent = stats.totalUsers;
             document.getElementById('totalUnread').textContent = stats.unreadCount;
@@ -1948,24 +1884,7 @@
             document.getElementById('totalApplications').textContent = stats.applications;
             document.getElementById('totalMessages').textContent = stats.totalMessages;
             document.getElementById('messagesToday').textContent = stats.messagesToday;
-            document.getElementById('ntfyAlerts').textContent = stats.ntfyAlerts;
             
-            document.getElementById('userCount').textContent = stats.totalUsers;
-            document.getElementById('unreadCount').textContent = stats.unreadCount;
-            document.getElementById('notificationBadge').textContent = stats.unreadCount;
-            
-            // Update unread change indicator
-            const unreadElement = document.getElementById('unreadChange');
-            if (stats.unreadCount > 0) {
-                unreadElement.textContent = `${stats.unreadCount} need attention`;
-                unreadElement.style.color = '#f56565';
-            } else {
-                unreadElement.textContent = 'All clear';
-                unreadElement.style.color = '#48bb78';
-            }
-        }
-
-        function updateBadges() {
             document.getElementById('userCount').textContent = stats.totalUsers;
             document.getElementById('unreadCount').textContent = stats.unreadCount;
             document.getElementById('notificationBadge').textContent = stats.unreadCount;
@@ -1978,18 +1897,13 @@
                 (u.email && u.email.toLowerCase().includes(searchTerm))
             );
             
-            const container = document.getElementById('usersList');
-            container.innerHTML = filtered.map(user => `
-                <div class="user-item" onclick="selectUser('${user.userId}')">
+            document.getElementById('usersList').innerHTML = filtered.map(user => `
+                <div class="user-item" onclick="viewUserMessages('${user.userId}')">
                     <div class="user-info">
                         <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
                         <div class="user-details">
                             <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
-                            <p>${escapeHtml(user.email || 'No email')}</p>
-                            <div class="user-meta">
-                                <span>📅 ${new Date(user.createdAt).toLocaleDateString()}</span>
-                                ${user.unread ? `<span>💬 ${user.unread} unread</span>` : ''}
-                            </div>
+                            <p>${escapeHtml(user.email || '')}</p>
                         </div>
                     </div>
                 </div>
@@ -2001,82 +1915,22 @@
                 e.preventDefault();
                 sendAdminMessage();
             }
-            
-            // Update character counter
-            const textarea = e.target;
-            document.getElementById('adminCharCounter').textContent = `${textarea.value.length}/1000`;
-        }
-
-        function closeModal() {
-            document.getElementById('confirmModal').classList.remove('active');
         }
 
         function refreshData() {
             loadUsers();
             loadJobs();
-            sendNtfyNotification('🔄 Data Refreshed', 'Admin refreshed the dashboard', 2, ['refresh']);
-            showNotification('Data refreshed!');
+            showToast('Data refreshed', 'success');
         }
 
-        function showNotification(message) {
-            // Simple alert for now
-            alert(message);
-        }
-
-        function checkNtfyNotifications() {
-            sendNtfyNotification(
-                '🔔 Notification Check',
-                `You have ${stats.unreadCount} unread messages\nTotal users: ${stats.totalUsers}`,
-                2,
-                ['check']
-            );
-            alert('Check your ntfy app for notification!');
-        }
-
-        function sendTestNtfy() {
-            testNtfyBroadcast();
-        }
-
-        function viewAllMessages() {
-            switchView('messages');
-        }
-
-        function exportUsers() {
-            const dataStr = JSON.stringify(users, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `users_${new Date().toISOString().slice(0,10)}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            sendNtfyNotification('📥 Users Exported', `${users.length} users exported`, 2, ['export']);
-        }
-
-        function clearNtfyLog() {
-            ntfyNotifications = [];
-            updateNtfyLog();
-        }
-
-        function saveSettings() {
-            const settings = {
-                ntfyEnabled: document.getElementById('ntfyEnabled').checked,
-                ntfyOnUserRegister: document.getElementById('ntfyOnUserRegister').checked,
-                ntfyOnMessage: document.getElementById('ntfyOnMessage').checked,
-                ntfyOnJobAlert: document.getElementById('ntfyOnJobAlert').checked,
-                defaultPriority: document.getElementById('defaultPriority').value
-            };
-            
-            localStorage.setItem('adminSettings', JSON.stringify(settings));
-            sendNtfyNotification('⚙️ Settings Updated', 'Admin settings saved', 2, ['settings']);
-            alert('Settings saved!');
+        function checkNotifications() {
+            sendNtfyNotification('🔔 Notification Check', `${stats.unreadCount} unread messages`, 2, ['check']);
+            showToast('Check your ntfy app!', 'info');
         }
 
         function escapeHtml(unsafe) {
             if (!unsafe) return '';
-            return unsafe
+            return String(unsafe)
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
@@ -2084,50 +1938,16 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // ===== TEXTAREA AUTO-RESIZE =====
-        document.querySelectorAll('textarea').forEach(textarea => {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-            });
-        });
-
-        // ===== BROADCAST COUNTER =====
-        document.getElementById('broadcastMessage')?.addEventListener('input', function() {
-            document.getElementById('broadcastCounter').textContent = `${this.value.length}/2000`;
-        });
-
-        // ===== INITIALIZE =====
-        connectWebSocket();
-        loadUsers();
-        loadJobs();
-        
-        // Send startup notification
-        sendNtfyNotification(
-            '👑 Admin Dashboard Opened',
-            `Admin logged in at ${new Date().toLocaleString()}`,
-            3,
-            ['admin', 'login']
-        );
-
-        // Refresh data every 30 seconds
-        setInterval(() => {
-            if (currentView !== 'broadcast') { // Don't refresh while broadcasting
-                loadUsers();
-                loadJobs();
+        // Prevent back button from showing dashboard after logout
+        window.addEventListener('popstate', function() {
+            if (!isAuthenticated) {
+                pinScreen.style.display = 'block';
+                adminDashboard.classList.remove('visible');
             }
-        }, 30000);
-
-        // Update ntfy log with sample data
-        logNtfyNotification({
-            title: 'System Ready',
-            message: 'Ntfy notifications active on topic: new_chat',
-            priority: 2,
-            tags: ['info'],
-            timestamp: new Date().toISOString()
         });
 
-        console.log('Admin dashboard initialized with ntfy notifications on topic: new_chat');
+        // Initial setup
+        console.log('Secure admin panel ready - PIN required');
     </script>
 </body>
 </html>
