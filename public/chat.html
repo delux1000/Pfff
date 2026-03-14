@@ -86,6 +86,23 @@
             font-size: 22px;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
         .header-right {
             display: flex;
             align-items: center;
@@ -133,6 +150,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            cursor: pointer;
         }
 
         /* Main Chat Area */
@@ -151,12 +169,38 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            transition: transform 0.3s ease;
         }
 
         @media (max-width: 768px) {
             .chat-sidebar {
-                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                z-index: 1000;
+                width: 280px;
             }
+            
+            .chat-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
         }
 
         .sidebar-section {
@@ -223,7 +267,6 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .btn:active {
@@ -392,6 +435,10 @@
             color: var(--success);
         }
 
+        .message-status.sending {
+            color: var(--warning);
+        }
+
         /* Typing Indicator */
         .typing-indicator {
             padding: 10px 20px;
@@ -399,7 +446,7 @@
             align-items: center;
             gap: 8px;
             font-size: 12px;
-            color: #a0aec0;
+            color: var(--gray);
         }
 
         .typing-indicator.active {
@@ -414,7 +461,7 @@
         .typing-dots span {
             width: 6px;
             height: 6px;
-            background: #a0aec0;
+            background: var(--gray);
             border-radius: 50%;
             animation: typingBounce 1.4s infinite ease-in-out;
         }
@@ -454,6 +501,7 @@
             min-height: 45px;
             line-height: 1.5;
             transition: all 0.3s;
+            font-family: inherit;
         }
 
         .input-wrapper textarea:focus {
@@ -492,7 +540,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .send-btn:active:not(:disabled) {
@@ -511,6 +558,7 @@
             gap: 8px;
             flex-wrap: wrap;
             background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
         }
 
         .quick-reply-btn {
@@ -522,7 +570,6 @@
             color: #4a5568;
             cursor: pointer;
             transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .quick-reply-btn:active {
@@ -561,7 +608,7 @@
             top: 20px;
             right: 20px;
             left: 20px;
-            z-index: 1000;
+            z-index: 2000;
             pointer-events: none;
             display: flex;
             flex-direction: column;
@@ -602,70 +649,6 @@
             padding: 0 4px;
         }
 
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-            margin: -8px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
-
-        /* Mobile Sidebar */
-        .mobile-sidebar {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            backdrop-filter: blur(3px);
-        }
-
-        .mobile-sidebar.active {
-            display: block;
-        }
-
-        .mobile-sidebar-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: white;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-        }
-
-        .mobile-sidebar.active .mobile-sidebar-content {
-            transform: translateX(0);
-        }
-
-        .close-sidebar {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--dark);
-            padding: 8px;
-        }
-
         /* Loading Spinner */
         .spinner {
             border: 3px solid #e2e8f0;
@@ -681,19 +664,35 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Mobile Close Button */
+        .close-sidebar {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .close-sidebar {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Alert Container -->
     <div id="alertContainer" class="alert-container"></div>
 
-    <!-- Mobile Sidebar -->
-    <div class="mobile-sidebar" id="mobileSidebar" onclick="closeMobileSidebar(event)">
-        <div class="mobile-sidebar-content" onclick="event.stopPropagation()">
-            <button class="close-sidebar" onclick="closeMobileSidebar()">×</button>
-            <div style="padding: 60px 20px 20px;" id="mobileSidebarContent"></div>
-        </div>
-    </div>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
 
     <!-- Main Chat Container -->
     <div class="chat-container">
@@ -707,8 +706,8 @@
                 </h1>
             </div>
             <div class="header-right">
-                <div class="unread-badge" id="unreadBadge" style="display: none;">
-                    <span>💬</span>
+                <div class="unread-badge" id="unreadBadge" onclick="scrollToBottom()" style="display: none;">
+                    <span>📥</span>
                     <span id="unreadCount">0</span>
                 </div>
                 <div class="connection-status" id="connectionStatus">
@@ -720,8 +719,10 @@
 
         <!-- Main Content -->
         <div class="chat-main">
-            <!-- Desktop Sidebar -->
-            <div class="chat-sidebar">
+            <!-- Sidebar -->
+            <div class="chat-sidebar" id="sidebar">
+                <button class="close-sidebar" onclick="closeMobileSidebar()">×</button>
+                
                 <div class="sidebar-section">
                     <h3>👤 Your Account</h3>
                     <div class="form-group">
@@ -749,6 +750,10 @@
                         <div class="profile-item">
                             <span>🆔</span>
                             <span id="displayUserId"></span>
+                        </div>
+                        <div class="profile-item">
+                            <span>📊</span>
+                            <span id="messageCount">0 messages</span>
                         </div>
                     </div>
                 </div>
@@ -827,13 +832,14 @@
         let currentUser = null;
         let reconnectAttempts = 0;
         const maxReconnectAttempts = 10;
-        let messageHistory = [];
+        let messages = [];
         let typingTimeout = null;
         let lastMessageTime = null;
         let unreadCount = 0;
         let isConnected = false;
         let pingInterval = null;
         let messageQueue = [];
+        let messageIdCounter = 0;
 
         // ===== DOM ELEMENTS =====
         const messagesContainer = document.getElementById('messagesContainer');
@@ -853,8 +859,11 @@
         const displayName = document.getElementById('displayName');
         const displayEmail = document.getElementById('displayEmail');
         const displayUserId = document.getElementById('displayUserId');
+        const messageCount = document.getElementById('messageCount');
         const unreadBadge = document.getElementById('unreadBadge');
         const unreadCountSpan = document.getElementById('unreadCount');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
         // ===== WEBSOCKET CONNECTION =====
         function connectWebSocket() {
@@ -867,19 +876,18 @@
                     isConnected = true;
                     reconnectAttempts = 0;
                     
-                    // Start ping interval to keep connection alive
+                    // Start ping interval
                     startPingInterval();
                     
-                    // Register user if already logged in
+                    // Register user if logged in
                     if (currentUser) {
                         registerWithWebSocket();
                     }
                     
-                    // Send any queued messages
+                    // Send queued messages
                     sendMessageQueue();
                     
-                    // Notify server
-                    sendNtfyNotification('👤 User Connected', currentUser?.userName || 'Anonymous', 2);
+                    showToast('Connected to server', 'success');
                 };
                 
                 ws.onclose = () => {
@@ -893,6 +901,7 @@
                         reconnectAttempts++;
                         const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
                         setTimeout(connectWebSocket, delay);
+                        showToast('Reconnecting...', 'info');
                     }
                 };
                 
@@ -919,8 +928,8 @@
         function handleWebSocketMessage(data) {
             switch (data.type) {
                 case 'history':
-                    messageHistory = data.messages || [];
-                    displayMessageHistory(messageHistory);
+                    messages = data.messages || [];
+                    displayMessageHistory(messages);
                     break;
                     
                 case 'new_message':
@@ -936,15 +945,15 @@
                     break;
                     
                 case 'read_receipt':
-                    updateReadReceipts(data.messageId);
+                    updateReadReceipt(data.messageId);
                     break;
                     
                 case 'pong':
-                    console.log('Pong received');
+                    // Connection is alive
                     break;
                     
                 case 'error':
-                    showAlert(data.message || 'An error occurred', 'error');
+                    showToast(data.message || 'An error occurred', 'error');
                     break;
                     
                 default:
@@ -1005,10 +1014,12 @@
                 }));
                 
                 // Request message history
-                ws.send(JSON.stringify({
-                    type: 'get_history',
-                    userId: currentUser.userId
-                }));
+                setTimeout(() => {
+                    ws.send(JSON.stringify({
+                        type: 'get_history',
+                        userId: currentUser.userId
+                    }));
+                }, 500);
             }
         }
 
@@ -1018,12 +1029,12 @@
             const email = userEmailInput.value.trim();
             
             if (!name || !email) {
-                showAlert('Please enter both name and email', 'error');
+                showToast('Please enter both name and email', 'error');
                 return;
             }
             
             if (!isValidEmail(email)) {
-                showAlert('Please enter a valid email address', 'error');
+                showToast('Please enter a valid email address', 'error');
                 return;
             }
             
@@ -1084,22 +1095,22 @@
                 registerBtn.innerHTML = '<i>✓</i> Registered';
                 
                 // Register with WebSocket
-                if (isConnected) {
+                if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
                     registerWithWebSocket();
                 }
                 
-                showAlert(isNewUser ? 'Welcome! Your account has been created.' : `Welcome back, ${currentUser.userName}!`, 'success');
+                showToast(isNewUser ? 'Welcome! Your account has been created.' : `Welcome back, ${currentUser.userName}!`, 'success');
                 
-                // Notify via ntfy
-                if (isNewUser) {
-                    sendNtfyNotification('👤 New User', `${currentUser.userName} (${currentUser.email}) registered`, 3);
-                } else {
-                    sendNtfyNotification('👤 User Returned', `${currentUser.userName} returned to chat`, 2);
-                }
+                // Send ntfy notification
+                sendNtfyNotification(
+                    isNewUser ? '👤 New User' : '👤 User Returned',
+                    `${currentUser.userName} (${currentUser.email})`,
+                    isNewUser ? 3 : 2
+                );
                 
             } catch (error) {
                 console.error('Registration error:', error);
-                showAlert('Registration failed. Please try again.', 'error');
+                showToast('Registration failed. Please try again.', 'error');
                 registerBtn.disabled = false;
                 registerBtn.innerHTML = '<i>🚀</i> Start Chatting';
             }
@@ -1110,6 +1121,7 @@
             displayName.textContent = user.userName;
             displayEmail.textContent = user.email;
             displayUserId.textContent = user.userId.substring(0, 8) + '...';
+            messageCount.textContent = `${messages.length} messages`;
             userProfile.style.display = 'block';
         }
 
@@ -1122,17 +1134,20 @@
             }
             
             if (text.length > 500) {
-                showAlert('Message too long (max 500 characters)', 'warning');
+                showToast('Message too long (max 500 characters)', 'warning');
                 return;
             }
             
             // Rate limiting
             const now = Date.now();
             if (lastMessageTime && now - lastMessageTime < 1000) {
-                showAlert('Please wait a moment before sending another message', 'warning');
+                showToast('Please wait a moment before sending another message', 'warning');
                 return;
             }
             lastMessageTime = now;
+            
+            const messageId = generateMessageId();
+            const timestamp = new Date().toISOString();
             
             const message = {
                 type: 'chat',
@@ -1141,27 +1156,43 @@
                 userName: currentUser.userName,
                 email: currentUser.email,
                 isAdmin: false,
-                timestamp: new Date().toISOString(),
-                id: generateMessageId()
+                timestamp: timestamp,
+                id: messageId
             };
             
             // Add to UI immediately
-            displayMessage({
+            const tempMessage = {
                 ...message,
                 status: 'sending'
-            });
+            };
+            displayMessage(tempMessage);
+            messages.push(tempMessage);
+            
+            // Update message count
+            messageCount.textContent = `${messages.length} messages`;
             
             // Send via WebSocket
-            if (isConnected && ws.readyState === WebSocket.OPEN) {
+            if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify(message));
+                
+                // Update message status after short delay
+                setTimeout(() => {
+                    updateMessageStatus(messageId, 'sent');
+                }, 500);
             } else {
-                // Queue message for later
+                // Queue for later
                 messageQueue.push(message);
-                showAlert('Message queued - reconnecting...', 'info');
+                updateMessageStatus(messageId, 'queued');
+                showToast('Message queued - will send when connected', 'info');
             }
             
             // Send ntfy notification
-            sendNtfyNotification('💬 New Message', `${currentUser.userName}: ${text.substring(0, 100)}`, 4);
+            sendNtfyNotification(
+                '💬 New Message',
+                `${currentUser.userName}: ${text.substring(0, 100)}`,
+                4,
+                ['speech_balloon']
+            );
             
             messageInput.value = '';
             charCounter.textContent = '0/500';
@@ -1181,60 +1212,109 @@
 
         // ===== SEND MESSAGE QUEUE =====
         function sendMessageQueue() {
-            if (messageQueue.length > 0 && isConnected && ws.readyState === WebSocket.OPEN) {
+            if (messageQueue.length > 0 && isConnected && ws && ws.readyState === WebSocket.OPEN) {
                 messageQueue.forEach(msg => {
                     ws.send(JSON.stringify(msg));
                 });
                 messageQueue = [];
-                showAlert('Queued messages sent!', 'success');
+                showToast('Queued messages sent!', 'success');
             }
         }
 
         // ===== GENERATE MESSAGE ID =====
         function generateMessageId() {
-            return Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            return Date.now() + '-' + Math.random().toString(36).substr(2, 9) + '-' + (++messageIdCounter);
         }
 
         // ===== HANDLE NEW MESSAGE =====
         function handleNewMessage(message) {
             // Check if message already exists
-            const exists = messageHistory.some(m => m.id === message.id);
+            const exists = messages.some(m => m.id === message.id);
+            
             if (!exists) {
-                messageHistory.push(message);
+                messages.push(message);
                 displayMessage(message);
+                
+                // Update message count
+                if (currentUser) {
+                    messageCount.textContent = `${messages.length} messages`;
+                }
                 
                 // Play notification sound if message is from admin
                 if (message.isAdmin && currentUser) {
                     playNotificationSound();
                     unreadCount++;
                     updateUnreadBadge();
+                    
+                    // Show toast notification
+                    showToast(`✉️ New message from Admin`, 'info');
+                    
+                    // Send ntfy notification
+                    sendNtfyNotification(
+                        '📨 Admin Reply',
+                        `${message.message.substring(0, 100)}`,
+                        3,
+                        ['inbox']
+                    );
                 }
             }
             
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
+        // ===== UPDATE MESSAGE STATUS =====
+        function updateMessageStatus(messageId, status) {
+            const messageElement = document.querySelector(`[data-message-id="${messageId}"] .message-status`);
+            if (messageElement) {
+                messageElement.className = `message-status ${status}`;
+                messageElement.textContent = status === 'read' ? '✓✓' : status === 'sent' ? '✓' : '⏳';
+            }
+        }
+
+        // ===== UPDATE READ RECEIPT =====
+        function updateReadReceipt(messageId) {
+            updateMessageStatus(messageId, 'read');
+            
+            // Update in messages array
+            const message = messages.find(m => m.id === messageId);
+            if (message) {
+                message.read = true;
+            }
+        }
+
         // ===== DISPLAY MESSAGE HISTORY =====
-        function displayMessageHistory(messages) {
+        function displayMessageHistory(historyMessages) {
             messagesContainer.innerHTML = '';
             
-            if (messages.length === 0) {
+            if (!historyMessages || historyMessages.length === 0) {
                 messagesContainer.innerHTML = `
                     <div class="welcome-message">
                         <i>💬</i>
-                        <h3>Welcome, ${escapeHtml(currentUser.userName)}!</h3>
+                        <h3>Welcome, ${escapeHtml(currentUser?.userName || 'User')}!</h3>
                         <p>Send a message to start chatting with our team.</p>
                     </div>
                 `;
                 return;
             }
             
-            // Sort messages chronologically
-            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            messages.forEach(msg => displayMessage(msg));
+            // Sort chronologically
+            const sortedMessages = historyMessages.sort((a, b) => 
+                new Date(a.timestamp) - new Date(b.timestamp)
+            );
             
-            // Mark messages as read
-            markMessagesAsRead();
+            sortedMessages.forEach(msg => displayMessage(msg));
+            
+            // Update messages array
+            messages = sortedMessages;
+            
+            // Update message count
+            if (currentUser) {
+                messageCount.textContent = `${messages.length} messages`;
+            }
+            
+            // Mark unread messages
+            unreadCount = messages.filter(m => m.isAdmin && !m.read).length;
+            updateUnreadBadge();
             
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
@@ -1249,7 +1329,11 @@
             messageWrapper.className = `message-wrapper ${message.isAdmin ? 'admin' : 'user'}`;
             messageWrapper.dataset.messageId = message.id;
             
-            const time = new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const time = new Date(message.timestamp).toLocaleTimeString([], { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
             const date = new Date(message.timestamp).toLocaleDateString();
             const fullDate = `${date} ${time}`;
             
@@ -1262,8 +1346,8 @@
                     <span>•</span>
                     <span title="${fullDate}">${time}</span>
                     ${!message.isAdmin ? `
-                        <span class="message-status ${status === 'read' ? 'read' : ''}">
-                            ${status === 'read' ? '✓✓' : status === 'sending' ? '⏳' : '✓'}
+                        <span class="message-status ${status}" id="status-${message.id}">
+                            ${status === 'read' ? '✓✓' : status === 'sent' ? '✓' : '⏳'}
                         </span>
                     ` : ''}
                 </div>
@@ -1274,27 +1358,34 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // ===== MARK MESSAGES AS READ =====
-        function markMessagesAsRead() {
-            if (!currentUser || !isConnected) return;
-            
-            const unreadMessages = messageHistory.filter(m => m.isAdmin && !m.read);
-            
-            if (unreadMessages.length > 0) {
-                ws.send(JSON.stringify({
-                    type: 'mark_read',
-                    userId: currentUser.userId,
-                    messageIds: unreadMessages.map(m => m.id)
-                }));
+        // ===== HANDLE TYPING INDICATOR =====
+        function handleTypingIndicator(data) {
+            if (data.isTyping) {
+                typingIndicator.classList.add('active');
                 
-                // Update UI
-                unreadMessages.forEach(msg => {
-                    msg.read = true;
-                });
-                
-                unreadCount = 0;
-                updateUnreadBadge();
+                if (typingTimeout) clearTimeout(typingTimeout);
+                typingTimeout = setTimeout(() => {
+                    typingIndicator.classList.remove('active');
+                }, 3000);
+            } else {
+                typingIndicator.classList.remove('active');
             }
+        }
+
+        // ===== SHOW JOB ALERT =====
+        function showJobAlert(data) {
+            showToast(`📢 ${data.message}`, 'info');
+            
+            const jobMessage = {
+                isAdmin: true,
+                userName: 'Job Bot',
+                message: `📢 **New Job Opportunities!**\n\n${data.jobs.map(j => `• ${j.title} at ${j.company}`).join('\n')}`,
+                timestamp: new Date().toISOString(),
+                id: generateMessageId()
+            };
+            
+            displayMessage(jobMessage);
+            messages.push(jobMessage);
         }
 
         // ===== UPDATE UNREAD BADGE =====
@@ -1307,51 +1398,54 @@
             }
         }
 
-        // ===== HANDLE TYPING INDICATOR =====
-        function handleTypingIndicator(data) {
-            if (data.isTyping) {
-                typingIndicator.classList.add('active');
-            } else {
-                typingIndicator.classList.remove('active');
-            }
+        // ===== SCROLL TO BOTTOM =====
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            unreadCount = 0;
+            updateUnreadBadge();
+            
+            // Mark messages as read
+            markMessagesAsRead();
         }
 
-        // ===== SHOW JOB ALERT =====
-        function showJobAlert(data) {
-            showAlert(`📢 ${data.message}`, 'info');
+        // ===== MARK MESSAGES AS READ =====
+        function markMessagesAsRead() {
+            if (!currentUser || !isConnected || !ws) return;
             
-            const alertMessage = {
-                isAdmin: true,
-                userName: 'Job Bot',
-                message: `📢 **New Job Opportunities!**\n\n${data.jobs.map(j => `• ${j.title} at ${j.company}`).join('\n')}`,
-                timestamp: new Date().toISOString(),
-                id: generateMessageId()
-            };
+            const unreadMessages = messages.filter(m => m.isAdmin && !m.read);
             
-            displayMessage(alertMessage);
-        }
-
-        // ===== UPDATE READ RECEIPTS =====
-        function updateReadReceipts(messageId) {
-            const message = messageHistory.find(m => m.id === messageId);
-            if (message) {
-                message.read = true;
-                // Update UI
-                const messageElement = document.querySelector(`[data-message-id="${messageId}"] .message-status`);
-                if (messageElement) {
-                    messageElement.classList.add('read');
-                    messageElement.textContent = '✓✓';
-                }
+            if (unreadMessages.length > 0) {
+                ws.send(JSON.stringify({
+                    type: 'mark_read',
+                    userId: currentUser.userId,
+                    messageIds: unreadMessages.map(m => m.id)
+                }));
+                
+                // Update local state
+                unreadMessages.forEach(msg => {
+                    msg.read = true;
+                });
+                
+                unreadCount = 0;
+                updateUnreadBadge();
             }
         }
 
         // ===== PLAY NOTIFICATION SOUND =====
         function playNotificationSound() {
             try {
-                const audio = new Audio();
-                audio.src = 'data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCB//H4BzcXQEkQABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB///+kH0iAAD/x///L4BkAYBAEA4EwRAgAEBAAAYAYAYAAGAAQABgAGAAYABgAGAAYAABAAgADAAYAAgADABoABwADAAgADgA+AD4AOgA6ADoAOgA+AD4AMgAyADIAMgAyADIAMgAyADIAAAAAPwA/AD8APwA/AD8APwA/AD8A';
-                audio.volume = 0.3;
-                audio.play().catch(() => {});
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
             } catch (error) {
                 console.log('Audio play failed:', error);
             }
@@ -1386,61 +1480,25 @@
                 `).join('');
                 
                 document.getElementById('featuredJobs').innerHTML = jobsHtml || '<div class="job-item">No jobs available</div>';
-                
-                // Also update mobile sidebar
-                document.getElementById('mobileSidebarContent').innerHTML = `
-                    <div class="sidebar-section">
-                        <h3>👤 Your Account</h3>
-                        <div class="user-profile" style="display: ${currentUser ? 'block' : 'none'}">
-                            <div class="profile-item"><span>👤</span> <span>${escapeHtml(currentUser?.userName || '')}</span></div>
-                            <div class="profile-item"><span>📧</span> <span>${escapeHtml(currentUser?.email || '')}</span></div>
-                        </div>
-                        ${!currentUser ? `
-                            <div class="form-group">
-                                <input type="text" id="mobileName" placeholder="Your name">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="mobileEmail" placeholder="Your email">
-                            </div>
-                            <button class="btn" onclick="registerFromMobile()">Start Chat</button>
-                        ` : ''}
-                    </div>
-                    <div class="sidebar-section">
-                        <h3>📋 Featured Jobs</h3>
-                        <div class="jobs-preview">${jobsHtml}</div>
-                    </div>
-                `;
             } catch (error) {
                 console.error('Failed to load jobs:', error);
+                document.getElementById('featuredJobs').innerHTML = '<div class="job-item">Failed to load jobs</div>';
             }
         }
 
-        // ===== MOBILE REGISTRATION =====
-        function registerFromMobile() {
-            const name = document.getElementById('mobileName')?.value;
-            const email = document.getElementById('mobileEmail')?.value;
-            
-            if (name && email) {
-                userNameInput.value = name;
-                userEmailInput.value = email;
-                registerUser();
-                closeMobileSidebar();
-            }
-        }
-
-        // ===== SHOW ALERT =====
-        function showAlert(message, type = 'info', duration = 4000) {
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.innerHTML = `
+        // ===== SHOW TOAST =====
+        function showToast(message, type = 'info', duration = 4000) {
+            const toast = document.createElement('div');
+            toast.className = `alert ${type}`;
+            toast.innerHTML = `
                 <i>${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}</i>
                 <span>${message}</span>
                 <span class="alert-close" onclick="this.parentElement.remove()">×</span>
             `;
-            alertContainer.appendChild(alert);
+            alertContainer.appendChild(toast);
             
             setTimeout(() => {
-                if (alert.parentElement) alert.remove();
+                if (toast.parentElement) toast.remove();
             }, duration);
         }
 
@@ -1481,13 +1539,13 @@
 
         // ===== MOBILE SIDEBAR =====
         function openMobileSidebar() {
-            document.getElementById('mobileSidebar').classList.add('active');
+            sidebar.classList.add('mobile-open');
+            sidebarOverlay.classList.add('active');
         }
 
-        function closeMobileSidebar(event) {
-            if (!event || event.target.classList.contains('mobile-sidebar')) {
-                document.getElementById('mobileSidebar').classList.remove('active');
-            }
+        function closeMobileSidebar() {
+            sidebar.classList.remove('mobile-open');
+            sidebarOverlay.classList.remove('active');
         }
 
         // ===== LOAD SAVED USER =====
@@ -1556,9 +1614,38 @@
             }
         });
 
+        // Intersection Observer for read receipts
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const messageId = entry.target.dataset.messageId;
+                    const message = messages.find(m => m.id === messageId);
+                    
+                    if (message && message.isAdmin && !message.read) {
+                        markMessagesAsRead();
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe new messages
+        function observeMessages() {
+            document.querySelectorAll('.message-wrapper.admin').forEach(msg => {
+                observer.observe(msg);
+            });
+        }
+
+        // Override displayMessage to observe
+        const originalDisplayMessage = displayMessage;
+        displayMessage = function(message) {
+            originalDisplayMessage(message);
+            setTimeout(observeMessages, 100);
+        };
+
         // Visibility change
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && currentUser) {
+                scrollToBottom();
                 markMessagesAsRead();
             }
         });
@@ -1575,6 +1662,16 @@
             loadFeaturedJobs();
             connectWebSocket();
             loadSavedUser();
+            
+            // Check for new messages periodically
+            setInterval(() => {
+                if (currentUser && isConnected && ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({
+                        type: 'check_messages',
+                        userId: currentUser.userId
+                    }));
+                }
+            }, 10000);
         }
 
         initialize();
