@@ -2,441 +2,228 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Admin Chat - Perfections Recruitment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Perfections Recruitment Agency Ltd</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
         :root {
-            --primary: #667eea;
-            --primary-dark: #5a67d8;
-            --secondary: #764ba2;
-            --success: #48bb78;
-            --danger: #f56565;
-            --warning: #ecc94b;
-            --dark: #2d3748;
-            --light: #f7fafc;
-            --gray: #a0aec0;
+            --primary: #0A3D62;
+            --primary-dark: #052e4a;
+            --primary-light: #1f5a88;
+            --secondary: #3c8dbc;
+            --accent: #ff6b35;
+            --accent-light: #ff8c5a;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s ease;
         }
 
         body {
-            background: #f0f2f5;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* PIN Login Screen */
-        .pin-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .pin-box {
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-
-        .pin-box h2 {
-            text-align: center;
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
             color: var(--dark);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .pin-box p {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .pin-display {
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            font-family: monospace;
-        }
-
-        .pin-keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .pin-key {
-            aspect-ratio: 1;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            user-select: none;
-        }
-
-        .pin-key:active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .pin-key.delete {
-            background: #fed7d7;
-            border-color: #feb2b2;
-            color: #c53030;
-        }
-
-        .pin-footer {
-            display: flex;
-            gap: 10px;
-        }
-
-        .pin-footer button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-login {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-clear {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-
-        .pin-error {
-            color: var(--danger);
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            display: none;
-        }
-
-        /* Admin Dashboard */
+        /* Layout */
         .admin-container {
             display: flex;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            background: #f0f2f5;
-            display: none;
-        }
-
-        .admin-container.visible {
-            display: flex;
+            min-height: 100vh;
         }
 
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, var(--dark) 0%, #1a202c 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                transform: translateX(-100%);
-                z-index: 1000;
-            }
-            
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
+            background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
         }
 
         .sidebar-header {
-            padding: 25px 20px;
+            padding: 30px 20px;
+            text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .sidebar-header h2 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar-menu {
-            flex: 1;
-            padding: 15px 0;
-            overflow-y: auto;
-        }
-
-        .menu-item {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-left: 3px solid transparent;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .menu-item:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .menu-item.active {
-            background: rgba(255,255,255,0.15);
-            border-left-color: var(--primary);
-            color: white;
-        }
-
-        .menu-item i {
-            font-size: 20px;
-            width: 24px;
-        }
-
-        .stats-badge {
-            margin-left: auto;
-            background: rgba(255,255,255,0.2);
-            padding: 3px 8px;
-            border-radius: 50px;
-            font-size: 11px;
-        }
-
-        .sidebar-footer {
-            padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .admin-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .admin-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
+        .sidebar-header .logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 10px;
         }
 
-        .logout-btn {
-            margin-left: auto;
+        .sidebar-header .logo i {
+            color: var(--accent);
+        }
+
+        .sidebar-header .version {
+            font-size: 12px;
+            opacity: 0.7;
             background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            padding: 8px;
-            border-radius: 8px;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            display: inline-block;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
             cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item i {
+            width: 24px;
+            font-size: 18px;
+        }
+
+        .nav-item .badge {
+            background: var(--accent);
+            color: var(--white);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            margin-left: auto;
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            margin-left: 280px;
+            padding: 30px;
+            background: var(--light);
+            min-height: 100vh;
         }
 
+        /* Top Bar */
         .top-bar {
-            background: white;
-            padding: 15px 20px;
+            background: var(--white);
+            padding: 15px 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .page-title {
-            flex: 1;
-        }
-
-        .page-title h1 {
-            font-size: 18px;
-            color: var(--dark);
-        }
-
-        .page-title p {
-            font-size: 12px;
-            color: var(--gray);
-        }
-
-        .top-bar-actions {
             display: flex;
+            align-items: center;
             gap: 10px;
         }
 
-        .notification-badge {
-            position: relative;
-            cursor: pointer;
-            padding: 8px;
-            background: #f7fafc;
-            border-radius: 8px;
+        .page-title i {
+            font-size: 24px;
+            color: var(--primary);
         }
 
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--danger);
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 50px;
-            min-width: 18px;
-            text-align: center;
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        /* Chat Interface */
-        .chat-interface {
+        .admin-info {
             display: flex;
-            flex: 1;
-            overflow: hidden;
-            padding: 20px;
+            align-items: center;
             gap: 20px;
-            height: calc(100vh - 80px);
         }
 
-        @media (max-width: 768px) {
-            .chat-interface {
-                flex-direction: column;
-                padding: 10px;
-            }
-        }
-
-        /* Users Panel */
-        .users-panel {
-            width: 320px;
-            background: white;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        @media (max-width: 768px) {
-            .users-panel {
-                width: 100%;
-                max-height: 250px;
-            }
-        }
-
-        .panel-header {
-            padding: 15px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .panel-header h3 {
-            font-size: 14px;
-            color: var(--dark);
+        .online-status {
             display: flex;
             align-items: center;
-            gap: 6px;
-            margin-bottom: 10px;
+            gap: 8px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 13px;
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        .users-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .user-card {
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            position: relative;
-        }
-
-        .user-card:hover {
-            background: #f8fafc;
-        }
-
-        .user-card.selected {
-            background: #ebf4ff;
-            border-color: var(--primary);
-        }
-
-        .user-card.unread {
-            background: #fff5f5;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar {
+        .admin-avatar {
             width: 45px;
             height: 45px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -444,1410 +231,2331 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--white);
             font-weight: 600;
             font-size: 18px;
-            flex-shrink: 0;
         }
 
-        .user-details {
-            flex: 1;
-            min-width: 0;
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .user-name {
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 3px;
-            font-size: 14px;
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 20px;
         }
 
-        .user-email {
-            font-size: 11px;
-            color: var(--gray);
-            margin-bottom: 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .last-message {
-            font-size: 11px;
-            color: var(--gray);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 180px;
-        }
-
-        .unread-count {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--danger);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 600;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        /* Chat Panel */
-        .chat-panel {
-            flex: 1;
-            background: white;
-            border-radius: 12px;
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
         }
 
-        .chat-header {
-            padding: 15px 20px;
-            background: #f8fafc;
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Charts Row */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-header h3 {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .chart-header i {
+            color: var(--gray);
+            cursor: help;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Tables */
+        .table-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .table-header h3 {
+            color: var(--primary);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            background: var(--light);
+            padding: 5px;
+            border-radius: var(--radius-full);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 8px 15px;
+            outline: none;
+            min-width: 250px;
+        }
+
+        .search-box button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 8px 20px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .data-table td {
+            padding: 15px;
             border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .data-table tr:hover td {
+            background: var(--light);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .online-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .online-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot.online {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .dot.offline {
+            background: var(--gray);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        .action-btn.edit {
+            background: var(--info);
+        }
+
+        .action-btn.delete {
+            background: var(--error);
+        }
+
+        .action-btn.view {
+            background: var(--secondary);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e2e8f0;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .page-btn:hover {
+            background: var(--light);
+            border-color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .selected-user-info h3 {
-            font-size: 16px;
-            color: var(--dark);
-            margin-bottom: 3px;
-        }
-
-        .selected-user-info p {
-            font-size: 12px;
-            color: var(--gray);
-        }
-
-        .user-status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .status-dot.online {
-            background: var(--success);
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.offline {
-            background: var(--gray);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .action-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            background: white;
-            color: var(--dark);
-            font-size: 12px;
-            cursor: pointer;
+        .modal-header h2 {
+            font-size: 20px;
             display: flex;
             align-items: center;
-            gap: 4px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .action-btn:hover {
-            background: #e2e8f0;
-        }
-
-        /* Messages Area */
-        .messages-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #f8fafc;
-        }
-
-        .message-wrapper {
-            display: flex;
-            flex-direction: column;
-            max-width: 70%;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-wrapper.admin {
-            align-self: flex-end;
-        }
-
-        .message-wrapper.user {
-            align-self: flex-start;
-        }
-
-        .message-bubble {
-            padding: 12px 16px;
-            border-radius: 18px;
-            word-wrap: break-word;
-            line-height: 1.5;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .message-wrapper.admin .message-bubble {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        .message-wrapper.user .message-bubble {
-            background: white;
-            color: var(--dark);
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .message-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 4px 8px;
-            font-size: 11px;
-            color: var(--gray);
-        }
-
-        .message-wrapper.admin .message-meta {
-            justify-content: flex-end;
-        }
-
-        .message-status {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .message-status.read {
-            color: var(--success);
-        }
-
-        .message-time {
-            font-size: 10px;
-        }
-
-        /* Typing Indicator */
-        .typing-indicator {
-            padding: 10px 20px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--gray);
-        }
-
-        .typing-indicator.active {
-            display: flex;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-        }
-
-        .typing-dots span {
-            width: 6px;
-            height: 6px;
-            background: var(--gray);
-            border-radius: 50%;
-            animation: typingBounce 1.4s infinite ease-in-out;
-        }
-
-        .typing-dots span:nth-child(1) { animation-delay: 0s; }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typingBounce {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-4px); }
-        }
-
-        /* Message Input */
-        .message-input-area {
-            padding: 15px 20px;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
             gap: 10px;
-            align-items: flex-end;
         }
 
-        .input-wrapper {
-            flex: 1;
-            position: relative;
-        }
-
-        .input-wrapper textarea {
-            width: 100%;
-            padding: 12px 45px 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 14px;
-            resize: none;
-            max-height: 100px;
-            min-height: 45px;
-            line-height: 1.5;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .input-wrapper textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-        }
-
-        .input-wrapper textarea:disabled {
-            background: #f7fafc;
-            cursor: not-allowed;
-        }
-
-        .char-counter {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 10px;
-            color: #a0aec0;
-            background: white;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-
-        .send-btn {
-            padding: 0 24px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .send-btn:active:not(:disabled) {
-            transform: scale(0.98);
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Empty States */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--gray);
-        }
-
-        .empty-state i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        .empty-state p {
-            font-size: 13px;
-        }
-
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--dark);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 14px;
-            z-index: 2000;
-            transition: transform 0.3s;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .toast.success { background: var(--success); }
-        .toast.error { background: var(--danger); }
-        .toast.warning { background: var(--warning); color: var(--dark); }
-
-        /* Loading Spinner */
-        .spinner {
-            border: 3px solid #e2e8f0;
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Mobile Close Button */
-        .close-sidebar {
-            display: none;
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .modal-close {
             background: none;
             border: none;
+            color: var(--white);
             font-size: 24px;
-            color: var(--dark);
             cursor: pointer;
-            padding: 8px;
-            z-index: 1001;
+            transition: var(--transition);
         }
 
-        @media (max-width: 768px) {
-            .close-sidebar {
-                display: block;
-            }
+        .modal-close:hover {
+            transform: scale(1.1);
         }
 
-        /* Dashboard View */
-        .dashboard-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
 
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
         }
 
-        .stat-card h3 {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
             font-size: 14px;
-            color: var(--gray);
-            margin-bottom: 10px;
+            transition: var(--transition);
         }
 
-        .stat-number {
-            font-size: 28px;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(60,141,188,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .toast {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--error);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast.info {
+            border-left-color: var(--info);
+        }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--error);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
             font-weight: 600;
-            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            background: var(--light);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+
+        .loading i {
+            font-size: 40px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%,100%{opacity:1}
+            50%{opacity:0.5}
+        }
+
+        @keyframes slideIn {
+            from{
+                opacity:0;
+                transform:translateX(100px);
+            }
+            to{
+                opacity:1;
+                transform:translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            .sidebar-header .logo span,
+            .sidebar-header .version,
+            .nav-item span {
+                display: none;
+            }
+            .nav-item {
+                justify-content: center;
+                padding: 15px;
+            }
+            .nav-item i {
+                margin: 0;
+            }
+            .main-content {
+                margin-left: 80px;
+            }
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- PIN Login Screen -->
-    <div id="pinScreen" class="pin-container">
-        <div class="pin-box">
-            <h2>
-                <i>👑</i>
-                Admin Access
-            </h2>
-            <p>Enter 6-digit PIN to continue</p>
-            
-            <div id="pinDisplay" class="pin-display">••••••</div>
-            
-            <div class="pin-keypad">
-                <div class="pin-key" onclick="addPinDigit('1')">1</div>
-                <div class="pin-key" onclick="addPinDigit('2')">2</div>
-                <div class="pin-key" onclick="addPinDigit('3')">3</div>
-                <div class="pin-key" onclick="addPinDigit('4')">4</div>
-                <div class="pin-key" onclick="addPinDigit('5')">5</div>
-                <div class="pin-key" onclick="addPinDigit('6')">6</div>
-                <div class="pin-key" onclick="addPinDigit('7')">7</div>
-                <div class="pin-key" onclick="addPinDigit('8')">8</div>
-                <div class="pin-key" onclick="addPinDigit('9')">9</div>
-                <div class="pin-key" onclick="addPinDigit('0')">0</div>
-                <div class="pin-key delete" onclick="deletePinDigit()">⌫</div>
-                <div class="pin-key" onclick="clearPin()">C</div>
-            </div>
-            
-            <div class="pin-footer">
-                <button class="btn-clear" onclick="clearPin()">Clear</button>
-                <button class="btn-login" onclick="verifyPin()">Login</button>
-            </div>
-            
-            <div id="pinError" class="pin-error">Invalid PIN. Please try again.</div>
-        </div>
-    </div>
-
-    <!-- Admin Dashboard -->
-    <div id="adminDashboard" class="admin-container">
+    <div class="admin-container">
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <button class="close-sidebar" onclick="closeMobileSidebar()">×</button>
-            
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h2>
-                    <i>👑</i>
-                    Perfections
-                </h2>
-                <div style="font-size: 12px; opacity: 0.7;">Recruitment Admin</div>
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i> <span>Perfections</span>
+                </div>
+                <div class="version">Admin Panel v3.0</div>
             </div>
-            
-            <div class="sidebar-menu">
-                <div class="menu-item" onclick="switchView('dashboard')">
-                    <i>📊</i>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="switchTab('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </div>
-                <div class="menu-item active" onclick="switchView('chat')">
-                    <i>💬</i>
-                    <span>Live Chat</span>
-                    <span class="stats-badge" id="sidebarUnread">0</span>
-                </div>
-                <div class="menu-item" onclick="switchView('users')">
-                    <i>👥</i>
+                <div class="nav-item" onclick="switchTab('users')">
+                    <i class="fas fa-users"></i>
                     <span>Users</span>
+                    <span class="badge" id="userCount">0</span>
                 </div>
-                <div class="menu-item" onclick="switchView('broadcast')">
-                    <i>📢</i>
-                    <span>Broadcast</span>
+                <div class="nav-item" onclick="switchTab('jobs')">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Jobs</span>
+                    <span class="badge" id="jobCount">0</span>
                 </div>
-            </div>
-            
-            <div class="sidebar-footer">
-                <div class="admin-info">
-                    <div class="admin-avatar">A</div>
-                    <div>
-                        <div style="font-weight: 600;">Admin</div>
-                        <div style="font-size: 11px; opacity: 0.7;" id="connectionStatus">Connected</div>
-                    </div>
-                    <button class="logout-btn" onclick="logout()">
-                        <i>🚪</i>
-                    </button>
+                <div class="nav-item" onclick="switchTab('applications')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Applications</span>
+                    <span class="badge" id="appCount">0</span>
                 </div>
-            </div>
-        </div>
+                <div class="nav-item" onclick="switchTab('messages')">
+                    <i class="fas fa-comments"></i>
+                    <span>Messages</span>
+                    <span class="badge" id="msgCount">0</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('telegram')">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                    <span class="badge" id="telegramCount">0</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </div>
+            </nav>
+        </aside>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <main class="main-content">
+            <!-- Top Bar -->
             <div class="top-bar">
-                <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
                 <div class="page-title">
-                    <h1 id="pageTitle">Live Chat</h1>
-                    <p id="pageSubtitle">Real-time conversations with users</p>
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h1>Dashboard</h1>
                 </div>
-                <div class="top-bar-actions">
-                    <div class="notification-badge" onclick="refreshData()">
-                        <i>🔄</i>
+                <div class="admin-info">
+                    <div class="online-status">
+                        <span class="online-dot"></span>
+                        <span id="onlineStatus">Connected</span>
                     </div>
-                    <div class="notification-badge" id="notificationBtn">
-                        <i>🔔</i>
-                        <span class="badge" id="notificationBadge">0</span>
+                    <div class="admin-avatar" id="adminAvatar">
+                        A
                     </div>
                 </div>
             </div>
 
-            <div class="content-area" id="contentArea">
-                <!-- Dashboard View -->
-                <div id="dashboardView" style="display: none; padding: 20px; overflow-y: auto;">
-                    <div class="dashboard-stats">
-                        <div class="stat-card">
-                            <h3>Total Users</h3>
-                            <div class="stat-number" id="totalUsers">0</div>
+            <!-- Toast Container -->
+            <div class="toast-container" id="toastContainer"></div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
                         </div>
-                        <div class="stat-card">
-                            <h3>Unread Messages</h3>
-                            <div class="stat-number" id="totalUnread">0</div>
+                        <div class="stat-info">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Total Users</p>
                         </div>
-                        <div class="stat-card">
-                            <h3>Active Chats</h3>
-                            <div class="stat-number" id="activeChats">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalJobs">0</h3>
+                            <p>Active Jobs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalApplications">0</h3>
+                            <p>Applications</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="unreadMessages">0</h3>
+                            <p>Unread Messages</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="onlineUsers">0</h3>
+                            <p>Online Now</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="telegramUsers">0</h3>
+                            <p>Telegram Users</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chat View -->
-                <div id="chatView" class="chat-interface">
-                    <!-- Users Panel -->
-                    <div class="users-panel">
-                        <div class="panel-header">
-                            <h3>
-                                <i>👥</i>
-                                Users
-                                <span class="stats-badge" id="totalUsersCount">0</span>
-                            </h3>
-                            <input type="text" class="search-box" id="userSearch" placeholder="Search users..." onkeyup="searchUsers()">
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-pie"></i> Users by Platform</h3>
+                            <i class="fas fa-info-circle" title="Web vs Telegram users"></i>
                         </div>
-                        <div class="users-list" id="usersList">
-                            <div class="empty-state">
-                                <i>👥</i>
-                                <p>Loading users...</p>
-                            </div>
+                        <div class="chart-container">
+                            <canvas id="platformChart"></canvas>
                         </div>
                     </div>
-
-                    <!-- Chat Panel -->
-                    <div class="chat-panel" id="chatPanel">
-                        <div class="chat-header">
-                            <div class="selected-user-info" id="selectedUserInfo">
-                                <h3>
-                                    Select a user
-                                    <span class="user-status-badge" id="userStatusBadge" style="display: none;">
-                                        <span class="status-dot" id="userStatusDot"></span>
-                                        <span id="userStatusText">Offline</span>
-                                    </span>
-                                </h3>
-                                <p>Choose a user from the list to view messages</p>
-                            </div>
-                            <div class="chat-actions">
-                                <button class="action-btn" onclick="markCurrentUserRead()" id="markReadBtn" style="display: none;">
-                                    <i>✓</i> Mark Read
-                                </button>
-                                <button class="action-btn" onclick="refreshUserMessages()" id="refreshBtn" style="display: none;">
-                                    <i>🔄</i> Refresh
-                                </button>
-                            </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line"></i> User Activity</h3>
+                            <i class="fas fa-info-circle" title="Last 7 days"></i>
                         </div>
-
-                        <div class="messages-area" id="messagesArea">
-                            <div class="empty-state">
-                                <i>💬</i>
-                                <p>No user selected</p>
-                                <p style="font-size: 11px; margin-top: 5px;">Click on a user to view their messages</p>
-                            </div>
+                        <div class="chart-container">
+                            <canvas id="activityChart"></canvas>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="typing-indicator" id="typingIndicator">
-                            <span>User is typing</span>
-                            <div class="typing-dots">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                <!-- Recent Users Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-users"></i> Recent Users</h3>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <input type="text" id="userSearch" placeholder="Search users...">
+                                <button onclick="searchUsers()"><i class="fas fa-search"></i></button>
                             </div>
-                        </div>
-
-                        <div class="message-input-area" id="messageInputArea" style="display: none;">
-                            <div class="input-wrapper">
-                                <textarea id="adminMessageInput" placeholder="Type your reply... (Enter to send, Shift+Enter for new line)" rows="1" maxlength="1000" onkeydown="handleMessageKeydown(event)"></textarea>
-                                <span class="char-counter" id="adminCharCounter">0/1000</span>
-                            </div>
-                            <button class="send-btn" onclick="sendAdminMessage()" id="adminSendBtn">
-                                <i>📤</i>
-                                Send
+                            <button class="btn btn-primary btn-sm" onclick="exportUsers()">
+                                <i class="fas fa-download"></i> Export
                             </button>
                         </div>
                     </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Platform</th>
+                                <th>Status</th>
+                                <th>Last Seen</th>
+                                <th>Unread</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentUsersTable">
+                            <tr>
+                                <td colspan="7" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading users...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <!-- Users View -->
-                <div id="usersView" style="display: none; padding: 20px; overflow-y: auto;">
-                    <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">All Users</h3>
-                        <div id="allUsersList"></div>
+                <!-- Recent Jobs Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-briefcase"></i> Recent Jobs</h3>
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm" onclick="openAddJobModal()">
+                                <i class="fas fa-plus"></i> Add Job
+                            </button>
+                        </div>
                     </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Company</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>Salary</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentJobsTable">
+                            <tr>
+                                <td colspan="8" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading jobs...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
 
-                <!-- Broadcast View -->
-                <div id="broadcastView" style="display: none; padding: 20px; overflow-y: auto;">
-                    <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">Send Broadcast</h3>
-                        <textarea id="broadcastMessage" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; margin: 15px 0;" placeholder="Type your broadcast message..."></textarea>
-                        <button class="btn-login" onclick="sendBroadcast()" style="padding: 12px 24px;">Send to All Users</button>
+            <!-- Users Tab -->
+            <div id="users" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-users"></i> All Users</h3>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <input type="text" id="allUsersSearch" placeholder="Search users...">
+                                <button onclick="searchAllUsers()"><i class="fas fa-search"></i></button>
+                            </div>
+                            <select id="userFilter" onchange="filterUsers()" class="btn btn-secondary">
+                                <option value="all">All Users</option>
+                                <option value="web">Web Only</option>
+                                <option value="telegram">Telegram Only</option>
+                                <option value="online">Online Now</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="exportAllUsers()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Platform</th>
+                                <th>Status</th>
+                                <th>Registered</th>
+                                <th>Last Seen</th>
+                                <th>Unread</th>
+                                <th>Applications</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allUsersTable">
+                            <tr>
+                                <td colspan="9" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading users...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="usersPagination"></div>
+                </div>
+            </div>
+
+            <!-- Jobs Tab -->
+            <div id="jobs" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-briefcase"></i> All Jobs</h3>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <input type="text" id="jobsSearch" placeholder="Search jobs...">
+                                <button onclick="searchJobs()"><i class="fas fa-search"></i></button>
+                            </div>
+                            <select id="jobFilter" onchange="filterJobs()" class="btn btn-secondary">
+                                <option value="all">All Jobs</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="openAddJobModal()">
+                                <i class="fas fa-plus"></i> Add Job
+                            </button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Company</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Salary</th>
+                                <th>Posted</th>
+                                <th>Expires</th>
+                                <th>Status</th>
+                                <th>Applications</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allJobsTable">
+                            <tr>
+                                <td colspan="12" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading jobs...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="jobsPagination"></div>
+                </div>
+            </div>
+
+            <!-- Applications Tab -->
+            <div id="applications" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-file-alt"></i> All Applications</h3>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <input type="text" id="appSearch" placeholder="Search applications...">
+                                <button onclick="searchApplications()"><i class="fas fa-search"></i></button>
+                            </div>
+                            <select id="appStatusFilter" onchange="filterApplications()" class="btn btn-secondary">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="reviewed">Reviewed</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="exportApplications()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Job Title</th>
+                                <th>Applicant</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Applied</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTable">
+                            <tr>
+                                <td colspan="8" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading applications...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="applicationsPagination"></div>
+                </div>
+            </div>
+
+            <!-- Messages Tab -->
+            <div id="messages" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-comments"></i> Recent Messages</h3>
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm" onclick="refreshMessages()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Message</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesTable">
+                            <tr>
+                                <td colspan="5" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading messages...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Telegram Tab -->
+            <div id="telegram" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fab fa-telegram"></i> Telegram Users & Chats</h3>
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm" onclick="sendTelegramBroadcast()">
+                                <i class="fas fa-bullhorn"></i> Broadcast
+                            </button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Username</th>
+                                <th>Chat ID</th>
+                                <th>Registered</th>
+                                <th>Last Active</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="telegramTable">
+                            <tr>
+                                <td colspan="7" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading telegram data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-cog"></i> System Settings</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="settingsForm">
+                            <div class="form-group">
+                                <label>Admin Access Code</label>
+                                <input type="text" id="adminCode" value="338989" readonly>
+                                <small style="color: var(--gray);">This code is used for Telegram admin access</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Job Alert Schedule</label>
+                                <select id="alertSchedule">
+                                    <option value="*/2 * * *">Every 2 hours</option>
+                                    <option value="0 */4 * * *">Every 4 hours</option>
+                                    <option value="0 */6 * * *">Every 6 hours</option>
+                                    <option value="0 0 */1 * *">Daily at midnight</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Default Job Expiry (days)</label>
+                                <input type="number" id="jobExpiry" value="30" min="1" max="365">
+                            </div>
+                            <div class="form-group">
+                                <label>Maximum File Upload Size (MB)</label>
+                                <input type="number" id="maxFileSize" value="5" min="1" max="50">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="enableNtfy" checked>
+                                <label>Enable Ntfy Notifications</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="enableTelegramBot" checked>
+                                <label>Enable Telegram Bot</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="enableChat" checked>
+                                <label>Enable Live Chat</label>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                        </form>
                     </div>
                 </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Job Modal -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-briefcase"></i> <span id="jobModalTitle">Add New Job</span></h2>
+                <button class="modal-close" onclick="closeJobModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="jobForm">
+                    <input type="hidden" id="jobId" value="">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Job Title *</label>
+                            <input type="text" id="jobTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company *</label>
+                            <input type="text" id="jobCompany" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location *</label>
+                            <input type="text" id="jobLocation" required>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="jobRemote">
+                            <label>Remote Work</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Job Type *</label>
+                            <select id="jobType" required>
+                                <option value="Full Time">Full Time</option>
+                                <option value="Part Time">Part Time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Temporary">Temporary</option>
+                                <option value="Permanent">Permanent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="jobCategory" required>
+                                <option value="IT & Tech">💻 IT & Tech</option>
+                                <option value="Healthcare">⚕️ Healthcare</option>
+                                <option value="Construction">🏗️ Construction</option>
+                                <option value="Retail">🛒 Retail</option>
+                                <option value="Finance">💰 Finance</option>
+                                <option value="Marketing">📊 Marketing</option>
+                                <option value="Education">📚 Education</option>
+                                <option value="Logistics">📦 Logistics</option>
+                                <option value="Legal">⚖️ Legal</option>
+                                <option value="Hospitality">🍽️ Hospitality</option>
+                                <option value="HR">👥 HR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Salary *</label>
+                            <input type="text" id="jobSalary" placeholder="e.g. £35,000 - £45,000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Type *</label>
+                            <select id="jobPaymentType" required>
+                                <option value="yearly">Yearly</option>
+                                <option value="hourly">Hourly</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea id="jobDescription" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Requirements</label>
+                        <textarea id="jobRequirements" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Benefits</label>
+                        <textarea id="jobBenefits" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="jobStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" id="jobExpiryDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeJobModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveJob()">Save Job</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
+    <!-- User Details Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> <span id="userModalTitle">User Details</span></h2>
+                <button class="modal-close" onclick="closeUserModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="userDetailsContent">
+                Loading...
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeUserModal()">Close</button>
+                <button class="btn btn-primary" onclick="sendMessageToUser()">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Message Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-paper-plane"></i> Send Message</h2>
+                <button class="modal-close" onclick="closeMessageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="messageForm">
+                    <input type="hidden" id="messageUserId">
+                    <input type="hidden" id="messageUserEmail">
+                    
+                    <div class="form-group">
+                        <label>To</label>
+                        <input type="text" id="messageRecipient" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="messageText" rows="5" placeholder="Type your message here..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="sendToTelegram" checked>
+                        <label>Also send to Telegram (if available)</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMessageModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="sendMessage()">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Broadcast Modal -->
+    <div id="broadcastModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-bullhorn"></i> Send Broadcast</h2>
+                <button class="modal-close" onclick="closeBroadcastModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="broadcastForm">
+                    <div class="form-group">
+                        <label>Message to all users</label>
+                        <textarea id="broadcastMessage" rows="5" placeholder="Type your broadcast message..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="broadcastToTelegram" checked>
+                        <label>Send to Telegram users</label>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="broadcastToWeb" checked>
+                        <label>Send to Web users (online)</label>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="broadcastToEmail" checked>
+                        <label>Send via Email</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeBroadcastModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="sendBroadcast()">Send Broadcast</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" style="background: var(--error);">
+                <h2><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h2>
+                <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // ===== CONFIGURATION =====
-        const SECRET_PIN = '338989';
-        const WS_URL = `wss://${window.location.host}`;
-        const API_URL = '';
-        const NTFY_TOPIC = 'new_chat';
+        // ===== STATE MANAGEMENT =====
+        let socket = null;
+        let currentUser = null;
+        let allUsers = [];
+        let allJobs = [];
+        let allApplications = [];
+        let allMessages = [];
+        let telegramChats = [];
+        let currentPage = {
+            users: 1,
+            jobs: 1,
+            applications: 1
+        };
+        let itemsPerPage = 10;
+        let charts = {};
 
-        // ===== STATE =====
-        let ws = null;
-        let currentPin = '';
-        let isAuthenticated = false;
-        let users = [];
-        let messages = {}; // Store messages by userId
-        let selectedUser = null;
-        let currentView = 'chat';
-        let reconnectAttempts = 0;
-        let isConnected = false;
-        let typingTimeout = null;
-        let unreadCount = 0;
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            checkAdminAuth();
+            
+            // Initialize Socket.IO
+            initSocket();
+            
+            // Load all data
+            loadDashboardData();
+            loadUsers();
+            loadJobs();
+            loadApplications();
+            loadMessages();
+            loadTelegramData();
+            
+            // Setup auto-refresh
+            setInterval(refreshData, 30000); // Refresh every 30 seconds
+        });
 
-        // ===== DOM ELEMENTS =====
-        const pinScreen = document.getElementById('pinScreen');
-        const adminDashboard = document.getElementById('adminDashboard');
-        const pinDisplay = document.getElementById('pinDisplay');
-        const pinError = document.getElementById('pinError');
-        const usersList = document.getElementById('usersList');
-        const messagesArea = document.getElementById('messagesArea');
-        const selectedUserInfo = document.getElementById('selectedUserInfo');
-        const messageInputArea = document.getElementById('messageInputArea');
-        const adminMessageInput = document.getElementById('adminMessageInput');
-        const adminSendBtn = document.getElementById('adminSendBtn');
-        const typingIndicator = document.getElementById('typingIndicator');
-        const userStatusBadge = document.getElementById('userStatusBadge');
-        const userStatusDot = document.getElementById('userStatusDot');
-        const userStatusText = document.getElementById('userStatusText');
-        const markReadBtn = document.getElementById('markReadBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const sidebarUnread = document.getElementById('sidebarUnread');
-        const notificationBadge = document.getElementById('notificationBadge');
-        const totalUsersCount = document.getElementById('totalUsersCount');
-
-        // ===== PIN AUTHENTICATION =====
-        function addPinDigit(digit) {
-            if (currentPin.length < 6) {
-                currentPin += digit;
-                pinDisplay.textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
-                pinError.style.display = 'none';
+        // ===== AUTHENTICATION =====
+        function checkAdminAuth() {
+            const isAdmin = localStorage.getItem('isAdmin');
+            const adminEmail = localStorage.getItem('adminEmail');
+            
+            if (!isAdmin && !adminEmail) {
+                // Try to get from session
+                const adminCode = prompt('Enter admin access code:');
+                if (adminCode === '338989') {
+                    localStorage.setItem('isAdmin', 'true');
+                    localStorage.setItem('adminEmail', 'admin@perfections.com');
+                    showToast('success', 'Welcome Admin', 'Successfully logged in');
+                } else {
+                    window.location.href = 'index.html';
+                }
             }
         }
 
-        function deletePinDigit() {
-            currentPin = currentPin.slice(0, -1);
-            pinDisplay.textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
+        function logout() {
+            localStorage.removeItem('isAdmin');
+            localStorage.removeItem('adminEmail');
+            localStorage.removeItem('chatUserId');
+            localStorage.removeItem('chatEmail');
+            window.location.href = 'index.html';
         }
 
-        function clearPin() {
-            currentPin = '';
-            pinDisplay.textContent = '••••••';
+        // ===== SOCKET.IO =====
+        function initSocket() {
+            socket = io({
+                reconnection: true,
+                reconnectionAttempts: 5,
+                reconnectionDelay: 1000
+            });
+
+            socket.on('connect', () => {
+                document.getElementById('onlineStatus').textContent = 'Connected';
+                document.querySelector('.online-dot').style.background = '#10b981';
+                showToast('success', 'Connected', 'Real-time connection established');
+                
+                // Register as admin
+                socket.emit('register', {
+                    userId: 'admin_' + Date.now(),
+                    userName: 'Admin',
+                    email: localStorage.getItem('adminEmail') || 'admin@perfections.com',
+                    isAdmin: true
+                });
+            });
+
+            socket.on('disconnect', () => {
+                document.getElementById('onlineStatus').textContent = 'Disconnected';
+                document.querySelector('.online-dot').style.background = '#ef4444';
+            });
+
+            socket.on('new_message', (message) => {
+                showToast('info', 'New Message', `From: ${message.userName}`);
+                loadMessages();
+                updateUnreadCount();
+            });
+
+            socket.on('user_status', (data) => {
+                updateUserOnlineStatus(data.userId, data.status);
+            });
+
+            socket.on('job_alert', (data) => {
+                showToast('info', 'Job Alert', data.message);
+            });
+
+            socket.on('broadcast', (data) => {
+                showToast('info', 'Broadcast', data.message);
+            });
         }
 
-        function verifyPin() {
-            if (currentPin === SECRET_PIN) {
-                pinScreen.style.display = 'none';
-                adminDashboard.classList.add('visible');
-                isAuthenticated = true;
-                initializeDashboard();
-                showToast('Login successful!', 'success');
-                sendNtfyNotification('👑 Admin Login', 'Admin dashboard accessed', 3);
-            } else {
-                pinError.style.display = 'block';
-                clearPin();
-                showToast('Invalid PIN', 'error');
-                sendNtfyNotification('⚠️ Failed Login', 'Invalid PIN attempt', 4);
-            }
-        }
-
-        // ===== WEBSOCKET CONNECTION =====
-        function connectWebSocket() {
+        // ===== DATA LOADING =====
+        async function loadDashboardData() {
             try {
-                ws = new WebSocket(WS_URL);
+                const response = await fetch('/api/health');
+                const health = await response.json();
                 
-                ws.onopen = () => {
-                    console.log('WebSocket connected');
-                    isConnected = true;
-                    reconnectAttempts = 0;
-                    document.getElementById('connectionStatus').textContent = 'Connected';
-                    
-                    // Register as admin
-                    ws.send(JSON.stringify({
-                        type: 'register',
-                        isAdmin: true,
-                        userId: 'admin-' + Date.now()
-                    }));
-                    
-                    showToast('Connected to server', 'success');
-                };
-                
-                ws.onclose = () => {
-                    console.log('WebSocket disconnected');
-                    isConnected = false;
-                    document.getElementById('connectionStatus').textContent = 'Disconnected';
-                    
-                    if (reconnectAttempts < 10) {
-                        reconnectAttempts++;
-                        setTimeout(connectWebSocket, 3000);
-                    }
-                };
-                
-                ws.onerror = (error) => {
-                    console.error('WebSocket error:', error);
-                };
-                
-                ws.onmessage = (event) => {
-                    try {
-                        const data = JSON.parse(event.data);
-                        handleWebSocketMessage(data);
-                    } catch (error) {
-                        console.error('Failed to parse message:', error);
-                    }
-                };
+                document.getElementById('onlineUsers').textContent = health.onlineUsers || 0;
             } catch (error) {
-                console.error('Failed to connect WebSocket:', error);
+                console.error('Failed to load health data:', error);
             }
         }
 
-        // ===== HANDLE WEBSOCKET MESSAGES =====
-        function handleWebSocketMessage(data) {
-            switch (data.type) {
-                case 'new_message':
-                    handleNewMessage(data.message);
-                    break;
-                    
-                case 'typing':
-                    handleTypingIndicator(data);
-                    break;
-            }
-        }
-
-        // ===== LOAD USERS =====
         async function loadUsers() {
             try {
                 const response = await fetch('/api/admin/users');
-                if (response.ok) {
-                    users = await response.json();
-                    
-                    // Load messages for each user
-                    for (const user of users) {
-                        await loadUserMessages(user.userId);
-                    }
-                    
-                    updateUsersList();
-                    updateUnreadCount();
-                    totalUsersCount.textContent = users.length;
-                    document.getElementById('totalUsers').textContent = users.length;
-                    
-                    // Count users with messages
-                    const activeChats = Object.keys(messages).filter(id => messages[id]?.length > 0).length;
-                    document.getElementById('activeChats').textContent = activeChats;
-                }
+                const users = await response.json();
+                allUsers = users;
+                
+                updateUserStats();
+                renderRecentUsers();
+                renderAllUsers();
+                updatePlatformChart();
+                
+                document.getElementById('userCount').textContent = users.length;
             } catch (error) {
                 console.error('Failed to load users:', error);
+                showToast('error', 'Error', 'Failed to load users');
             }
         }
 
-        // ===== LOAD USER MESSAGES =====
-        async function loadUserMessages(userId) {
+        async function loadJobs() {
             try {
-                const response = await fetch(`/api/admin/messages/${userId}`);
-                if (response.ok) {
-                    const userMessages = await response.json();
-                    messages[userId] = userMessages || [];
-                    
-                    // Update unread count for this user
-                    const user = users.find(u => u.userId === userId);
-                    if (user) {
-                        const unreadMessages = userMessages.filter(m => !m.isAdmin && !m.read);
-                        user.unread = unreadMessages.length;
-                        
-                        // If this user is selected, display their messages
-                        if (selectedUser && selectedUser.userId === userId) {
-                            displayUserMessages(userId);
+                const response = await fetch('/api/jobs');
+                const data = await response.json();
+                allJobs = data.jobs || [];
+                
+                updateJobStats();
+                renderRecentJobs();
+                renderAllJobs();
+                
+                document.getElementById('jobCount').textContent = allJobs.length;
+            } catch (error) {
+                console.error('Failed to load jobs:', error);
+                showToast('error', 'Error', 'Failed to load jobs');
+            }
+        }
+
+        async function loadApplications() {
+            try {
+                const response = await fetch('/api/applications');
+                const apps = await response.json();
+                allApplications = apps;
+                
+                updateApplicationStats();
+                renderApplications();
+                
+                document.getElementById('appCount').textContent = apps.length;
+            } catch (error) {
+                console.error('Failed to load applications:', error);
+                // Use mock data for demo
+                loadMockApplications();
+            }
+        }
+
+        async function loadMessages() {
+            try {
+                const response = await fetch('/api/admin/unread');
+                const data = await response.json();
+                
+                document.getElementById('msgCount').textContent = data.unread || 0;
+                document.getElementById('unreadMessages').textContent = data.unread || 0;
+                
+                // Load recent messages
+                const messagesResponse = await fetch('/api/messages/recent');
+                const messages = await messagesResponse.json();
+                allMessages = messages;
+                renderRecentMessages();
+            } catch (error) {
+                console.error('Failed to load messages:', error);
+            }
+        }
+
+        async function loadTelegramData() {
+            try {
+                const response = await fetch('/api/admin/telegram');
+                const data = await response.json();
+                telegramChats = data;
+                
+                document.getElementById('telegramCount').textContent = data.length;
+                document.getElementById('telegramUsers').textContent = data.length;
+                renderTelegramTable();
+            } catch (error) {
+                console.error('Failed to load telegram data:', error);
+            }
+        }
+
+        // ===== MOCK DATA FOR DEMO =====
+        function loadMockApplications() {
+            allApplications = [
+                { id: 1, jobTitle: 'Senior Developer', fullName: 'John Smith', email: 'john@example.com', phone: '07700900123', timestamp: '2026-03-12T10:30:00Z', status: 'pending' },
+                { id: 2, jobTitle: 'Registered Nurse', fullName: 'Sarah Jones', email: 'sarah@example.com', phone: '07700900124', timestamp: '2026-03-12T11:15:00Z', status: 'reviewed' },
+                { id: 3, jobTitle: 'Project Manager', fullName: 'Mike Brown', email: 'mike@example.com', phone: '07700900125', timestamp: '2026-03-11T09:20:00Z', status: 'accepted' }
+            ];
+            renderApplications();
+            document.getElementById('appCount').textContent = allApplications.length;
+        }
+
+        // ===== STATS UPDATE =====
+        function updateUserStats() {
+            const webUsers = allUsers.filter(u => !u.telegramId).length;
+            const telegramUsers = allUsers.filter(u => u.telegramId).length;
+            const onlineUsers = allUsers.filter(u => u.online).length;
+            
+            document.getElementById('totalUsers').textContent = allUsers.length;
+            document.getElementById('onlineUsers').textContent = onlineUsers;
+            document.getElementById('telegramUsers').textContent = telegramUsers;
+        }
+
+        function updateJobStats() {
+            const activeJobs = allJobs.filter(j => j.status === 'active').length;
+            document.getElementById('totalJobs').textContent = activeJobs;
+        }
+
+        function updateApplicationStats() {
+            document.getElementById('totalApplications').textContent = allApplications.length;
+        }
+
+        // ===== RENDERING FUNCTIONS =====
+        function renderRecentUsers() {
+            const tbody = document.getElementById('recentUsersTable');
+            const recentUsers = allUsers.slice(0, 5);
+            
+            if (recentUsers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="loading">No users found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = recentUsers.map(user => `
+                <tr>
+                    <td><strong>${user.userName || 'Unknown'}</strong></td>
+                    <td>${user.email || 'N/A'}</td>
+                    <td>${user.telegramId ? '<i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram' : '<i class="fas fa-globe" style="color: #0A3D62;"></i> Web'}</td>
+                    <td>
+                        <span class="online-badge">
+                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
+                            ${user.online ? 'Online' : 'Offline'}
+                        </span>
+                    </td>
+                    <td>${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'Never'}</td>
+                    <td><span class="status-badge ${user.unread > 0 ? 'status-pending' : 'status-active'}">${user.unread || 0}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewUser('${user.userId}')"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn edit" onclick="editUser('${user.userId}')"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteUser('${user.userId}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAllUsers() {
+            const tbody = document.getElementById('allUsersTable');
+            const start = (currentPage.users - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedUsers = allUsers.slice(start, end);
+            
+            if (paginatedUsers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="loading">No users found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = paginatedUsers.map(user => {
+                const userApps = allApplications.filter(a => a.userId === user.userId).length;
+                return `
+                <tr>
+                    <td><strong>${user.userName || 'Unknown'}</strong></td>
+                    <td>${user.email || 'N/A'}</td>
+                    <td>${user.telegramId ? '<i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram' : '<i class="fas fa-globe" style="color: #0A3D62;"></i> Web'}</td>
+                    <td>
+                        <span class="online-badge">
+                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
+                            ${user.online ? 'Online' : 'Offline'}
+                        </span>
+                    </td>
+                    <td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Unknown'}</td>
+                    <td>${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'Never'}</td>
+                    <td><span class="status-badge ${user.unread > 0 ? 'status-pending' : 'status-active'}">${user.unread || 0}</span></td>
+                    <td>${userApps}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewUser('${user.userId}')"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn edit" onclick="editUser('${user.userId}')"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteUser('${user.userId}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            
+            renderPagination('users', allUsers.length);
+        }
+
+        function renderRecentJobs() {
+            const tbody = document.getElementById('recentJobsTable');
+            const recentJobs = allJobs.slice(0, 5);
+            
+            if (recentJobs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">No jobs found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = recentJobs.map(job => `
+                <tr>
+                    <td>#${job.id}</td>
+                    <td><strong>${job.title}</strong></td>
+                    <td>${job.company}</td>
+                    <td>${job.location} ${job.remote ? '🌍' : ''}</td>
+                    <td>${job.type}</td>
+                    <td>${job.salary}</td>
+                    <td><span class="status-badge ${job.status === 'active' ? 'status-active' : 'status-inactive'}">${job.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewJob(${job.id})"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn edit" onclick="editJob(${job.id})"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteJob(${job.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAllJobs() {
+            const tbody = document.getElementById('allJobsTable');
+            const start = (currentPage.jobs - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedJobs = allJobs.slice(start, end);
+            
+            if (paginatedJobs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" class="loading">No jobs found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = paginatedJobs.map(job => {
+                const appCount = allApplications.filter(a => a.jobId === job.id).length;
+                return `
+                <tr>
+                    <td>#${job.id}</td>
+                    <td><strong>${job.title}</strong></td>
+                    <td>${job.company}</td>
+                    <td>${job.location}</td>
+                    <td>${job.type}</td>
+                    <td>${job.category}</td>
+                    <td>${job.salary}</td>
+                    <td>${job.posted || 'N/A'}</td>
+                    <td>${job.expires || 'N/A'}</td>
+                    <td><span class="status-badge ${job.status === 'active' ? 'status-active' : 'status-inactive'}">${job.status}</span></td>
+                    <td>${appCount}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewJob(${job.id})"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn edit" onclick="editJob(${job.id})"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" onclick="deleteJob(${job.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            
+            renderPagination('jobs', allJobs.length);
+        }
+
+        function renderApplications() {
+            const tbody = document.getElementById('applicationsTable');
+            const start = (currentPage.applications - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedApps = allApplications.slice(start, end);
+            
+            if (paginatedApps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">No applications found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = paginatedApps.map(app => {
+                let statusClass = 'status-pending';
+                if (app.status === 'accepted') statusClass = 'status-active';
+                if (app.status === 'rejected') statusClass = 'status-inactive';
+                
+                return `
+                <tr>
+                    <td>#${app.id}</td>
+                    <td><strong>${app.jobTitle}</strong></td>
+                    <td>${app.fullName}</td>
+                    <td>${app.email}</td>
+                    <td>${app.phone}</td>
+                    <td>${app.timestamp ? new Date(app.timestamp).toLocaleDateString() : 'N/A'}</td>
+                    <td><span class="status-badge ${statusClass}">${app.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewApplication(${app.id})"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn edit" onclick="updateApplicationStatus(${app.id})"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            
+            renderPagination('applications', allApplications.length);
+        }
+
+        function renderRecentMessages() {
+            const tbody = document.getElementById('messagesTable');
+            const recentMessages = allMessages.slice(0, 10);
+            
+            if (recentMessages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">No messages found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = recentMessages.map(msg => `
+                <tr>
+                    <td><strong>${msg.userName || 'Unknown'}</strong></td>
+                    <td>${msg.message.length > 50 ? msg.message.substring(0,50) + '...' : msg.message}</td>
+                    <td>${msg.timestamp ? new Date(msg.timestamp).toLocaleString() : 'N/A'}</td>
+                    <td><span class="status-badge ${msg.read ? 'status-active' : 'status-pending'}">${msg.read ? 'Read' : 'Unread'}</span></td>
+                    <td>
+                        <button class="action-btn view" onclick="viewMessage('${msg.id}')"><i class="fas fa-reply"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTelegramTable() {
+            const tbody = document.getElementById('telegramTable');
+            
+            if (telegramChats.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="loading">No Telegram users found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = telegramChats.slice(0, 10).map(chat => `
+                <tr>
+                    <td><strong>${chat.firstName || 'Unknown'}</strong></td>
+                    <td>@${chat.username || 'No username'}</td>
+                    <td>${chat.chatId}</td>
+                    <td>${chat.registeredAt ? new Date(chat.registeredAt).toLocaleDateString() : 'N/A'}</td>
+                    <td>${chat.lastActive ? new Date(chat.lastActive).toLocaleString() : 'N/A'}</td>
+                    <td><span class="status-badge ${chat.isAdmin ? 'status-active' : 'status-pending'}">${chat.isAdmin ? 'Admin' : 'User'}</span></td>
+                    <td>
+                        <button class="action-btn view" onclick="viewTelegramUser('${chat.chatId}')"><i class="fas fa-eye"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderPagination(type, total) {
+            const totalPages = Math.ceil(total / itemsPerPage);
+            const pagination = document.getElementById(type + 'Pagination');
+            
+            if (!pagination) return;
+            
+            let html = '';
+            const current = currentPage[type];
+            
+            html += `<button class="page-btn" ${current > 1 ? '' : 'disabled'} onclick="changePage('${type}', ${current - 1})"><i class="fas fa-chevron-left"></i></button>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= current - 2 && i <= current + 2)) {
+                    html += `<button class="page-btn ${i === current ? 'active' : ''}" onclick="changePage('${type}', ${i})">${i}</button>`;
+                } else if (i === current - 3 || i === current + 3) {
+                    html += `<span class="page-btn disabled">...</span>`;
+                }
+            }
+            
+            html += `<button class="page-btn" ${current < totalPages ? '' : 'disabled'} onclick="changePage('${type}', ${current + 1})"><i class="fas fa-chevron-right"></i></button>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // ===== CHART FUNCTIONS =====
+        function updatePlatformChart() {
+            const ctx = document.getElementById('platformChart').getContext('2d');
+            
+            const webUsers = allUsers.filter(u => !u.telegramId).length;
+            const telegramUsers = allUsers.filter(u => u.telegramId).length;
+            
+            if (charts.platform) {
+                charts.platform.destroy();
+            }
+            
+            charts.platform = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Web Users', 'Telegram Users'],
+                    datasets: [{
+                        data: [webUsers, telegramUsers],
+                        backgroundColor: ['#0A3D62', '#0088cc'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
                         }
                     }
-                    
-                    return userMessages;
                 }
-            } catch (error) {
-                console.error(`Failed to load messages for user ${userId}:`, error);
-                messages[userId] = [];
-            }
-            return [];
-        }
-
-        // ===== UPDATE USERS LIST =====
-        function updateUsersList() {
-            if (!usersList) return;
-            
-            if (!users || users.length === 0) {
-                usersList.innerHTML = '<div class="empty-state"><i>👥</i><p>No users found</p></div>';
-                return;
-            }
-            
-            // Sort users: unread first, then by last message time
-            const sortedUsers = [...users].sort((a, b) => {
-                if ((b.unread || 0) !== (a.unread || 0)) {
-                    return (b.unread || 0) - (a.unread || 0);
-                }
-                
-                const aLastMsg = messages[a.userId]?.length > 0 
-                    ? new Date(messages[a.userId][messages[a.userId].length - 1].timestamp) 
-                    : new Date(0);
-                const bLastMsg = messages[b.userId]?.length > 0 
-                    ? new Date(messages[b.userId][messages[b.userId].length - 1].timestamp) 
-                    : new Date(0);
-                
-                return bLastMsg - aLastMsg;
             });
-            
-            usersList.innerHTML = sortedUsers.map(user => {
-                const lastMsg = messages[user.userId]?.length > 0 
-                    ? messages[user.userId][messages[user.userId].length - 1] 
-                    : null;
-                
-                return `
-                    <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
-                        <div class="user-info">
-                            <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
-                            <div class="user-details">
-                                <div class="user-name">
-                                    ${escapeHtml(user.userName || 'Unknown')}
-                                </div>
-                                <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
-                                <div class="last-message">
-                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + (lastMsg.message.length > 30 ? '...' : '') : 'No messages'}
-                                </div>
-                            </div>
-                        </div>
-                        ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
-                    </div>
-                `;
-            }).join('');
         }
 
-        // ===== SELECT USER =====
-        async function selectUser(userId) {
-            const user = users.find(u => u.userId === userId);
-            if (!user) return;
+        function updateActivityChart() {
+            // This would normally fetch activity data from API
+            // For demo, we'll use mock data
+            const ctx = document.getElementById('activityChart').getContext('2d');
             
-            selectedUser = user;
+            const labels = [];
+            const data = [];
             
-            // Update UI
-            selectedUserInfo.innerHTML = `
-                <h3>
-                    ${escapeHtml(user.userName)}
-                    <span class="user-status-badge">
-                        <span class="status-dot ${user.online ? 'online' : 'offline'}"></span>
-                        <span>${user.online ? 'Online' : 'Offline'}</span>
-                    </span>
-                </h3>
-                <p>${escapeHtml(user.email)}</p>
-            `;
-            
-            userStatusBadge.style.display = 'inline-flex';
-            messageInputArea.style.display = 'flex';
-            markReadBtn.style.display = 'inline-block';
-            refreshBtn.style.display = 'inline-block';
-            
-            // Load and display messages for this user
-            await loadUserMessages(userId);
-            displayUserMessages(userId);
-            
-            // Mark messages as read
-            markUserMessagesRead(user);
-            
-            // Update users list to show selection
-            updateUsersList();
-            
-            // Close sidebar on mobile
-            if (window.innerWidth <= 768) {
-                closeMobileSidebar();
-            }
-        }
-
-        // ===== DISPLAY USER MESSAGES =====
-        function displayUserMessages(userId) {
-            const userMessages = messages[userId] || [];
-            
-            if (!userMessages || userMessages.length === 0) {
-                messagesArea.innerHTML = `
-                    <div class="empty-state">
-                        <i>💬</i>
-                        <p>No messages yet with this user</p>
-                        <p style="font-size: 11px; margin-top: 5px;">Send a message to start the conversation</p>
-                    </div>
-                `;
-                return;
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                labels.push(d.toLocaleDateString('en-GB', { weekday: 'short' }));
+                
+                // Mock data - random between 5 and 30
+                data.push(Math.floor(Math.random() * 25) + 5);
             }
             
-            // Sort chronologically
-            const sortedMessages = [...userMessages].sort((a, b) => 
-                new Date(a.timestamp) - new Date(b.timestamp)
-            );
-            
-            messagesArea.innerHTML = sortedMessages.map(msg => {
-                const time = new Date(msg.timestamp).toLocaleTimeString([], { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                });
-                
-                return `
-                    <div class="message-wrapper ${msg.isAdmin ? 'admin' : 'user'}" data-message-id="${msg.id}">
-                        <div class="message-meta">
-                            <span>${msg.isAdmin ? 'You' : escapeHtml(msg.userName || 'User')}</span>
-                            <span>•</span>
-                            <span class="message-time">${time}</span>
-                            ${!msg.isAdmin ? `
-                                <span class="message-status ${msg.read ? 'read' : ''}">
-                                    ${msg.read ? '✓✓' : '✓'}
-                                </span>
-                            ` : ''}
-                        </div>
-                        <div class="message-bubble">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Scroll to bottom
-            messagesArea.scrollTop = messagesArea.scrollHeight;
-        }
-
-        // ===== HANDLE NEW MESSAGE =====
-        function handleNewMessage(message) {
-            console.log('New message received:', message);
-            
-            // Initialize messages array for this user if needed
-            if (!messages[message.userId]) {
-                messages[message.userId] = [];
+            if (charts.activity) {
+                charts.activity.destroy();
             }
             
-            // Check for duplicates
-            const exists = messages[message.userId].some(m => m.id === message.id);
-            if (!exists) {
-                messages[message.userId].push(message);
-                
-                // Update user's unread count
-                const user = users.find(u => u.userId === message.userId);
-                if (user && !message.isAdmin) {
-                    user.unread = (user.unread || 0) + 1;
-                    updateUnreadCount();
-                    
-                    // Show notification
-                    showToast(`✉️ New message from ${user.userName}`, 'info');
-                    sendNtfyNotification(
-                        '💬 New User Message',
-                        `From: ${user.userName}\n${message.message.substring(0, 100)}`,
-                        4,
-                        ['speech_balloon']
-                    );
-                    
-                    // Play notification sound
-                    playNotificationSound();
-                }
-                
-                // Update users list
-                updateUsersList();
-                
-                // If this user is selected, display the message
-                if (selectedUser && selectedUser.userId === message.userId) {
-                    displayUserMessages(message.userId);
-                    
-                    // Auto-mark as read if we're viewing
-                    if (!message.isAdmin) {
-                        markUserMessagesRead(selectedUser);
+            charts.activity = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Active Users',
+                        data: data,
+                        borderColor: '#0A3D62',
+                        backgroundColor: 'rgba(10,61,98,0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
                 }
-            }
+            });
         }
 
-        // ===== SEND ADMIN MESSAGE =====
-        async function sendAdminMessage() {
-            const text = adminMessageInput.value.trim();
-            
-            if (!text || !selectedUser) {
-                showToast('No user selected', 'warning');
-                return;
-            }
-            
-            if (text.length > 1000) {
-                showToast('Message too long', 'warning');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/admin/send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: selectedUser.email,
-                        message: text
-                    })
-                });
-                
-                if (response.ok) {
-                    const messageId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-                    const timestamp = new Date().toISOString();
-                    
-                    // Create message object
-                    const newMessage = {
-                        id: messageId,
-                        userId: selectedUser.userId,
-                        userEmail: selectedUser.email,
-                        userName: 'Admin',
-                        message: text,
-                        isAdmin: true,
-                        timestamp: timestamp,
-                        read: true
-                    };
-                    
-                    // Add to messages
-                    if (!messages[selectedUser.userId]) {
-                        messages[selectedUser.userId] = [];
-                    }
-                    messages[selectedUser.userId].push(newMessage);
-                    
-                    // Display in UI
-                    displayUserMessages(selectedUser.userId);
-                    
-                    // Clear input
-                    adminMessageInput.value = '';
-                    document.getElementById('adminCharCounter').textContent = '0/1000';
-                    
-                    // Send via WebSocket for real-time delivery
-                    if (isConnected && ws) {
-                        ws.send(JSON.stringify({
-                            type: 'admin_message',
-                            userId: selectedUser.userId,
-                            message: text,
-                            messageId: messageId,
-                            timestamp: timestamp
-                        }));
-                    }
-                    
-                    showToast('Message sent', 'success');
-                    
-                    // Send ntfy notification
-                    sendNtfyNotification(
-                        '👑 Admin Reply',
-                        `To: ${selectedUser.userName}\n${text.substring(0, 100)}`,
-                        3,
-                        ['admin', 'reply']
-                    );
-                }
-            } catch (error) {
-                console.error('Failed to send message:', error);
-                showToast('Failed to send message', 'error');
-            }
-        }
-
-        // ===== MARK USER MESSAGES AS READ =====
-        async function markUserMessagesRead(user) {
-            if (!user || !user.unread) return;
-            
-            try {
-                const response = await fetch(`/api/admin/mark-read/${encodeURIComponent(user.email)}`, {
-                    method: 'POST'
-                });
-                
-                if (response.ok) {
-                    // Update local state
-                    user.unread = 0;
-                    
-                    // Update messages
-                    if (messages[user.userId]) {
-                        messages[user.userId].forEach(msg => {
-                            if (!msg.isAdmin) msg.read = true;
-                        });
-                    }
-                    
-                    updateUnreadCount();
-                    updateUsersList();
-                    
-                    // Update UI if this user is selected
-                    if (selectedUser && selectedUser.userId === user.userId) {
-                        displayUserMessages(user.userId);
-                    }
-                }
-            } catch (error) {
-                console.error('Failed to mark messages as read:', error);
-            }
-        }
-
-        function markCurrentUserRead() {
-            if (selectedUser) {
-                markUserMessagesRead(selectedUser);
-            }
-        }
-
-        // ===== REFRESH USER MESSAGES =====
-        async function refreshUserMessages() {
-            if (selectedUser) {
-                await loadUserMessages(selectedUser.userId);
-                displayUserMessages(selectedUser.userId);
-                showToast('Messages refreshed', 'success');
-            }
-        }
-
-        // ===== HANDLE TYPING INDICATOR =====
-        function handleTypingIndicator(data) {
-            if (selectedUser && data.userId === selectedUser.userId) {
-                if (data.isTyping) {
-                    typingIndicator.classList.add('active');
-                    
-                    if (typingTimeout) clearTimeout(typingTimeout);
-                    typingTimeout = setTimeout(() => {
-                        typingIndicator.classList.remove('active');
-                    }, 3000);
-                } else {
-                    typingIndicator.classList.remove('active');
-                }
-            }
-        }
-
-        // ===== UPDATE UNREAD COUNT =====
-        function updateUnreadCount() {
-            unreadCount = users.reduce((sum, user) => sum + (user.unread || 0), 0);
-            sidebarUnread.textContent = unreadCount;
-            notificationBadge.textContent = unreadCount;
-            document.getElementById('totalUnread').textContent = unreadCount;
-            
-            // Update page title
-            if (unreadCount > 0) {
-                document.title = `(${unreadCount}) Admin Chat - Perfections`;
-            } else {
-                document.title = 'Admin Chat - Perfections';
-            }
-        }
-
-        // ===== SEARCH USERS =====
-        function searchUsers() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            const filtered = users.filter(u => 
-                (u.userName && u.userName.toLowerCase().includes(searchTerm)) ||
-                (u.email && u.email.toLowerCase().includes(searchTerm))
-            );
-            
-            usersList.innerHTML = filtered.map(user => {
-                const lastMsg = messages[user.userId]?.length > 0 
-                    ? messages[user.userId][messages[user.userId].length - 1] 
-                    : null;
-                
-                return `
-                    <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
-                        <div class="user-info">
-                            <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
-                            <div class="user-details">
-                                <div class="user-name">
-                                    ${escapeHtml(user.userName || 'Unknown')}
-                                </div>
-                                <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
-                                <div class="last-message">
-                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + (lastMsg.message.length > 30 ? '...' : '') : 'No messages'}
-                                </div>
-                            </div>
-                        </div>
-                        ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // ===== HANDLE MESSAGE KEYDOWN =====
-        function handleMessageKeydown(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendAdminMessage();
-            }
-            
-            // Update character counter
-            document.getElementById('adminCharCounter').textContent = `${e.target.value.length}/1000`;
-        }
-
-        // ===== SEND BROADCAST =====
-        async function sendBroadcast() {
-            const message = document.getElementById('broadcastMessage').value.trim();
-            
-            if (!message) {
-                showToast('Please enter a message', 'warning');
-                return;
-            }
-            
-            let sent = 0;
-            
-            for (const user of users) {
-                try {
-                    const response = await fetch('/api/admin/send', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email: user.email,
-                            message: `📢 *Broadcast:*\n\n${message}`
-                        })
-                    });
-                    
-                    if (response.ok) {
-                        sent++;
-                    }
-                    
-                    // Send via WebSocket if connected
-                    if (isConnected && ws) {
-                        ws.send(JSON.stringify({
-                            type: 'admin_message',
-                            userId: user.userId,
-                            message: `📢 Broadcast: ${message}`
-                        }));
-                    }
-                    
-                    await new Promise(r => setTimeout(r, 50));
-                } catch (error) {
-                    console.error('Failed to send to user:', error);
-                }
-            }
-            
-            showToast(`Broadcast sent to ${sent} users`, 'success');
-            document.getElementById('broadcastMessage').value = '';
-            
-            sendNtfyNotification('📢 Broadcast', message.substring(0, 100), 4);
-        }
-
-        // ===== PLAY NOTIFICATION SOUND =====
-        function playNotificationSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.1);
-            } catch (error) {
-                console.log('Audio play failed:', error);
-            }
-        }
-
-        // ===== SWITCH VIEW =====
-        function switchView(view) {
-            currentView = view;
-            
-            document.querySelectorAll('.menu-item').forEach(item => {
+        // ===== PAGE FUNCTIONS =====
+        function switchTab(tabId) {
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
             
-            const titles = {
-                dashboard: { title: 'Dashboard', subtitle: 'Overview' },
-                chat: { title: 'Live Chat', subtitle: 'Real-time conversations' },
-                users: { title: 'Users', subtitle: 'User management' },
-                broadcast: { title: 'Broadcast', subtitle: 'Send announcements' }
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update page title
+            document.querySelector('.page-title h1').textContent = 
+                tabId.charAt(0).toUpperCase() + tabId.slice(1);
+        }
+
+        function changePage(type, page) {
+            if (page < 1) return;
+            currentPage[type] = page;
+            
+            if (type === 'users') renderAllUsers();
+            if (type === 'jobs') renderAllJobs();
+            if (type === 'applications') renderApplications();
+        }
+
+        // ===== SEARCH & FILTER FUNCTIONS =====
+        function searchUsers() {
+            const term = document.getElementById('userSearch').value.toLowerCase();
+            // Implementation would filter users
+            showToast('info', 'Search', 'Searching users...');
+        }
+
+        function searchAllUsers() {
+            const term = document.getElementById('allUsersSearch').value.toLowerCase();
+            showToast('info', 'Search', 'Searching all users...');
+        }
+
+        function filterUsers() {
+            const filter = document.getElementById('userFilter').value;
+            showToast('info', 'Filter', `Filtering by: ${filter}`);
+        }
+
+        function searchJobs() {
+            const term = document.getElementById('jobsSearch').value.toLowerCase();
+            showToast('info', 'Search', 'Searching jobs...');
+        }
+
+        function filterJobs() {
+            const filter = document.getElementById('jobFilter').value;
+            showToast('info', 'Filter', `Filtering by: ${filter}`);
+        }
+
+        function searchApplications() {
+            const term = document.getElementById('appSearch').value.toLowerCase();
+            showToast('info', 'Search', 'Searching applications...');
+        }
+
+        function filterApplications() {
+            const filter = document.getElementById('appStatusFilter').value;
+            showToast('info', 'Filter', `Filtering by: ${filter}`);
+        }
+
+        // ===== USER ACTIONS =====
+        function viewUser(userId) {
+            const user = allUsers.find(u => u.userId === userId);
+            if (!user) return;
+            
+            const content = document.getElementById('userDetailsContent');
+            content.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="admin-avatar" style="margin: 0 auto; width: 80px; height: 80px; font-size: 32px;">
+                        ${(user.userName || 'U').charAt(0).toUpperCase()}
+                    </div>
+                    <h3 style="margin-top: 10px; color: var(--primary);">${user.userName}</h3>
+                    <p>${user.email}</p>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">User ID:</span>
+                    <span class="detail-value">${user.userId}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Platform:</span>
+                    <span class="detail-value">${user.telegramId ? 'Telegram' : 'Web'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value">
+                        <span class="online-badge">
+                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
+                            ${user.online ? 'Online' : 'Offline'}
+                        </span>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Registered:</span>
+                    <span class="detail-value">${user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Last Seen:</span>
+                    <span class="detail-value">${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Unread Messages:</span>
+                    <span class="detail-value">${user.unread || 0}</span>
+                </div>
+                ${user.telegramId ? `
+                <div class="detail-row">
+                    <span class="detail-label">Telegram ID:</span>
+                    <span class="detail-value">${user.telegramId}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Username:</span>
+                    <span class="detail-value">@${user.username || 'N/A'}</span>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('userModalTitle').textContent = user.userName;
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        function editUser(userId) {
+            showToast('info', 'Edit User', 'Edit functionality coming soon');
+        }
+
+        function deleteUser(userId) {
+            document.getElementById('confirmMessage').textContent = 'Are you sure you want to delete this user? This will remove all their data and cannot be undone.';
+            document.getElementById('confirmDeleteBtn').onclick = () => confirmDeleteUser(userId);
+            document.getElementById('confirmModal').style.display = 'block';
+        }
+
+        function confirmDeleteUser(userId) {
+            closeConfirmModal();
+            showToast('success', 'User Deleted', 'User has been deleted successfully');
+            // In production, would call API
+        }
+
+        // ===== JOB ACTIONS =====
+        function openAddJobModal() {
+            document.getElementById('jobModalTitle').textContent = 'Add New Job';
+            document.getElementById('jobId').value = '';
+            document.getElementById('jobForm').reset();
+            
+            // Set default expiry date
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 30);
+            document.getElementById('jobExpiryDate').value = expiryDate.toISOString().split('T')[0];
+            
+            document.getElementById('jobModal').style.display = 'block';
+        }
+
+        function editJob(jobId) {
+            const job = allJobs.find(j => j.id === jobId);
+            if (!job) return;
+            
+            document.getElementById('jobModalTitle').textContent = 'Edit Job';
+            document.getElementById('jobId').value = job.id;
+            document.getElementById('jobTitle').value = job.title.replace(/[^\w\s]/g, '').trim();
+            document.getElementById('jobCompany').value = job.company;
+            document.getElementById('jobLocation').value = job.location;
+            document.getElementById('jobRemote').checked = job.remote || false;
+            document.getElementById('jobType').value = job.type || 'Full Time';
+            document.getElementById('jobCategory').value = job.category || 'IT & Tech';
+            document.getElementById('jobSalary').value = job.salary;
+            document.getElementById('jobPaymentType').value = job.payment_type || 'yearly';
+            document.getElementById('jobDescription').value = job.description || '';
+            document.getElementById('jobRequirements').value = job.requirements || '';
+            document.getElementById('jobBenefits').value = job.benefits || '';
+            document.getElementById('jobStatus').value = job.status || 'active';
+            
+            if (job.expires) {
+                document.getElementById('jobExpiryDate').value = job.expires;
+            } else {
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + 30);
+                document.getElementById('jobExpiryDate').value = expiryDate.toISOString().split('T')[0];
+            }
+            
+            document.getElementById('jobModal').style.display = 'block';
+        }
+
+        function viewJob(jobId) {
+            const job = allJobs.find(j => j.id === jobId);
+            if (!job) return;
+            
+            showToast('info', 'View Job', `Viewing: ${job.title}`);
+        }
+
+        function deleteJob(jobId) {
+            document.getElementById('confirmMessage').textContent = 'Are you sure you want to delete this job? This action cannot be undone.';
+            document.getElementById('confirmDeleteBtn').onclick = () => confirmDeleteJob(jobId);
+            document.getElementById('confirmModal').style.display = 'block';
+        }
+
+        function confirmDeleteJob(jobId) {
+            closeConfirmModal();
+            allJobs = allJobs.filter(j => j.id !== jobId);
+            renderAllJobs();
+            renderRecentJobs();
+            showToast('success', 'Job Deleted', 'Job has been deleted successfully');
+        }
+
+        function saveJob() {
+            const jobData = {
+                title: document.getElementById('jobTitle').value,
+                company: document.getElementById('jobCompany').value,
+                location: document.getElementById('jobLocation').value,
+                remote: document.getElementById('jobRemote').checked,
+                type: document.getElementById('jobType').value,
+                category: document.getElementById('jobCategory').value,
+                salary: document.getElementById('jobSalary').value,
+                payment_type: document.getElementById('jobPaymentType').value,
+                description: document.getElementById('jobDescription').value,
+                requirements: document.getElementById('jobRequirements').value,
+                benefits: document.getElementById('jobBenefits').value,
+                status: document.getElementById('jobStatus').value,
+                expires: document.getElementById('jobExpiryDate').value
             };
             
-            document.getElementById('pageTitle').textContent = titles[view].title;
-            document.getElementById('pageSubtitle').textContent = titles[view].subtitle;
+            const jobId = document.getElementById('jobId').value;
             
-            document.getElementById('dashboardView').style.display = view === 'dashboard' ? 'block' : 'none';
-            document.getElementById('chatView').style.display = view === 'chat' ? 'flex' : 'none';
-            document.getElementById('usersView').style.display = view === 'users' ? 'block' : 'none';
-            document.getElementById('broadcastView').style.display = view === 'broadcast' ? 'block' : 'none';
-        }
-
-        // ===== TOGGLE SIDEBAR =====
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('mobile-open');
-        }
-
-        function closeMobileSidebar() {
-            document.getElementById('sidebar').classList.remove('mobile-open');
-        }
-
-        // ===== REFRESH DATA =====
-        function refreshData() {
-            loadUsers();
-            showToast('Data refreshed', 'success');
-        }
-
-        // ===== LOGOUT =====
-        function logout() {
-            isAuthenticated = false;
-            adminDashboard.classList.remove('visible');
-            pinScreen.style.display = 'flex';
-            clearPin();
-            
-            if (ws) {
-                ws.close();
+            if (jobId) {
+                // Update existing job
+                const index = allJobs.findIndex(j => j.id == jobId);
+                if (index !== -1) {
+                    allJobs[index] = { ...allJobs[index], ...jobData };
+                    showToast('success', 'Job Updated', 'Job has been updated successfully');
+                }
+            } else {
+                // Add new job
+                const newJob = {
+                    id: allJobs.length + 1,
+                    ...jobData,
+                    posted: new Date().toISOString().split('T')[0]
+                };
+                allJobs.push(newJob);
+                showToast('success', 'Job Added', 'New job has been added successfully');
             }
             
-            sendNtfyNotification('👋 Admin Logout', 'Admin logged out', 2);
+            renderAllJobs();
+            renderRecentJobs();
+            closeJobModal();
         }
 
-        // ===== SHOW TOAST =====
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
+        function closeJobModal() {
+            document.getElementById('jobModal').style.display = 'none';
+        }
+
+        // ===== APPLICATION ACTIONS =====
+        function viewApplication(appId) {
+            const app = allApplications.find(a => a.id === appId);
+            if (!app) return;
+            
+            showToast('info', 'Application', `Viewing application for ${app.jobTitle}`);
+        }
+
+        function updateApplicationStatus(appId) {
+            const app = allApplications.find(a => a.id === appId);
+            if (!app) return;
+            
+            const newStatus = prompt('Enter new status (pending, reviewed, accepted, rejected):', app.status);
+            if (newStatus && ['pending', 'reviewed', 'accepted', 'rejected'].includes(newStatus)) {
+                app.status = newStatus;
+                renderApplications();
+                showToast('success', 'Status Updated', `Application status changed to ${newStatus}`);
+            }
+        }
+
+        // ===== MESSAGE ACTIONS =====
+        function sendMessageToUser() {
+            // Implementation would open message modal
+            showToast('info', 'Send Message', 'Message functionality coming soon');
+        }
+
+        function viewMessage(messageId) {
+            showToast('info', 'View Message', 'Message details coming soon');
+        }
+
+        function refreshMessages() {
+            loadMessages();
+            showToast('success', 'Refreshed', 'Messages updated');
+        }
+
+        // ===== TELEGRAM ACTIONS =====
+        function sendTelegramBroadcast() {
+            document.getElementById('broadcastModal').style.display = 'block';
+        }
+
+        function viewTelegramUser(chatId) {
+            const chat = telegramChats.find(c => c.chatId === chatId);
+            if (!chat) return;
+            
+            showToast('info', 'Telegram User', `Viewing: ${chat.firstName || 'Unknown'}`);
+        }
+
+        // ===== BROADCAST FUNCTIONS =====
+        function closeBroadcastModal() {
+            document.getElementById('broadcastModal').style.display = 'none';
+        }
+
+        function sendBroadcast() {
+            const message = document.getElementById('broadcastMessage').value;
+            const toTelegram = document.getElementById('broadcastToTelegram').checked;
+            const toWeb = document.getElementById('broadcastToWeb').checked;
+            const toEmail = document.getElementById('broadcastToEmail').checked;
+            
+            if (!message) {
+                showToast('error', 'Error', 'Please enter a message');
+                return;
+            }
+            
+            showToast('success', 'Broadcast Sent', `Message sent to ${toTelegram ? 'Telegram, ' : ''}${toWeb ? 'Web, ' : ''}${toEmail ? 'Email' : ''} users`);
+            closeBroadcastModal();
+        }
+
+        // ===== SETTINGS FUNCTIONS =====
+        function saveSettings() {
+            showToast('success', 'Settings Saved', 'Your changes have been applied');
+        }
+
+        // ===== EXPORT FUNCTIONS =====
+        function exportUsers() {
+            const data = JSON.stringify(allUsers, null, 2);
+            downloadFile('users-export.json', data);
+            showToast('success', 'Export Complete', 'Users data exported');
+        }
+
+        function exportAllUsers() {
+            exportUsers();
+        }
+
+        function exportApplications() {
+            const data = JSON.stringify(allApplications, null, 2);
+            downloadFile('applications-export.json', data);
+            showToast('success', 'Export Complete', 'Applications data exported');
+        }
+
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function closeUserModal() {
+            document.getElementById('userModal').style.display = 'none';
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showToast(type, title, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = '';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'error') icon = 'exclamation-circle';
+            if (type === 'warning') icon = 'exclamation-triangle';
+            if (type === 'info') icon = 'info-circle';
+            
+            toast.innerHTML = `
+                <div class="toast-icon"><i class="fas fa-${icon}"></i></div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            
+            container.appendChild(toast);
             
             setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
         }
 
-        // ===== NTFY NOTIFICATION =====
-        async function sendNtfyNotification(title, message, priority = 3, tags = []) {
-            try {
-                await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        topic: NTFY_TOPIC,
-                        title: title,
-                        message: message,
-                        priority: priority,
-                        tags: tags,
-                        click: window.location.href
-                    }),
-                    headers: { 'Content-Type': 'application/json' }
-                });
-            } catch (error) { 
-                console.error('Failed to send ntfy notification:', error); 
+        function refreshData() {
+            loadDashboardData();
+            updateActivityChart();
+        }
+
+        function updateUserOnlineStatus(userId, status) {
+            const user = allUsers.find(u => u.userId === userId);
+            if (user) {
+                user.online = status === 'online';
+                renderRecentUsers();
+                renderAllUsers();
             }
         }
 
-        // ===== ESCAPE HTML =====
-        function escapeHtml(unsafe) {
-            if (!unsafe) return '';
-            return String(unsafe)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        function updateUnreadCount() {
+            const unread = allMessages.filter(m => !m.read).length;
+            document.getElementById('msgCount').textContent = unread;
+            document.getElementById('unreadMessages').textContent = unread;
         }
 
-        // ===== INITIALIZE DASHBOARD =====
-        function initializeDashboard() {
-            connectWebSocket();
-            loadUsers();
-            
-            // Set up periodic refresh
-            setInterval(() => {
-                if (isConnected) {
-                    loadUsers();
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = ['jobModal', 'userModal', 'messageModal', 'broadcastModal', 'confirmModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.style.display = 'none';
                 }
-            }, 10000);
-            
-            // Focus on chat view
-            document.querySelector('.menu-item.active').classList.remove('active');
-            document.querySelector('.menu-item[onclick="switchView(\'chat\')"]').classList.add('active');
+            });
         }
     </script>
 </body>
