@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Live Chat - Perfections Recruitment</title>
     <style>
         * {
@@ -30,62 +30,81 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
         .chat-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 95vh;
+            animation: slideUp 0.5s ease;
         }
 
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Chat Header */
         .chat-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 20px 30px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .chat-header h1 {
-            font-size: 24px;
-            font-weight: 600;
+        .header-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .chat-header h1 i {
-            font-size: 28px;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .status {
+        .header-left h1 {
+            font-size: 18px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .header-left h1 i {
+            font-size: 22px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             background: rgba(255,255,255,0.15);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #4caf50;
             animation: pulse 2s infinite;
@@ -96,21 +115,27 @@
             animation: none;
         }
 
+        .status-dot.connecting {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
 
-        .badge {
+        .unread-badge {
             background: rgba(255,255,255,0.2);
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 50px;
-            font-size: 13px;
+            font-size: 12px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
 
+        /* Main Chat Area */
         .chat-main {
             display: flex;
             flex: 1;
@@ -118,13 +143,20 @@
             background: #f8fafc;
         }
 
-        .sidebar {
-            width: 320px;
+        /* Sidebar */
+        .chat-sidebar {
+            width: 280px;
             background: white;
             border-right: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .chat-sidebar {
+                display: none;
+            }
         }
 
         .sidebar-section {
@@ -134,30 +166,31 @@
 
         .sidebar-section h3 {
             color: var(--dark);
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #4a5568;
-            font-size: 13px;
-            font-weight: 500;
+            gap: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        /* Registration Form */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            color: #4a5568;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 12px;
             border: 2px solid #e2e8f0;
             border-radius: 10px;
             font-size: 14px;
@@ -182,19 +215,19 @@
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .btn:disabled {
@@ -207,35 +240,31 @@
             color: #4a5568;
         }
 
-        .btn-secondary:hover:not(:disabled) {
-            background: #cbd5e0;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .user-info-card {
+        /* User Profile */
+        .user-profile {
             background: #f8fafc;
             border-radius: 12px;
             padding: 15px;
             margin-top: 15px;
         }
 
-        .user-info-item {
+        .profile-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
+            gap: 8px;
+            padding: 6px 0;
             color: #4a5568;
-            font-size: 14px;
+            font-size: 13px;
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .user-info-item:last-child {
+        .profile-item:last-child {
             border-bottom: none;
         }
 
+        /* Jobs Preview */
         .jobs-preview {
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
         }
 
@@ -243,7 +272,7 @@
             padding: 12px;
             background: #f8fafc;
             border-radius: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid transparent;
@@ -252,55 +281,62 @@
         .job-item:hover {
             border-color: var(--primary);
             background: white;
-            transform: translateX(5px);
         }
 
         .job-item h4 {
             color: var(--dark);
-            font-size: 15px;
-            margin-bottom: 5px;
+            font-size: 14px;
+            margin-bottom: 4px;
         }
 
         .job-item p {
             color: #718096;
-            font-size: 13px;
-            margin-bottom: 8px;
+            font-size: 12px;
+            margin-bottom: 6px;
         }
 
         .job-tags {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .job-tag {
             background: #e2e8f0;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
             color: #4a5568;
         }
 
-        .chat-area {
+        /* Chat Content */
+        .chat-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             background: #f8fafc;
         }
 
+        /* Messages Area */
         .messages-container {
             flex: 1;
             overflow-y: auto;
-            padding: 25px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .message-wrapper {
             display: flex;
             flex-direction: column;
-            max-width: 70%;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message-wrapper.user {
@@ -312,7 +348,7 @@
         }
 
         .message-bubble {
-            padding: 12px 18px;
+            padding: 12px 16px;
             border-radius: 18px;
             position: relative;
             word-wrap: break-word;
@@ -323,13 +359,13 @@
         .message-wrapper.user .message-bubble {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 4px;
         }
 
         .message-wrapper.admin .message-bubble {
             background: white;
             color: var(--dark);
-            border-bottom-left-radius: 5px;
+            border-bottom-left-radius: 4px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
@@ -337,7 +373,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin: 5px 0;
+            margin: 4px 8px;
             font-size: 11px;
             color: #a0aec0;
         }
@@ -356,13 +392,14 @@
             color: var(--success);
         }
 
+        /* Typing Indicator */
         .typing-indicator {
-            padding: 10px 25px;
-            color: #a0aec0;
-            font-size: 13px;
+            padding: 10px 20px;
             display: none;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-size: 12px;
+            color: #a0aec0;
         }
 
         .typing-indicator.active {
@@ -371,7 +408,7 @@
 
         .typing-dots {
             display: flex;
-            gap: 3px;
+            gap: 4px;
         }
 
         .typing-dots span {
@@ -391,12 +428,13 @@
             30% { transform: translateY(-4px); }
         }
 
+        /* Message Input */
         .message-input-area {
-            padding: 20px 25px;
+            padding: 15px 20px;
             background: white;
             border-top: 1px solid #e2e8f0;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: flex-end;
         }
 
@@ -412,9 +450,9 @@
             border-radius: 12px;
             font-size: 14px;
             resize: none;
-            max-height: 120px;
+            max-height: 100px;
+            min-height: 45px;
             line-height: 1.5;
-            font-family: inherit;
             transition: all 0.3s;
         }
 
@@ -426,75 +464,123 @@
 
         .input-wrapper textarea:disabled {
             background: #f7fafc;
+            cursor: not-allowed;
         }
 
         .char-counter {
             position: absolute;
             bottom: 8px;
             right: 12px;
-            font-size: 11px;
+            font-size: 10px;
             color: #a0aec0;
+            background: white;
+            padding: 2px 4px;
+            border-radius: 4px;
         }
 
         .send-btn {
-            padding: 12px 24px;
+            padding: 0 20px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
-            height: 48px;
+            gap: 6px;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .send-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
+        .send-btn:active:not(:disabled) {
+            transform: scale(0.98);
         }
 
         .send-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
+        /* Quick Replies */
+        .quick-replies {
+            padding: 10px 20px;
+            display: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: #f8fafc;
+        }
+
+        .quick-reply-btn {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .quick-reply-btn:active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Welcome Message */
         .welcome-message {
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             color: #a0aec0;
         }
 
         .welcome-message i {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 15px;
             color: var(--primary);
             opacity: 0.5;
         }
 
         .welcome-message h3 {
             color: var(--dark);
-            margin-bottom: 10px;
-            font-size: 20px;
+            margin-bottom: 8px;
+            font-size: 18px;
         }
 
-        .alert {
+        .welcome-message p {
+            font-size: 13px;
+        }
+
+        /* Alert Container */
+        .alert-container {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 15px 20px;
+            left: 20px;
+            z-index: 1000;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .alert {
+            max-width: 400px;
+            width: 100%;
+            padding: 12px 16px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 12px;
-            z-index: 1000;
+            gap: 10px;
             animation: slideIn 0.3s ease;
-            max-width: 400px;
+            pointer-events: auto;
             border-left: 4px solid;
         }
 
@@ -504,104 +590,140 @@
         .alert.warning { border-left-color: var(--warning); }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .alert-close {
             margin-left: auto;
             cursor: pointer;
             color: #a0aec0;
-            font-size: 18px;
+            font-size: 16px;
+            padding: 0 4px;
         }
 
-        .quick-replies {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            padding: 10px 25px;
-        }
-
-        .quick-reply-btn {
-            padding: 6px 12px;
-            background: #edf2f7;
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
             border: none;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #4a5568;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .quick-reply-btn:hover {
-            background: var(--primary);
             color: white;
-        }
-
-        .file-attachment {
-            padding: 10px;
-            background: #f8fafc;
-            border-radius: 8px;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         @media (max-width: 768px) {
-            .chat-main {
-                flex-direction: column;
+            .mobile-menu-btn {
+                display: block;
             }
-            
-            .sidebar {
-                width: 100%;
-                max-height: 300px;
-            }
-            
-            .message-wrapper {
-                max-width: 85%;
-            }
-            
-            .chat-header {
-                padding: 15px;
-            }
-            
-            .header-stats {
-                display: none;
-            }
+        }
+
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            backdrop-filter: blur(3px);
+        }
+
+        .mobile-sidebar.active {
+            display: block;
+        }
+
+        .mobile-sidebar-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active .mobile-sidebar-content {
+            transform: translateX(0);
+        }
+
+        .close-sidebar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+            padding: 8px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Alert Container -->
+    <div id="alertContainer" class="alert-container"></div>
+
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar" id="mobileSidebar" onclick="closeMobileSidebar(event)">
+        <div class="mobile-sidebar-content" onclick="event.stopPropagation()">
+            <button class="close-sidebar" onclick="closeMobileSidebar()">×</button>
+            <div style="padding: 60px 20px 20px;" id="mobileSidebarContent"></div>
+        </div>
+    </div>
+
+    <!-- Main Chat Container -->
     <div class="chat-container">
+        <!-- Header -->
         <div class="chat-header">
-            <h1>
-                <i>💬</i>
-                Perfections Recruitment Live Chat
-            </h1>
-            <div class="header-stats">
-                <div class="badge">
-                    <span>👥</span>
-                    <span id="onlineCount">1</span>
+            <div class="header-left">
+                <button class="mobile-menu-btn" onclick="openMobileSidebar()">☰</button>
+                <h1>
+                    <i>💬</i>
+                    Perfections Chat
+                </h1>
+            </div>
+            <div class="header-right">
+                <div class="unread-badge" id="unreadBadge" style="display: none;">
+                    <span>💬</span>
+                    <span id="unreadCount">0</span>
                 </div>
-                <div class="status" id="connectionStatus">
-                    <span class="status-dot"></span>
-                    <span>Connecting...</span>
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Connecting...</span>
                 </div>
             </div>
         </div>
 
+        <!-- Main Content -->
         <div class="chat-main">
-            <div class="sidebar">
+            <!-- Desktop Sidebar -->
+            <div class="chat-sidebar">
                 <div class="sidebar-section">
-                    <h3>👤 User Registration</h3>
+                    <h3>👤 Your Account</h3>
                     <div class="form-group">
                         <label>Full Name</label>
                         <input type="text" id="userName" placeholder="John Doe" maxlength="50">
@@ -612,19 +734,19 @@
                     </div>
                     <button class="btn" id="registerBtn" onclick="registerUser()">
                         <i>🚀</i>
-                        <span>Start Chat</span>
+                        <span>Start Chatting</span>
                     </button>
                     
-                    <div id="userProfile" class="user-info-card" style="display: none;">
-                        <div class="user-info-item">
+                    <div id="userProfile" class="user-profile" style="display: none;">
+                        <div class="profile-item">
                             <span>👤</span>
                             <span id="displayName"></span>
                         </div>
-                        <div class="user-info-item">
+                        <div class="profile-item">
                             <span>📧</span>
                             <span id="displayEmail"></span>
                         </div>
-                        <div class="user-info-item">
+                        <div class="profile-item">
                             <span>🆔</span>
                             <span id="displayUserId"></span>
                         </div>
@@ -634,33 +756,34 @@
                 <div class="sidebar-section">
                     <h3>📋 Featured Jobs</h3>
                     <div class="jobs-preview" id="featuredJobs">
-                        <div class="job-item">
-                            <h4>Loading jobs...</h4>
-                        </div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
 
                 <div class="sidebar-section">
                     <h3>🔗 Quick Links</h3>
-                    <button class="btn btn-secondary" onclick="window.open('/jobs', '_blank')">
-                        <i>📋</i> Browse All Jobs
+                    <button class="btn btn-secondary" onclick="window.open('/jobs', '_blank')" style="margin-bottom: 8px;">
+                        <i>📋</i> Browse Jobs
                     </button>
-                    <button class="btn btn-secondary" style="margin-top: 10px;" onclick="window.open('/about', '_blank')">
+                    <button class="btn btn-secondary" onclick="window.open('/about', '_blank')">
                         <i>ℹ️</i> About Us
                     </button>
                 </div>
             </div>
 
-            <div class="chat-area">
+            <!-- Chat Area -->
+            <div class="chat-content">
+                <!-- Messages Container -->
                 <div class="messages-container" id="messagesContainer">
                     <div class="welcome-message">
                         <i>💬</i>
                         <h3>Welcome to Perfections Recruitment</h3>
-                        <p>Please enter your name and email above to start chatting with our team.</p>
-                        <p style="margin-top: 10px; font-size: 13px;">Our support team typically replies within minutes</p>
+                        <p>Enter your name and email above to start chatting with our team.</p>
+                        <p style="margin-top: 10px; font-size: 12px;">Our team typically replies within minutes</p>
                     </div>
                 </div>
 
+                <!-- Typing Indicator -->
                 <div class="typing-indicator" id="typingIndicator">
                     <span>Admin is typing</span>
                     <div class="typing-dots">
@@ -670,12 +793,15 @@
                     </div>
                 </div>
 
+                <!-- Quick Replies -->
                 <div class="quick-replies" id="quickReplies" style="display: none;">
                     <button class="quick-reply-btn" onclick="insertQuickReply('Hello, I have a question about...')">General Question</button>
                     <button class="quick-reply-btn" onclick="insertQuickReply('I need help with job applications')">Job Help</button>
                     <button class="quick-reply-btn" onclick="insertQuickReply('I want to know more about your services')">Services</button>
+                    <button class="quick-reply-btn" onclick="insertQuickReply('When will you reply?')">Response Time</button>
                 </div>
 
+                <!-- Message Input -->
                 <div class="message-input-area">
                     <div class="input-wrapper">
                         <textarea id="messageInput" placeholder="Type your message..." rows="1" maxlength="500" disabled></textarea>
@@ -690,15 +816,13 @@
         </div>
     </div>
 
-    <div id="alertContainer"></div>
-
     <script>
         // ===== CONFIGURATION =====
         const WS_URL = `wss://${window.location.host}`;
-        const NTFY_TOPIC = 'new_chat'; // Secret ntfy topic for all chat notifications
         const API_URL = '';
+        const NTFY_TOPIC = 'new_chat';
         
-        // ===== STATE =====
+        // ===== STATE MANAGEMENT =====
         let ws = null;
         let currentUser = null;
         let reconnectAttempts = 0;
@@ -707,6 +831,9 @@
         let typingTimeout = null;
         let lastMessageTime = null;
         let unreadCount = 0;
+        let isConnected = false;
+        let pingInterval = null;
+        let messageQueue = [];
 
         // ===== DOM ELEMENTS =====
         const messagesContainer = document.getElementById('messagesContainer');
@@ -716,6 +843,8 @@
         const userNameInput = document.getElementById('userName');
         const userEmailInput = document.getElementById('userEmail');
         const connectionStatus = document.getElementById('connectionStatus');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
         const typingIndicator = document.getElementById('typingIndicator');
         const alertContainer = document.getElementById('alertContainer');
         const charCounter = document.getElementById('charCounter');
@@ -724,149 +853,66 @@
         const displayName = document.getElementById('displayName');
         const displayEmail = document.getElementById('displayEmail');
         const displayUserId = document.getElementById('displayUserId');
-
-        // ===== NTFY NOTIFICATION FUNCTION =====
-        async function sendNtfyNotification(title, message, priority = 3, tags = []) {
-            try {
-                // This silently notifies on the secret new_chat topic
-                const response = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        topic: NTFY_TOPIC,
-                        title: title,
-                        message: message,
-                        priority: priority,
-                        tags: tags,
-                        click: window.location.href,
-                        attach: null,
-                        icon: 'https://perfections-recruitment.onrender.com/favicon.ico'
-                    }),
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Title': title,
-                        'Priority': priority,
-                        'Tags': tags.join(',')
-                    }
-                });
-                
-                if (!response.ok) {
-                    console.warn('ntfy notification failed:', response.status);
-                }
-            } catch (error) { 
-                console.error('Failed to send ntfy notification:', error); 
-            }
-        }
-
-        // ===== NOTIFY ON ALL MESSAGES =====
-        async function notifyOnMessage(message, user) {
-            const messagePreview = message.length > 100 ? message.substring(0, 100) + '...' : message;
-            const title = user ? `💬 New message from ${user.userName}` : '💬 New chat message';
-            
-            await sendNtfyNotification(
-                title,
-                `From: ${user?.email || 'Unknown'}\nMessage: ${messagePreview}\nTime: ${new Date().toLocaleString()}`,
-                4, // High priority for chat messages
-                ['speech_balloon', 'new_chat']
-            );
-        }
-
-        // ===== NOTIFY ON USER REGISTRATION =====
-        async function notifyOnRegistration(user) {
-            await sendNtfyNotification(
-                '👤 New User Registered',
-                `Name: ${user.userName}\nEmail: ${user.email}\nTime: ${new Date().toLocaleString()}`,
-                3, // Normal priority
-                ['new', 'user']
-            );
-        }
-
-        // ===== LOAD FEATURED JOBS =====
-        async function loadFeaturedJobs() {
-            try {
-                const response = await fetch('/api/jobs');
-                const data = await response.json();
-                const jobs = data.jobs || [];
-                const featuredJobs = jobs.filter(j => j.status === 'active').slice(0, 5);
-                
-                const jobsHtml = featuredJobs.map(job => `
-                    <div class="job-item" onclick="window.open('/jobs', '_blank')">
-                        <h4>${escapeHtml(job.title || 'Job Opportunity')}</h4>
-                        <p>🏢 ${escapeHtml(job.company || 'Company')} • 📍 ${escapeHtml(job.location || 'UK')}</p>
-                        <div class="job-tags">
-                            <span class="job-tag">💰 ${escapeHtml(job.salary || 'Competitive')}</span>
-                            <span class="job-tag">⏰ ${escapeHtml(job.type || 'Full Time')}</span>
-                        </div>
-                    </div>
-                `).join('');
-                
-                document.getElementById('featuredJobs').innerHTML = jobsHtml || '<div class="job-item">No jobs available</div>';
-            } catch (error) {
-                console.error('Failed to load jobs:', error);
-            }
-        }
-
-        // ===== SHOW ALERT =====
-        function showAlert(message, type = 'info', duration = 5000) {
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.innerHTML = `
-                <i>${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}</i>
-                <span>${message}</span>
-                <span class="alert-close" onclick="this.parentElement.remove()">×</span>
-            `;
-            alertContainer.appendChild(alert);
-            
-            setTimeout(() => {
-                if (alert.parentElement) alert.remove();
-            }, duration);
-        }
+        const unreadBadge = document.getElementById('unreadBadge');
+        const unreadCountSpan = document.getElementById('unreadCount');
 
         // ===== WEBSOCKET CONNECTION =====
         function connectWebSocket() {
-            ws = new WebSocket(WS_URL);
-            
-            ws.onopen = () => {
-                console.log('WebSocket connected');
-                connectionStatus.innerHTML = `
-                    <span class="status-dot"></span>
-                    <span>Connected</span>
-                `;
-                reconnectAttempts = 0;
+            try {
+                ws = new WebSocket(WS_URL);
                 
-                if (currentUser) {
-                    registerWithWebSocket();
-                }
+                ws.onopen = () => {
+                    console.log('WebSocket connected');
+                    updateConnectionStatus('connected');
+                    isConnected = true;
+                    reconnectAttempts = 0;
+                    
+                    // Start ping interval to keep connection alive
+                    startPingInterval();
+                    
+                    // Register user if already logged in
+                    if (currentUser) {
+                        registerWithWebSocket();
+                    }
+                    
+                    // Send any queued messages
+                    sendMessageQueue();
+                    
+                    // Notify server
+                    sendNtfyNotification('👤 User Connected', currentUser?.userName || 'Anonymous', 2);
+                };
                 
-                // Notify that user is online (silent)
-                sendNtfyNotification('👤 User Online', `User ${currentUser?.userName || 'Anonymous'} connected`, 1, ['online']);
-            };
-            
-            ws.onclose = () => {
-                console.log('WebSocket disconnected');
-                connectionStatus.innerHTML = `
-                    <span class="status-dot disconnected"></span>
-                    <span>Disconnected</span>
-                `;
+                ws.onclose = () => {
+                    console.log('WebSocket disconnected');
+                    updateConnectionStatus('disconnected');
+                    isConnected = false;
+                    stopPingInterval();
+                    
+                    // Attempt to reconnect
+                    if (reconnectAttempts < maxReconnectAttempts) {
+                        reconnectAttempts++;
+                        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+                        setTimeout(connectWebSocket, delay);
+                    }
+                };
                 
-                if (reconnectAttempts < maxReconnectAttempts) {
-                    reconnectAttempts++;
-                    setTimeout(connectWebSocket, 3000);
-                }
-            };
-            
-            ws.onerror = (error) => {
-                console.error('WebSocket error:', error);
-                showAlert('Connection error. Reconnecting...', 'error');
-            };
-            
-            ws.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    handleWebSocketMessage(data);
-                } catch (error) {
-                    console.error('Failed to parse message:', error);
-                }
-            };
+                ws.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    updateConnectionStatus('error');
+                };
+                
+                ws.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        handleWebSocketMessage(data);
+                    } catch (error) {
+                        console.error('Failed to parse message:', error);
+                    }
+                };
+            } catch (error) {
+                console.error('Failed to connect WebSocket:', error);
+                updateConnectionStatus('error');
+            }
         }
 
         // ===== HANDLE WEBSOCKET MESSAGES =====
@@ -893,84 +939,77 @@
                     updateReadReceipts(data.messageId);
                     break;
                     
+                case 'pong':
+                    console.log('Pong received');
+                    break;
+                    
+                case 'error':
+                    showAlert(data.message || 'An error occurred', 'error');
+                    break;
+                    
                 default:
                     console.log('Unknown message type:', data.type);
             }
         }
 
-        // ===== HANDLE NEW MESSAGE =====
-        function handleNewMessage(message) {
-            messageHistory.push(message);
-            displayMessage(message);
+        // ===== UPDATE CONNECTION STATUS =====
+        function updateConnectionStatus(status) {
+            statusDot.className = 'status-dot';
             
-            // Play notification sound if message is from admin
-            if (message.isAdmin && currentUser) {
-                playNotificationSound();
-                
-                // Update unread count
-                unreadCount++;
-                updateFavicon(unreadCount);
-            }
-            
-            // Scroll to bottom if it's a new message
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        // ===== UPDATE FAVICON WITH UNREAD COUNT =====
-        function updateFavicon(count) {
-            const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-            link.type = 'image/x-icon';
-            link.rel = 'shortcut icon';
-            link.href = count > 0 ? 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>' : '/favicon.ico';
-            document.getElementsByTagName('head')[0].appendChild(link);
-        }
-
-        // ===== PLAY NOTIFICATION SOUND =====
-        function playNotificationSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.1);
-            } catch (error) {
-                console.log('Audio play failed:', error);
+            switch(status) {
+                case 'connected':
+                    statusDot.classList.add('connected');
+                    statusText.textContent = 'Connected';
+                    break;
+                case 'disconnected':
+                    statusDot.classList.add('disconnected');
+                    statusText.textContent = 'Disconnected';
+                    break;
+                case 'connecting':
+                    statusDot.classList.add('connecting');
+                    statusText.textContent = 'Connecting...';
+                    break;
+                case 'error':
+                    statusDot.classList.add('disconnected');
+                    statusText.textContent = 'Connection Error';
+                    break;
             }
         }
 
-        // ===== HANDLE TYPING INDICATOR =====
-        function handleTypingIndicator(data) {
-            if (data.isTyping) {
-                typingIndicator.classList.add('active');
-            } else {
-                typingIndicator.classList.remove('active');
+        // ===== PING INTERVAL =====
+        function startPingInterval() {
+            stopPingInterval();
+            pingInterval = setInterval(() => {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ type: 'ping' }));
+                }
+            }, 30000);
+        }
+
+        function stopPingInterval() {
+            if (pingInterval) {
+                clearInterval(pingInterval);
+                pingInterval = null;
             }
         }
 
-        // ===== SHOW JOB ALERT =====
-        function showJobAlert(data) {
-            showAlert(`📢 ${data.message}`, 'info');
-            
-            const alertMessage = {
-                isAdmin: true,
-                userName: 'Job Bot',
-                message: `📢 **New Job Opportunities!**\n\n${data.jobs.map(j => `• ${j.title} at ${j.company}`).join('\n')}\n\n[View all jobs](/jobs)`,
-                timestamp: new Date().toISOString()
-            };
-            
-            displayMessage(alertMessage);
-        }
-
-        // ===== UPDATE READ RECEIPTS =====
-        function updateReadReceipts(messageId) {
-            // Update message status in UI
+        // ===== REGISTER WITH WEBSOCKET =====
+        function registerWithWebSocket() {
+            if (ws && ws.readyState === WebSocket.OPEN && currentUser) {
+                ws.send(JSON.stringify({
+                    type: 'register',
+                    userId: currentUser.userId,
+                    userName: currentUser.userName,
+                    email: currentUser.email,
+                    isAdmin: false
+                }));
+                
+                // Request message history
+                ws.send(JSON.stringify({
+                    type: 'get_history',
+                    userId: currentUser.userId
+                }));
+            }
         }
 
         // ===== REGISTER USER =====
@@ -1032,125 +1071,53 @@
                 // Store in localStorage
                 localStorage.setItem('chatUser', JSON.stringify(currentUser));
                 
-                // Show user profile
-                displayName.textContent = currentUser.userName;
-                displayEmail.textContent = currentUser.email;
-                displayUserId.textContent = currentUser.userId.substring(0, 8) + '...';
-                userProfile.style.display = 'block';
+                // Update UI
+                updateUserProfile(currentUser);
                 
                 // Enable chat
                 messageInput.disabled = false;
                 sendBtn.disabled = false;
                 quickReplies.style.display = 'flex';
                 
-                // Register with WebSocket
-                registerWithWebSocket();
-                
-                // Update UI
                 userNameInput.disabled = true;
                 userEmailInput.disabled = true;
                 registerBtn.innerHTML = '<i>✓</i> Registered';
                 
-                // Notify via ntfy if new user
-                if (isNewUser) {
-                    await notifyOnRegistration(currentUser);
-                    showAlert('Welcome! Your account has been created.', 'success');
-                } else {
-                    showAlert(`Welcome back, ${currentUser.userName}!`, 'success');
+                // Register with WebSocket
+                if (isConnected) {
+                    registerWithWebSocket();
                 }
                 
-                // Load message history
-                if (ws && ws.readyState === WebSocket.OPEN) {
-                    ws.send(JSON.stringify({
-                        type: 'get_history',
-                        userId: currentUser.userId
-                    }));
+                showAlert(isNewUser ? 'Welcome! Your account has been created.' : `Welcome back, ${currentUser.userName}!`, 'success');
+                
+                // Notify via ntfy
+                if (isNewUser) {
+                    sendNtfyNotification('👤 New User', `${currentUser.userName} (${currentUser.email}) registered`, 3);
+                } else {
+                    sendNtfyNotification('👤 User Returned', `${currentUser.userName} returned to chat`, 2);
                 }
                 
             } catch (error) {
                 console.error('Registration error:', error);
                 showAlert('Registration failed. Please try again.', 'error');
                 registerBtn.disabled = false;
-                registerBtn.innerHTML = '<i>🚀</i> Start Chat';
+                registerBtn.innerHTML = '<i>🚀</i> Start Chatting';
             }
         }
 
-        // ===== REGISTER WITH WEBSOCKET =====
-        function registerWithWebSocket() {
-            if (ws && ws.readyState === WebSocket.OPEN && currentUser) {
-                ws.send(JSON.stringify({
-                    type: 'register',
-                    userId: currentUser.userId,
-                    userName: currentUser.userName,
-                    email: currentUser.email,
-                    isAdmin: false
-                }));
-            }
-        }
-
-        // ===== DISPLAY MESSAGE HISTORY =====
-        function displayMessageHistory(messages) {
-            messagesContainer.innerHTML = '';
-            
-            if (messages.length === 0) {
-                messagesContainer.innerHTML = `
-                    <div class="welcome-message">
-                        <i>💬</i>
-                        <h3>Welcome, ${escapeHtml(currentUser.userName)}!</h3>
-                        <p>Send a message to start chatting with our team.</p>
-                        <p style="margin-top: 10px; font-size: 13px;">We typically reply within a few minutes</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Sort messages chronologically
-            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            messages.forEach(msg => displayMessage(msg));
-            
-            // Mark messages as read
-            markMessagesAsRead();
-        }
-
-        // ===== DISPLAY SINGLE MESSAGE =====
-        function displayMessage(message) {
-            // Remove welcome message if present
-            const welcomeMsg = messagesContainer.querySelector('.welcome-message');
-            if (welcomeMsg) welcomeMsg.remove();
-            
-            const messageWrapper = document.createElement('div');
-            messageWrapper.className = `message-wrapper ${message.isAdmin ? 'admin' : 'user'}`;
-            messageWrapper.dataset.messageId = message.id;
-            
-            const time = new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const date = new Date(message.timestamp).toLocaleDateString();
-            const fullDate = `${date} ${time}`;
-            
-            const messageContent = escapeHtml(message.message).replace(/\n/g, '<br>');
-            
-            messageWrapper.innerHTML = `
-                <div class="message-meta">
-                    <span>${message.isAdmin ? 'Admin' : 'You'}</span>
-                    <span>•</span>
-                    <span title="${fullDate}">${time}</span>
-                    ${!message.isAdmin ? `
-                        <span class="message-status ${message.read ? 'read' : ''}">
-                            ${message.read ? '✓✓' : '✓'}
-                        </span>
-                    ` : ''}
-                </div>
-                <div class="message-bubble">${messageContent}</div>
-            `;
-            
-            messagesContainer.appendChild(messageWrapper);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        // ===== UPDATE USER PROFILE =====
+        function updateUserProfile(user) {
+            displayName.textContent = user.userName;
+            displayEmail.textContent = user.email;
+            displayUserId.textContent = user.userId.substring(0, 8) + '...';
+            userProfile.style.display = 'block';
         }
 
         // ===== SEND MESSAGE =====
-        async function sendMessage() {
+        function sendMessage() {
             const text = messageInput.value.trim();
             
-            if (!text || !currentUser || !ws || ws.readyState !== WebSocket.OPEN) {
+            if (!text || !currentUser) {
                 return;
             }
             
@@ -1175,45 +1142,395 @@
                 email: currentUser.email,
                 isAdmin: false,
                 timestamp: new Date().toISOString(),
-                id: Date.now()
+                id: generateMessageId()
             };
             
-            // Send via WebSocket
-            ws.send(JSON.stringify(message));
-            
-            // Send ntfy notification for this message (secret notification)
-            await notifyOnMessage(text, currentUser);
-            
-            // Display message immediately
+            // Add to UI immediately
             displayMessage({
                 ...message,
-                read: false
+                status: 'sending'
             });
+            
+            // Send via WebSocket
+            if (isConnected && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(message));
+            } else {
+                // Queue message for later
+                messageQueue.push(message);
+                showAlert('Message queued - reconnecting...', 'info');
+            }
+            
+            // Send ntfy notification
+            sendNtfyNotification('💬 New Message', `${currentUser.userName}: ${text.substring(0, 100)}`, 4);
             
             messageInput.value = '';
             charCounter.textContent = '0/500';
+            messageInput.style.height = 'auto';
             
             // Stop typing indicator
             if (typingTimeout) {
                 clearTimeout(typingTimeout);
-                ws.send(JSON.stringify({
-                    type: 'typing',
-                    isTyping: false
-                }));
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({
+                        type: 'typing',
+                        isTyping: false
+                    }));
+                }
             }
         }
 
-        // ===== TYPING INDICATOR =====
+        // ===== SEND MESSAGE QUEUE =====
+        function sendMessageQueue() {
+            if (messageQueue.length > 0 && isConnected && ws.readyState === WebSocket.OPEN) {
+                messageQueue.forEach(msg => {
+                    ws.send(JSON.stringify(msg));
+                });
+                messageQueue = [];
+                showAlert('Queued messages sent!', 'success');
+            }
+        }
+
+        // ===== GENERATE MESSAGE ID =====
+        function generateMessageId() {
+            return Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // ===== HANDLE NEW MESSAGE =====
+        function handleNewMessage(message) {
+            // Check if message already exists
+            const exists = messageHistory.some(m => m.id === message.id);
+            if (!exists) {
+                messageHistory.push(message);
+                displayMessage(message);
+                
+                // Play notification sound if message is from admin
+                if (message.isAdmin && currentUser) {
+                    playNotificationSound();
+                    unreadCount++;
+                    updateUnreadBadge();
+                }
+            }
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // ===== DISPLAY MESSAGE HISTORY =====
+        function displayMessageHistory(messages) {
+            messagesContainer.innerHTML = '';
+            
+            if (messages.length === 0) {
+                messagesContainer.innerHTML = `
+                    <div class="welcome-message">
+                        <i>💬</i>
+                        <h3>Welcome, ${escapeHtml(currentUser.userName)}!</h3>
+                        <p>Send a message to start chatting with our team.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort messages chronologically
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            messages.forEach(msg => displayMessage(msg));
+            
+            // Mark messages as read
+            markMessagesAsRead();
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // ===== DISPLAY SINGLE MESSAGE =====
+        function displayMessage(message) {
+            // Remove welcome message if present
+            const welcomeMsg = messagesContainer.querySelector('.welcome-message');
+            if (welcomeMsg) welcomeMsg.remove();
+            
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `message-wrapper ${message.isAdmin ? 'admin' : 'user'}`;
+            messageWrapper.dataset.messageId = message.id;
+            
+            const time = new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const date = new Date(message.timestamp).toLocaleDateString();
+            const fullDate = `${date} ${time}`;
+            
+            const messageContent = escapeHtml(message.message).replace(/\n/g, '<br>');
+            const status = message.status || (message.read ? 'read' : 'sent');
+            
+            messageWrapper.innerHTML = `
+                <div class="message-meta">
+                    <span>${message.isAdmin ? 'Admin' : 'You'}</span>
+                    <span>•</span>
+                    <span title="${fullDate}">${time}</span>
+                    ${!message.isAdmin ? `
+                        <span class="message-status ${status === 'read' ? 'read' : ''}">
+                            ${status === 'read' ? '✓✓' : status === 'sending' ? '⏳' : '✓'}
+                        </span>
+                    ` : ''}
+                </div>
+                <div class="message-bubble">${messageContent}</div>
+            `;
+            
+            messagesContainer.appendChild(messageWrapper);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // ===== MARK MESSAGES AS READ =====
+        function markMessagesAsRead() {
+            if (!currentUser || !isConnected) return;
+            
+            const unreadMessages = messageHistory.filter(m => m.isAdmin && !m.read);
+            
+            if (unreadMessages.length > 0) {
+                ws.send(JSON.stringify({
+                    type: 'mark_read',
+                    userId: currentUser.userId,
+                    messageIds: unreadMessages.map(m => m.id)
+                }));
+                
+                // Update UI
+                unreadMessages.forEach(msg => {
+                    msg.read = true;
+                });
+                
+                unreadCount = 0;
+                updateUnreadBadge();
+            }
+        }
+
+        // ===== UPDATE UNREAD BADGE =====
+        function updateUnreadBadge() {
+            if (unreadCount > 0) {
+                unreadBadge.style.display = 'flex';
+                unreadCountSpan.textContent = unreadCount;
+            } else {
+                unreadBadge.style.display = 'none';
+            }
+        }
+
+        // ===== HANDLE TYPING INDICATOR =====
+        function handleTypingIndicator(data) {
+            if (data.isTyping) {
+                typingIndicator.classList.add('active');
+            } else {
+                typingIndicator.classList.remove('active');
+            }
+        }
+
+        // ===== SHOW JOB ALERT =====
+        function showJobAlert(data) {
+            showAlert(`📢 ${data.message}`, 'info');
+            
+            const alertMessage = {
+                isAdmin: true,
+                userName: 'Job Bot',
+                message: `📢 **New Job Opportunities!**\n\n${data.jobs.map(j => `• ${j.title} at ${j.company}`).join('\n')}`,
+                timestamp: new Date().toISOString(),
+                id: generateMessageId()
+            };
+            
+            displayMessage(alertMessage);
+        }
+
+        // ===== UPDATE READ RECEIPTS =====
+        function updateReadReceipts(messageId) {
+            const message = messageHistory.find(m => m.id === messageId);
+            if (message) {
+                message.read = true;
+                // Update UI
+                const messageElement = document.querySelector(`[data-message-id="${messageId}"] .message-status`);
+                if (messageElement) {
+                    messageElement.classList.add('read');
+                    messageElement.textContent = '✓✓';
+                }
+            }
+        }
+
+        // ===== PLAY NOTIFICATION SOUND =====
+        function playNotificationSound() {
+            try {
+                const audio = new Audio();
+                audio.src = 'data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCB//H4BzcXQEkQABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB///+kH0iAAD/x///L4BkAYBAEA4EwRAgAEBAAAYAYAYAAGAAQABgAGAAYABgAGAAYAABAAgADAAYAAgADABoABwADAAgADgA+AD4AOgA6ADoAOgA+AD4AMgAyADIAMgAyADIAMgAyADIAAAAAPwA/AD8APwA/AD8APwA/AD8A';
+                audio.volume = 0.3;
+                audio.play().catch(() => {});
+            } catch (error) {
+                console.log('Audio play failed:', error);
+            }
+        }
+
+        // ===== INSERT QUICK REPLY =====
+        function insertQuickReply(text) {
+            messageInput.value = text;
+            messageInput.focus();
+            charCounter.textContent = `${text.length}/500`;
+            messageInput.style.height = 'auto';
+            messageInput.style.height = messageInput.scrollHeight + 'px';
+        }
+
+        // ===== LOAD FEATURED JOBS =====
+        async function loadFeaturedJobs() {
+            try {
+                const response = await fetch('/api/jobs');
+                const data = await response.json();
+                const jobs = data.jobs || [];
+                const featuredJobs = jobs.filter(j => j.status === 'active').slice(0, 5);
+                
+                const jobsHtml = featuredJobs.map(job => `
+                    <div class="job-item" onclick="window.open('/jobs', '_blank')">
+                        <h4>${escapeHtml(job.title || 'Job Opportunity')}</h4>
+                        <p>🏢 ${escapeHtml(job.company || 'Company')}</p>
+                        <div class="job-tags">
+                            <span class="job-tag">💰 ${escapeHtml(job.salary || 'Competitive')}</span>
+                            <span class="job-tag">📍 ${escapeHtml(job.location || 'UK')}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('featuredJobs').innerHTML = jobsHtml || '<div class="job-item">No jobs available</div>';
+                
+                // Also update mobile sidebar
+                document.getElementById('mobileSidebarContent').innerHTML = `
+                    <div class="sidebar-section">
+                        <h3>👤 Your Account</h3>
+                        <div class="user-profile" style="display: ${currentUser ? 'block' : 'none'}">
+                            <div class="profile-item"><span>👤</span> <span>${escapeHtml(currentUser?.userName || '')}</span></div>
+                            <div class="profile-item"><span>📧</span> <span>${escapeHtml(currentUser?.email || '')}</span></div>
+                        </div>
+                        ${!currentUser ? `
+                            <div class="form-group">
+                                <input type="text" id="mobileName" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="mobileEmail" placeholder="Your email">
+                            </div>
+                            <button class="btn" onclick="registerFromMobile()">Start Chat</button>
+                        ` : ''}
+                    </div>
+                    <div class="sidebar-section">
+                        <h3>📋 Featured Jobs</h3>
+                        <div class="jobs-preview">${jobsHtml}</div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Failed to load jobs:', error);
+            }
+        }
+
+        // ===== MOBILE REGISTRATION =====
+        function registerFromMobile() {
+            const name = document.getElementById('mobileName')?.value;
+            const email = document.getElementById('mobileEmail')?.value;
+            
+            if (name && email) {
+                userNameInput.value = name;
+                userEmailInput.value = email;
+                registerUser();
+                closeMobileSidebar();
+            }
+        }
+
+        // ===== SHOW ALERT =====
+        function showAlert(message, type = 'info', duration = 4000) {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.innerHTML = `
+                <i>${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}</i>
+                <span>${message}</span>
+                <span class="alert-close" onclick="this.parentElement.remove()">×</span>
+            `;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentElement) alert.remove();
+            }, duration);
+        }
+
+        // ===== NTFY NOTIFICATION =====
+        async function sendNtfyNotification(title, message, priority = 3, tags = []) {
+            try {
+                await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        topic: NTFY_TOPIC,
+                        title: title,
+                        message: message,
+                        priority: priority,
+                        tags: tags,
+                        click: window.location.href
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch (error) { 
+                console.error('Failed to send ntfy notification:', error); 
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // ===== MOBILE SIDEBAR =====
+        function openMobileSidebar() {
+            document.getElementById('mobileSidebar').classList.add('active');
+        }
+
+        function closeMobileSidebar(event) {
+            if (!event || event.target.classList.contains('mobile-sidebar')) {
+                document.getElementById('mobileSidebar').classList.remove('active');
+            }
+        }
+
+        // ===== LOAD SAVED USER =====
+        function loadSavedUser() {
+            const saved = localStorage.getItem('chatUser');
+            if (saved) {
+                try {
+                    currentUser = JSON.parse(saved);
+                    userNameInput.value = currentUser.userName;
+                    userEmailInput.value = currentUser.email;
+                    userNameInput.disabled = true;
+                    userEmailInput.disabled = true;
+                    registerBtn.innerHTML = '<i>✓</i> Welcome Back!';
+                    
+                    updateUserProfile(currentUser);
+                    
+                    // Enable chat
+                    messageInput.disabled = false;
+                    sendBtn.disabled = false;
+                    quickReplies.style.display = 'flex';
+                    
+                    // Register with WebSocket if connected
+                    if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
+                        registerWithWebSocket();
+                    }
+                } catch (error) {
+                    console.error('Failed to load saved user:', error);
+                    localStorage.removeItem('chatUser');
+                }
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
         messageInput.addEventListener('input', (e) => {
             // Update character counter
             charCounter.textContent = `${e.target.value.length}/500`;
             
             // Adjust textarea height
             e.target.style.height = 'auto';
-            e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+            e.target.style.height = Math.min(e.target.scrollHeight, 100) + 'px';
             
             // Send typing indicator
-            if (ws && ws.readyState === WebSocket.OPEN && currentUser) {
+            if (isConnected && ws && ws.readyState === WebSocket.OPEN && currentUser) {
                 if (typingTimeout) clearTimeout(typingTimeout);
                 
                 ws.send(JSON.stringify({
@@ -1230,84 +1547,6 @@
             }
         });
 
-        // ===== INSERT QUICK REPLY =====
-        function insertQuickReply(text) {
-            messageInput.value = text;
-            messageInput.focus();
-            charCounter.textContent = `${text.length}/500`;
-        }
-
-        // ===== MARK MESSAGES AS READ =====
-        function markMessagesAsRead() {
-            if (!currentUser) return;
-            
-            // Send read receipt for messages from admin
-            const unreadMessages = messageHistory.filter(m => m.isAdmin && !m.read);
-            if (unreadMessages.length > 0 && ws && ws.readyState === WebSocket.OPEN) {
-                ws.send(JSON.stringify({
-                    type: 'mark_read',
-                    userId: currentUser.userId,
-                    messageIds: unreadMessages.map(m => m.id)
-                }));
-            }
-            
-            // Update unread count
-            unreadCount = 0;
-            updateFavicon(0);
-        }
-
-        // ===== HELPER FUNCTIONS =====
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function escapeHtml(unsafe) {
-            if (!unsafe) return '';
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // ===== LOAD SAVED USER =====
-        function loadSavedUser() {
-            const saved = localStorage.getItem('chatUser');
-            if (saved) {
-                try {
-                    currentUser = JSON.parse(saved);
-                    userNameInput.value = currentUser.userName;
-                    userEmailInput.value = currentUser.email;
-                    userNameInput.disabled = true;
-                    userEmailInput.disabled = true;
-                    registerBtn.innerHTML = '<i>✓</i> Welcome Back!';
-                    
-                    // Show user profile
-                    displayName.textContent = currentUser.userName;
-                    displayEmail.textContent = currentUser.email;
-                    displayUserId.textContent = currentUser.userId.substring(0, 8) + '...';
-                    userProfile.style.display = 'block';
-                    
-                    // Enable chat
-                    messageInput.disabled = false;
-                    sendBtn.disabled = false;
-                    quickReplies.style.display = 'flex';
-                    
-                    // Register with WebSocket when connected
-                    if (ws && ws.readyState === WebSocket.OPEN) {
-                        registerWithWebSocket();
-                    }
-                    
-                    // Notify of returning user
-                    sendNtfyNotification('👤 User Returned', `${currentUser.userName} (${currentUser.email}) returned to chat`, 2, ['returning']);
-                } catch (error) {
-                    console.error('Failed to load saved user:', error);
-                }
-            }
-        }
-
-        // ===== ENTER KEY TO SEND =====
         messageInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -1317,41 +1556,28 @@
             }
         });
 
-        // ===== CHECK FOR INACTIVITY =====
-        let inactivityTimer;
-        function resetInactivityTimer() {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(() => {
-                if (currentUser) {
-                    sendNtfyNotification('💤 User Inactive', `${currentUser.userName} has been inactive`, 2, ['inactive']);
-                }
-            }, 5 * 60 * 1000); // 5 minutes
-        }
-
-        document.addEventListener('mousemove', resetInactivityTimer);
-        document.addEventListener('keypress', resetInactivityTimer);
-
-        // ===== INITIALIZE =====
-        loadFeaturedJobs();
-        connectWebSocket();
-        loadSavedUser();
-        resetInactivityTimer();
-
-        // ===== PERIODIC CONNECTION CHECK =====
-        setInterval(() => {
-            if (ws && ws.readyState === WebSocket.CLOSED) {
-                connectWebSocket();
-            }
-        }, 5000);
-
-        // ===== VISIBILITY CHANGE =====
+        // Visibility change
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && currentUser) {
                 markMessagesAsRead();
             }
         });
 
-        console.log('Chat initialized with ntfy notifications on topic:', 'new_chat');
+        // Before unload
+        window.addEventListener('beforeunload', () => {
+            if (isConnected && ws) {
+                ws.close();
+            }
+        });
+
+        // ===== INITIALIZE =====
+        function initialize() {
+            loadFeaturedJobs();
+            connectWebSocket();
+            loadSavedUser();
+        }
+
+        initialize();
     </script>
 </body>
 </html>
