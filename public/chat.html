@@ -1,660 +1,809 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Chat – Perfections Recruitment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background: #e5ddd5;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .whatsapp-container {
-      width: 100%;
-      max-width: 450px;
-      height: 100vh;
-      background: white;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-    
-    /* Header */
-    .chat-header {
-      background: #075e54;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .header-avatar {
-      width: 40px;
-      height: 40px;
-      background: #128C7E;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-    .header-info {
-      flex: 1;
-    }
-    .header-info h2 {
-      font-size: 18px;
-      margin-bottom: 3px;
-    }
-    .header-info p {
-      font-size: 12px;
-      opacity: 0.8;
-    }
-    .header-icons {
-      display: flex;
-      gap: 20px;
-    }
-    .header-icons i {
-      font-size: 20px;
-      cursor: pointer;
-    }
-    
-    /* Login Screen */
-    .login-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      background: #f0f2f5;
-    }
-    .whatsapp-logo {
-      width: 80px;
-      height: 80px;
-      background: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      color: white;
-      margin-bottom: 30px;
-    }
-    .login-title {
-      font-size: 24px;
-      color: #075e54;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-    .login-subtitle {
-      color: #667781;
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-    .login-input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #e0e0e0;
-      border-radius: 30px;
-      font-size: 16px;
-      margin-bottom: 15px;
-      outline: none;
-    }
-    .login-input:focus {
-      border-color: #25D366;
-    }
-    .login-btn {
-      background: #25D366;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.2s;
-    }
-    .login-btn:hover {
-      background: #128C7E;
-    }
-    .login-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .login-footer {
-      margin-top: 20px;
-      font-size: 12px;
-      color: #667781;
-    }
-    .login-footer a {
-      color: #25D366;
-      text-decoration: none;
-    }
-    
-    /* Messages Area */
-    .messages-area {
-      flex: 1;
-      background: #e5ddd5;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23e5ddd5" opacity="0.1"/><circle cx="20" cy="20" r="10" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="15" fill="%23ffffff" opacity="0.1"/></svg>');
-      overflow-y: auto;
-      padding: 15px;
-      display: none;
-      flex-direction: column;
-    }
-    
-    .messages-container {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .message {
-      display: flex;
-      max-width: 80%;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .message.user {
-      align-self: flex-end;
-    }
-    .message.admin {
-      align-self: flex-start;
-    }
-    
-    .message-content {
-      padding: 10px 15px;
-      border-radius: 7.5px;
-      position: relative;
-      word-wrap: break-word;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    
-    .message.user .message-content {
-      background: #dcf8c6;
-      border-top-right-radius: 0;
-    }
-    .message.user .message-content::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -10px;
-      width: 0;
-      height: 0;
-      border-left: 10px solid #dcf8c6;
-      border-top: 10px solid transparent;
-    }
-    
-    .message.admin .message-content {
-      background: white;
-      border-top-left-radius: 0;
-    }
-    .message.admin .message-content::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -10px;
-      width: 0;
-      height: 0;
-      border-right: 10px solid white;
-      border-top: 10px solid transparent;
-    }
-    
-    .message-time {
-      font-size: 10px;
-      color: #667781;
-      margin-top: 5px;
-      text-align: right;
-    }
-    .message.user .message-time {
-      color: #4b5b6b;
-    }
-    
-    .message-status {
-      font-size: 12px;
-      color: #34b7f1;
-      margin-left: 5px;
-    }
-    
-    .date-divider {
-      text-align: center;
-      margin: 15px 0;
-    }
-    .date-divider span {
-      background: rgba(225,245,254,0.92);
-      padding: 5px 12px;
-      border-radius: 7.5px;
-      font-size: 11px;
-      color: #667781;
-    }
-    
-    /* Input Area */
-    .input-area {
-      background: #f0f2f5;
-      padding: 10px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
-    .input-area input {
-      flex: 1;
-      padding: 12px 15px;
-      border: none;
-      border-radius: 25px;
-      outline: none;
-      font-size: 14px;
-    }
-    .input-area button {
-      background: #25D366;
-      color: white;
-      border: none;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: 0.2s;
-    }
-    .input-area button:hover {
-      background: #128C7E;
-    }
-    .input-area button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    /* Typing indicator */
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      padding: 10px 15px;
-      background: white;
-      border-radius: 7.5px;
-      border-top-left-radius: 0;
-      width: fit-content;
-    }
-    .typing-indicator span {
-      width: 8px;
-      height: 8px;
-      background: #909090;
-      border-radius: 50%;
-      animation: typing 1.4s infinite;
-    }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); background: #909090; }
-      30% { transform: translateY(-10px); background: #25D366; }
-    }
-    
-    /* Connection status */
-    .connection-status {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      z-index: 1000;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .dot.connected { background: #25D366; }
-    .dot.disconnected { background: #ff4444; }
-    
-    /* Loading */
-    .loading-spinner {
-      text-align: center;
-      padding: 30px;
-      color: #075e54;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid #f0f2f5;
-      border-top: 3px solid #25D366;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    
-    @media (max-width: 450px) {
-      .whatsapp-container {
-        height: 100vh;
-        max-width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat - Perfections Recruitment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header h1 i {
+            font-size: 28px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4caf50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .chat-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-profile {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-profile h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .job-preview {
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .job-preview h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .job-item {
+            padding: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .job-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-item h5 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .job-item p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.user {
+            align-items: flex-end;
+        }
+
+        .message.admin {
+            align-items: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.admin .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .message-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .message.user .message-info {
+            justify-content: flex-end;
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .typing-indicator {
+            padding: 10px 20px;
+            color: #999;
+            font-size: 14px;
+            display: none;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .message-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .message-input input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .message-input button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .message-input button:hover {
+            transform: translateY(-2px);
+        }
+
+        .message-input button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .welcome-message i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .close-alert {
+            margin-left: auto;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .chat-main {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .message-content {
+                max-width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="whatsapp-container">
-    <!-- Header -->
-    <div class="chat-header">
-      <div class="header-avatar">
-        <i class="fas fa-building"></i>
-      </div>
-      <div class="header-info">
-        <h2>Perfections Recruitment</h2>
-        <p id="statusText">Connect with our team</p>
-      </div>
-      <div class="header-icons">
-        <i class="fas fa-phone-alt"></i>
-        <i class="fas fa-video"></i>
-        <i class="fas fa-ellipsis-v"></i>
-      </div>
-    </div>
-    
-    <!-- Login Screen -->
-    <div id="loginScreen" class="login-screen">
-      <div class="whatsapp-logo">
-        <i class="fab fa-whatsapp"></i>
-      </div>
-      <h2 class="login-title">Chat with us</h2>
-      <p class="login-subtitle">Enter your email to start chatting with our recruitment team</p>
-      <input type="email" id="emailInput" class="login-input" placeholder="your.email@example.com" required>
-      <button id="loginBtn" class="login-btn" onclick="handleLogin()">
-        <i class="fab fa-whatsapp"></i> Start Chat
-      </button>
-      <div class="login-footer">
-        <p>By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
-        <p style="margin-top: 10px;">Also available on <i class="fab fa-telegram"></i> Telegram</p>
-      </div>
-    </div>
-    
-    <!-- Messages Area -->
-    <div id="messagesArea" class="messages-area">
-      <div id="messagesContainer" class="messages-container"></div>
-      <div id="typingIndicator" class="typing-indicator" style="display: none;">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    
-    <!-- Input Area -->
-    <div id="inputArea" class="input-area">
-      <input type="text" id="messageInput" placeholder="Type a message" disabled>
-      <button id="sendBtn" disabled onclick="sendMessage()">
-        <i class="fas fa-paper-plane"></i>
-      </button>
-    </div>
-  </div>
-  
-  <!-- Connection Status -->
-  <div id="connectionStatus" class="connection-status">
-    <span class="dot disconnected" id="statusDot"></span>
-    <span id="statusText2">Connecting...</span>
-  </div>
-  
-  <script>
-    let ws;
-    let userId = localStorage.getItem('chatUserId');
-    let userEmail = localStorage.getItem('chatEmail');
-    let userName = localStorage.getItem('chatUserName');
-    let reconnectAttempts = 0;
-    
-    const loginScreen = document.getElementById('loginScreen');
-    const messagesArea = document.getElementById('messagesArea');
-    const inputArea = document.getElementById('inputArea');
-    const messagesContainer = document.getElementById('messagesContainer');
-    const messageInput = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const statusDot = document.getElementById('statusDot');
-    const statusText2 = document.getElementById('statusText2');
-    
-    // Check if user is already logged in
-    if (userId && userEmail) {
-      loginScreen.style.display = 'none';
-      messagesArea.style.display = 'flex';
-      inputArea.style.display = 'flex';
-      connectWebSocket();
-      loadChatHistory();
-    }
-    
-    // Handle login
-    async function handleLogin() {
-      const email = document.getElementById('emailInput').value.trim();
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        alert('Please enter a valid email address');
-        return;
-      }
-      
-      document.getElementById('loginBtn').disabled = true;
-      document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
-      
-      try {
-        // Check if user exists
-        const checkResponse = await fetch('/api/user/check', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        
-        const checkData = await checkResponse.json();
-        
-        if (checkData.exists) {
-          userId = checkData.userId;
-          userName = checkData.userName;
-        } else {
-          // Create new user
-          const createResponse = await fetch('/api/user/create', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              email, 
-              userName: email.split('@')[0] 
-            })
-          });
-          
-          const createData = await createResponse.json();
-          userId = createData.userId;
-          userName = createData.userName;
-        }
-        
-        // Store in localStorage
-        localStorage.setItem('chatUserId', userId);
-        localStorage.setItem('chatEmail', email);
-        localStorage.setItem('chatUserName', userName);
-        userEmail = email;
-        
-        // Show chat interface
-        loginScreen.style.display = 'none';
-        messagesArea.style.display = 'flex';
-        inputArea.style.display = 'flex';
-        
-        connectWebSocket();
-        loadChatHistory();
-        
-      } catch (error) {
-        console.error('Login error:', error);
-        alert('Failed to login. Please try again.');
-      } finally {
-        document.getElementById('loginBtn').disabled = false;
-        document.getElementById('loginBtn').innerHTML = '<i class="fab fa-whatsapp"></i> Start Chat';
-      }
-    }
-    
-    // Connect WebSocket
-    function connectWebSocket() {
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}`;
-      
-      ws = new WebSocket(wsUrl);
-      
-      ws.onopen = () => {
-        console.log('Connected to server');
-        statusDot.className = 'dot connected';
-        statusText2.textContent = 'Connected';
-        messageInput.disabled = false;
-        sendBtn.disabled = false;
-        
-        // Register user
-        ws.send(JSON.stringify({
-          type: 'register',
-          userId: userId,
-          userName: userName,
-          email: userEmail
-        }));
-      };
-      
-      ws.onclose = () => {
-        console.log('Disconnected from server');
-        statusDot.className = 'dot disconnected';
-        statusText2.textContent = 'Disconnected';
-        messageInput.disabled = true;
-        sendBtn.disabled = true;
-        
-        // Try to reconnect
-        setTimeout(connectWebSocket, 3000);
-      };
-      
-      ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        
-        if (data.type === 'history') {
-          displayMessages(data.messages);
-        }
-        
-        if (data.type === 'new_message') {
-          addMessage(data.message);
-          scrollToBottom();
-        }
-        
-        if (data.type === 'admin_reply') {
-          addMessage({
-            message: data.message,
-            userName: 'Admin',
-            isAdmin: true,
-            timestamp: new Date().toISOString()
-          });
-          scrollToBottom();
-        }
-      };
-    }
-    
-    // Load chat history
-    async function loadChatHistory() {
-      try {
-        const response = await fetch(`/api/user/${userId}/messages`);
-        const messages = await response.json();
-        displayMessages(messages);
-      } catch (error) {
-        console.error('Failed to load history:', error);
-      }
-    }
-    
-    // Display messages
-    function displayMessages(messages) {
-      messagesContainer.innerHTML = '';
-      
-      if (messages.length === 0) {
-        // Welcome message
-        messagesContainer.innerHTML = `
-          <div class="message admin">
-            <div class="message-content">
-              👋 Welcome to Perfections Recruitment! How can we help you today?
-              <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>
+                <i>💬</i>
+                Perfections Recruitment Live Chat
+            </h1>
+            <div class="status">
+                <span class="status-dot"></span>
+                <span id="connectionStatus">Connecting...</span>
             </div>
-          </div>
-        `;
-        return;
-      }
-      
-      messages.forEach(addMessage);
-      scrollToBottom();
-    }
-    
-    // Add single message
-    function addMessage(msg) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${msg.isAdmin ? 'admin' : 'user'}`;
-      
-      const time = new Date(msg.timestamp).toLocaleTimeString([], { 
-        hour: '2-digit', 
-        minute: '2-digit' 
-      });
-      
-      messageDiv.innerHTML = `
-        <div class="message-content">
-          ${escapeHtml(msg.message)}
-          <div class="message-time">
-            ${time}
-            ${!msg.isAdmin ? '<span class="message-status"><i class="fas fa-check-double"></i></span>' : ''}
-          </div>
         </div>
-      `;
-      
-      messagesContainer.appendChild(messageDiv);
-    }
-    
-    // Send message
-    function sendMessage() {
-      const text = messageInput.value.trim();
-      if (!text) return;
-      
-      const message = {
-        type: 'chat',
-        userId: userId,
-        userName: userName,
-        text: text
-      };
-      
-      ws.send(JSON.stringify(message));
-      
-      // Add message to UI immediately
-      addMessage({
-        message: text,
-        userName: userName,
-        isAdmin: false,
-        timestamp: new Date().toISOString()
-      });
-      
-      messageInput.value = '';
-      scrollToBottom();
-    }
-    
-    // Scroll to bottom
-    function scrollToBottom() {
-      messagesArea.scrollTop = messagesArea.scrollHeight;
-    }
-    
-    // Enter key
-    messageInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-    
-    // Escape HTML
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-  </script>
+
+        <div class="chat-main">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <h3>👤 User Information</h3>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="userName" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="userEmail" placeholder="your@email.com">
+                    </div>
+                    <button class="btn" id="registerBtn" onclick="registerUser()">Start Chat</button>
+                </div>
+
+                <div id="alertContainer"></div>
+
+                <div class="job-preview">
+                    <h4>📋 Featured Jobs</h4>
+                    <div id="featuredJobs">
+                        <div class="job-item">
+                            <h5>Loading jobs...</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-area">
+                <div class="messages" id="messages">
+                    <div class="welcome-message">
+                        <i>💬</i>
+                        <h3>Welcome to Perfections Recruitment Live Chat</h3>
+                        <p>Please enter your name and email above to start chatting with our team.</p>
+                    </div>
+                </div>
+                
+                <div class="typing-indicator" id="typingIndicator">
+                    Admin is typing...
+                </div>
+
+                <div class="message-input">
+                    <input type="text" id="messageInput" placeholder="Type your message..." disabled>
+                    <button id="sendBtn" onclick="sendMessage()" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const WS_URL = `wss://${window.location.host}`;
+        const API_URL = '';
+        
+        // State
+        let ws = null;
+        let currentUser = null;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 5;
+
+        // DOM Elements
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const userNameInput = document.getElementById('userName');
+        const userEmailInput = document.getElementById('userEmail');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const alertContainer = document.getElementById('alertContainer');
+
+        // Load featured jobs
+        async function loadFeaturedJobs() {
+            try {
+                const response = await fetch('/api/jobs');
+                const data = await response.json();
+                const jobs = data.jobs || [];
+                const featuredJobs = jobs.filter(j => j.status === 'active').slice(0, 3);
+                
+                const jobsHtml = featuredJobs.map(job => `
+                    <div class="job-item">
+                        <h5>${job.title || 'Job Opportunity'}</h5>
+                        <p>🏢 ${job.company || 'Company'} - 💷 ${job.salary || 'Competitive'}</p>
+                    </div>
+                `).join('');
+                
+                document.getElementById('featuredJobs').innerHTML = jobsHtml || '<div class="job-item">No jobs available</div>';
+            } catch (error) {
+                console.error('Failed to load jobs:', error);
+            }
+        }
+
+        // Show alert
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <span class="close-alert" onclick="this.parentElement.remove()">×</span>
+            `;
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // WebSocket connection
+        function connectWebSocket() {
+            ws = new WebSocket(WS_URL);
+            
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+                connectionStatus.textContent = 'Connected';
+                connectionStatus.style.color = '#4caf50';
+                reconnectAttempts = 0;
+                
+                if (currentUser) {
+                    registerWithWebSocket();
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('WebSocket disconnected');
+                connectionStatus.textContent = 'Disconnected';
+                connectionStatus.style.color = '#f44336';
+                
+                if (reconnectAttempts < maxReconnectAttempts) {
+                    reconnectAttempts++;
+                    setTimeout(connectWebSocket, 3000);
+                }
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                showAlert('Connection error. Please refresh the page.', 'error');
+            };
+            
+            ws.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    handleWebSocketMessage(data);
+                } catch (error) {
+                    console.error('Failed to parse message:', error);
+                }
+            };
+        }
+
+        // Handle WebSocket messages
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'history':
+                    displayMessageHistory(data.messages);
+                    break;
+                    
+                case 'new_message':
+                    displayMessage(data.message);
+                    if (!data.message.isAdmin && currentUser) {
+                        playNotificationSound();
+                    }
+                    break;
+                    
+                case 'job_alert':
+                    showJobAlert(data);
+                    break;
+                    
+                default:
+                    console.log('Unknown message type:', data.type);
+            }
+        }
+
+        // Play notification sound
+        function playNotificationSound() {
+            const audio = new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCB//H4BzcXQEkQABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB///+kH0iAAD/x///L4BkAYBAEA4EwRAgAEBAAAYAYAYAAGAAQABgAGAAYABgAGAAYAABAAgADAAYAAgADABoABwADAAgADgA+AD4AOgA6ADoAOgA+AD4AMgAyADIAMgAyADIAMgAyADIAAAAAPwA/AD8APwA/AD8APwA/AD8A');
+            audio.play().catch(() => {});
+        }
+
+        // Show job alert
+        function showJobAlert(data) {
+            showAlert(`📢 ${data.message}`, 'info');
+            
+            const jobAlert = document.createElement('div');
+            jobAlert.className = 'message admin';
+            jobAlert.innerHTML = `
+                <div class="message-info">
+                    <span>🤖 Job Bot</span>
+                    <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                </div>
+                <div class="message-content">
+                    <strong>📢 New Job Opportunities!</strong><br><br>
+                    ${data.jobs.map(job => `• ${job.title} at ${job.company}<br>`).join('')}
+                    <br><a href="/jobs" style="color: #667eea;">View all jobs →</a>
+                </div>
+            `;
+            messagesDiv.appendChild(jobAlert);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Register user
+        async function registerUser() {
+            const name = userNameInput.value.trim();
+            const email = userEmailInput.value.trim();
+            
+            if (!name || !email) {
+                showAlert('Please enter both name and email', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showAlert('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            try {
+                registerBtn.disabled = true;
+                registerBtn.textContent = 'Registering...';
+                
+                // Check if user exists
+                const checkResponse = await fetch('/api/user/check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                
+                const checkData = await checkResponse.json();
+                
+                if (!checkData.exists) {
+                    // Create new user
+                    const createResponse = await fetch('/api/user/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, userName: name })
+                    });
+                    
+                    const createData = await createResponse.json();
+                    if (!createData.success) {
+                        throw new Error('Failed to create user');
+                    }
+                    
+                    currentUser = {
+                        userId: createData.userId,
+                        userName: createData.userName,
+                        email: email.toLowerCase()
+                    };
+                } else {
+                    currentUser = {
+                        userId: checkData.userId,
+                        userName: checkData.userName || name,
+                        email: email.toLowerCase()
+                    };
+                }
+                
+                // Store in localStorage
+                localStorage.setItem('chatUser', JSON.stringify(currentUser));
+                
+                // Enable chat
+                messageInput.disabled = false;
+                sendBtn.disabled = false;
+                
+                // Register with WebSocket
+                registerWithWebSocket();
+                
+                // Update UI
+                userNameInput.disabled = true;
+                userEmailInput.disabled = true;
+                registerBtn.textContent = 'Registered ✓';
+                
+                showAlert('Successfully registered! You can now chat.', 'success');
+                
+                // Load message history
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({
+                        type: 'get_history',
+                        userId: currentUser.userId
+                    }));
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                showAlert('Registration failed. Please try again.', 'error');
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Start Chat';
+            }
+        }
+
+        // Register with WebSocket
+        function registerWithWebSocket() {
+            if (ws && ws.readyState === WebSocket.OPEN && currentUser) {
+                ws.send(JSON.stringify({
+                    type: 'register',
+                    userId: currentUser.userId,
+                    userName: currentUser.userName,
+                    email: currentUser.email,
+                    isAdmin: false
+                }));
+            }
+        }
+
+        // Display message history
+        function displayMessageHistory(messages) {
+            messagesDiv.innerHTML = '';
+            
+            if (messages.length === 0) {
+                messagesDiv.innerHTML = `
+                    <div class="welcome-message">
+                        <i>💬</i>
+                        <h3>Welcome, ${currentUser.userName}!</h3>
+                        <p>Send a message to start chatting with our team.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            messages.forEach(msg => displayMessage(msg));
+        }
+
+        // Display single message
+        function displayMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.isAdmin ? 'admin' : 'user'}`;
+            
+            const time = new Date(message.timestamp).toLocaleTimeString();
+            const sender = message.isAdmin ? 'Admin' : 'You';
+            
+            messageDiv.innerHTML = `
+                <div class="message-info">
+                    <span>${sender}</span>
+                    <span class="message-time">${time}</span>
+                </div>
+                <div class="message-content">${escapeHtml(message.message)}</div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Send message
+        function sendMessage() {
+            const text = messageInput.value.trim();
+            
+            if (!text || !currentUser || !ws || ws.readyState !== WebSocket.OPEN) {
+                return;
+            }
+            
+            const message = {
+                type: 'chat',
+                text: text,
+                userId: currentUser.userId,
+                userName: currentUser.userName,
+                email: currentUser.email,
+                isAdmin: false,
+                timestamp: new Date().toISOString()
+            };
+            
+            ws.send(JSON.stringify(message));
+            
+            // Display message immediately
+            displayMessage({
+                ...message,
+                isAdmin: false
+            });
+            
+            messageInput.value = '';
+        }
+
+        // Helper functions
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Check for saved user
+        function loadSavedUser() {
+            const saved = localStorage.getItem('chatUser');
+            if (saved) {
+                try {
+                    currentUser = JSON.parse(saved);
+                    userNameInput.value = currentUser.userName;
+                    userEmailInput.value = currentUser.email;
+                    userNameInput.disabled = true;
+                    userEmailInput.disabled = true;
+                    registerBtn.textContent = 'Welcome Back!';
+                    
+                    // Enable chat
+                    messageInput.disabled = false;
+                    sendBtn.disabled = false;
+                    
+                    // Register with WebSocket when connected
+                    if (ws && ws.readyState === WebSocket.OPEN) {
+                        registerWithWebSocket();
+                    }
+                } catch (error) {
+                    console.error('Failed to load saved user:', error);
+                }
+            }
+        }
+
+        // Enter key to send
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !sendBtn.disabled) {
+                sendMessage();
+            }
+        });
+
+        // Initialize
+        loadFeaturedJobs();
+        connectWebSocket();
+        loadSavedUser();
+
+        // Periodic connection check
+        setInterval(() => {
+            if (ws && ws.readyState === WebSocket.CLOSED) {
+                connectWebSocket();
+            }
+        }, 5000);
+    </script>
 </body>
 </html>
