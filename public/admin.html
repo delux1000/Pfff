@@ -350,6 +350,7 @@
             overflow: hidden;
             padding: 20px;
             gap: 20px;
+            height: calc(100vh - 80px);
         }
 
         @media (max-width: 768px) {
@@ -473,27 +474,13 @@
             text-overflow: ellipsis;
         }
 
-        .user-meta {
-            display: flex;
-            gap: 8px;
-            font-size: 10px;
+        .last-message {
+            font-size: 11px;
             color: var(--gray);
-        }
-
-        .user-status {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 4px;
-        }
-
-        .status-online {
-            background: var(--success);
-        }
-
-        .status-offline {
-            background: var(--gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
         }
 
         .unread-count {
@@ -508,15 +495,6 @@
             font-weight: 600;
             min-width: 20px;
             text-align: center;
-        }
-
-        .last-message {
-            font-size: 11px;
-            color: var(--gray);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 150px;
         }
 
         /* Chat Panel */
@@ -543,9 +521,6 @@
             font-size: 16px;
             color: var(--dark);
             margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .selected-user-info p {
@@ -554,10 +529,11 @@
         }
 
         .user-status-badge {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-size: 12px;
+            margin-left: 10px;
         }
 
         .status-dot {
@@ -580,11 +556,6 @@
             50% { opacity: 0.5; }
         }
 
-        .chat-actions {
-            display: flex;
-            gap: 8px;
-        }
-
         .action-btn {
             padding: 6px 12px;
             border: none;
@@ -596,6 +567,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            border: 1px solid #e2e8f0;
         }
 
         .action-btn:hover {
@@ -870,6 +842,33 @@
                 display: block;
             }
         }
+
+        /* Dashboard View */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--dark);
+        }
     </style>
 </head>
 <body>
@@ -977,10 +976,20 @@
 
             <div class="content-area" id="contentArea">
                 <!-- Dashboard View -->
-                <div id="dashboardView" style="display: none; padding: 20px;">
-                    <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3>Dashboard</h3>
-                        <p>Select Live Chat from the menu to start messaging users.</p>
+                <div id="dashboardView" style="display: none; padding: 20px; overflow-y: auto;">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Total Users</h3>
+                            <div class="stat-number" id="totalUsers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Unread Messages</h3>
+                            <div class="stat-number" id="totalUnread">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Chats</h3>
+                            <div class="stat-number" id="activeChats">0</div>
+                        </div>
                     </div>
                 </div>
 
@@ -991,7 +1000,7 @@
                         <div class="panel-header">
                             <h3>
                                 <i>👥</i>
-                                Active Users
+                                Users
                                 <span class="stats-badge" id="totalUsersCount">0</span>
                             </h3>
                             <input type="text" class="search-box" id="userSearch" placeholder="Search users..." onkeyup="searchUsers()">
@@ -1015,11 +1024,14 @@
                                         <span id="userStatusText">Offline</span>
                                     </span>
                                 </h3>
-                                <p>Choose a user from the list to view and reply to messages</p>
+                                <p>Choose a user from the list to view messages</p>
                             </div>
                             <div class="chat-actions">
                                 <button class="action-btn" onclick="markCurrentUserRead()" id="markReadBtn" style="display: none;">
                                     <i>✓</i> Mark Read
+                                </button>
+                                <button class="action-btn" onclick="refreshUserMessages()" id="refreshBtn" style="display: none;">
+                                    <i>🔄</i> Refresh
                                 </button>
                             </div>
                         </div>
@@ -1028,7 +1040,7 @@
                             <div class="empty-state">
                                 <i>💬</i>
                                 <p>No user selected</p>
-                                <p style="font-size: 11px; margin-top: 5px;">Click on a user to start chatting</p>
+                                <p style="font-size: 11px; margin-top: 5px;">Click on a user to view their messages</p>
                             </div>
                         </div>
 
@@ -1055,17 +1067,17 @@
                 </div>
 
                 <!-- Users View -->
-                <div id="usersView" style="display: none; padding: 20px;">
+                <div id="usersView" style="display: none; padding: 20px; overflow-y: auto;">
                     <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3>All Users</h3>
+                        <h3 style="margin-bottom: 15px;">All Users</h3>
                         <div id="allUsersList"></div>
                     </div>
                 </div>
 
                 <!-- Broadcast View -->
-                <div id="broadcastView" style="display: none; padding: 20px;">
+                <div id="broadcastView" style="display: none; padding: 20px; overflow-y: auto;">
                     <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3>Send Broadcast</h3>
+                        <h3 style="margin-bottom: 15px;">Send Broadcast</h3>
                         <textarea id="broadcastMessage" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; margin: 15px 0;" placeholder="Type your broadcast message..."></textarea>
                         <button class="btn-login" onclick="sendBroadcast()" style="padding: 12px 24px;">Send to All Users</button>
                     </div>
@@ -1089,14 +1101,13 @@
         let currentPin = '';
         let isAuthenticated = false;
         let users = [];
-        let messages = {};
+        let messages = {}; // Store messages by userId
         let selectedUser = null;
         let currentView = 'chat';
         let reconnectAttempts = 0;
         let isConnected = false;
         let typingTimeout = null;
         let unreadCount = 0;
-        let messageQueue = [];
 
         // ===== DOM ELEMENTS =====
         const pinScreen = document.getElementById('pinScreen');
@@ -1114,6 +1125,7 @@
         const userStatusDot = document.getElementById('userStatusDot');
         const userStatusText = document.getElementById('userStatusText');
         const markReadBtn = document.getElementById('markReadBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
         const sidebarUnread = document.getElementById('sidebarUnread');
         const notificationBadge = document.getElementById('notificationBadge');
         const totalUsersCount = document.getElementById('totalUsersCount');
@@ -1171,9 +1183,6 @@
                         userId: 'admin-' + Date.now()
                     }));
                     
-                    // Load all users
-                    loadUsers();
-                    
                     showToast('Connected to server', 'success');
                 };
                 
@@ -1190,7 +1199,6 @@
                 
                 ws.onerror = (error) => {
                     console.error('WebSocket error:', error);
-                    showToast('Connection error', 'error');
                 };
                 
                 ws.onmessage = (event) => {
@@ -1216,23 +1224,6 @@
                 case 'typing':
                     handleTypingIndicator(data);
                     break;
-                    
-                case 'user_connected':
-                    updateUserStatus(data.userId, true);
-                    break;
-                    
-                case 'user_disconnected':
-                    updateUserStatus(data.userId, false);
-                    break;
-                    
-                case 'history':
-                    if (data.userId && messages[data.userId]) {
-                        messages[data.userId] = data.messages;
-                        if (selectedUser && selectedUser.userId === data.userId) {
-                            displayUserMessages(data.userId);
-                        }
-                    }
-                    break;
             }
         }
 
@@ -1251,6 +1242,11 @@
                     updateUsersList();
                     updateUnreadCount();
                     totalUsersCount.textContent = users.length;
+                    document.getElementById('totalUsers').textContent = users.length;
+                    
+                    // Count users with messages
+                    const activeChats = Object.keys(messages).filter(id => messages[id]?.length > 0).length;
+                    document.getElementById('activeChats').textContent = activeChats;
                 }
             } catch (error) {
                 console.error('Failed to load users:', error);
@@ -1268,13 +1264,22 @@
                     // Update unread count for this user
                     const user = users.find(u => u.userId === userId);
                     if (user) {
-                        user.unread = userMessages.filter(m => !m.isAdmin && !m.read).length;
+                        const unreadMessages = userMessages.filter(m => !m.isAdmin && !m.read);
+                        user.unread = unreadMessages.length;
+                        
+                        // If this user is selected, display their messages
+                        if (selectedUser && selectedUser.userId === userId) {
+                            displayUserMessages(userId);
+                        }
                     }
+                    
+                    return userMessages;
                 }
             } catch (error) {
                 console.error(`Failed to load messages for user ${userId}:`, error);
                 messages[userId] = [];
             }
+            return [];
         }
 
         // ===== UPDATE USERS LIST =====
@@ -1313,12 +1318,11 @@
                             <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
                             <div class="user-details">
                                 <div class="user-name">
-                                    <span class="user-status ${user.online ? 'status-online' : 'status-offline'}"></span>
                                     ${escapeHtml(user.userName || 'Unknown')}
                                 </div>
                                 <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
                                 <div class="last-message">
-                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + '...' : 'No messages'}
+                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + (lastMsg.message.length > 30 ? '...' : '') : 'No messages'}
                                 </div>
                             </div>
                         </div>
@@ -1329,7 +1333,7 @@
         }
 
         // ===== SELECT USER =====
-        function selectUser(userId) {
+        async function selectUser(userId) {
             const user = users.find(u => u.userId === userId);
             if (!user) return;
             
@@ -1347,11 +1351,13 @@
                 <p>${escapeHtml(user.email)}</p>
             `;
             
-            userStatusBadge.style.display = 'flex';
+            userStatusBadge.style.display = 'inline-flex';
             messageInputArea.style.display = 'flex';
             markReadBtn.style.display = 'inline-block';
+            refreshBtn.style.display = 'inline-block';
             
-            // Display messages for this user
+            // Load and display messages for this user
+            await loadUserMessages(userId);
             displayUserMessages(userId);
             
             // Mark messages as read
@@ -1382,7 +1388,7 @@
             }
             
             // Sort chronologically
-            const sortedMessages = userMessages.sort((a, b) => 
+            const sortedMessages = [...userMessages].sort((a, b) => 
                 new Date(a.timestamp) - new Date(b.timestamp)
             );
             
@@ -1409,12 +1415,15 @@
                 `;
             }).join('');
             
+            // Scroll to bottom
             messagesArea.scrollTop = messagesArea.scrollHeight;
         }
 
         // ===== HANDLE NEW MESSAGE =====
         function handleNewMessage(message) {
-            // Add to messages collection
+            console.log('New message received:', message);
+            
+            // Initialize messages array for this user if needed
             if (!messages[message.userId]) {
                 messages[message.userId] = [];
             }
@@ -1483,7 +1492,7 @@
                 });
                 
                 if (response.ok) {
-                    const messageId = Date.now() + '-' + Math.random().toString(36);
+                    const messageId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
                     const timestamp = new Date().toISOString();
                     
                     // Create message object
@@ -1543,26 +1552,28 @@
             if (!user || !user.unread) return;
             
             try {
-                await fetch(`/api/admin/mark-read/${encodeURIComponent(user.email)}`, {
+                const response = await fetch(`/api/admin/mark-read/${encodeURIComponent(user.email)}`, {
                     method: 'POST'
                 });
                 
-                // Update local state
-                user.unread = 0;
-                
-                // Update messages
-                if (messages[user.userId]) {
-                    messages[user.userId].forEach(msg => {
-                        if (!msg.isAdmin) msg.read = true;
-                    });
-                }
-                
-                updateUnreadCount();
-                updateUsersList();
-                
-                // Update UI if this user is selected
-                if (selectedUser && selectedUser.userId === user.userId) {
-                    displayUserMessages(user.userId);
+                if (response.ok) {
+                    // Update local state
+                    user.unread = 0;
+                    
+                    // Update messages
+                    if (messages[user.userId]) {
+                        messages[user.userId].forEach(msg => {
+                            if (!msg.isAdmin) msg.read = true;
+                        });
+                    }
+                    
+                    updateUnreadCount();
+                    updateUsersList();
+                    
+                    // Update UI if this user is selected
+                    if (selectedUser && selectedUser.userId === user.userId) {
+                        displayUserMessages(user.userId);
+                    }
                 }
             } catch (error) {
                 console.error('Failed to mark messages as read:', error);
@@ -1572,6 +1583,15 @@
         function markCurrentUserRead() {
             if (selectedUser) {
                 markUserMessagesRead(selectedUser);
+            }
+        }
+
+        // ===== REFRESH USER MESSAGES =====
+        async function refreshUserMessages() {
+            if (selectedUser) {
+                await loadUserMessages(selectedUser.userId);
+                displayUserMessages(selectedUser.userId);
+                showToast('Messages refreshed', 'success');
             }
         }
 
@@ -1591,26 +1611,12 @@
             }
         }
 
-        // ===== UPDATE USER STATUS =====
-        function updateUserStatus(userId, online) {
-            const user = users.find(u => u.userId === userId);
-            if (user) {
-                user.online = online;
-                
-                if (selectedUser && selectedUser.userId === userId) {
-                    userStatusDot.className = `status-dot ${online ? 'online' : 'offline'}`;
-                    userStatusText.textContent = online ? 'Online' : 'Offline';
-                }
-                
-                updateUsersList();
-            }
-        }
-
         // ===== UPDATE UNREAD COUNT =====
         function updateUnreadCount() {
             unreadCount = users.reduce((sum, user) => sum + (user.unread || 0), 0);
             sidebarUnread.textContent = unreadCount;
             notificationBadge.textContent = unreadCount;
+            document.getElementById('totalUnread').textContent = unreadCount;
             
             // Update page title
             if (unreadCount > 0) {
@@ -1639,12 +1645,11 @@
                             <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
                             <div class="user-details">
                                 <div class="user-name">
-                                    <span class="user-status ${user.online ? 'status-online' : 'status-offline'}"></span>
                                     ${escapeHtml(user.userName || 'Unknown')}
                                 </div>
                                 <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
                                 <div class="last-message">
-                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + '...' : 'No messages'}
+                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + (lastMsg.message.length > 30 ? '...' : '') : 'No messages'}
                                 </div>
                             </div>
                         </div>
@@ -1678,7 +1683,7 @@
             
             for (const user of users) {
                 try {
-                    await fetch('/api/admin/send', {
+                    const response = await fetch('/api/admin/send', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1686,7 +1691,10 @@
                             message: `📢 *Broadcast:*\n\n${message}`
                         })
                     });
-                    sent++;
+                    
+                    if (response.ok) {
+                        sent++;
+                    }
                     
                     // Send via WebSocket if connected
                     if (isConnected && ws) {
@@ -1835,7 +1843,7 @@
                 if (isConnected) {
                     loadUsers();
                 }
-            }, 30000);
+            }, 10000);
             
             // Focus on chat view
             document.querySelector('.menu-item.active').classList.remove('active');
