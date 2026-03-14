@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Admin Dashboard - Perfections Recruitment</title>
+    <title>Admin Chat - Perfections Recruitment</title>
     <style>
         * {
             margin: 0;
@@ -26,7 +26,8 @@
 
         body {
             background: #f0f2f5;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* PIN Login Screen */
@@ -302,6 +303,10 @@
             }
         }
 
+        .page-title {
+            flex: 1;
+        }
+
         .page-title h1 {
             font-size: 18px;
             color: var(--dark);
@@ -313,7 +318,6 @@
         }
 
         .top-bar-actions {
-            margin-left: auto;
             display: flex;
             gap: 10px;
         }
@@ -335,71 +339,41 @@
             font-size: 10px;
             padding: 2px 6px;
             border-radius: 50px;
+            min-width: 18px;
+            text-align: center;
         }
 
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-
-        /* Content Area */
-        .content-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        /* Messages View */
-        .messages-layout {
+        /* Chat Interface */
+        .chat-interface {
             display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 20px;
             gap: 20px;
-            height: calc(100vh - 120px);
         }
 
         @media (max-width: 768px) {
-            .messages-layout {
+            .chat-interface {
                 flex-direction: column;
-                height: auto;
+                padding: 10px;
             }
         }
 
-        /* Users List */
+        /* Users Panel */
         .users-panel {
             width: 320px;
             background: white;
             border-radius: 12px;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         @media (max-width: 768px) {
             .users-panel {
                 width: 100%;
-                max-height: 300px;
+                max-height: 250px;
             }
         }
 
@@ -439,6 +413,7 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
+            position: relative;
         }
 
         .user-card:hover {
@@ -461,8 +436,8 @@
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
@@ -470,10 +445,13 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
         }
 
         .user-details {
             flex: 1;
+            min-width: 0;
         }
 
         .user-name {
@@ -490,6 +468,9 @@
             font-size: 11px;
             color: var(--gray);
             margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-meta {
@@ -499,13 +480,43 @@
             color: var(--gray);
         }
 
+        .user-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+
+        .status-online {
+            background: var(--success);
+        }
+
+        .status-offline {
+            background: var(--gray);
+        }
+
         .unread-count {
+            position: absolute;
+            top: 12px;
+            right: 12px;
             background: var(--danger);
             color: white;
             padding: 2px 6px;
             border-radius: 50px;
             font-size: 10px;
             font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .last-message {
+            font-size: 11px;
+            color: var(--gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         /* Chat Panel */
@@ -513,9 +524,9 @@
             flex: 1;
             background: white;
             border-radius: 12px;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
@@ -532,6 +543,9 @@
             font-size: 16px;
             color: var(--dark);
             margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .selected-user-info p {
@@ -539,7 +553,7 @@
             color: var(--gray);
         }
 
-        .user-status {
+        .user-status-badge {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -547,10 +561,9 @@
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--gray);
         }
 
         .status-dot.online {
@@ -558,12 +571,39 @@
             animation: pulse 2s infinite;
         }
 
+        .status-dot.offline {
+            background: var(--gray);
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
 
-        .chat-messages {
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: white;
+            color: var(--dark);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* Messages Area */
+        .messages-area {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
@@ -577,6 +617,12 @@
             display: flex;
             flex-direction: column;
             max-width: 70%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message-wrapper.admin {
@@ -588,11 +634,12 @@
         }
 
         .message-bubble {
-            padding: 10px 14px;
-            border-radius: 16px;
-            font-size: 13px;
-            line-height: 1.4;
-            word-break: break-word;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.5;
+            font-size: 14px;
+            position: relative;
         }
 
         .message-wrapper.admin .message-bubble {
@@ -605,15 +652,15 @@
             background: white;
             color: var(--dark);
             border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .message-meta {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             margin: 4px 8px;
-            font-size: 10px;
+            font-size: 11px;
             color: var(--gray);
         }
 
@@ -631,6 +678,11 @@
             color: var(--success);
         }
 
+        .message-time {
+            font-size: 10px;
+        }
+
+        /* Typing Indicator */
         .typing-indicator {
             padding: 10px 20px;
             display: none;
@@ -654,94 +706,91 @@
             height: 6px;
             background: var(--gray);
             border-radius: 50%;
-            animation: typingBounce 1.4s infinite;
+            animation: typingBounce 1.4s infinite ease-in-out;
         }
+
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes typingBounce {
             0%, 60%, 100% { transform: translateY(0); }
             30% { transform: translateY(-4px); }
         }
 
-        .chat-input {
+        /* Message Input */
+        .message-input-area {
             padding: 15px 20px;
             background: white;
             border-top: 1px solid #e2e8f0;
             display: flex;
             gap: 10px;
+            align-items: flex-end;
         }
 
-        .chat-input textarea {
+        .input-wrapper {
             flex: 1;
-            padding: 10px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 13px;
-            resize: none;
-            max-height: 80px;
-            min-height: 40px;
+            position: relative;
         }
 
-        .chat-input textarea:focus {
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            resize: none;
+            max-height: 100px;
+            min-height: 45px;
+            line-height: 1.5;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .input-wrapper textarea:focus {
             border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
-        .chat-input button {
-            padding: 0 20px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .chat-input button:disabled {
-            opacity: 0.5;
+        .input-wrapper textarea:disabled {
+            background: #f7fafc;
             cursor: not-allowed;
         }
 
-        /* Dashboard Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
+        .char-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 10px;
+            color: #a0aec0;
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 2px 4px;
+            border-radius: 4px;
         }
 
-        .stat-icon {
-            width: 50px;
-            height: 50px;
+        .send-btn {
+            padding: 0 24px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
             border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
+            gap: 6px;
         }
 
-        .stat-info h3 {
-            font-size: 13px;
-            color: var(--gray);
-            margin-bottom: 5px;
+        .send-btn:active:not(:disabled) {
+            transform: scale(0.98);
         }
 
-        .stat-number {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--dark);
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* Empty States */
@@ -800,6 +849,27 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Mobile Close Button */
+        .close-sidebar {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .close-sidebar {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -842,6 +912,8 @@
     <div id="adminDashboard" class="admin-container">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
+            <button class="close-sidebar" onclick="closeMobileSidebar()">×</button>
+            
             <div class="sidebar-header">
                 <h2>
                     <i>👑</i>
@@ -851,27 +923,22 @@
             </div>
             
             <div class="sidebar-menu">
-                <div class="menu-item active" onclick="switchView('dashboard')">
+                <div class="menu-item" onclick="switchView('dashboard')">
                     <i>📊</i>
                     <span>Dashboard</span>
                 </div>
-                <div class="menu-item" onclick="switchView('messages')">
+                <div class="menu-item active" onclick="switchView('chat')">
                     <i>💬</i>
-                    <span>Messages</span>
+                    <span>Live Chat</span>
                     <span class="stats-badge" id="sidebarUnread">0</span>
                 </div>
                 <div class="menu-item" onclick="switchView('users')">
                     <i>👥</i>
                     <span>Users</span>
-                    <span class="stats-badge" id="sidebarUsers">0</span>
                 </div>
                 <div class="menu-item" onclick="switchView('broadcast')">
                     <i>📢</i>
                     <span>Broadcast</span>
-                </div>
-                <div class="menu-item" onclick="switchView('jobs')">
-                    <i>📋</i>
-                    <span>Jobs</span>
                 </div>
             </div>
             
@@ -880,7 +947,7 @@
                     <div class="admin-avatar">A</div>
                     <div>
                         <div style="font-weight: 600;">Admin</div>
-                        <div style="font-size: 11px; opacity: 0.7;">Online</div>
+                        <div style="font-size: 11px; opacity: 0.7;" id="connectionStatus">Connected</div>
                     </div>
                     <button class="logout-btn" onclick="logout()">
                         <i>🚪</i>
@@ -894,8 +961,8 @@
             <div class="top-bar">
                 <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
                 <div class="page-title">
-                    <h1 id="pageTitle">Dashboard</h1>
-                    <p id="pageSubtitle">Overview & statistics</p>
+                    <h1 id="pageTitle">Live Chat</h1>
+                    <p id="pageSubtitle">Real-time conversations with users</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="notification-badge" onclick="refreshData()">
@@ -910,131 +977,97 @@
 
             <div class="content-area" id="contentArea">
                 <!-- Dashboard View -->
-                <div id="dashboardView">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">👥</div>
-                            <div class="stat-info">
-                                <h3>Total Users</h3>
-                                <div class="stat-number" id="totalUsers">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">💬</div>
-                            <div class="stat-info">
-                                <h3>Unread</h3>
-                                <div class="stat-number" id="totalUnread">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📋</div>
-                            <div class="stat-info">
-                                <h3>Active Jobs</h3>
-                                <div class="stat-number" id="activeJobs">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📝</div>
-                            <div class="stat-info">
-                                <h3>Applications</h3>
-                                <div class="stat-number" id="applications">0</div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                <div id="dashboardView" style="display: none; padding: 20px;">
                     <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">Recent Activity</h3>
-                        <div id="recentActivity"></div>
+                        <h3>Dashboard</h3>
+                        <p>Select Live Chat from the menu to start messaging users.</p>
                     </div>
                 </div>
 
-                <!-- Messages View -->
-                <div id="messagesView" style="display: none;">
-                    <div class="messages-layout">
-                        <!-- Users List Panel -->
-                        <div class="users-panel">
-                            <div class="panel-header">
-                                <h3>
-                                    <i>💬</i>
-                                    Active Conversations
-                                </h3>
-                                <input type="text" class="search-box" id="userSearch" placeholder="Search users..." onkeyup="searchUsers()">
+                <!-- Chat View -->
+                <div id="chatView" class="chat-interface">
+                    <!-- Users Panel -->
+                    <div class="users-panel">
+                        <div class="panel-header">
+                            <h3>
+                                <i>👥</i>
+                                Active Users
+                                <span class="stats-badge" id="totalUsersCount">0</span>
+                            </h3>
+                            <input type="text" class="search-box" id="userSearch" placeholder="Search users..." onkeyup="searchUsers()">
+                        </div>
+                        <div class="users-list" id="usersList">
+                            <div class="empty-state">
+                                <i>👥</i>
+                                <p>Loading users...</p>
                             </div>
-                            <div class="users-list" id="usersList">
-                                <div class="empty-state">
-                                    <i>👥</i>
-                                    <p>Loading users...</p>
-                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Panel -->
+                    <div class="chat-panel" id="chatPanel">
+                        <div class="chat-header">
+                            <div class="selected-user-info" id="selectedUserInfo">
+                                <h3>
+                                    Select a user
+                                    <span class="user-status-badge" id="userStatusBadge" style="display: none;">
+                                        <span class="status-dot" id="userStatusDot"></span>
+                                        <span id="userStatusText">Offline</span>
+                                    </span>
+                                </h3>
+                                <p>Choose a user from the list to view and reply to messages</p>
+                            </div>
+                            <div class="chat-actions">
+                                <button class="action-btn" onclick="markCurrentUserRead()" id="markReadBtn" style="display: none;">
+                                    <i>✓</i> Mark Read
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Chat Panel -->
-                        <div class="chat-panel" id="chatPanel">
-                            <div class="chat-header">
-                                <div class="selected-user-info" id="selectedUserInfo">
-                                    <h3>Select a user</h3>
-                                    <p>Choose a user from the list to start chatting</p>
-                                </div>
-                                <div class="user-status" id="userStatus" style="display: none;">
-                                    <span class="status-dot"></span>
-                                    <span id="statusText">Offline</span>
-                                </div>
+                        <div class="messages-area" id="messagesArea">
+                            <div class="empty-state">
+                                <i>💬</i>
+                                <p>No user selected</p>
+                                <p style="font-size: 11px; margin-top: 5px;">Click on a user to start chatting</p>
                             </div>
+                        </div>
 
-                            <div class="chat-messages" id="chatMessages">
-                                <div class="empty-state">
-                                    <i>💬</i>
-                                    <p>No user selected</p>
-                                </div>
+                        <div class="typing-indicator" id="typingIndicator">
+                            <span>User is typing</span>
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
+                        </div>
 
-                            <div class="typing-indicator" id="typingIndicator">
-                                <span>User is typing</span>
-                                <div class="typing-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                        <div class="message-input-area" id="messageInputArea" style="display: none;">
+                            <div class="input-wrapper">
+                                <textarea id="adminMessageInput" placeholder="Type your reply... (Enter to send, Shift+Enter for new line)" rows="1" maxlength="1000" onkeydown="handleMessageKeydown(event)"></textarea>
+                                <span class="char-counter" id="adminCharCounter">0/1000</span>
                             </div>
-
-                            <div class="chat-input" id="chatInput" style="display: none;">
-                                <textarea id="messageInput" placeholder="Type your reply... (Enter to send)" rows="1" onkeydown="handleMessageKeydown(event)"></textarea>
-                                <button onclick="sendAdminMessage()" id="sendBtn">Send</button>
-                            </div>
+                            <button class="send-btn" onclick="sendAdminMessage()" id="adminSendBtn">
+                                <i>📤</i>
+                                Send
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Users View -->
-                <div id="usersView" style="display: none;">
+                <div id="usersView" style="display: none; padding: 20px;">
                     <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">All Users</h3>
+                        <h3>All Users</h3>
                         <div id="allUsersList"></div>
                     </div>
                 </div>
 
                 <!-- Broadcast View -->
-                <div id="broadcastView" style="display: none;">
+                <div id="broadcastView" style="display: none; padding: 20px;">
                     <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">Send Broadcast</h3>
-                        <textarea id="broadcastMessage" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 15px;" placeholder="Type your message..."></textarea>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 8px;">Send via:</label>
-                            <label style="margin-right: 15px;"><input type="checkbox" id="sendWeb" checked> Web Chat</label>
-                            <label><input type="checkbox" id="sendTelegram" checked> Telegram</label>
-                        </div>
-                        <button class="btn btn-primary" onclick="sendBroadcast()">Send Broadcast</button>
-                        <div id="broadcastProgress" style="display: none; margin-top: 15px;">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Jobs View -->
-                <div id="jobsView" style="display: none;">
-                    <div style="background: white; border-radius: 12px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">Job Listings</h3>
-                        <div id="jobsList"></div>
+                        <h3>Send Broadcast</h3>
+                        <textarea id="broadcastMessage" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; margin: 15px 0;" placeholder="Type your broadcast message..."></textarea>
+                        <button class="btn-login" onclick="sendBroadcast()" style="padding: 12px 24px;">Send to All Users</button>
                     </div>
                 </div>
             </div>
@@ -1056,48 +1089,64 @@
         let currentPin = '';
         let isAuthenticated = false;
         let users = [];
-        let messages = [];
+        let messages = {};
         let selectedUser = null;
-        let currentView = 'dashboard';
+        let currentView = 'chat';
         let reconnectAttempts = 0;
         let isConnected = false;
         let typingTimeout = null;
-        let stats = {
-            totalUsers: 0,
-            unreadCount: 0,
-            activeJobs: 0,
-            applications: 0
-        };
+        let unreadCount = 0;
+        let messageQueue = [];
+
+        // ===== DOM ELEMENTS =====
+        const pinScreen = document.getElementById('pinScreen');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const pinDisplay = document.getElementById('pinDisplay');
+        const pinError = document.getElementById('pinError');
+        const usersList = document.getElementById('usersList');
+        const messagesArea = document.getElementById('messagesArea');
+        const selectedUserInfo = document.getElementById('selectedUserInfo');
+        const messageInputArea = document.getElementById('messageInputArea');
+        const adminMessageInput = document.getElementById('adminMessageInput');
+        const adminSendBtn = document.getElementById('adminSendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const userStatusBadge = document.getElementById('userStatusBadge');
+        const userStatusDot = document.getElementById('userStatusDot');
+        const userStatusText = document.getElementById('userStatusText');
+        const markReadBtn = document.getElementById('markReadBtn');
+        const sidebarUnread = document.getElementById('sidebarUnread');
+        const notificationBadge = document.getElementById('notificationBadge');
+        const totalUsersCount = document.getElementById('totalUsersCount');
 
         // ===== PIN AUTHENTICATION =====
         function addPinDigit(digit) {
             if (currentPin.length < 6) {
                 currentPin += digit;
-                document.getElementById('pinDisplay').textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
-                document.getElementById('pinError').style.display = 'none';
+                pinDisplay.textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
+                pinError.style.display = 'none';
             }
         }
 
         function deletePinDigit() {
             currentPin = currentPin.slice(0, -1);
-            document.getElementById('pinDisplay').textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
+            pinDisplay.textContent = '•'.repeat(currentPin.length) + '•'.repeat(6 - currentPin.length);
         }
 
         function clearPin() {
             currentPin = '';
-            document.getElementById('pinDisplay').textContent = '••••••';
+            pinDisplay.textContent = '••••••';
         }
 
         function verifyPin() {
             if (currentPin === SECRET_PIN) {
-                document.getElementById('pinScreen').style.display = 'none';
-                document.getElementById('adminDashboard').classList.add('visible');
+                pinScreen.style.display = 'none';
+                adminDashboard.classList.add('visible');
                 isAuthenticated = true;
                 initializeDashboard();
                 showToast('Login successful!', 'success');
                 sendNtfyNotification('👑 Admin Login', 'Admin dashboard accessed', 3);
             } else {
-                document.getElementById('pinError').style.display = 'block';
+                pinError.style.display = 'block';
                 clearPin();
                 showToast('Invalid PIN', 'error');
                 sendNtfyNotification('⚠️ Failed Login', 'Invalid PIN attempt', 4);
@@ -1113,6 +1162,7 @@
                     console.log('WebSocket connected');
                     isConnected = true;
                     reconnectAttempts = 0;
+                    document.getElementById('connectionStatus').textContent = 'Connected';
                     
                     // Register as admin
                     ws.send(JSON.stringify({
@@ -1121,9 +1171,8 @@
                         userId: 'admin-' + Date.now()
                     }));
                     
-                    // Load all data
+                    // Load all users
                     loadUsers();
-                    loadMessages();
                     
                     showToast('Connected to server', 'success');
                 };
@@ -1131,6 +1180,7 @@
                 ws.onclose = () => {
                     console.log('WebSocket disconnected');
                     isConnected = false;
+                    document.getElementById('connectionStatus').textContent = 'Disconnected';
                     
                     if (reconnectAttempts < 10) {
                         reconnectAttempts++;
@@ -1140,6 +1190,7 @@
                 
                 ws.onerror = (error) => {
                     console.error('WebSocket error:', error);
+                    showToast('Connection error', 'error');
                 };
                 
                 ws.onmessage = (event) => {
@@ -1174,98 +1225,107 @@
                     updateUserStatus(data.userId, false);
                     break;
                     
-                case 'messages_read':
-                    updateReadStatus(data.userId, data.messageIds);
+                case 'history':
+                    if (data.userId && messages[data.userId]) {
+                        messages[data.userId] = data.messages;
+                        if (selectedUser && selectedUser.userId === data.userId) {
+                            displayUserMessages(data.userId);
+                        }
+                    }
                     break;
             }
         }
 
-        // ===== LOAD DATA =====
+        // ===== LOAD USERS =====
         async function loadUsers() {
             try {
                 const response = await fetch('/api/admin/users');
                 if (response.ok) {
                     users = await response.json();
                     
-                    // Calculate unread counts
-                    stats.totalUsers = users.length;
-                    stats.unreadCount = users.reduce((sum, user) => sum + (user.unread || 0), 0);
+                    // Load messages for each user
+                    for (const user of users) {
+                        await loadUserMessages(user.userId);
+                    }
                     
-                    updateStats();
-                    renderUsersList();
-                    updateSidebarCounts();
+                    updateUsersList();
+                    updateUnreadCount();
+                    totalUsersCount.textContent = users.length;
                 }
             } catch (error) {
                 console.error('Failed to load users:', error);
             }
         }
 
-        async function loadMessages() {
+        // ===== LOAD USER MESSAGES =====
+        async function loadUserMessages(userId) {
             try {
-                // Get messages for all users
-                for (const user of users) {
-                    const response = await fetch(`/api/admin/messages/${user.userId}`);
-                    if (response.ok) {
-                        const userMessages = await response.json();
-                        messages = messages.concat(userMessages);
+                const response = await fetch(`/api/admin/messages/${userId}`);
+                if (response.ok) {
+                    const userMessages = await response.json();
+                    messages[userId] = userMessages || [];
+                    
+                    // Update unread count for this user
+                    const user = users.find(u => u.userId === userId);
+                    if (user) {
+                        user.unread = userMessages.filter(m => !m.isAdmin && !m.read).length;
                     }
                 }
             } catch (error) {
-                console.error('Failed to load messages:', error);
+                console.error(`Failed to load messages for user ${userId}:`, error);
+                messages[userId] = [];
             }
         }
 
-        async function loadJobs() {
-            try {
-                const response = await fetch('/api/jobs');
-                if (response.ok) {
-                    const data = await response.json();
-                    const jobs = data.jobs || [];
-                    stats.activeJobs = jobs.filter(j => j.status === 'active').length;
-                    updateStats();
-                    renderJobsList(jobs);
-                }
-            } catch (error) {
-                console.error('Failed to load jobs:', error);
-            }
-        }
-
-        // ===== RENDER USERS LIST =====
-        function renderUsersList() {
-            const container = document.getElementById('usersList');
-            if (!container) return;
+        // ===== UPDATE USERS LIST =====
+        function updateUsersList() {
+            if (!usersList) return;
             
             if (!users || users.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i>👥</i><p>No users found</p></div>';
+                usersList.innerHTML = '<div class="empty-state"><i>👥</i><p>No users found</p></div>';
                 return;
             }
             
-            // Sort by unread count and last message
+            // Sort users: unread first, then by last message time
             const sortedUsers = [...users].sort((a, b) => {
                 if ((b.unread || 0) !== (a.unread || 0)) {
                     return (b.unread || 0) - (a.unread || 0);
                 }
-                return new Date(b.lastSeen || 0) - new Date(a.lastSeen || 0);
+                
+                const aLastMsg = messages[a.userId]?.length > 0 
+                    ? new Date(messages[a.userId][messages[a.userId].length - 1].timestamp) 
+                    : new Date(0);
+                const bLastMsg = messages[b.userId]?.length > 0 
+                    ? new Date(messages[b.userId][messages[b.userId].length - 1].timestamp) 
+                    : new Date(0);
+                
+                return bLastMsg - aLastMsg;
             });
             
-            container.innerHTML = sortedUsers.map(user => `
-                <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
-                    <div class="user-info">
-                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
-                        <div class="user-details">
-                            <div class="user-name">
-                                ${escapeHtml(user.userName || 'Unknown')}
-                                ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
-                            </div>
-                            <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
-                            <div class="user-meta">
-                                <span>📅 ${new Date(user.createdAt || Date.now()).toLocaleDateString()}</span>
-                                ${user.telegramId ? '<span>📱</span>' : ''}
+            usersList.innerHTML = sortedUsers.map(user => {
+                const lastMsg = messages[user.userId]?.length > 0 
+                    ? messages[user.userId][messages[user.userId].length - 1] 
+                    : null;
+                
+                return `
+                    <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
+                        <div class="user-info">
+                            <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
+                            <div class="user-details">
+                                <div class="user-name">
+                                    <span class="user-status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                                    ${escapeHtml(user.userName || 'Unknown')}
+                                </div>
+                                <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
+                                <div class="last-message">
+                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + '...' : 'No messages'}
+                                </div>
                             </div>
                         </div>
+                        ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // ===== SELECT USER =====
@@ -1276,79 +1336,141 @@
             selectedUser = user;
             
             // Update UI
-            document.getElementById('selectedUserInfo').innerHTML = `
-                <h3>${escapeHtml(user.userName)}</h3>
+            selectedUserInfo.innerHTML = `
+                <h3>
+                    ${escapeHtml(user.userName)}
+                    <span class="user-status-badge">
+                        <span class="status-dot ${user.online ? 'online' : 'offline'}"></span>
+                        <span>${user.online ? 'Online' : 'Offline'}</span>
+                    </span>
+                </h3>
                 <p>${escapeHtml(user.email)}</p>
             `;
             
-            document.getElementById('userStatus').style.display = 'flex';
-            document.getElementById('chatInput').style.display = 'flex';
+            userStatusBadge.style.display = 'flex';
+            messageInputArea.style.display = 'flex';
+            markReadBtn.style.display = 'inline-block';
             
-            // Load user messages
-            loadUserMessages(user.userId);
+            // Display messages for this user
+            displayUserMessages(userId);
             
-            // Mark as read
-            markUserMessagesAsRead(user);
+            // Mark messages as read
+            markUserMessagesRead(user);
             
-            // Render users list to update selection
-            renderUsersList();
-        }
-
-        // ===== LOAD USER MESSAGES =====
-        async function loadUserMessages(userId) {
-            try {
-                const response = await fetch(`/api/admin/messages/${userId}`);
-                if (response.ok) {
-                    const userMessages = await response.json();
-                    displayMessages(userMessages);
-                }
-            } catch (error) {
-                console.error('Failed to load user messages:', error);
+            // Update users list to show selection
+            updateUsersList();
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                closeMobileSidebar();
             }
         }
 
-        // ===== DISPLAY MESSAGES =====
-        function displayMessages(messages) {
-            const container = document.getElementById('chatMessages');
+        // ===== DISPLAY USER MESSAGES =====
+        function displayUserMessages(userId) {
+            const userMessages = messages[userId] || [];
             
-            if (!messages || messages.length === 0) {
-                container.innerHTML = `
+            if (!userMessages || userMessages.length === 0) {
+                messagesArea.innerHTML = `
                     <div class="empty-state">
                         <i>💬</i>
-                        <p>No messages yet. Send a message to start the conversation.</p>
+                        <p>No messages yet with this user</p>
+                        <p style="font-size: 11px; margin-top: 5px;">Send a message to start the conversation</p>
                     </div>
                 `;
                 return;
             }
             
             // Sort chronologically
-            const sortedMessages = messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            const sortedMessages = userMessages.sort((a, b) => 
+                new Date(a.timestamp) - new Date(b.timestamp)
+            );
             
-            container.innerHTML = sortedMessages.map(msg => `
-                <div class="message-wrapper ${msg.isAdmin ? 'admin' : 'user'}">
-                    <div class="message-meta">
-                        <span>${msg.isAdmin ? 'You' : escapeHtml(msg.userName || 'User')}</span>
-                        <span>•</span>
-                        <span>${new Date(msg.timestamp).toLocaleTimeString()}</span>
-                        ${!msg.isAdmin ? `
-                            <span class="message-status ${msg.read ? 'read' : ''}">
-                                ${msg.read ? '✓✓' : '✓'}
-                            </span>
-                        ` : ''}
+            messagesArea.innerHTML = sortedMessages.map(msg => {
+                const time = new Date(msg.timestamp).toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                return `
+                    <div class="message-wrapper ${msg.isAdmin ? 'admin' : 'user'}" data-message-id="${msg.id}">
+                        <div class="message-meta">
+                            <span>${msg.isAdmin ? 'You' : escapeHtml(msg.userName || 'User')}</span>
+                            <span>•</span>
+                            <span class="message-time">${time}</span>
+                            ${!msg.isAdmin ? `
+                                <span class="message-status ${msg.read ? 'read' : ''}">
+                                    ${msg.read ? '✓✓' : '✓'}
+                                </span>
+                            ` : ''}
+                        </div>
+                        <div class="message-bubble">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
                     </div>
-                    <div class="message-bubble">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             
-            container.scrollTop = container.scrollHeight;
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+
+        // ===== HANDLE NEW MESSAGE =====
+        function handleNewMessage(message) {
+            // Add to messages collection
+            if (!messages[message.userId]) {
+                messages[message.userId] = [];
+            }
+            
+            // Check for duplicates
+            const exists = messages[message.userId].some(m => m.id === message.id);
+            if (!exists) {
+                messages[message.userId].push(message);
+                
+                // Update user's unread count
+                const user = users.find(u => u.userId === message.userId);
+                if (user && !message.isAdmin) {
+                    user.unread = (user.unread || 0) + 1;
+                    updateUnreadCount();
+                    
+                    // Show notification
+                    showToast(`✉️ New message from ${user.userName}`, 'info');
+                    sendNtfyNotification(
+                        '💬 New User Message',
+                        `From: ${user.userName}\n${message.message.substring(0, 100)}`,
+                        4,
+                        ['speech_balloon']
+                    );
+                    
+                    // Play notification sound
+                    playNotificationSound();
+                }
+                
+                // Update users list
+                updateUsersList();
+                
+                // If this user is selected, display the message
+                if (selectedUser && selectedUser.userId === message.userId) {
+                    displayUserMessages(message.userId);
+                    
+                    // Auto-mark as read if we're viewing
+                    if (!message.isAdmin) {
+                        markUserMessagesRead(selectedUser);
+                    }
+                }
+            }
         }
 
         // ===== SEND ADMIN MESSAGE =====
         async function sendAdminMessage() {
-            const input = document.getElementById('messageInput');
-            const text = input.value.trim();
+            const text = adminMessageInput.value.trim();
             
-            if (!text || !selectedUser) return;
+            if (!text || !selectedUser) {
+                showToast('No user selected', 'warning');
+                return;
+            }
+            
+            if (text.length > 1000) {
+                showToast('Message too long', 'warning');
+                return;
+            }
             
             try {
                 const response = await fetch('/api/admin/send', {
@@ -1361,52 +1483,54 @@
                 });
                 
                 if (response.ok) {
-                    // Add message to UI
+                    const messageId = Date.now() + '-' + Math.random().toString(36);
+                    const timestamp = new Date().toISOString();
+                    
+                    // Create message object
                     const newMessage = {
-                        isAdmin: true,
+                        id: messageId,
+                        userId: selectedUser.userId,
+                        userEmail: selectedUser.email,
                         userName: 'Admin',
                         message: text,
-                        timestamp: new Date().toISOString(),
+                        isAdmin: true,
+                        timestamp: timestamp,
                         read: true
                     };
                     
-                    const container = document.getElementById('chatMessages');
-                    
-                    // Remove empty state if present
-                    if (container.querySelector('.empty-state')) {
-                        container.innerHTML = '';
+                    // Add to messages
+                    if (!messages[selectedUser.userId]) {
+                        messages[selectedUser.userId] = [];
                     }
+                    messages[selectedUser.userId].push(newMessage);
                     
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message-wrapper admin';
-                    messageDiv.innerHTML = `
-                        <div class="message-meta">
-                            <span>You</span>
-                            <span>•</span>
-                            <span>${new Date().toLocaleTimeString()}</span>
-                        </div>
-                        <div class="message-bubble">${escapeHtml(text).replace(/\n/g, '<br>')}</div>
-                    `;
-                    
-                    container.appendChild(messageDiv);
-                    container.scrollTop = container.scrollHeight;
+                    // Display in UI
+                    displayUserMessages(selectedUser.userId);
                     
                     // Clear input
-                    input.value = '';
+                    adminMessageInput.value = '';
+                    document.getElementById('adminCharCounter').textContent = '0/1000';
                     
                     // Send via WebSocket for real-time delivery
                     if (isConnected && ws) {
                         ws.send(JSON.stringify({
                             type: 'admin_message',
                             userId: selectedUser.userId,
-                            message: text
+                            message: text,
+                            messageId: messageId,
+                            timestamp: timestamp
                         }));
                     }
                     
-                    // Send notification
-                    sendNtfyNotification('👑 Admin Reply', `To: ${selectedUser.userName}\n${text.substring(0, 100)}`, 3);
-                    
                     showToast('Message sent', 'success');
+                    
+                    // Send ntfy notification
+                    sendNtfyNotification(
+                        '👑 Admin Reply',
+                        `To: ${selectedUser.userName}\n${text.substring(0, 100)}`,
+                        3,
+                        ['admin', 'reply']
+                    );
                 }
             } catch (error) {
                 console.error('Failed to send message:', error);
@@ -1415,7 +1539,7 @@
         }
 
         // ===== MARK USER MESSAGES AS READ =====
-        async function markUserMessagesAsRead(user) {
+        async function markUserMessagesRead(user) {
             if (!user || !user.unread) return;
             
             try {
@@ -1425,144 +1549,75 @@
                 
                 // Update local state
                 user.unread = 0;
-                stats.unreadCount = users.reduce((sum, u) => sum + (u.unread || 0), 0);
                 
-                updateStats();
-                renderUsersList();
-                updateSidebarCounts();
+                // Update messages
+                if (messages[user.userId]) {
+                    messages[user.userId].forEach(msg => {
+                        if (!msg.isAdmin) msg.read = true;
+                    });
+                }
+                
+                updateUnreadCount();
+                updateUsersList();
+                
+                // Update UI if this user is selected
+                if (selectedUser && selectedUser.userId === user.userId) {
+                    displayUserMessages(user.userId);
+                }
             } catch (error) {
                 console.error('Failed to mark messages as read:', error);
             }
         }
 
-        // ===== HANDLE NEW MESSAGE =====
-        function handleNewMessage(message) {
-            // Add to messages array
-            messages.push(message);
-            
-            // Update user's unread count
-            const user = users.find(u => u.userId === message.userId);
-            if (user && !message.isAdmin) {
-                user.unread = (user.unread || 0) + 1;
-                stats.unreadCount++;
-                
-                // Show notification
-                showToast(`New message from ${user.userName}`, 'info');
-                sendNtfyNotification('💬 New Message', `From: ${user.userName}\n${message.message.substring(0, 100)}`, 4);
-                
-                // Update UI
-                updateStats();
-                renderUsersList();
-                updateSidebarCounts();
-                
-                // If this user is selected, display the message
-                if (selectedUser && selectedUser.userId === message.userId) {
-                    displayMessages([message]);
-                    markUserMessagesAsRead(user);
-                }
+        function markCurrentUserRead() {
+            if (selectedUser) {
+                markUserMessagesRead(selectedUser);
             }
         }
 
         // ===== HANDLE TYPING INDICATOR =====
         function handleTypingIndicator(data) {
             if (selectedUser && data.userId === selectedUser.userId) {
-                const indicator = document.getElementById('typingIndicator');
                 if (data.isTyping) {
-                    indicator.classList.add('active');
+                    typingIndicator.classList.add('active');
                     
                     if (typingTimeout) clearTimeout(typingTimeout);
                     typingTimeout = setTimeout(() => {
-                        indicator.classList.remove('active');
+                        typingIndicator.classList.remove('active');
                     }, 3000);
                 } else {
-                    indicator.classList.remove('active');
+                    typingIndicator.classList.remove('active');
                 }
             }
         }
 
         // ===== UPDATE USER STATUS =====
         function updateUserStatus(userId, online) {
-            if (selectedUser && selectedUser.userId === userId) {
-                const statusDot = document.querySelector('#userStatus .status-dot');
-                const statusText = document.getElementById('statusText');
+            const user = users.find(u => u.userId === userId);
+            if (user) {
+                user.online = online;
                 
-                if (online) {
-                    statusDot.classList.add('online');
-                    statusText.textContent = 'Online';
-                } else {
-                    statusDot.classList.remove('online');
-                    statusText.textContent = 'Offline';
+                if (selectedUser && selectedUser.userId === userId) {
+                    userStatusDot.className = `status-dot ${online ? 'online' : 'offline'}`;
+                    userStatusText.textContent = online ? 'Online' : 'Offline';
                 }
+                
+                updateUsersList();
             }
         }
 
-        // ===== UPDATE READ STATUS =====
-        function updateReadStatus(userId, messageIds) {
-            // Update message read status in UI
-            messageIds.forEach(id => {
-                const messageElement = document.querySelector(`[data-message-id="${id}"] .message-status`);
-                if (messageElement) {
-                    messageElement.classList.add('read');
-                    messageElement.textContent = '✓✓';
-                }
-            });
-        }
-
-        // ===== BROADCAST MESSAGE =====
-        async function sendBroadcast() {
-            const message = document.getElementById('broadcastMessage').value.trim();
-            const sendWeb = document.getElementById('sendWeb').checked;
-            const sendTelegram = document.getElementById('sendTelegram').checked;
+        // ===== UPDATE UNREAD COUNT =====
+        function updateUnreadCount() {
+            unreadCount = users.reduce((sum, user) => sum + (user.unread || 0), 0);
+            sidebarUnread.textContent = unreadCount;
+            notificationBadge.textContent = unreadCount;
             
-            if (!message) {
-                showToast('Please enter a message', 'warning');
-                return;
+            // Update page title
+            if (unreadCount > 0) {
+                document.title = `(${unreadCount}) Admin Chat - Perfections`;
+            } else {
+                document.title = 'Admin Chat - Perfections';
             }
-            
-            document.getElementById('broadcastProgress').style.display = 'block';
-            
-            let sent = 0;
-            let failed = 0;
-            
-            for (const user of users) {
-                try {
-                    if (sendWeb && user.userId) {
-                        // Send via WebSocket
-                        if (isConnected && ws) {
-                            ws.send(JSON.stringify({
-                                type: 'admin_message',
-                                userId: user.userId,
-                                message: message
-                            }));
-                            sent++;
-                        }
-                    }
-                    
-                    if (sendTelegram && user.telegramChatId) {
-                        // Send via Telegram API
-                        await fetch('/api/admin/send', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                email: user.email,
-                                message: `📢 *Broadcast:*\n\n${message}`
-                            })
-                        });
-                        sent++;
-                    }
-                    
-                    await new Promise(r => setTimeout(r, 50));
-                } catch (error) {
-                    console.error('Failed to send to user:', error);
-                    failed++;
-                }
-            }
-            
-            document.getElementById('broadcastProgress').style.display = 'none';
-            document.getElementById('broadcastMessage').value = '';
-            
-            showToast(`Broadcast sent to ${sent} users (${failed} failed)`, 'success');
-            sendNtfyNotification('📢 Broadcast', message.substring(0, 100), 4);
         }
 
         // ===== SEARCH USERS =====
@@ -1573,21 +1628,30 @@
                 (u.email && u.email.toLowerCase().includes(searchTerm))
             );
             
-            const container = document.getElementById('usersList');
-            container.innerHTML = filtered.map(user => `
-                <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
-                    <div class="user-info">
-                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
-                        <div class="user-details">
-                            <div class="user-name">
-                                ${escapeHtml(user.userName || 'Unknown')}
-                                ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
+            usersList.innerHTML = filtered.map(user => {
+                const lastMsg = messages[user.userId]?.length > 0 
+                    ? messages[user.userId][messages[user.userId].length - 1] 
+                    : null;
+                
+                return `
+                    <div class="user-card ${selectedUser?.userId === user.userId ? 'selected' : ''} ${user.unread ? 'unread' : ''}" onclick="selectUser('${user.userId}')">
+                        <div class="user-info">
+                            <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
+                            <div class="user-details">
+                                <div class="user-name">
+                                    <span class="user-status ${user.online ? 'status-online' : 'status-offline'}"></span>
+                                    ${escapeHtml(user.userName || 'Unknown')}
+                                </div>
+                                <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
+                                <div class="last-message">
+                                    ${lastMsg ? escapeHtml(lastMsg.message.substring(0, 30)) + '...' : 'No messages'}
+                                </div>
                             </div>
-                            <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
                         </div>
+                        ${user.unread ? `<span class="unread-count">${user.unread}</span>` : ''}
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // ===== HANDLE MESSAGE KEYDOWN =====
@@ -1596,113 +1660,98 @@
                 e.preventDefault();
                 sendAdminMessage();
             }
+            
+            // Update character counter
+            document.getElementById('adminCharCounter').textContent = `${e.target.value.length}/1000`;
+        }
+
+        // ===== SEND BROADCAST =====
+        async function sendBroadcast() {
+            const message = document.getElementById('broadcastMessage').value.trim();
+            
+            if (!message) {
+                showToast('Please enter a message', 'warning');
+                return;
+            }
+            
+            let sent = 0;
+            
+            for (const user of users) {
+                try {
+                    await fetch('/api/admin/send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: user.email,
+                            message: `📢 *Broadcast:*\n\n${message}`
+                        })
+                    });
+                    sent++;
+                    
+                    // Send via WebSocket if connected
+                    if (isConnected && ws) {
+                        ws.send(JSON.stringify({
+                            type: 'admin_message',
+                            userId: user.userId,
+                            message: `📢 Broadcast: ${message}`
+                        }));
+                    }
+                    
+                    await new Promise(r => setTimeout(r, 50));
+                } catch (error) {
+                    console.error('Failed to send to user:', error);
+                }
+            }
+            
+            showToast(`Broadcast sent to ${sent} users`, 'success');
+            document.getElementById('broadcastMessage').value = '';
+            
+            sendNtfyNotification('📢 Broadcast', message.substring(0, 100), 4);
+        }
+
+        // ===== PLAY NOTIFICATION SOUND =====
+        function playNotificationSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (error) {
+                console.log('Audio play failed:', error);
+            }
         }
 
         // ===== SWITCH VIEW =====
         function switchView(view) {
             currentView = view;
             
-            // Update menu active state
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
             
-            // Update title
             const titles = {
-                dashboard: { title: 'Dashboard', subtitle: 'Overview & statistics' },
-                messages: { title: 'Messages', subtitle: 'Chat with users' },
-                users: { title: 'Users', subtitle: 'Manage users' },
-                broadcast: { title: 'Broadcast', subtitle: 'Send announcements' },
-                jobs: { title: 'Jobs', subtitle: 'Job listings' }
+                dashboard: { title: 'Dashboard', subtitle: 'Overview' },
+                chat: { title: 'Live Chat', subtitle: 'Real-time conversations' },
+                users: { title: 'Users', subtitle: 'User management' },
+                broadcast: { title: 'Broadcast', subtitle: 'Send announcements' }
             };
             
             document.getElementById('pageTitle').textContent = titles[view].title;
             document.getElementById('pageSubtitle').textContent = titles[view].subtitle;
             
-            // Hide all views
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('messagesView').style.display = 'none';
-            document.getElementById('usersView').style.display = 'none';
-            document.getElementById('broadcastView').style.display = 'none';
-            document.getElementById('jobsView').style.display = 'none';
-            
-            // Show selected view
-            document.getElementById(view + 'View').style.display = 'block';
-            
-            // Load view-specific data
-            if (view === 'messages') {
-                renderUsersList();
-            } else if (view === 'users') {
-                renderAllUsers();
-            } else if (view === 'jobs') {
-                loadJobs();
-            }
-            
-            // Close sidebar on mobile
-            if (window.innerWidth <= 768) {
-                toggleSidebar();
-            }
-        }
-
-        // ===== RENDER ALL USERS =====
-        function renderAllUsers() {
-            const container = document.getElementById('allUsersList');
-            if (!container) return;
-            
-            container.innerHTML = users.map(user => `
-                <div class="user-card" onclick="selectUser('${user.userId}')">
-                    <div class="user-info">
-                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
-                        <div class="user-details">
-                            <div class="user-name">${escapeHtml(user.userName || 'Unknown')}</div>
-                            <div class="user-email">${escapeHtml(user.email || 'No email')}</div>
-                            <div class="user-meta">
-                                <span>Joined: ${new Date(user.createdAt).toLocaleDateString()}</span>
-                                <span>Messages: ${user.messageCount || 0}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ===== RENDER JOBS LIST =====
-        function renderJobsList(jobs) {
-            const container = document.getElementById('jobsList');
-            if (!container) return;
-            
-            container.innerHTML = jobs.map(job => `
-                <div class="user-card">
-                    <div class="user-info">
-                        <div class="user-avatar">📋</div>
-                        <div class="user-details">
-                            <div class="user-name">${escapeHtml(job.title || 'Job Title')}</div>
-                            <div class="user-email">${escapeHtml(job.company || 'Company')}</div>
-                            <div class="user-meta">
-                                <span>💰 ${escapeHtml(job.salary || 'Competitive')}</span>
-                                <span>📍 ${escapeHtml(job.location || 'UK')}</span>
-                                <span>📊 ${job.status || 'active'}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ===== UPDATE STATS =====
-        function updateStats() {
-            document.getElementById('totalUsers').textContent = stats.totalUsers;
-            document.getElementById('totalUnread').textContent = stats.unreadCount;
-            document.getElementById('activeJobs').textContent = stats.activeJobs;
-            document.getElementById('applications').textContent = stats.applications;
-            
-            document.getElementById('notificationBadge').textContent = stats.unreadCount;
-        }
-
-        function updateSidebarCounts() {
-            document.getElementById('sidebarUnread').textContent = stats.unreadCount;
-            document.getElementById('sidebarUsers').textContent = stats.totalUsers;
+            document.getElementById('dashboardView').style.display = view === 'dashboard' ? 'block' : 'none';
+            document.getElementById('chatView').style.display = view === 'chat' ? 'flex' : 'none';
+            document.getElementById('usersView').style.display = view === 'users' ? 'block' : 'none';
+            document.getElementById('broadcastView').style.display = view === 'broadcast' ? 'block' : 'none';
         }
 
         // ===== TOGGLE SIDEBAR =====
@@ -1710,18 +1759,21 @@
             document.getElementById('sidebar').classList.toggle('mobile-open');
         }
 
+        function closeMobileSidebar() {
+            document.getElementById('sidebar').classList.remove('mobile-open');
+        }
+
         // ===== REFRESH DATA =====
         function refreshData() {
             loadUsers();
-            loadJobs();
             showToast('Data refreshed', 'success');
         }
 
         // ===== LOGOUT =====
         function logout() {
             isAuthenticated = false;
-            document.getElementById('adminDashboard').classList.remove('visible');
-            document.getElementById('pinScreen').style.display = 'flex';
+            adminDashboard.classList.remove('visible');
+            pinScreen.style.display = 'flex';
             clearPin();
             
             if (ws) {
@@ -1777,14 +1829,17 @@
         function initializeDashboard() {
             connectWebSocket();
             loadUsers();
-            loadJobs();
             
             // Set up periodic refresh
             setInterval(() => {
-                if (currentView !== 'messages') {
+                if (isConnected) {
                     loadUsers();
                 }
             }, 30000);
+            
+            // Focus on chat view
+            document.querySelector('.menu-item.active').classList.remove('active');
+            document.querySelector('.menu-item[onclick="switchView(\'chat\')"]').classList.add('active');
         }
     </script>
 </body>
