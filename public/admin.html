@@ -3,224 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Perfections Recruitment Agency Ltd</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
-    <!-- Socket.IO Client -->
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    
+    <title>Admin Dashboard - Perfections Recruitment</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
         :root {
-            --primary: #0A3D62;
-            --primary-dark: #052e4a;
-            --primary-light: #1f5a88;
-            --secondary: #3c8dbc;
-            --accent: #ff6b35;
-            --accent-light: #ff8c5a;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --light-gray: #f1f5f9;
-            --light: #f8fafc;
-            --white: #ffffff;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --info: #3b82f6;
-            
-            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
-            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
-            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
-            
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 30px;
-            --radius-full: 9999px;
-            
-            --transition: all 0.3s ease;
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary: #764ba2;
+            --success: #48bb78;
+            --danger: #f56565;
+            --warning: #ecc94b;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --gray: #a0aec0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
+            background: #f0f2f5;
+            min-height: 100vh;
         }
 
-        /* Layout */
         .admin-container {
             display: flex;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, var(--primary-dark), var(--primary));
-            color: var(--white);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
+            background: linear-gradient(180deg, var(--dark) 0%, #1a202c 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: var(--shadow-lg);
         }
 
         .sidebar-header {
             padding: 30px 20px;
-            text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .sidebar-header .logo {
+        .sidebar-header h2 {
             font-size: 24px;
-            font-weight: 800;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
         }
 
-        .sidebar-header .logo i {
-            color: var(--accent);
-        }
-
-        .sidebar-header .version {
-            font-size: 12px;
+        .sidebar-header p {
+            font-size: 13px;
             opacity: 0.7;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            display: inline-block;
         }
 
-        .sidebar-nav {
+        .sidebar-menu {
+            flex: 1;
             padding: 20px 0;
         }
 
-        .nav-item {
+        .menu-item {
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 24px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            border-left: 3px solid transparent;
             cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            color: rgba(255,255,255,0.8);
         }
 
-        .nav-item:hover {
+        .menu-item:hover {
             background: rgba(255,255,255,0.1);
-            color: var(--white);
-            border-left-color: var(--accent);
+            color: white;
         }
 
-        .nav-item.active {
+        .menu-item.active {
             background: rgba(255,255,255,0.15);
-            color: var(--white);
-            border-left-color: var(--accent);
+            border-left-color: var(--primary);
+            color: white;
         }
 
-        .nav-item i {
+        .menu-item i {
+            font-size: 20px;
             width: 24px;
-            font-size: 18px;
         }
 
-        .nav-item .badge {
-            background: var(--accent);
-            color: var(--white);
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-            font-size: 11px;
+        .stats-badge {
             margin-left: auto;
+            background: rgba(255,255,255,0.2);
+            padding: 3px 8px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 30px;
-            background: var(--light);
-            min-height: 100vh;
-        }
-
-        /* Top Bar */
-        .top-bar {
-            background: var(--white);
-            padding: 15px 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .page-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .page-title i {
-            font-size: 24px;
-            color: var(--primary);
-        }
-
-        .page-title h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .admin-info {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-
-        .online-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--light);
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-        }
-
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+            gap: 12px;
         }
 
         .admin-avatar {
@@ -231,12 +123,136 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            font-size: 20px;
             font-weight: 600;
-            font-size: 18px;
         }
 
-        /* Stats Cards */
+        .admin-details h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .admin-details p {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .top-bar-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+            padding: 8px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .notification-badge i {
+            font-size: 22px;
+            color: #4a5568;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 50px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: #f0f2f5;
+        }
+
+        /* Dashboard Stats */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -245,835 +261,513 @@
         }
 
         .stat-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
+            background: white;
             padding: 25px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
             display: flex;
             align-items: center;
             gap: 20px;
+            transition: all 0.3s;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
 
         .stat-icon {
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-size: 24px;
+            font-size: 28px;
+            color: white;
         }
 
         .stat-info h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 14px;
+            color: #718096;
             margin-bottom: 5px;
+            font-weight: 500;
         }
 
-        .stat-info p {
-            color: var(--gray);
-            font-size: 14px;
+        .stat-info .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
         }
 
-        /* Charts Row */
-        .charts-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+        .stat-info .stat-change {
+            font-size: 12px;
+            color: #48bb78;
+            margin-top: 5px;
         }
 
-        .chart-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
+        /* Users List */
+        .users-list {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .list-header {
             padding: 20px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .chart-header {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
 
-        .chart-header h3 {
-            color: var(--primary);
-            font-size: 18px;
-        }
-
-        .chart-container {
-            height: 300px;
-            position: relative;
-        }
-
-        /* Tables */
-        .table-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 30px;
-            overflow-x: auto;
-        }
-
-        .table-header {
+        .list-header h3 {
+            color: var(--dark);
+            font-size: 16px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .table-header h3 {
-            color: var(--primary);
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--white);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-success {
-            background: var(--success);
-            color: var(--white);
-        }
-
-        .btn-success:hover {
-            background: #0d9488;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: var(--error);
-            color: var(--white);
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-            transform: translateY(-2px);
-        }
-
-        .btn-info {
-            background: var(--info);
-            color: var(--white);
-        }
-
-        .btn-info:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 12px;
         }
 
         .search-box {
             display: flex;
             gap: 10px;
-            background: var(--light);
-            padding: 5px;
-            border-radius: var(--radius-full);
         }
 
         .search-box input {
-            border: none;
-            background: transparent;
-            padding: 8px 15px;
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            width: 300px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
             outline: none;
-            min-width: 250px;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
-        .search-box button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 8px 20px;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-        }
-
-        /* Data Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 1200px;
-        }
-
-        .data-table th {
-            text-align: left;
-            padding: 15px;
-            background: var(--light);
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .data-table td {
-            padding: 15px;
+        .user-item {
+            padding: 20px;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
-        }
-
-        .data-table tr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
         }
 
-        .data-table tr:hover td {
-            background: var(--light);
+        .user-item:hover {
+            background: #f8fafc;
         }
 
-        .data-table tr.selected td {
-            background: rgba(60,141,188,0.1);
+        .user-item.selected {
+            background: #ebf4ff;
             border-left: 3px solid var(--primary);
         }
 
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .status-active {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .status-pending {
-            background: #fef9c3;
-            color: #854d0e;
-        }
-
-        .status-inactive {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-unread {
-            background: #fee2e2;
-            color: #991b1b;
-            font-weight: 700;
-        }
-
-        .online-badge {
-            display: inline-flex;
+        .user-info {
+            display: flex;
             align-items: center;
-            gap: 5px;
-            white-space: nowrap;
+            gap: 15px;
+            flex: 1;
         }
 
-        .online-badge .dot {
-            width: 8px;
-            height: 8px;
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
-        }
-
-        .dot.online {
-            background: var(--success);
-            box-shadow: 0 0 10px var(--success);
-        }
-
-        .dot.offline {
-            background: var(--gray);
-        }
-
-        .platform-badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-details h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .user-details p {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .user-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 11px;
+            color: #a0aec0;
+        }
+
+        .user-meta span {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .unread-badge {
+            background: var(--danger);
+            color: white;
             padding: 4px 8px;
-            border-radius: var(--radius-full);
+            border-radius: 50px;
             font-size: 11px;
             font-weight: 600;
-            white-space: nowrap;
+            min-width: 24px;
+            text-align: center;
         }
 
-        .platform-web {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .platform-telegram {
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
-        .action-buttons {
+        .user-actions {
             display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--white);
-            font-size: 14px;
-        }
-
-        .action-btn.view {
-            background: var(--info);
-        }
-
-        .action-btn.edit {
-            background: var(--warning);
-        }
-
-        .action-btn.delete {
-            background: var(--error);
-        }
-
-        .action-btn.message {
-            background: var(--success);
-        }
-
-        .action-btn.history {
-            background: var(--secondary);
-        }
-
-        .action-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #e2e8f0;
-            background: var(--white);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .page-btn:hover {
-            background: var(--light);
-            border-color: var(--primary);
-        }
-
-        .page-btn.active {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        .page-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* User Detail Panel */
-        .user-detail-panel {
-            position: fixed;
-            top: 0;
-            right: -500px;
-            width: 450px;
-            height: 100vh;
-            background: var(--white);
-            box-shadow: var(--shadow-xl);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            overflow-y: auto;
-            border-left: 1px solid #e2e8f0;
-        }
-
-        .user-detail-panel.open {
-            right: 0;
-        }
-
-        .panel-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 25px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .panel-header h2 {
-            display: flex;
-            align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
+            align-items: center;
         }
 
-        .panel-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: var(--white);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .panel-close:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
-
-        .panel-body {
-            padding: 25px;
-        }
-
-        .user-info-card {
-            background: var(--light);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .user-info-row {
+        /* Chat Window */
+        .chat-window {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
             display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            flex-direction: column;
+            height: calc(100vh - 200px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: #f8fafc;
             border-bottom: 1px solid #e2e8f0;
-        }
-
-        .user-info-label {
-            width: 120px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .user-info-value {
-            flex: 1;
-            color: var(--dark);
-        }
-
-        .user-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .user-action-btn {
-            padding: 15px;
-            border: none;
-            border-radius: var(--radius-lg);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .user-action-btn i {
-            font-size: 24px;
-        }
-
-        .user-action-btn.message {
-            background: var(--success);
-            color: var(--white);
-        }
-
-        .user-action-btn.history {
-            background: var(--info);
-            color: var(--white);
-        }
-
-        .user-action-btn.applications {
-            background: var(--warning);
-            color: var(--white);
-        }
-
-        .user-action-btn.block {
-            background: var(--error);
-            color: var(--white);
-        }
-
-        .user-action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Messages Panel */
-        .messages-panel {
-            position: fixed;
-            top: 0;
-            right: -500px;
-            width: 450px;
-            height: 100vh;
-            background: var(--white);
-            box-shadow: var(--shadow-xl);
-            transition: right 0.3s ease;
-            z-index: 1050;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .messages-panel.open {
-            right: 0;
-        }
-
-        .messages-header {
-            background: linear-gradient(135deg, var(--success), var(--secondary));
-            color: var(--white);
-            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .messages-header h3 {
+        .chat-user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .messages-close {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: var(--white);
-            width: 35px;
-            height: 35px;
+        .chat-user-info h3 {
+            color: var(--dark);
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .chat-user-info p {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .chat-user-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            cursor: pointer;
+            background: #a0aec0;
         }
 
-        .messages-container {
+        .status-dot.online {
+            background: #48bb78;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
-            background: #f5f7fb;
+            padding: 25px;
+            background: #f8fafc;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .message-bubble {
-            max-width: 80%;
+        .message-wrapper {
             display: flex;
             flex-direction: column;
+            max-width: 70%;
         }
 
-        .message-bubble.user {
+        .message-wrapper.admin {
             align-self: flex-end;
         }
 
-        .message-bubble.admin {
+        .message-wrapper.user {
             align-self: flex-start;
         }
 
-        .message-content {
-            padding: 12px 16px;
+        .message-bubble {
+            padding: 12px 18px;
             border-radius: 18px;
-            position: relative;
             word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
-        .message-bubble.user .message-content {
-            background: var(--primary);
-            color: var(--white);
-            border-bottom-right-radius: 4px;
+        .message-wrapper.admin .message-bubble {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-bottom-right-radius: 5px;
         }
 
-        .message-bubble.admin .message-content {
-            background: var(--white);
+        .message-wrapper.user .message-bubble {
+            background: white;
             color: var(--dark);
-            border: 1px solid #e2e8f0;
-            border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .message-time {
-            font-size: 10px;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-
-        .message-bubble.user .message-time {
-            text-align: right;
-        }
-
-        .message-sender {
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
             font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 3px;
+            color: #a0aec0;
         }
 
-        .messages-input-area {
+        .message-wrapper.admin .message-meta {
+            justify-content: flex-end;
+        }
+
+        .message-status {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .message-status.read {
+            color: var(--success);
+        }
+
+        .chat-input {
             padding: 20px;
-            background: var(--white);
+            background: white;
             border-top: 1px solid #e2e8f0;
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: flex-end;
         }
 
-        .messages-input-area input {
+        .input-wrapper {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius-full);
+            position: relative;
+        }
+
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            resize: none;
+            max-height: 120px;
+            line-height: 1.5;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper textarea:focus {
+            border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
-        .messages-input-area button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
+        .char-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 11px;
+            color: #a0aec0;
         }
 
-        .messages-input-area button:hover {
-            background: var(--primary-light);
-            transform: scale(1.1);
-        }
-
-        /* Modal */
+        /* Broadcast Modal */
         .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 1100;
-            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
         }
 
         .modal-content {
-            background: var(--white);
-            max-width: 500px;
-            margin: 50px auto;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .modal-body {
+            background: white;
             padding: 30px;
+            border-radius: 20px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
-        .modal-footer {
-            padding: 20px;
-            border-top: 1px solid #e2e8f0;
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 20px;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .modal-content textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .modal-actions {
             display: flex;
-            justify-content: flex-end;
             gap: 10px;
+            justify-content: flex-end;
         }
 
-        .form-group {
+        /* Ntfy Settings Panel */
+        .ntfy-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--primary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
-
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1200;
-        }
-
-        .toast {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            box-shadow: var(--shadow-lg);
+        .ntfy-panel h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            gap: 8px;
+        }
+
+        .ntfy-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            min-width: 300px;
-            animation: slideIn 0.3s ease;
-            border-left: 4px solid;
         }
 
-        .toast.success {
-            border-left-color: var(--success);
+        .ntfy-stat-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
         }
 
-        .toast.error {
-            border-left-color: var(--error);
+        .ntfy-stat-item .label {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 5px;
         }
 
-        .toast.info {
-            border-left-color: var(--info);
-        }
-
-        .toast.warning {
-            border-left-color: var(--warning);
-        }
-
-        .toast-icon {
-            font-size: 20px;
-        }
-
-        .toast.success .toast-icon {
-            color: var(--success);
-        }
-
-        .toast-content {
-            flex: 1;
-        }
-
-        .toast-title {
+        .ntfy-stat-item .value {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 3px;
+            color: var(--dark);
         }
 
-        .toast-message {
-            font-size: 13px;
-            color: var(--gray);
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
 
-        .toast-close {
-            background: none;
-            border: none;
-            color: var(--gray);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-action-btn {
+            padding: 15px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
             cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.1);
         }
 
-        @keyframes pulse {
-            0%,100%{opacity:1}
-            50%{opacity:0.5}
+        .quick-action-btn i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
         }
 
         /* Responsive */
@@ -1081,41 +775,45 @@
             .sidebar {
                 width: 80px;
             }
-            .sidebar-header .logo span,
-            .sidebar-header .version,
-            .nav-item span {
+            
+            .sidebar-header h2 span,
+            .menu-item span:not(.stats-badge),
+            .admin-details {
                 display: none;
             }
-            .nav-item {
+            
+            .menu-item {
                 justify-content: center;
                 padding: 15px;
             }
-            .main-content {
-                margin-left: 80px;
-            }
-            .charts-row {
-                grid-template-columns: 1fr;
-            }
-            .user-detail-panel,
-            .messages-panel {
-                width: 100%;
-                right: -100%;
+            
+            .stats-badge {
+                position: absolute;
+                top: 5px;
+                right: 5px;
             }
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-                padding: 15px;
+            .admin-container {
+                flex-direction: column;
             }
+            
             .sidebar {
-                transform: translateX(-100%);
+                width: 100%;
+                height: auto;
             }
-            .sidebar.show {
-                transform: translateX(0);
-            }
+            
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .chat-window {
+                height: calc(100vh - 300px);
+            }
+            
+            .message-wrapper {
+                max-width: 85%;
             }
         }
     </style>
@@ -1123,1177 +821,1313 @@
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+        <div class="sidebar">
             <div class="sidebar-header">
-                <div class="logo">
-                    <i class="fas fa-briefcase"></i> <span>Perfections</span>
-                </div>
-                <div class="version">Admin Panel v4.0</div>
+                <h2>
+                    <i>👑</i>
+                    <span>Admin Panel</span>
+                </h2>
+                <p>Perfections Recruitment</p>
             </div>
-            <nav class="sidebar-nav">
-                <div class="nav-item active" onclick="switchTab('dashboard')">
-                    <i class="fas fa-tachometer-alt"></i>
+            
+            <div class="sidebar-menu">
+                <div class="menu-item active" onclick="switchView('dashboard')">
+                    <i>📊</i>
                     <span>Dashboard</span>
-                    <span class="badge" id="dashboardBadge"></span>
                 </div>
-                <div class="nav-item" onclick="switchTab('users')">
-                    <i class="fas fa-users"></i>
+                <div class="menu-item" onclick="switchView('users')">
+                    <i>👥</i>
                     <span>Users</span>
-                    <span class="badge" id="userCount">0</span>
+                    <span class="stats-badge" id="userCount">0</span>
                 </div>
-                <div class="nav-item" onclick="switchTab('messages')">
-                    <i class="fas fa-comments"></i>
+                <div class="menu-item" onclick="switchView('messages')">
+                    <i>💬</i>
                     <span>Messages</span>
-                    <span class="badge" id="unreadBadge">0</span>
+                    <span class="stats-badge" id="unreadCount">0</span>
                 </div>
-                <div class="nav-item" onclick="switchTab('jobs')">
-                    <i class="fas fa-briefcase"></i>
+                <div class="menu-item" onclick="switchView('broadcast')">
+                    <i>📢</i>
+                    <span>Broadcast</span>
+                </div>
+                <div class="menu-item" onclick="switchView('ntfy')">
+                    <i>🔔</i>
+                    <span>Ntfy Alerts</span>
+                </div>
+                <div class="menu-item" onclick="switchView('jobs')">
+                    <i>📋</i>
                     <span>Jobs</span>
-                    <span class="badge" id="jobCount">0</span>
                 </div>
-                <div class="nav-item" onclick="switchTab('applications')">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Applications</span>
-                    <span class="badge" id="appCount">0</span>
+                <div class="menu-item" onclick="switchView('stats')">
+                    <i>📈</i>
+                    <span>Statistics</span>
                 </div>
-                <div class="nav-item" onclick="switchTab('telegram')">
-                    <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
-                    <span class="badge" id="telegramCount">0</span>
-                </div>
-                <div class="nav-item" onclick="switchTab('settings')">
-                    <i class="fas fa-cog"></i>
+                <div class="menu-item" onclick="switchView('settings')">
+                    <i>⚙️</i>
                     <span>Settings</span>
                 </div>
-                <div class="nav-item" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <div class="admin-avatar">A</div>
+                    <div class="admin-details">
+                        <h4>Admin User</h4>
+                        <p>Online</p>
+                    </div>
                 </div>
-            </nav>
-        </aside>
+            </div>
+        </div>
 
         <!-- Main Content -->
-        <main class="main-content">
-            <!-- Top Bar -->
+        <div class="main-content">
             <div class="top-bar">
                 <div class="page-title">
-                    <i class="fas fa-tachometer-alt"></i>
                     <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">Overview of your recruitment platform</p>
                 </div>
-                <div class="admin-info">
-                    <div class="online-status">
-                        <span class="online-dot"></span>
-                        <span id="connectionStatus">Connected</span>
+                <div class="top-bar-actions">
+                    <div class="notification-badge" onclick="checkNtfyNotifications()">
+                        <i>🔔</i>
+                        <span class="badge" id="notificationBadge">0</span>
                     </div>
-                    <div class="admin-avatar" id="adminAvatar">
-                        A
-                    </div>
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <i>🔄</i>
+                        Refresh
+                    </button>
                 </div>
             </div>
 
-            <!-- Toast Container -->
-            <div class="toast-container" id="toastContainer"></div>
-
-            <!-- Dashboard Tab -->
-            <div id="dashboard" class="tab-content active">
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card" onclick="switchTab('users')">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="totalUsers">0</h3>
-                            <p>Total Users</p>
-                        </div>
-                    </div>
-                    <div class="stat-card" onclick="switchTab('messages')">
-                        <div class="stat-icon">
-                            <i class="fas fa-comment"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="unreadMessages">0</h3>
-                            <p>Unread Messages</p>
-                        </div>
-                    </div>
-                    <div class="stat-card" onclick="switchTab('jobs')">
-                        <div class="stat-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="activeJobs">0</h3>
-                            <p>Active Jobs</p>
-                        </div>
-                    </div>
-                    <div class="stat-card" onclick="switchTab('applications')">
-                        <div class="stat-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="totalApplications">0</h3>
-                            <p>Applications</p>
-                        </div>
-                    </div>
-                    <div class="stat-card" onclick="switchTab('users')">
-                        <div class="stat-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="onlineUsers">0</h3>
-                            <p>Online Now</p>
-                        </div>
-                    </div>
-                    <div class="stat-card" onclick="switchTab('telegram')">
-                        <div class="stat-icon">
-                            <i class="fab fa-telegram"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="telegramUsers">0</h3>
-                            <p>Telegram Users</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts Row -->
-                <div class="charts-row">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3><i class="fas fa-chart-pie"></i> Users by Platform</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="platformChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3><i class="fas fa-chart-line"></i> User Activity</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="activityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Users Table -->
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-users"></i> Recent Users</h3>
-                        <div class="table-actions">
-                            <div class="search-box">
-                                <input type="text" id="quickUserSearch" placeholder="Search users...">
-                                <button onclick="searchUsers()"><i class="fas fa-search"></i></button>
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard View -->
+                <div id="dashboardView">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <h3>Total Users</h3>
+                                <div class="stat-number" id="totalUsers">0</div>
+                                <div class="stat-change">+12% this week</div>
                             </div>
-                            <button class="btn btn-primary btn-sm" onclick="exportUsers()">
-                                <i class="fas fa-download"></i> Export
-                            </button>
                         </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Email</th>
-                                <th>Platform</th>
-                                <th>Status</th>
-                                <th>Last Seen</th>
-                                <th>Unread</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentUsersTable">
-                            <tr>
-                                <td colspan="7" class="loading">
-                                    <i class="fas fa-spinner fa-spin"></i> Loading users...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Users Tab -->
-            <div id="users" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-users"></i> All Users</h3>
-                        <div class="table-actions">
-                            <div class="search-box">
-                                <input type="text" id="userSearch" placeholder="Search by name or email...">
-                                <button onclick="searchAllUsers()"><i class="fas fa-search"></i></button>
+                        <div class="stat-card">
+                            <div class="stat-icon">💬</div>
+                            <div class="stat-info">
+                                <h3>Unread Messages</h3>
+                                <div class="stat-number" id="totalUnread">0</div>
+                                <div class="stat-change" id="unreadChange">Needs attention</div>
                             </div>
-                            <select id="userFilter" class="btn btn-secondary" onchange="filterUsers()">
-                                <option value="all">All Users</option>
-                                <option value="web">Web Only</option>
-                                <option value="telegram">Telegram Only</option>
-                                <option value="online">Online Now</option>
-                                <option value="unread">Has Unread</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" onclick="exportAllUsers()">
-                                <i class="fas fa-download"></i> Export
-                            </button>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-info">
+                                <h3>Active Jobs</h3>
+                                <div class="stat-number" id="activeJobs">0</div>
+                                <div class="stat-change">+3 new this week</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📝</div>
+                            <div class="stat-info">
+                                <h3>Applications</h3>
+                                <div class="stat-number" id="totalApplications">0</div>
+                                <div class="stat-change">+8 new today</div>
+                            </div>
                         </div>
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Email</th>
-                                <th>Platform</th>
-                                <th>Status</th>
-                                <th>Registered</th>
-                                <th>Last Seen</th>
-                                <th>Messages</th>
-                                <th>Unread</th>
-                                <th>Applications</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="allUsersTable">
-                            <tr>
-                                <td colspan="10" class="loading">
-                                    <i class="fas fa-spinner fa-spin"></i> Loading users...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="pagination" id="usersPagination"></div>
-                </div>
-            </div>
 
-            <!-- Messages Tab -->
-            <div id="messages" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-comments"></i> All Messages</h3>
-                        <div class="table-actions">
-                            <button class="btn btn-info btn-sm" onclick="refreshMessages()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                            <button class="btn btn-success btn-sm" onclick="markAllAsRead()">
-                                <i class="fas fa-check-double"></i> Mark All Read
-                            </button>
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <div class="quick-action-btn" onclick="switchView('broadcast')">
+                            <i>📢</i>
+                            <span>Broadcast Message</span>
+                        </div>
+                        <div class="quick-action-btn" onclick="sendTestNtfy()">
+                            <i>🔔</i>
+                            <span>Test Ntfy Alert</span>
+                        </div>
+                        <div class="quick-action-btn" onclick="viewAllMessages()">
+                            <i>💬</i>
+                            <span>View All Messages</span>
+                        </div>
+                        <div class="quick-action-btn" onclick="exportUsers()">
+                            <i>📥</i>
+                            <span>Export Users</span>
                         </div>
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>From</th>
-                                <th>Email</th>
-                                <th>Message</th>
-                                <th>Platform</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="messagesTable">
-                            <tr>
-                                <td colspan="7" class="loading">
-                                    <i class="fas fa-spinner fa-spin"></i> Loading messages...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
-            <!-- Jobs Tab (Placeholder) -->
-            <div id="jobs" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-briefcase"></i> Jobs Management</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div class="users-list">
+                            <div class="list-header">
+                                <h3>Recent Users</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="switchView('users')">View All</button>
+                            </div>
+                            <div id="recentUsersList"></div>
+                        </div>
+
+                        <div class="users-list">
+                            <div class="list-header">
+                                <h3>Recent Messages</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="switchView('messages')">View All</button>
+                            </div>
+                            <div id="recentMessagesList"></div>
+                        </div>
                     </div>
-                    <p style="text-align: center; padding: 40px;">Jobs management interface loading...</p>
-                </div>
-            </div>
 
-            <!-- Applications Tab (Placeholder) -->
-            <div id="applications" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-file-alt"></i> Applications Management</h3>
-                    </div>
-                    <p style="text-align: center; padding: 40px;">Applications management interface loading...</p>
-                </div>
-            </div>
-
-            <!-- Telegram Tab (Placeholder) -->
-            <div id="telegram" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fab fa-telegram"></i> Telegram Bot Management</h3>
-                    </div>
-                    <p style="text-align: center; padding: 40px;">Telegram bot management interface loading...</p>
-                </div>
-            </div>
-
-            <!-- Settings Tab (Placeholder) -->
-            <div id="settings" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3><i class="fas fa-cog"></i> System Settings</h3>
-                    </div>
-                    <p style="text-align: center; padding: 40px;">Settings interface loading...</p>
-                </div>
-            </div>
-        </main>
-
-        <!-- User Detail Panel -->
-        <div class="user-detail-panel" id="userDetailPanel">
-            <div class="panel-header">
-                <h2><i class="fas fa-user"></i> <span id="detailUserName">User Details</span></h2>
-                <button class="panel-close" onclick="closeUserPanel()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="panel-body" id="userDetailContent">
-                Loading...
-            </div>
-        </div>
-
-        <!-- Messages Panel -->
-        <div class="messages-panel" id="messagesPanel">
-            <div class="messages-header">
-                <h3><i class="fas fa-comments"></i> <span id="messageUserName">Messages</span></h3>
-                <button class="messages-close" onclick="closeMessagesPanel()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="messages-container" id="messagesContainer">
-                <!-- Messages will be loaded here -->
-            </div>
-            <div class="messages-input-area">
-                <input type="text" id="messageInput" placeholder="Type your reply...">
-                <button onclick="sendReply()"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-
-        <!-- Send Message Modal -->
-        <div class="modal" id="messageModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2><i class="fas fa-paper-plane"></i> Send Message</h2>
-                    <button class="modal-close" onclick="closeMessageModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>To:</label>
-                        <input type="text" id="modalRecipient" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Message:</label>
-                        <textarea id="modalMessage" placeholder="Type your message..."></textarea>
+                    <!-- Ntfy Activity -->
+                    <div class="ntfy-panel" style="margin-top: 20px;">
+                        <h3><i>🔔</i> Recent Ntfy Notifications</h3>
+                        <div id="ntfyActivity"></div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" onclick="closeMessageModal()">Cancel</button>
-                    <button class="btn btn-primary" onclick="sendModalMessage()">Send</button>
+
+                <!-- Users View -->
+                <div id="usersView" style="display: none;">
+                    <div class="users-list">
+                        <div class="list-header">
+                            <h3><i>👥</i> All Users</h3>
+                            <div class="search-box">
+                                <input type="text" id="userSearch" placeholder="Search users by name or email..." onkeyup="searchUsers()">
+                                <button class="btn btn-primary btn-sm" onclick="exportUsers()">
+                                    <i>📥</i> Export
+                                </button>
+                            </div>
+                        </div>
+                        <div id="usersList"></div>
+                    </div>
+                </div>
+
+                <!-- Messages View -->
+                <div id="messagesView" style="display: none; height: 100%;">
+                    <div style="display: grid; grid-template-columns: 350px 1fr; gap: 20px; height: 100%;">
+                        <!-- Users List -->
+                        <div class="users-list" style="height: 100%; overflow-y: auto;">
+                            <div class="list-header">
+                                <h3><i>💬</i> Active Conversations</h3>
+                                <span class="stats-badge" id="activeChats">0</span>
+                            </div>
+                            <div id="messageUsersList"></div>
+                        </div>
+
+                        <!-- Chat Window -->
+                        <div class="chat-window" id="chatWindow">
+                            <div class="chat-header">
+                                <div class="chat-user-info" id="selectedUserInfo">
+                                    <div>
+                                        <h3>Select a user to start chatting</h3>
+                                        <p>Click on any user from the list</p>
+                                    </div>
+                                </div>
+                                <div class="chat-user-status" id="userOnlineStatus" style="display: none;">
+                                    <span class="status-dot"></span>
+                                    <span id="statusText">Offline</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="empty-state">
+                                    <i>💬</i>
+                                    <h3>No user selected</h3>
+                                    <p>Select a user from the list to view and reply to messages</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input" id="chatInputArea" style="display: none;">
+                                <div class="input-wrapper">
+                                    <textarea id="adminMessageInput" placeholder="Type your reply... (Enter to send, Shift+Enter for new line)" rows="1" maxlength="1000"></textarea>
+                                    <span class="char-counter" id="adminCharCounter">0/1000</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="sendAdminMessage()">
+                                    <i>📤</i> Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Broadcast View -->
+                <div id="broadcastView" style="display: none;">
+                    <div class="users-list">
+                        <div class="list-header">
+                            <h3><i>📢</i> Send Broadcast Message</h3>
+                        </div>
+                        <div style="padding: 30px;">
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
+                                    Message to all users:
+                                </label>
+                                <textarea id="broadcastMessage" rows="5" placeholder="Type your broadcast message here..." maxlength="2000"></textarea>
+                                <div style="text-align: right; font-size: 12px; color: #a0aec0;" id="broadcastCounter">0/2000</div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
+                                    Send via:
+                                </label>
+                                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                                    <label style="display: flex; align-items: center; gap: 5px;">
+                                        <input type="checkbox" id="sendWeb" checked> Web Chat
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 5px;">
+                                        <input type="checkbox" id="sendTelegram" checked> Telegram
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 5px;">
+                                        <input type="checkbox" id="sendNtfy" checked> 
+                                        <span>Ntfy <span style="color: #718096; font-size: 11px;">(new_chat)</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600;">
+                                    Priority:
+                                </label>
+                                <select id="broadcastPriority" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px; width: 200px;">
+                                    <option value="1">Low</option>
+                                    <option value="2">Default</option>
+                                    <option value="3" selected>High</option>
+                                    <option value="4">Urgent</option>
+                                    <option value="5">Emergency</option>
+                                </select>
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="btn btn-primary" onclick="sendBroadcast()">
+                                    <i>📢</i> Send Broadcast
+                                </button>
+                                <button class="btn btn-secondary" onclick="sendJobAlerts()">
+                                    <i>🔔</i> Send Job Alerts
+                                </button>
+                                <button class="btn btn-secondary" onclick="testNtfyBroadcast()">
+                                    <i>🔔</i> Test Ntfy
+                                </button>
+                            </div>
+                            
+                            <div id="broadcastProgress" style="margin-top: 20px; display: none;">
+                                <div class="spinner"></div>
+                                <p style="text-align: center; color: #666;">Sending messages... <span id="progressCount">0/0</span></p>
+                            </div>
+
+                            <div id="broadcastResults" style="margin-top: 20px; display: none;">
+                                <div class="ntfy-panel">
+                                    <h4>Results</h4>
+                                    <p id="resultText"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ntfy View -->
+                <div id="ntfyView" style="display: none;">
+                    <div class="ntfy-panel">
+                        <h3><i>🔔</i> Ntfy Configuration</h3>
+                        <div style="padding: 20px;">
+                            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                <p><strong>Topic:</strong> <code>new_chat</code> (secret)</p>
+                                <p><strong>Status:</strong> <span style="color: #48bb78;">● Active</span></p>
+                                <p><strong>All messages are silently forwarded to this topic</strong></p>
+                            </div>
+
+                            <div class="ntfy-stats">
+                                <div class="ntfy-stat-item">
+                                    <div class="label">Messages Today</div>
+                                    <div class="value" id="ntfyMessagesToday">0</div>
+                                </div>
+                                <div class="ntfy-stat-item">
+                                    <div class="label">Notifications Sent</div>
+                                    <div class="value" id="ntfyTotal">0</div>
+                                </div>
+                                <div class="ntfy-stat-item">
+                                    <div class="label">Active Users</div>
+                                    <div class="value" id="ntfyUsers">0</div>
+                                </div>
+                                <div class="ntfy-stat-item">
+                                    <div class="label">Last Alert</div>
+                                    <div class="value" id="ntfyLastAlert">Never</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="users-list" style="margin-top: 20px;">
+                        <div class="list-header">
+                            <h3><i>📋</i> Recent Ntfy Notifications</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="clearNtfyLog()">Clear Log</button>
+                        </div>
+                        <div id="ntfyLog"></div>
+                    </div>
+                </div>
+
+                <!-- Jobs View -->
+                <div id="jobsView" style="display: none;">
+                    <div class="users-list">
+                        <div class="list-header">
+                            <h3><i>📋</i> Job Listings</h3>
+                            <div>
+                                <button class="btn btn-primary btn-sm" onclick="refreshJobs()">
+                                    <i>🔄</i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                        <div id="jobsList"></div>
+                    </div>
+                </div>
+
+                <!-- Stats View -->
+                <div id="statsView" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-info">
+                                <h3>Total Messages</h3>
+                                <div class="stat-number" id="totalMessages">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📨</div>
+                            <div class="stat-info">
+                                <h3>Messages Today</h3>
+                                <div class="stat-number" id="messagesToday">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔔</div>
+                            <div class="stat-info">
+                                <h3>Ntfy Alerts</h3>
+                                <div class="stat-number" id="ntfyAlerts">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏰</div>
+                            <div class="stat-info">
+                                <h3>Avg Response Time</h3>
+                                <div class="stat-number" id="avgResponse">2.5m</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="users-list" style="margin-top: 20px;">
+                        <div class="list-header">
+                            <h3>Activity Overview</h3>
+                        </div>
+                        <div style="padding: 30px;" id="activityStats"></div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="settingsView" style="display: none;">
+                    <div class="users-list">
+                        <div class="list-header">
+                            <h3><i>⚙️</i> Settings</h3>
+                        </div>
+                        <div style="padding: 30px;">
+                            <div style="margin-bottom: 20px;">
+                                <h4>Ntfy Settings</h4>
+                                <div style="margin-top: 15px;">
+                                    <label style="display: block; margin-bottom: 10px;">
+                                        <input type="checkbox" id="ntfyEnabled" checked> Enable Ntfy Notifications
+                                    </label>
+                                    <label style="display: block; margin-bottom: 10px;">
+                                        <input type="checkbox" id="ntfyOnUserRegister" checked> Notify on new user registration
+                                    </label>
+                                    <label style="display: block; margin-bottom: 10px;">
+                                        <input type="checkbox" id="ntfyOnMessage" checked> Notify on all messages
+                                    </label>
+                                    <label style="display: block; margin-bottom: 10px;">
+                                        <input type="checkbox" id="ntfyOnJobAlert" checked> Notify on job alerts
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <h4>Notification Priority</h4>
+                                <select id="defaultPriority" style="margin-top: 10px; padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px;">
+                                    <option value="1">Low</option>
+                                    <option value="2">Default</option>
+                                    <option value="3" selected>High</option>
+                                    <option value="4">Urgent</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Broadcast Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3>Confirm Broadcast</h3>
+            <p id="confirmMessage">Are you sure you want to send this broadcast?</p>
+            <div style="margin: 20px 0; padding: 15px; background: #f8fafc; border-radius: 10px;" id="broadcastPreview"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="executeBroadcast()">Confirm Send</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== STATE MANAGEMENT =====
-        let socket = null;
-        let currentUser = null;
-        let allUsers = [];
-        let allMessages = [];
-        let selectedUserId = null;
-        let currentPage = 1;
-        let itemsPerPage = 10;
-        let charts = {};
+        // ===== CONFIGURATION =====
+        const WS_URL = `wss://${window.location.host}`;
+        const NTFY_TOPIC = 'new_chat'; // Secret ntfy topic
+        const API_URL = '';
+        
+        // ===== STATE =====
+        let ws = null;
+        let users = [];
+        let messages = [];
+        let selectedUser = null;
+        let currentView = 'dashboard';
+        let ntfyNotifications = [];
+        let ntfyCount = 0;
+        
+        let stats = {
+            totalUsers: 0,
+            unreadCount: 0,
+            activeJobs: 0,
+            applications: 0,
+            totalMessages: 0,
+            messagesToday: 0,
+            ntfyAlerts: 0
+        };
 
-        // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAdminAuth();
-            initSocket();
-            loadDashboardData();
-            loadUsers();
-            loadMessages();
-            
-            // Auto-refresh every 30 seconds
-            setInterval(refreshData, 30000);
-        });
-
-        // ===== AUTHENTICATION =====
-        function checkAdminAuth() {
-            const isAdmin = localStorage.getItem('isAdmin');
-            if (!isAdmin) {
-                const adminCode = prompt('Enter admin access code:');
-                if (adminCode === '338989') {
-                    localStorage.setItem('isAdmin', 'true');
-                    showToast('success', 'Welcome Admin', 'Successfully logged in');
-                } else {
-                    window.location.href = 'index.html';
-                }
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('isAdmin');
-            window.location.href = 'index.html';
-        }
-
-        // ===== SOCKET.IO =====
-        function initSocket() {
-            socket = io({
-                reconnection: true,
-                reconnectionAttempts: 5
-            });
-
-            socket.on('connect', () => {
-                document.getElementById('connectionStatus').textContent = 'Connected';
-                showToast('success', 'Connected', 'Real-time connection established');
-                
-                socket.emit('register', {
-                    userId: 'admin_' + Date.now(),
-                    userName: 'Admin',
-                    email: 'admin@perfections.com',
-                    isAdmin: true
-                });
-            });
-
-            socket.on('disconnect', () => {
-                document.getElementById('connectionStatus').textContent = 'Disconnected';
-            });
-
-            socket.on('new_message', (message) => {
-                showToast('info', 'New Message', `From: ${message.userName}`);
-                loadMessages();
-                loadUsers();
-                updateUnreadCount();
-            });
-
-            socket.on('user_status', (data) => {
-                updateUserOnlineStatus(data.userId, data.status);
-            });
-        }
-
-        // ===== DATA LOADING =====
-        async function loadDashboardData() {
+        // ===== NTFY FUNCTIONS =====
+        async function sendNtfyNotification(title, message, priority = 3, tags = []) {
             try {
-                const response = await fetch('/api/health');
-                const health = await response.json();
-                document.getElementById('onlineUsers').textContent = health.onlineUsers || 0;
-            } catch (error) {
-                console.error('Failed to load health data:', error);
+                const response = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        topic: NTFY_TOPIC,
+                        title: title,
+                        message: message,
+                        priority: priority,
+                        tags: tags,
+                        click: window.location.href,
+                        icon: 'https://perfections-recruitment.onrender.com/favicon.ico'
+                    }),
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Title': title,
+                        'Priority': priority,
+                        'Tags': tags.join(',')
+                    }
+                });
+                
+                if (response.ok) {
+                    // Log the notification
+                    logNtfyNotification({ title, message, priority, tags, timestamp: new Date().toISOString() });
+                    stats.ntfyAlerts++;
+                    updateStats();
+                    return true;
+                }
+                return false;
+            } catch (error) { 
+                console.error('Failed to send ntfy notification:', error);
+                return false;
             }
         }
 
+        function logNtfyNotification(notification) {
+            ntfyNotifications.unshift(notification);
+            if (ntfyNotifications.length > 50) ntfyNotifications.pop();
+            updateNtfyLog();
+        }
+
+        function updateNtfyLog() {
+            const container = document.getElementById('ntfyLog');
+            if (!container) return;
+            
+            if (ntfyNotifications.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i>🔔</i><p>No notifications yet</p></div>';
+                return;
+            }
+            
+            container.innerHTML = ntfyNotifications.map(n => `
+                <div class="user-item">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 24px;">${n.tags.includes('speech_balloon') ? '💬' : n.tags.includes('new') ? '👤' : '🔔'}</div>
+                        <div>
+                            <h4>${escapeHtml(n.title)}</h4>
+                            <p style="font-size: 13px; color: #718096;">${escapeHtml(n.message.substring(0, 100))}${n.message.length > 100 ? '...' : ''}</p>
+                            <div style="font-size: 11px; color: #a0aec0;">
+                                ${new Date(n.timestamp).toLocaleString()} • Priority: ${n.priority}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('ntfyMessagesToday').textContent = ntfyNotifications.filter(n => {
+                return new Date(n.timestamp).toDateString() === new Date().toDateString();
+            }).length;
+            
+            document.getElementById('ntfyTotal').textContent = ntfyNotifications.length;
+            document.getElementById('ntfyLastAlert').textContent = ntfyNotifications[0] ? 
+                new Date(ntfyNotifications[0].timestamp).toLocaleTimeString() : 'Never';
+        }
+
+        // ===== WEBSOCKET CONNECTION =====
+        function connectWebSocket() {
+            ws = new WebSocket(WS_URL);
+            
+            ws.onopen = () => {
+                console.log('Admin WebSocket connected');
+                ws.send(JSON.stringify({
+                    type: 'register',
+                    isAdmin: true,
+                    userId: 'admin-' + Date.now()
+                }));
+                
+                // Notify via ntfy that admin is online
+                sendNtfyNotification('👑 Admin Online', 'Admin dashboard opened', 2, ['admin']);
+            };
+            
+            ws.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    handleWebSocketMessage(data);
+                } catch (error) {
+                    console.error('Failed to parse message:', error);
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('Admin WebSocket disconnected');
+                setTimeout(connectWebSocket, 3000);
+            };
+        }
+
+        // ===== HANDLE WEBSOCKET MESSAGES =====
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'new_message':
+                    handleNewMessage(data.message);
+                    break;
+                    
+                case 'job_alert':
+                    handleJobAlert(data);
+                    break;
+            }
+        }
+
+        // ===== HANDLE NEW MESSAGE =====
+        function handleNewMessage(message) {
+            messages.push(message);
+            
+            // Send ntfy notification for new message
+            sendNtfyNotification(
+                `💬 New message from ${message.userName}`,
+                `Message: ${message.message}\nEmail: ${message.userEmail}`,
+                4,
+                ['speech_balloon', 'new_chat']
+            );
+            
+            // Update unread count
+            if (!message.read && !message.isAdmin) {
+                stats.unreadCount++;
+                updateStats();
+            }
+            
+            // Update UI
+            if (selectedUser && message.userId === selectedUser.userId) {
+                displayChatMessage(message);
+                markMessagesAsRead(selectedUser.userId);
+            }
+            
+            loadUsers();
+        }
+
+        // ===== HANDLE JOB ALERT =====
+        function handleJobAlert(data) {
+            sendNtfyNotification(
+                '📢 Job Alerts Sent',
+                `Sent ${data.jobs?.length || 0} job opportunities to users`,
+                3,
+                ['megaphone']
+            );
+        }
+
+        // ===== LOAD DATA =====
         async function loadUsers() {
             try {
                 const response = await fetch('/api/admin/users');
-                const users = await response.json();
-                allUsers = users;
+                users = await response.json();
                 
-                updateUserStats();
-                renderRecentUsers();
-                renderAllUsers();
-                updatePlatformChart();
+                stats.totalUsers = users.length;
+                stats.unreadCount = users.reduce((sum, user) => sum + (user.unread || 0), 0);
                 
-                document.getElementById('userCount').textContent = users.length;
+                updateStats();
+                renderUsersList();
+                renderMessageUsersList();
+                updateBadges();
             } catch (error) {
                 console.error('Failed to load users:', error);
-                loadMockUsers();
             }
         }
 
-        async function loadMessages() {
+        async function loadJobs() {
             try {
-                const response = await fetch('/api/admin/unread');
+                const response = await fetch('/api/jobs');
                 const data = await response.json();
-                
-                document.getElementById('unreadBadge').textContent = data.unread || 0;
-                document.getElementById('unreadMessages').textContent = data.unread || 0;
-                
-                // Load recent messages from localStorage or API
-                loadMockMessages();
+                const jobs = data.jobs || [];
+                stats.activeJobs = jobs.filter(j => j.status === 'active').length;
+                updateStats();
+                renderJobsList(jobs);
             } catch (error) {
-                console.error('Failed to load messages:', error);
-                loadMockMessages();
+                console.error('Failed to load jobs:', error);
             }
         }
 
-        // ===== MOCK DATA =====
-        function loadMockUsers() {
-            allUsers = [
-                {
-                    userId: 'user_1',
-                    userName: 'John Smith',
-                    email: 'john.smith@example.com',
-                    telegramId: null,
-                    createdAt: '2026-03-01T10:00:00Z',
-                    lastSeen: new Date().toISOString(),
-                    unreadCount: 2,
-                    online: true
-                },
-                {
-                    userId: 'user_2',
-                    userName: 'Sarah Johnson',
-                    email: 'sarah.j@example.com',
-                    telegramId: '123456789',
-                    createdAt: '2026-03-05T14:30:00Z',
-                    lastSeen: new Date(Date.now() - 3600000).toISOString(),
-                    unreadCount: 0,
-                    online: false
-                },
-                {
-                    userId: 'user_3',
-                    userName: 'Mike Brown',
-                    email: 'mike.brown@example.com',
-                    telegramId: null,
-                    createdAt: '2026-03-10T09:15:00Z',
-                    lastSeen: new Date().toISOString(),
-                    unreadCount: 1,
-                    online: true
+        // ===== RENDER FUNCTIONS =====
+        function renderUsersList() {
+            const container = document.getElementById('usersList');
+            const recentContainer = document.getElementById('recentUsersList');
+            
+            if (!container && !recentContainer) return;
+            
+            const renderUser = (user) => `
+                <div class="user-item" onclick="selectUser('${user.userId}')">
+                    <div class="user-info">
+                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
+                        <div class="user-details">
+                            <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
+                            <p>${escapeHtml(user.email || 'No email')}</p>
+                            <div class="user-meta">
+                                <span>📅 ${new Date(user.createdAt).toLocaleDateString()}</span>
+                                ${user.telegramId ? '<span>📱 Telegram</span>' : ''}
+                                <span>💬 ${user.unread || 0} unread</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        ${user.unread ? `<span class="unread-badge">${user.unread}</span>` : ''}
+                        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); viewUserMessages('${user.userId}')">
+                            💬 Chat
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            if (container) {
+                if (users.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i>👥</i><p>No users found</p></div>';
+                } else {
+                    container.innerHTML = users.map(renderUser).join('');
                 }
-            ];
+            }
             
-            updateUserStats();
-            renderRecentUsers();
-            renderAllUsers();
-            updatePlatformChart();
-            document.getElementById('userCount').textContent = allUsers.length;
+            if (recentContainer) {
+                const recentUsers = users.slice(0, 5);
+                recentContainer.innerHTML = recentUsers.length ? 
+                    recentUsers.map(renderUser).join('') : 
+                    '<div class="empty-state"><p>No recent users</p></div>';
+            }
         }
 
-        function loadMockMessages() {
-            allMessages = [
-                {
-                    id: 1,
-                    userId: 'user_1',
-                    userName: 'John Smith',
-                    userEmail: 'john.smith@example.com',
-                    message: 'Hi, I\'m interested in the software developer position',
-                    isAdmin: false,
-                    platform: 'web',
-                    timestamp: new Date(Date.now() - 7200000).toISOString(),
-                    read: false
-                },
-                {
-                    id: 2,
-                    userId: 'user_3',
-                    userName: 'Mike Brown',
-                    userEmail: 'mike.brown@example.com',
-                    message: 'Can you tell me more about the remote work policy?',
-                    isAdmin: false,
-                    platform: 'telegram',
-                    timestamp: new Date(Date.now() - 3600000).toISOString(),
-                    read: false
-                },
-                {
-                    id: 3,
-                    userId: 'user_1',
-                    userName: 'John Smith',
-                    userEmail: 'john.smith@example.com',
-                    message: 'When can I expect a response about my application?',
-                    isAdmin: false,
-                    platform: 'web',
-                    timestamp: new Date(Date.now() - 1800000).toISOString(),
-                    read: true
-                }
-            ];
+        function renderMessageUsersList() {
+            const container = document.getElementById('messageUsersList');
+            if (!container) return;
             
-            renderMessages();
-            updateUnreadCount();
-        }
-
-        // ===== STATS UPDATE =====
-        function updateUserStats() {
-            const webUsers = allUsers.filter(u => !u.telegramId).length;
-            const telegramUsers = allUsers.filter(u => u.telegramId).length;
-            const onlineUsers = allUsers.filter(u => u.online).length;
-            const unreadTotal = allUsers.reduce((sum, u) => sum + (u.unreadCount || 0), 0);
+            const usersWithMessages = users.filter(u => u.unread > 0 || u.lastMessage);
             
-            document.getElementById('totalUsers').textContent = allUsers.length;
-            document.getElementById('onlineUsers').textContent = onlineUsers;
-            document.getElementById('telegramUsers').textContent = telegramUsers;
-            document.getElementById('unreadMessages').textContent = unreadTotal;
-            document.getElementById('unreadBadge').textContent = unreadTotal;
-        }
-
-        function updateUnreadCount() {
-            const unread = allMessages.filter(m => !m.read).length;
-            document.getElementById('unreadMessages').textContent = unread;
-            document.getElementById('unreadBadge').textContent = unread;
-        }
-
-        // ===== RENDERING FUNCTIONS =====
-        function renderRecentUsers() {
-            const tbody = document.getElementById('recentUsersTable');
-            const recentUsers = allUsers.slice(0, 5);
-            
-            if (recentUsers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="loading">No users found</td></tr>';
+            if (usersWithMessages.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i>💬</i><p>No conversations yet</p></div>';
+                document.getElementById('activeChats').textContent = '0';
                 return;
             }
             
-            tbody.innerHTML = recentUsers.map(user => `
-                <tr onclick="openUserPanel('${user.userId}')">
-                    <td><strong>${user.userName || 'Unknown'}</strong></td>
-                    <td>${user.email || 'N/A'}</td>
-                    <td>
-                        <span class="platform-badge ${user.telegramId ? 'platform-telegram' : 'platform-web'}">
-                            <i class="fab fa-${user.telegramId ? 'telegram' : 'chrome'}"></i>
-                            ${user.telegramId ? 'Telegram' : 'Web'}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="online-badge">
-                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
-                            ${user.online ? 'Online' : 'Offline'}
-                        </span>
-                    </td>
-                    <td>${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'Never'}</td>
-                    <td>
-                        ${user.unreadCount > 0 ? 
-                            `<span class="status-badge status-unread">${user.unreadCount}</span>` : 
-                            '0'}
-                    </td>
-                    <td onclick="event.stopPropagation()">
-                        <div class="action-buttons">
-                            <button class="action-btn view" onclick="openUserPanel('${user.userId}')" title="View Details"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn message" onclick="openMessagePanel('${user.userId}', '${user.userName}')" title="Send Message"><i class="fas fa-comment"></i></button>
-                            <button class="action-btn history" onclick="viewMessageHistory('${user.userId}')" title="Message History"><i class="fas fa-history"></i></button>
+            document.getElementById('activeChats').textContent = usersWithMessages.length;
+            
+            container.innerHTML = usersWithMessages.map(user => `
+                <div class="user-item ${selectedUser && selectedUser.userId === user.userId ? 'selected' : ''}" onclick="selectChatUser('${user.userId}')">
+                    <div class="user-info">
+                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
+                        <div class="user-details">
+                            <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
+                            <p>${escapeHtml(user.email || 'No email')}</p>
+                            ${user.lastMessage ? `<p style="font-size: 12px; color: #718096;">${escapeHtml(user.lastMessage.substring(0, 30))}...</p>` : ''}
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                    ${user.unread ? `<span class="unread-badge">${user.unread}</span>` : ''}
+                </div>
             `).join('');
         }
 
-        function renderAllUsers() {
-            const tbody = document.getElementById('allUsersTable');
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const paginatedUsers = allUsers.slice(start, end);
+        function renderJobsList(jobs) {
+            const container = document.getElementById('jobsList');
+            if (!container) return;
             
-            if (paginatedUsers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="10" class="loading">No users found</td></tr>';
+            if (jobs.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i>📋</i><p>No jobs found</p></div>';
                 return;
             }
             
-            tbody.innerHTML = paginatedUsers.map(user => {
-                const userMessages = allMessages.filter(m => m.userId === user.userId);
-                const unreadCount = userMessages.filter(m => !m.read).length;
-                
-                return `
-                <tr onclick="openUserPanel('${user.userId}')">
-                    <td><strong>${user.userName || 'Unknown'}</strong></td>
-                    <td>${user.email || 'N/A'}</td>
-                    <td>
-                        <span class="platform-badge ${user.telegramId ? 'platform-telegram' : 'platform-web'}">
-                            <i class="fab fa-${user.telegramId ? 'telegram' : 'chrome'}"></i>
-                            ${user.telegramId ? 'Telegram' : 'Web'}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="online-badge">
-                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
-                            ${user.online ? 'Online' : 'Offline'}
-                        </span>
-                    </td>
-                    <td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</td>
-                    <td>${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'Never'}</td>
-                    <td>${userMessages.length}</td>
-                    <td>
-                        ${unreadCount > 0 ? 
-                            `<span class="status-badge status-unread">${unreadCount}</span>` : 
-                            '0'}
-                    </td>
-                    <td>${Math.floor(Math.random() * 3)}</td>
-                    <td onclick="event.stopPropagation()">
-                        <div class="action-buttons">
-                            <button class="action-btn view" onclick="openUserPanel('${user.userId}')" title="View"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn message" onclick="openMessagePanel('${user.userId}', '${user.userName}')" title="Message"><i class="fas fa-comment"></i></button>
-                            <button class="action-btn history" onclick="viewMessageHistory('${user.userId}')" title="History"><i class="fas fa-history"></i></button>
-                            <button class="action-btn edit" onclick="editUser('${user.userId}')" title="Edit"><i class="fas fa-edit"></i></button>
+            container.innerHTML = jobs.map(job => `
+                <div class="user-item">
+                    <div class="user-info">
+                        <div class="user-avatar">📋</div>
+                        <div class="user-details">
+                            <h4>${escapeHtml(job.title || 'Job Title')}</h4>
+                            <p>${escapeHtml(job.company || 'Company')} - ${escapeHtml(job.location || 'UK')}</p>
+                            <div class="user-meta">
+                                <span>💰 ${escapeHtml(job.salary || 'Competitive')}</span>
+                                <span>⏰ ${escapeHtml(job.type || 'Full Time')}</span>
+                                <span>📊 ${job.status || 'active'}</span>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            `}).join('');
-            
-            renderPagination(allUsers.length);
-        }
-
-        function renderMessages() {
-            const tbody = document.getElementById('messagesTable');
-            
-            if (allMessages.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="loading">No messages found</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = allMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                .map(msg => `
-                <tr onclick="viewMessageDetails('${msg.id}')" class="${!msg.read ? 'unread-row' : ''}">
-                    <td><strong>${msg.userName || 'Unknown'}</strong></td>
-                    <td>${msg.userEmail || 'N/A'}</td>
-                    <td>${msg.message.length > 50 ? msg.message.substring(0,50) + '...' : msg.message}</td>
-                    <td>
-                        <span class="platform-badge ${msg.platform === 'telegram' ? 'platform-telegram' : 'platform-web'}">
-                            <i class="fab fa-${msg.platform === 'telegram' ? 'telegram' : 'chrome'}"></i>
-                            ${msg.platform || 'web'}
-                        </span>
-                    </td>
-                    <td>${new Date(msg.timestamp).toLocaleString()}</td>
-                    <td>
-                        <span class="status-badge ${msg.read ? 'status-active' : 'status-unread'}">
-                            ${msg.read ? 'Read' : 'Unread'}
-                        </span>
-                    </td>
-                    <td onclick="event.stopPropagation()">
-                        <div class="action-buttons">
-                            <button class="action-btn message" onclick="replyToMessage('${msg.userId}', '${msg.userName}')" title="Reply"><i class="fas fa-reply"></i></button>
-                            <button class="action-btn view" onclick="viewUserFromMessage('${msg.userId}')" title="View User"><i class="fas fa-user"></i></button>
-                        </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             `).join('');
         }
 
-        function renderPagination(total) {
-            const totalPages = Math.ceil(total / itemsPerPage);
-            const pagination = document.getElementById('usersPagination');
-            
-            let html = '';
-            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})"><i class="fas fa-chevron-left"></i></button>`;
-            
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-                } else if (i === currentPage - 3 || i === currentPage + 3) {
-                    html += `<span class="page-btn disabled">...</span>`;
-                }
-            }
-            
-            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>`;
-            
-            pagination.innerHTML = html;
-        }
-
-        // ===== PANEL FUNCTIONS =====
-        function openUserPanel(userId) {
-            const user = allUsers.find(u => u.userId === userId);
+        // ===== CHAT FUNCTIONS =====
+        function selectChatUser(userId) {
+            const user = users.find(u => u.userId === userId);
             if (!user) return;
             
-            selectedUserId = userId;
-            const userMessages = allMessages.filter(m => m.userId === userId);
-            const unreadCount = userMessages.filter(m => !m.read).length;
+            selectedUser = user;
             
-            const content = `
-                <div class="user-info-card">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <div class="admin-avatar" style="margin: 0 auto; width: 80px; height: 80px; font-size: 32px;">
-                            ${(user.userName || 'U').charAt(0).toUpperCase()}
-                        </div>
-                        <h3 style="margin-top: 15px; color: var(--primary);">${user.userName}</h3>
-                        <p>${user.email}</p>
-                        <span class="online-badge">
-                            <span class="dot ${user.online ? 'online' : 'offline'}"></span>
-                            ${user.online ? 'Online' : 'Offline'}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="user-info-card">
-                    <div class="user-info-row">
-                        <span class="user-info-label">User ID:</span>
-                        <span class="user-info-value">${user.userId}</span>
-                    </div>
-                    <div class="user-info-row">
-                        <span class="user-info-label">Platform:</span>
-                        <span class="user-info-value">
-                            <span class="platform-badge ${user.telegramId ? 'platform-telegram' : 'platform-web'}">
-                                <i class="fab fa-${user.telegramId ? 'telegram' : 'chrome'}"></i>
-                                ${user.telegramId ? 'Telegram' : 'Web'}
-                            </span>
-                        </span>
-                    </div>
-                    <div class="user-info-row">
-                        <span class="user-info-label">Registered:</span>
-                        <span class="user-info-value">${user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</span>
-                    </div>
-                    <div class="user-info-row">
-                        <span class="user-info-label">Last Seen:</span>
-                        <span class="user-info-value">${user.lastSeen ? new Date(user.lastSeen).toLocaleString() : 'N/A'}</span>
-                    </div>
-                    <div class="user-info-row">
-                        <span class="user-info-label">Messages:</span>
-                        <span class="user-info-value">${userMessages.length} total (${unreadCount} unread)</span>
-                    </div>
-                </div>
-
-                <div class="user-actions-grid">
-                    <button class="user-action-btn message" onclick="openMessagePanel('${user.userId}', '${user.userName}')">
-                        <i class="fas fa-comment"></i>
-                        <span>Send Message</span>
-                    </button>
-                    <button class="user-action-btn history" onclick="viewMessageHistory('${user.userId}')">
-                        <i class="fas fa-history"></i>
-                        <span>View History</span>
-                    </button>
-                    <button class="user-action-btn applications" onclick="viewUserApplications('${user.userId}')">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Applications</span>
-                    </button>
-                    <button class="user-action-btn block" onclick="blockUser('${user.userId}')">
-                        <i class="fas fa-ban"></i>
-                        <span>Block User</span>
-                    </button>
+            // Update UI
+            document.querySelectorAll('#messageUsersList .user-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Show chat window
+            document.getElementById('selectedUserInfo').innerHTML = `
+                <div>
+                    <h3>${escapeHtml(user.userName)}</h3>
+                    <p>${escapeHtml(user.email)}</p>
                 </div>
             `;
             
-            document.getElementById('detailUserName').textContent = user.userName;
-            document.getElementById('userDetailContent').innerHTML = content;
-            document.getElementById('userDetailPanel').classList.add('open');
+            document.getElementById('userOnlineStatus').style.display = 'flex';
+            document.getElementById('statusText').textContent = 'Online';
+            document.querySelector('#userOnlineStatus .status-dot').classList.add('online');
+            
+            document.getElementById('chatInputArea').style.display = 'flex';
+            
+            // Load messages for this user
+            loadUserMessages(user.userId);
+            
+            // Mark messages as read
+            markMessagesAsRead(user.userId);
         }
 
-        function closeUserPanel() {
-            document.getElementById('userDetailPanel').classList.remove('open');
+        async function loadUserMessages(userId) {
+            try {
+                // Filter messages for this user
+                const userMessages = messages.filter(m => m.userId === userId)
+                    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                
+                displayChatMessages(userMessages);
+            } catch (error) {
+                console.error('Failed to load user messages:', error);
+            }
         }
 
-        function openMessagePanel(userId, userName) {
-            selectedUserId = userId;
-            document.getElementById('messageUserName').textContent = `Messages with ${userName}`;
-            document.getElementById('messagesPanel').classList.add('open');
+        function displayChatMessages(messages) {
+            const container = document.getElementById('chatMessages');
             
-            // Load user messages
-            const userMessages = allMessages.filter(m => m.userId === userId)
-                .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i>💬</i>
+                        <h3>No messages yet</h3>
+                        <p>Send a message to start the conversation</p>
+                    </div>
+                `;
+                return;
+            }
             
-            const container = document.getElementById('messagesContainer');
-            container.innerHTML = userMessages.map(msg => `
-                <div class="message-bubble ${msg.isAdmin ? 'admin' : 'user'}">
-                    <div class="message-sender">${msg.isAdmin ? 'You' : msg.userName}</div>
-                    <div class="message-content">${msg.message}</div>
-                    <div class="message-time">${new Date(msg.timestamp).toLocaleString()}</div>
+            container.innerHTML = messages.map(msg => `
+                <div class="message-wrapper ${msg.isAdmin ? 'admin' : 'user'}">
+                    <div class="message-meta">
+                        <span>${msg.isAdmin ? 'You' : escapeHtml(msg.userName)}</span>
+                        <span>•</span>
+                        <span title="${new Date(msg.timestamp).toLocaleString()}">
+                            ${new Date(msg.timestamp).toLocaleTimeString()}
+                        </span>
+                    </div>
+                    <div class="message-bubble">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
                 </div>
             `).join('');
             
-            // Scroll to bottom
             container.scrollTop = container.scrollHeight;
         }
 
-        function closeMessagesPanel() {
-            document.getElementById('messagesPanel').classList.remove('open');
-        }
-
-        function sendReply() {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
+        function displayChatMessage(message) {
+            const container = document.getElementById('chatMessages');
             
-            if (!message || !selectedUserId) return;
+            // Remove empty state if present
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
             
-            const newMessage = {
-                id: Date.now(),
-                userId: selectedUserId,
-                userName: 'Admin',
-                message: message,
-                isAdmin: true,
-                platform: 'web',
-                timestamp: new Date().toISOString(),
-                read: true
-            };
-            
-            allMessages.push(newMessage);
-            
-            // Add to UI
-            const container = document.getElementById('messagesContainer');
-            container.innerHTML += `
-                <div class="message-bubble admin">
-                    <div class="message-sender">You</div>
-                    <div class="message-content">${escapeHtml(message)}</div>
-                    <div class="message-time">Just now</div>
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `message-wrapper ${message.isAdmin ? 'admin' : 'user'}`;
+            messageWrapper.innerHTML = `
+                <div class="message-meta">
+                    <span>${message.isAdmin ? 'You' : escapeHtml(message.userName)}</span>
+                    <span>•</span>
+                    <span>${new Date(message.timestamp).toLocaleTimeString()}</span>
                 </div>
+                <div class="message-bubble">${escapeHtml(message.message).replace(/\n/g, '<br>')}</div>
             `;
             
-            input.value = '';
+            container.appendChild(messageWrapper);
             container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendAdminMessage() {
+            const input = document.getElementById('adminMessageInput');
+            const text = input.value.trim();
             
-            // Update user unread count
-            const user = allUsers.find(u => u.userId === selectedUserId);
-            if (user) {
-                user.unreadCount = 0;
-            }
+            if (!text || !selectedUser) return;
             
-            showToast('success', 'Message Sent', 'Reply delivered to user');
-            
-            // Simulate sending via socket
-            if (socket) {
-                socket.emit('chat_message', {
-                    userId: selectedUserId,
-                    message: message,
-                    isAdmin: true
+            try {
+                const response = await fetch('/api/admin/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: selectedUser.email,
+                        message: text
+                    })
                 });
+                
+                if (response.ok) {
+                    // Send ntfy notification for admin reply
+                    sendNtfyNotification(
+                        '👑 Admin Reply',
+                        `To: ${selectedUser.userName}\nMessage: ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}`,
+                        3,
+                        ['admin', 'reply']
+                    );
+                    
+                    // Clear input
+                    input.value = '';
+                    document.getElementById('adminCharCounter').textContent = '0/1000';
+                    
+                    // Add message to UI
+                    const message = {
+                        isAdmin: true,
+                        userName: 'Admin',
+                        message: text,
+                        timestamp: new Date().toISOString()
+                    };
+                    displayChatMessage(message);
+                    messages.push(message);
+                    
+                    // Update stats
+                    stats.unreadCount = Math.max(0, stats.unreadCount - 1);
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Failed to send message:', error);
+                alert('Failed to send message. Please try again.');
             }
         }
 
-        // ===== MESSAGE ACTIONS =====
-        function viewMessageHistory(userId) {
-            closeUserPanel();
-            const user = allUsers.find(u => u.userId === userId);
-            openMessagePanel(userId, user.userName);
-        }
-
-        function replyToMessage(userId, userName) {
-            openMessagePanel(userId, userName);
-        }
-
-        function viewUserFromMessage(userId) {
-            closeMessagesPanel();
-            openUserPanel(userId);
-        }
-
-        function markAllAsRead() {
-            allMessages.forEach(m => m.read = true);
-            renderMessages();
-            updateUnreadCount();
-            showToast('success', 'Messages Updated', 'All messages marked as read');
-        }
-
-        function refreshMessages() {
-            loadMockMessages();
-            showToast('info', 'Refreshed', 'Messages updated');
-        }
-
-        // ===== USER ACTIONS =====
-        function editUser(userId) {
-            showToast('info', 'Edit User', 'Edit functionality coming soon');
-        }
-
-        function blockUser(userId) {
-            if (confirm('Are you sure you want to block this user?')) {
-                showToast('warning', 'User Blocked', 'User has been blocked');
+        async function markMessagesAsRead(userId) {
+            const user = users.find(u => u.userId === userId);
+            if (!user) return;
+            
+            try {
+                await fetch(`/api/admin/mark-read/${encodeURIComponent(user.email)}`, {
+                    method: 'POST'
+                });
+                
+                // Update local state
+                user.unread = 0;
+                stats.unreadCount = users.reduce((sum, u) => sum + (u.unread || 0), 0);
+                updateStats();
+                renderMessageUsersList();
+            } catch (error) {
+                console.error('Failed to mark messages as read:', error);
             }
         }
 
-        function viewUserApplications(userId) {
-            showToast('info', 'Applications', 'Viewing user applications');
-        }
-
-        // ===== MODAL FUNCTIONS =====
-        function openMessageModal(userId, userName) {
-            document.getElementById('modalRecipient').value = userName;
-            document.getElementById('messageModal').style.display = 'block';
-            selectedUserId = userId;
-        }
-
-        function closeMessageModal() {
-            document.getElementById('messageModal').style.display = 'none';
-            document.getElementById('modalMessage').value = '';
-        }
-
-        function sendModalMessage() {
-            const message = document.getElementById('modalMessage').value.trim();
-            if (!message || !selectedUserId) return;
+        // ===== BROADCAST FUNCTIONS =====
+        function sendBroadcast() {
+            const message = document.getElementById('broadcastMessage').value.trim();
+            const sendWeb = document.getElementById('sendWeb').checked;
+            const sendTelegram = document.getElementById('sendTelegram').checked;
+            const sendNtfy = document.getElementById('sendNtfy').checked;
+            const priority = document.getElementById('broadcastPriority').value;
             
-            const newMessage = {
-                id: Date.now(),
-                userId: selectedUserId,
-                userName: 'Admin',
-                message: message,
-                isAdmin: true,
-                platform: 'web',
-                timestamp: new Date().toISOString(),
-                read: true
-            };
+            if (!message) {
+                alert('Please enter a message to broadcast');
+                return;
+            }
             
-            allMessages.push(newMessage);
+            // Show preview
+            document.getElementById('broadcastPreview').innerHTML = `
+                <strong>Message:</strong><br>
+                ${escapeHtml(message)}<br><br>
+                <strong>Recipients:</strong> ${users.length} users<br>
+                <strong>Channels:</strong> ${sendWeb ? 'Web ' : ''}${sendTelegram ? 'Telegram ' : ''}${sendNtfy ? 'Ntfy' : ''}
+            `;
             
-            showToast('success', 'Message Sent', 'Your message has been sent');
-            closeMessageModal();
+            document.getElementById('confirmMessage').textContent = 
+                `Send to ${users.length} users?`;
+            document.getElementById('confirmModal').classList.add('active');
+            
+            // Store broadcast data
+            window.currentBroadcast = { message, sendWeb, sendTelegram, sendNtfy, priority };
         }
 
-        // ===== TAB SWITCHING =====
-        function switchTab(tabId) {
-            document.querySelectorAll('.nav-item').forEach(item => {
+        async function executeBroadcast() {
+            closeModal();
+            
+            const { message, sendWeb, sendTelegram, sendNtfy, priority } = window.currentBroadcast;
+            
+            document.getElementById('broadcastProgress').style.display = 'block';
+            document.getElementById('broadcastResults').style.display = 'none';
+            
+            let sent = 0;
+            let failed = 0;
+            const total = users.length;
+            
+            for (let i = 0; i < users.length; i++) {
+                const user = users[i];
+                document.getElementById('progressCount').textContent = `${i + 1}/${total}`;
+                
+                try {
+                    if (sendWeb && user.userId) {
+                        ws.send(JSON.stringify({
+                            type: 'admin_message',
+                            userId: user.userId,
+                            message: message
+                        }));
+                        sent++;
+                    }
+                    
+                    if (sendTelegram && user.telegramChatId) {
+                        await fetch('/api/admin/send', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: user.email,
+                                message: `📢 *Broadcast:*\n\n${message}`
+                            })
+                        });
+                        sent++;
+                    }
+                    
+                    // Small delay
+                    await new Promise(r => setTimeout(r, 50));
+                } catch (error) {
+                    console.error('Failed to send to user:', error);
+                    failed++;
+                }
+            }
+            
+            // Send ntfy notification about broadcast
+            if (sendNtfy) {
+                await sendNtfyNotification(
+                    '📢 Broadcast Sent',
+                    `Message: ${message.substring(0, 100)}...\nRecipients: ${sent} users\nFailed: ${failed}`,
+                    parseInt(priority),
+                    ['broadcast', 'megaphone']
+                );
+            }
+            
+            document.getElementById('broadcastProgress').style.display = 'none';
+            document.getElementById('broadcastResults').style.display = 'block';
+            document.getElementById('resultText').innerHTML = `
+                ✅ Broadcast complete!<br>
+                Sent: ${sent}<br>
+                Failed: ${failed}<br>
+                Ntfy notified: ${sendNtfy ? 'Yes' : 'No'}
+            `;
+            
+            // Clear input
+            document.getElementById('broadcastMessage').value = '';
+            document.getElementById('broadcastCounter').textContent = '0/2000';
+        }
+
+        async function sendJobAlerts() {
+            if (!confirm('Send job alerts to all users?')) return;
+            
+            try {
+                document.getElementById('broadcastProgress').style.display = 'block';
+                
+                const response = await fetch('/api/admin/sendalerts', {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    sendNtfyNotification(
+                        '📢 Job Alerts',
+                        'Job alerts sent to all users',
+                        3,
+                        ['megaphone', 'jobs']
+                    );
+                    alert('Job alerts sent successfully!');
+                }
+            } catch (error) {
+                console.error('Failed to send job alerts:', error);
+                alert('Failed to send job alerts');
+            } finally {
+                document.getElementById('broadcastProgress').style.display = 'none';
+            }
+        }
+
+        async function testNtfyBroadcast() {
+            const success = await sendNtfyNotification(
+                '🔔 Test Notification',
+                'This is a test from admin dashboard',
+                3,
+                ['test']
+            );
+            
+            if (success) {
+                alert('Test notification sent to ntfy topic: new_chat');
+            } else {
+                alert('Failed to send test notification');
+            }
+        }
+
+        // ===== VIEW FUNCTIONS =====
+        function switchView(view) {
+            currentView = view;
+            
+            // Update menu
+            document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.target.closest('.nav-item').classList.add('active');
+            event.currentTarget.classList.add('active');
             
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
+            // Update title
+            const titles = {
+                dashboard: { title: 'Dashboard', subtitle: 'Overview of your recruitment platform' },
+                users: { title: 'Users', subtitle: 'Manage and view all users' },
+                messages: { title: 'Messages', subtitle: 'Chat with users in real-time' },
+                broadcast: { title: 'Broadcast', subtitle: 'Send messages to all users' },
+                ntfy: { title: 'Ntfy Alerts', subtitle: 'Secret notification system (topic: new_chat)' },
+                jobs: { title: 'Jobs', subtitle: 'Manage job listings' },
+                stats: { title: 'Statistics', subtitle: 'Platform analytics' },
+                settings: { title: 'Settings', subtitle: 'Configure your dashboard' }
+            };
             
-            document.getElementById('pageTitle').textContent = 
-                tabId.charAt(0).toUpperCase() + tabId.slice(1);
-        }
-
-        // ===== PAGINATION =====
-        function changePage(page) {
-            if (page < 1) return;
-            currentPage = page;
-            renderAllUsers();
-        }
-
-        // ===== SEARCH & FILTER =====
-        function searchUsers() {
-            const term = document.getElementById('quickUserSearch').value.toLowerCase();
-            showToast('info', 'Search', 'Searching users...');
-        }
-
-        function searchAllUsers() {
-            const term = document.getElementById('userSearch').value.toLowerCase();
-            showToast('info', 'Search', 'Searching all users...');
-        }
-
-        function filterUsers() {
-            const filter = document.getElementById('userFilter').value;
-            showToast('info', 'Filter', `Filtering by: ${filter}`);
-        }
-
-        // ===== EXPORT FUNCTIONS =====
-        function exportUsers() {
-            const data = JSON.stringify(allUsers.slice(0, 5), null, 2);
-            downloadFile('recent-users.json', data);
-            showToast('success', 'Export Complete', 'Recent users exported');
-        }
-
-        function exportAllUsers() {
-            const data = JSON.stringify(allUsers, null, 2);
-            downloadFile('all-users.json', data);
-            showToast('success', 'Export Complete', 'All users exported');
-        }
-
-        function downloadFile(filename, content) {
-            const blob = new Blob([content], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
+            document.getElementById('pageTitle').textContent = titles[view].title;
+            document.getElementById('pageSubtitle').textContent = titles[view].subtitle;
+            
+            // Hide all views
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('usersView').style.display = 'none';
+            document.getElementById('messagesView').style.display = 'none';
+            document.getElementById('broadcastView').style.display = 'none';
+            document.getElementById('ntfyView').style.display = 'none';
+            document.getElementById('jobsView').style.display = 'none';
+            document.getElementById('statsView').style.display = 'none';
+            document.getElementById('settingsView').style.display = 'none';
+            
+            // Show selected view
+            document.getElementById(view + 'View').style.display = 'block';
+            
+            // Load data for specific views
+            if (view === 'messages') {
+                loadUsers();
+            } else if (view === 'jobs') {
+                loadJobs();
+            } else if (view === 'ntfy') {
+                updateNtfyLog();
+            }
         }
 
         // ===== UTILITY FUNCTIONS =====
-        function showToast(type, title, message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
+        function updateStats() {
+            document.getElementById('totalUsers').textContent = stats.totalUsers;
+            document.getElementById('totalUnread').textContent = stats.unreadCount;
+            document.getElementById('activeJobs').textContent = stats.activeJobs;
+            document.getElementById('totalApplications').textContent = stats.applications;
+            document.getElementById('totalMessages').textContent = stats.totalMessages;
+            document.getElementById('messagesToday').textContent = stats.messagesToday;
+            document.getElementById('ntfyAlerts').textContent = stats.ntfyAlerts;
             
-            const icon = {
-                success: 'check-circle',
-                error: 'exclamation-circle',
-                info: 'info-circle',
-                warning: 'exclamation-triangle'
-            }[type] || 'info-circle';
+            document.getElementById('userCount').textContent = stats.totalUsers;
+            document.getElementById('unreadCount').textContent = stats.unreadCount;
+            document.getElementById('notificationBadge').textContent = stats.unreadCount;
             
-            toast.innerHTML = `
-                <div class="toast-icon"><i class="fas fa-${icon}"></i></div>
-                <div class="toast-content">
-                    <div class="toast-title">${title}</div>
-                    <div class="toast-message">${message}</div>
-                </div>
-                <button class="toast-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-            `;
-            
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function updateUserOnlineStatus(userId, status) {
-            const user = allUsers.find(u => u.userId === userId);
-            if (user) {
-                user.online = status === 'online';
-                renderRecentUsers();
-                renderAllUsers();
+            // Update unread change indicator
+            const unreadElement = document.getElementById('unreadChange');
+            if (stats.unreadCount > 0) {
+                unreadElement.textContent = `${stats.unreadCount} need attention`;
+                unreadElement.style.color = '#f56565';
+            } else {
+                unreadElement.textContent = 'All clear';
+                unreadElement.style.color = '#48bb78';
             }
+        }
+
+        function updateBadges() {
+            document.getElementById('userCount').textContent = stats.totalUsers;
+            document.getElementById('unreadCount').textContent = stats.unreadCount;
+            document.getElementById('notificationBadge').textContent = stats.unreadCount;
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+            const filtered = users.filter(u => 
+                (u.userName && u.userName.toLowerCase().includes(searchTerm)) ||
+                (u.email && u.email.toLowerCase().includes(searchTerm))
+            );
+            
+            const container = document.getElementById('usersList');
+            container.innerHTML = filtered.map(user => `
+                <div class="user-item" onclick="selectUser('${user.userId}')">
+                    <div class="user-info">
+                        <div class="user-avatar">${(user.userName || 'U').charAt(0).toUpperCase()}</div>
+                        <div class="user-details">
+                            <h4>${escapeHtml(user.userName || 'Unknown')}</h4>
+                            <p>${escapeHtml(user.email || 'No email')}</p>
+                            <div class="user-meta">
+                                <span>📅 ${new Date(user.createdAt).toLocaleDateString()}</span>
+                                ${user.unread ? `<span>💬 ${user.unread} unread</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleChatKeyPress(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendAdminMessage();
+            }
+            
+            // Update character counter
+            const textarea = e.target;
+            document.getElementById('adminCharCounter').textContent = `${textarea.value.length}/1000`;
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('active');
         }
 
         function refreshData() {
-            updateUserStats();
-            updatePlatformChart();
-            updateActivityChart();
+            loadUsers();
+            loadJobs();
+            sendNtfyNotification('🔄 Data Refreshed', 'Admin refreshed the dashboard', 2, ['refresh']);
+            showNotification('Data refreshed!');
         }
 
-        // ===== CHART FUNCTIONS =====
-        function updatePlatformChart() {
-            const ctx = document.getElementById('platformChart').getContext('2d');
+        function showNotification(message) {
+            // Simple alert for now
+            alert(message);
+        }
+
+        function checkNtfyNotifications() {
+            sendNtfyNotification(
+                '🔔 Notification Check',
+                `You have ${stats.unreadCount} unread messages\nTotal users: ${stats.totalUsers}`,
+                2,
+                ['check']
+            );
+            alert('Check your ntfy app for notification!');
+        }
+
+        function sendTestNtfy() {
+            testNtfyBroadcast();
+        }
+
+        function viewAllMessages() {
+            switchView('messages');
+        }
+
+        function exportUsers() {
+            const dataStr = JSON.stringify(users, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            const webUsers = allUsers.filter(u => !u.telegramId).length;
-            const telegramUsers = allUsers.filter(u => u.telegramId).length;
+            const exportFileDefaultName = `users_${new Date().toISOString().slice(0,10)}.json`;
             
-            if (charts.platform) {
-                charts.platform.destroy();
-            }
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
             
-            charts.platform = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Web Users', 'Telegram Users'],
-                    datasets: [{
-                        data: [webUsers, telegramUsers],
-                        backgroundColor: ['#0A3D62', '#0088cc'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' }
-                    }
-                }
+            sendNtfyNotification('📥 Users Exported', `${users.length} users exported`, 2, ['export']);
+        }
+
+        function clearNtfyLog() {
+            ntfyNotifications = [];
+            updateNtfyLog();
+        }
+
+        function saveSettings() {
+            const settings = {
+                ntfyEnabled: document.getElementById('ntfyEnabled').checked,
+                ntfyOnUserRegister: document.getElementById('ntfyOnUserRegister').checked,
+                ntfyOnMessage: document.getElementById('ntfyOnMessage').checked,
+                ntfyOnJobAlert: document.getElementById('ntfyOnJobAlert').checked,
+                defaultPriority: document.getElementById('defaultPriority').value
+            };
+            
+            localStorage.setItem('adminSettings', JSON.stringify(settings));
+            sendNtfyNotification('⚙️ Settings Updated', 'Admin settings saved', 2, ['settings']);
+            alert('Settings saved!');
+        }
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // ===== TEXTAREA AUTO-RESIZE =====
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
             });
-        }
-
-        function updateActivityChart() {
-            const ctx = document.getElementById('activityChart').getContext('2d');
-            
-            const labels = [];
-            const data = [];
-            
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                labels.push(d.toLocaleDateString('en-GB', { weekday: 'short' }));
-                data.push(Math.floor(Math.random() * 25) + 5);
-            }
-            
-            if (charts.activity) {
-                charts.activity.destroy();
-            }
-            
-            charts.activity = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Active Users',
-                        data: data,
-                        borderColor: '#0A3D62',
-                        backgroundColor: 'rgba(10,61,98,0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
-
-        // Close panels on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeUserPanel();
-                closeMessagesPanel();
-                closeMessageModal();
-            }
         });
 
-        // Initialize charts
-        setTimeout(() => {
-            updatePlatformChart();
-            updateActivityChart();
-        }, 500);
+        // ===== BROADCAST COUNTER =====
+        document.getElementById('broadcastMessage')?.addEventListener('input', function() {
+            document.getElementById('broadcastCounter').textContent = `${this.value.length}/2000`;
+        });
+
+        // ===== INITIALIZE =====
+        connectWebSocket();
+        loadUsers();
+        loadJobs();
+        
+        // Send startup notification
+        sendNtfyNotification(
+            '👑 Admin Dashboard Opened',
+            `Admin logged in at ${new Date().toLocaleString()}`,
+            3,
+            ['admin', 'login']
+        );
+
+        // Refresh data every 30 seconds
+        setInterval(() => {
+            if (currentView !== 'broadcast') { // Don't refresh while broadcasting
+                loadUsers();
+                loadJobs();
+            }
+        }, 30000);
+
+        // Update ntfy log with sample data
+        logNtfyNotification({
+            title: 'System Ready',
+            message: 'Ntfy notifications active on topic: new_chat',
+            priority: 2,
+            tags: ['info'],
+            timestamp: new Date().toISOString()
+        });
+
+        console.log('Admin dashboard initialized with ntfy notifications on topic: new_chat');
     </script>
 </body>
 </html>
