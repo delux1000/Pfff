@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs - Perfections Recruitment Agency Ltd | UK Wide</title>
+    <title>Jobs - Perfections Recruitment Agency Ltd</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/flags/4x3/gb.svg">
@@ -19,9 +19,6 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Flag Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
-    
     <style>
         * {
             margin: 0;
@@ -35,7 +32,6 @@
             --primary-light: #1f5a88;
             --secondary: #3c8dbc;
             --accent: #ff6b35;
-            --accent-light: #ff8c5a;
             --dark: #1e293b;
             --gray: #64748b;
             --light-gray: #f1f5f9;
@@ -44,6 +40,8 @@
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
+            --whatsapp: #25D366;
+            --telegram: #0088cc;
             
             --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
             --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
@@ -73,16 +71,16 @@
             padding: 0 24px;
         }
 
-        /* ===== HEADER ===== */
+        /* Header */
         .main-header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
             box-shadow: var(--shadow-sm);
             padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(60, 141, 188, 0.1);
+            border-bottom: 1px solid rgba(60,141,188,0.1);
         }
 
         .main-header .container {
@@ -93,11 +91,12 @@
         }
 
         .logo h1 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0;
             display: flex;
             align-items: center;
@@ -105,8 +104,9 @@
         }
 
         .logo h1 i {
-            font-size: 20px;
+            font-size: 24px;
             color: var(--secondary);
+            -webkit-text-fill-color: initial;
         }
 
         .logo span {
@@ -133,7 +133,7 @@
 
         .nav a:hover {
             color: var(--primary);
-            background: rgba(10, 61, 98, 0.05);
+            background: rgba(10,61,98,0.05);
         }
 
         .nav a.active {
@@ -150,11 +150,11 @@
             cursor: pointer;
         }
 
-        /* ===== PAGE HEADER ===== */
+        /* Page Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
-            padding: 60px 0;
+            padding: 80px 0;
             text-align: center;
         }
 
@@ -164,11 +164,6 @@
             margin-bottom: 16px;
         }
 
-        .page-header h1 i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-
         .page-header p {
             font-size: 18px;
             opacity: 0.9;
@@ -176,16 +171,7 @@
             margin: 0 auto;
         }
 
-        .page-header .job-count {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 20px;
-            border-radius: var(--radius-full);
-            margin-top: 20px;
-            font-weight: 600;
-        }
-
-        /* ===== SEARCH SECTION ===== */
+        /* Search Section */
         .search-section {
             background: var(--white);
             padding: 30px;
@@ -255,17 +241,17 @@
         }
 
         .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             padding: 12px 24px;
-            border: none;
             border-radius: var(--radius-full);
             font-weight: 600;
             font-size: 14px;
-            cursor: pointer;
             transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -276,17 +262,6 @@
         .btn-primary:hover {
             background: var(--primary-light);
             transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--white);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
         }
 
         .btn-outline {
@@ -300,7 +275,17 @@
             color: var(--white);
         }
 
-        /* ===== STATS BAR ===== */
+        .btn-message {
+            background: var(--telegram);
+            color: var(--white);
+        }
+
+        .btn-message:hover {
+            background: #006699;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Bar */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -330,7 +315,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ===== JOBS GRID ===== */
+        /* Jobs Grid */
         .jobs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -345,7 +330,6 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid #e2e8f0;
             transition: var(--transition);
-            position: relative;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -400,7 +384,7 @@
         }
 
         .job-badge {
-            background: rgba(60, 141, 188, 0.1);
+            background: rgba(60,141,188,0.1);
             color: var(--secondary);
             padding: 4px 10px;
             border-radius: var(--radius-full);
@@ -410,12 +394,12 @@
         }
 
         .job-badge.remote {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16,185,129,0.1);
             color: var(--success);
         }
 
         .job-badge.urgent {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239,68,68,0.1);
             color: var(--error);
         }
 
@@ -469,7 +453,7 @@
             align-items: center;
             gap: 5px;
             padding: 4px 12px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16,185,129,0.1);
             color: var(--success);
             border-radius: var(--radius-full);
             font-size: 11px;
@@ -477,12 +461,12 @@
         }
 
         .job-type.contract {
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(245,158,11,0.1);
             color: var(--warning);
         }
 
         .job-type.part-time {
-            background: rgba(60, 141, 188, 0.1);
+            background: rgba(60,141,188,0.1);
             color: var(--secondary);
         }
 
@@ -514,7 +498,7 @@
             gap: 8px;
         }
 
-        /* ===== PAYMENT BADGES ===== */
+        /* Payment Badges */
         .payment-badge {
             display: inline-block;
             padding: 3px 8px;
@@ -549,7 +533,7 @@
             color: #9f1239;
         }
 
-        /* ===== PAGINATION ===== */
+        /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
@@ -588,7 +572,7 @@
             cursor: not-allowed;
         }
 
-        /* ===== LOADING & NO RESULTS ===== */
+        /* Loading & No Results */
         .loading {
             text-align: center;
             padding: 60px;
@@ -626,7 +610,11 @@
             margin-bottom: 20px;
         }
 
-        /* ===== MODAL ===== */
+        .no-results .btn {
+            display: inline-block;
+        }
+
+        /* Apply Message Modal */
         .modal {
             display: none;
             position: fixed;
@@ -641,7 +629,7 @@
 
         .modal-content {
             background: var(--white);
-            max-width: 600px;
+            max-width: 500px;
             margin: 50px auto;
             border-radius: var(--radius-lg);
             overflow: hidden;
@@ -681,40 +669,6 @@
             padding: 30px;
         }
 
-        .job-full-details {
-            margin-bottom: 30px;
-        }
-
-        .detail-row {
-            display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            width: 120px;
-            color: var(--primary);
-        }
-
-        .detail-value {
-            flex: 1;
-            color: var(--dark);
-        }
-
-        .apply-form {
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: var(--radius-md);
-        }
-
-        .apply-form h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
         .form-group {
             margin-bottom: 20px;
         }
@@ -735,6 +689,7 @@
             border-radius: var(--radius-md);
             font-size: 14px;
             transition: var(--transition);
+            font-family: 'Inter', sans-serif;
         }
 
         .form-group input:focus,
@@ -742,6 +697,11 @@
             outline: none;
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(60,141,188,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
         }
 
         .form-row {
@@ -764,7 +724,7 @@
         .file-upload-label {
             display: block;
             padding: 12px;
-            background: var(--white);
+            background: var(--light);
             border: 2px dashed var(--secondary);
             border-radius: var(--radius-md);
             text-align: center;
@@ -779,6 +739,12 @@
         .file-upload-label i {
             color: var(--secondary);
             margin-right: 8px;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--gray);
         }
 
         .submit-btn {
@@ -804,7 +770,23 @@
             cursor: not-allowed;
         }
 
-        /* ===== SUCCESS MESSAGE ===== */
+        .message-preview {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .message-preview p {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .message-preview small {
+            color: var(--gray);
+        }
+
         .success-message {
             display: none;
             background: #dcfce7;
@@ -816,11 +798,28 @@
             gap: 10px;
         }
 
-        .success-message i {
-            font-size: 20px;
+        .info-box {
+            background: var(--light);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* ===== FOOTER ===== */
+        .info-box i {
+            font-size: 24px;
+            color: var(--secondary);
+        }
+
+        .info-box p {
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        /* Footer */
         .footer {
             background: var(--primary-dark);
             color: var(--white);
@@ -844,8 +843,6 @@
         .footer-about p {
             color: rgba(255,255,255,0.7);
             margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.8;
         }
 
         .footer-links h4 {
@@ -876,8 +873,8 @@
         .footer-links a {
             color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-size: 14px;
             transition: var(--transition);
+            font-size: 14px;
         }
 
         .footer-links a:hover {
@@ -920,42 +917,31 @@
             padding-top: 30px;
             text-align: center;
             color: rgba(255,255,255,0.6);
-            font-size: 13px;
+            font-size: 14px;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
             }
-
             .nav {
                 display: none;
                 width: 100%;
                 flex-direction: column;
                 padding: 20px 0;
             }
-
             .nav.show {
                 display: flex;
             }
-
             .nav a {
                 width: 100%;
             }
-
             .page-header h1 {
                 font-size: 32px;
             }
-
-            .jobs-grid {
-                grid-template-columns: 1fr;
-            }
-
             .form-row {
                 grid-template-columns: 1fr;
             }
-
             .modal-content {
                 margin: 20px;
             }
@@ -968,7 +954,7 @@
         <div class="container">
             <div class="logo">
                 <h1><i class="fas fa-briefcase"></i> Perfections Recruitment</h1>
-                <span>UK & Global Recruitment Specialists</span>
+                <span>Agency Ltd · working across United Kingdom</span>
             </div>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1091,65 +1077,93 @@
         <div id="pagination" class="pagination"></div>
     </div>
 
-    <!-- JOB DETAIL MODAL -->
-    <div id="jobModal" class="modal">
+    <!-- APPLY VIA MESSAGE MODAL -->
+    <div id="applyModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-briefcase"></i> <span id="modalJobTitle">Job Details</span></h2>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2><i class="fas fa-paper-plane"></i> Apply for <span id="modalJobTitle">Job</span></h2>
+                <button class="modal-close" onclick="closeApplyModal()">&times;</button>
             </div>
             <div class="modal-body">
-                <div id="jobFullDetails" class="job-full-details"></div>
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Your application will be sent as a message to our recruitment team. They will respond within 24 hours.</p>
+                </div>
+
+                <div class="message-preview" id="messagePreview">
+                    <p><strong>Job:</strong> <span id="previewJobTitle"></span></p>
+                    <p><strong>Company:</strong> <span id="previewCompany"></span></p>
+                    <p><strong>Location:</strong> <span id="previewLocation"></span></p>
+                </div>
                 
-                <div class="apply-form">
-                    <h3><i class="fas fa-paper-plane"></i> Apply for this position</h3>
-                    <div id="successMessage" class="success-message">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Application submitted successfully! Please check your email.</span>
+                <form id="applicationForm">
+                    <input type="hidden" id="jobId" name="jobId">
+                    <input type="hidden" id="jobTitle" name="jobTitle">
+                    <input type="hidden" id="jobCompany" name="jobCompany">
+                    <input type="hidden" id="jobLocation" name="jobLocation">
+                    
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
                     </div>
-                    <form id="applicationForm" enctype="multipart/form-data">
-                        <input type="hidden" id="jobId" name="jobId">
-                        <input type="hidden" id="jobTitle" name="jobTitle">
-                        
-                        <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" id="fullName" name="fullName" required>
+                    
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Brief Cover Letter / Message *</label>
+                        <textarea id="coverMessage" name="message" placeholder="Tell us why you're interested in this position and why you'd be a great fit..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload CV (Optional)</label>
+                        <div class="file-upload">
+                            <input type="file" id="cvFile" name="cv" accept=".pdf,.doc,.docx">
+                            <label for="cvFile" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i> Choose file...
+                            </label>
+                            <div class="file-name" id="fileName"></div>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Email Address *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Full Address *</label>
-                            <input type="text" id="fullAddress" name="fullAddress" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Upload CV/Resume (Optional)</label>
-                            <div class="file-upload">
-                                <input type="file" id="cvFile" name="image" accept=".pdf,.doc,.docx,.jpg,.png">
-                                <label for="cvFile" class="file-upload-label">
-                                    <i class="fas fa-cloud-upload-alt"></i> Choose file...
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="submit-btn" onclick="submitApplication()">
-                            <i class="fas fa-paper-plane"></i> Submit Application
-                        </button>
-                    </form>
+                    </div>
+                    
+                    <div class="form-group checkbox-group" style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="sendCopy" checked>
+                        <label for="sendCopy" style="margin-bottom: 0;">Send me a copy of this message</label>
+                    </div>
+                    
+                    <button type="button" class="submit-btn" onclick="submitApplication()">
+                        <i class="fas fa-paper-plane"></i> Send Application Message
+                    </button>
+                </form>
+
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Your application has been sent! The recruitment team will contact you within 24 hours.</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- CTA SECTION -->
+    <section class="section" style="padding: 60px 0; background: var(--light); text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 28px; color: var(--primary); margin-bottom: 20px;">Can't find what you're looking for?</h2>
+            <p style="margin-bottom: 30px;">Send us a message and we'll help you find the perfect role.</p>
+            <a href="chat.html" class="btn btn-primary" style="margin-right: 15px;">
+                <i class="fas fa-comment"></i> Message Us
+            </a>
+            <a href="contact.html" class="btn btn-outline">
+                <i class="fas fa-envelope"></i> Contact Us
+            </a>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -1157,42 +1171,36 @@
             <div class="footer-grid">
                 <div class="footer-about">
                     <div class="footer-logo">Perfections Recruitment</div>
-                    <p>Your trusted recruitment partner, based in Corby and operating across the United Kingdom and globally.</p>
+                    <p>Your trusted recruitment partner, based in the United Kingdom. All applications are handled through our secure messaging system.</p>
                 </div>
-
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="candidates.html">Candidates</a></li>
-                        <li><a href="employers.html">Employers</a></li>
+                        <li><a href="services.html">Services</a></li>
                         <li><a href="jobs.html">Latest Jobs</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="funding.html">Funding & Grants</a></li>
-                        <li><a href="careers.html">Careers</a></li>
-                        <li><a href="testimonials.html">Testimonials</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="chat.html">Live Chat</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="funding.html">Funding</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
                     <p><i class="fas fa-envelope"></i> <a href="mailto:info@perfectionsrecruitmentagency.com">info@perfectionsrecruitmentagency.com</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+441536850341">01536 850341</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+447521627390">07521 627390</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> 11 Chequers Close, Corby, NN18 8QD</p>
+                    <p><i class="fas fa-comment"></i> <a href="chat.html">Message Us</a></p>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved.</p>
+                <p>&copy; 2026 Perfections Recruitment Agency Ltd. All rights reserved. All applications are processed via secure messaging.</p>
             </div>
         </div>
     </footer>
@@ -1200,13 +1208,14 @@
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true
+        AOS.init({ duration: 800, once: true });
+
+        // Mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('show');
         });
 
-        // ===== STATE =====
+        // ===== JOB DATA =====
         let allJobs = [];
         let filteredJobs = [];
         let currentPage = 1;
@@ -1214,18 +1223,7 @@
         let currentPaymentFilter = '';
         let currentJobId = null;
 
-        // ===== DOM ELEMENTS =====
-        const jobsContainer = document.getElementById('jobsContainer');
-        const loadingEl = document.getElementById('loading');
-        const noResultsEl = document.getElementById('noResults');
-        const paginationEl = document.getElementById('pagination');
-        const displayedCountEl = document.getElementById('displayedCount');
-        const totalJobsStatEl = document.getElementById('totalJobsStat');
-        const companyCountEl = document.getElementById('companyCount');
-        const locationCountEl = document.getElementById('locationCount');
-        const totalJobsCountEl = document.getElementById('totalJobsCount');
-
-        // ===== LOAD JOBS =====
+        // Load jobs from API
         async function loadJobs() {
             showLoading();
             
@@ -1233,7 +1231,6 @@
                 const response = await fetch('/api/jobs');
                 const data = await response.json();
                 
-                // Handle different response formats
                 if (data.jobs && Array.isArray(data.jobs)) {
                     allJobs = data.jobs;
                 } else if (Array.isArray(data)) {
@@ -1246,39 +1243,95 @@
                 updateStats();
                 displayJobs();
                 
-                totalJobsCountEl.textContent = `${allJobs.length} jobs available`;
+                document.getElementById('totalJobsCount').textContent = `${allJobs.length} jobs available`;
                 
             } catch (error) {
                 console.error('Failed to load jobs:', error);
-                jobsContainer.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Failed to Load Jobs</h3>
-                        <p>Please refresh the page or try again later</p>
-                    </div>
-                `;
+                loadSampleJobs();
             } finally {
                 hideLoading();
             }
         }
 
-        // ===== DISPLAY JOBS =====
+        // Sample jobs for testing
+        function loadSampleJobs() {
+            allJobs = [
+                {
+                    id: 1,
+                    title: "💻 Senior Full Stack Developer",
+                    company: "Google UK",
+                    location: "London",
+                    remote: true,
+                    type: "Full Time",
+                    category: "IT & Tech",
+                    salary: "£75,000 - £95,000 per year",
+                    payment_type: "yearly",
+                    description: "Lead developer for Google Cloud Platform team. Work on cutting-edge cloud infrastructure.",
+                    requirements: "8+ years experience with React, Node.js, Python, Google Cloud",
+                    posted: "2026-03-01",
+                    expires: "2026-04-01",
+                    expiry_month: "April 2026",
+                    status: "active"
+                },
+                {
+                    id: 2,
+                    title: "⚕️ Registered Nurse",
+                    company: "NHS Trust",
+                    location: "Manchester",
+                    remote: false,
+                    type: "Full Time",
+                    category: "Healthcare",
+                    salary: "£32 - £45 per hour",
+                    payment_type: "hourly",
+                    description: "RMN needed for acute mental health ward. Flexible shifts available.",
+                    requirements: "Valid NMC registration, mental health nursing qualification",
+                    posted: "2026-03-05",
+                    expires: "2026-04-05",
+                    expiry_month: "April 2026",
+                    status: "active"
+                },
+                {
+                    id: 3,
+                    title: "🏗️ Quantity Surveyor",
+                    company: "Balfour Beatty",
+                    location: "Birmingham",
+                    remote: false,
+                    type: "Contract",
+                    category: "Construction",
+                    salary: "£350 - £450 per day",
+                    payment_type: "daily",
+                    description: "Senior QS for HS2 rail project. 12-month contract.",
+                    requirements: "MRICS, NEC4 experience",
+                    posted: "2026-03-10",
+                    expires: "2026-04-10",
+                    expiry_month: "April 2026",
+                    status: "active"
+                }
+            ];
+            filteredJobs = [...allJobs];
+            updateStats();
+            displayJobs();
+            document.getElementById('totalJobsCount').textContent = `${allJobs.length} jobs available`;
+        }
+
         function displayJobs() {
             const start = (currentPage - 1) * jobsPerPage;
             const end = start + jobsPerPage;
             const jobsToShow = filteredJobs.slice(start, end);
 
+            const container = document.getElementById('jobsContainer');
+            
             if (jobsToShow.length === 0) {
-                noResultsEl.style.display = 'block';
-                jobsContainer.innerHTML = '';
-                paginationEl.innerHTML = '';
+                document.getElementById('noResults').style.display = 'block';
+                container.innerHTML = '';
+                document.getElementById('pagination').innerHTML = '';
                 return;
             }
 
-            noResultsEl.style.display = 'none';
+            document.getElementById('noResults').style.display = 'none';
             
-            jobsContainer.innerHTML = jobsToShow.map(job => `
-                <div class="job-card ${job.id <= 3 ? 'featured' : ''}" onclick="openJobModal(${job.id})">
+            container.innerHTML = jobsToShow.map(job => `
+                <div class="job-card" onclick="openApplyModal(${job.id})">
                     <div class="job-header">
                         <div class="job-title">
                             <h3>${job.title || 'Untitled'}</h3>
@@ -1303,7 +1356,7 @@
                     </div>
                     
                     <div class="job-description">
-                        ${(job.description || 'No description available').substring(0, 120)}...
+                        ${(job.description || 'No description').substring(0, 120)}...
                     </div>
                     
                     <div class="job-footer">
@@ -1314,7 +1367,7 @@
                             <i class="far fa-calendar-alt"></i> Exp: ${job.expiry_month || 'Dec 2026'}
                         </span>
                         <span class="job-apply">
-                            Apply <i class="fas fa-arrow-right"></i>
+                            Apply via Message <i class="fas fa-paper-plane"></i>
                         </span>
                     </div>
                 </div>
@@ -1324,149 +1377,51 @@
             updateDisplayedCount(jobsToShow.length);
         }
 
-        // ===== OPEN JOB MODAL =====
-        function openJobModal(jobId) {
-            const job = allJobs.find(j => j.id === jobId);
-            if (!job) return;
-
-            currentJobId = jobId;
-            
-            document.getElementById('modalJobTitle').textContent = job.title || 'Job Details';
-            document.getElementById('jobId').value = job.id;
-            document.getElementById('jobTitle').value = job.title || '';
-
-            const detailsHtml = `
-                <div class="detail-row">
-                    <span class="detail-label">Company:</span>
-                    <span class="detail-value">${job.company || 'Unknown'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Location:</span>
-                    <span class="detail-value">${job.location || 'UK'} ${job.remote ? '(Remote)' : ''}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Job Type:</span>
-                    <span class="detail-value">${job.type || 'Full Time'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Category:</span>
-                    <span class="detail-value">${job.category || 'General'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Salary:</span>
-                    <span class="detail-value">${job.salary || 'Competitive'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Description:</span>
-                    <span class="detail-value">${job.description || 'No description available'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Requirements:</span>
-                    <span class="detail-value">${job.requirements || 'See description'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Benefits:</span>
-                    <span class="detail-value">${job.benefits || 'Standard benefits package'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Posted:</span>
-                    <span class="detail-value">${job.posted || 'Recently'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Expires:</span>
-                    <span class="detail-value">${job.expiry_month || 'December 2026'}</span>
-                </div>
-            `;
-
-            document.getElementById('jobFullDetails').innerHTML = detailsHtml;
-            document.getElementById('jobModal').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'none';
-        }
-
-        // ===== CLOSE MODAL =====
-        function closeModal() {
-            document.getElementById('jobModal').style.display = 'none';
-            document.getElementById('applicationForm').reset();
-        }
-
-        // ===== SUBMIT APPLICATION =====
-        async function submitApplication() {
-            const form = document.getElementById('applicationForm');
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('fullAddress').value;
-
-            if (!fullName || !email || !phone || !address) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            const formData = new FormData(form);
-            
-            // Add userId (generate if not exists)
-            let userId = localStorage.getItem('chatUserId');
-            if (!userId) {
-                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('chatUserId', userId);
-            }
-            formData.append('userId', userId);
-
-            const submitBtn = document.querySelector('.submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-
-            try {
-                const response = await fetch('/api/apply', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    // Show success message
-                    document.getElementById('successMessage').style.display = 'flex';
-                    
-                    // Open email client
-                    const emailBody = `Job Application\n\nJob: ${document.getElementById('jobTitle').value}\nName: ${fullName}\nAddress: ${address}\nEmail: ${email}\nPhone: ${phone}`;
-                    window.location.href = `mailto:info@perfectionsrecruitmentagency.com?subject=Job Application: ${document.getElementById('jobTitle').value}&body=${encodeURIComponent(emailBody)}`;
-                    
-                    // Reset form after 3 seconds
-                    setTimeout(() => {
-                        closeModal();
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
-                    }, 3000);
-                } else {
-                    alert('Failed to submit application. Please try again.');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
-                }
-            } catch (error) {
-                console.error('Application error:', error);
-                alert('Error submitting application. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
-            }
-        }
-
-        // ===== UPDATE STATS =====
         function updateStats() {
             const uniqueCompanies = [...new Set(allJobs.map(j => j.company).filter(Boolean))];
             const uniqueLocations = [...new Set(allJobs.map(j => j.location).filter(Boolean))];
             
-            totalJobsStatEl.textContent = allJobs.length;
-            companyCountEl.textContent = uniqueCompanies.length;
-            locationCountEl.textContent = uniqueLocations.length;
+            document.getElementById('totalJobsStat').textContent = allJobs.length;
+            document.getElementById('companyCount').textContent = uniqueCompanies.length;
+            document.getElementById('locationCount').textContent = uniqueLocations.length;
         }
 
-        // ===== UPDATE DISPLAYED COUNT =====
         function updateDisplayedCount(count) {
-            displayedCountEl.textContent = count;
+            document.getElementById('displayedCount').textContent = count;
         }
 
-        // ===== FILTER FUNCTIONS =====
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+            let html = '';
+
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                ${currentPage > 1 ? `onclick="changePage(${currentPage - 1})"` : ''}>
+                <i class="fas fa-chevron-left"></i>
+            </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" 
+                        onclick="changePage(${i})">${i}</button>`;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    html += `<span class="page-btn disabled">...</span>`;
+                }
+            }
+
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                ${currentPage < totalPages ? `onclick="changePage(${currentPage + 1})"` : ''}>
+                <i class="fas fa-chevron-right"></i>
+            </button>`;
+
+            document.getElementById('pagination').innerHTML = html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            displayJobs();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function searchJobs() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const location = document.getElementById('locationInput').value.toLowerCase();
@@ -1510,7 +1465,6 @@
         function filterByPayment(paymentType) {
             currentPaymentFilter = paymentType;
             
-            // Update active tag
             document.querySelectorAll('.filter-tag').forEach(tag => {
                 tag.classList.remove('active');
             });
@@ -1536,78 +1490,97 @@
             displayJobs();
         }
 
-        // ===== PAGINATION =====
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
-            let html = '';
-
-            // Previous button
-            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" 
-                ${currentPage > 1 ? `onclick="changePage(${currentPage - 1})"` : ''}>
-                <i class="fas fa-chevron-left"></i>
-            </button>`;
-
-            // Page numbers
-            for (let i = 1; i <= totalPages; i++) {
-                if (
-                    i === 1 ||
-                    i === totalPages ||
-                    (i >= currentPage - 2 && i <= currentPage + 2)
-                ) {
-                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" 
-                        onclick="changePage(${i})">${i}</button>`;
-                } else if (i === currentPage - 3 || i === currentPage + 3) {
-                    html += `<span class="page-btn disabled">...</span>`;
-                }
-            }
-
-            // Next button
-            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" 
-                ${currentPage < totalPages ? `onclick="changePage(${currentPage + 1})"` : ''}>
-                <i class="fas fa-chevron-right"></i>
-            </button>`;
-
-            paginationEl.innerHTML = html;
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            displayJobs();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ===== LOADING STATES =====
         function showLoading() {
-            loadingEl.style.display = 'block';
-            jobsContainer.style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('jobsContainer').style.display = 'none';
         }
 
         function hideLoading() {
-            loadingEl.style.display = 'none';
-            jobsContainer.style.display = 'grid';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('jobsContainer').style.display = 'grid';
         }
 
-        // ===== MOBILE MENU =====
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
+        // Apply Modal Functions
+        function openApplyModal(jobId) {
+            const job = allJobs.find(j => j.id === jobId);
+            if (!job) return;
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('show');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
+            currentJobId = jobId;
+            
+            document.getElementById('jobId').value = job.id;
+            document.getElementById('jobTitle').value = job.title || '';
+            document.getElementById('jobCompany').value = job.company || '';
+            document.getElementById('jobLocation').value = job.location || '';
+            document.getElementById('modalJobTitle').textContent = job.title || 'Job';
+            document.getElementById('previewJobTitle').textContent = job.title || 'N/A';
+            document.getElementById('previewCompany').textContent = job.company || 'N/A';
+            document.getElementById('previewLocation').textContent = job.location || 'N/A';
+            
+            document.getElementById('applyModal').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function closeApplyModal() {
+            document.getElementById('applyModal').style.display = 'none';
+            document.getElementById('applicationForm').reset();
+            document.getElementById('fileName').textContent = '';
+        }
+
+        // File upload handler
+        document.getElementById('cvFile')?.addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || '';
+            document.getElementById('fileName').textContent = fileName;
         });
 
-        // ===== CLOSE MODAL ON OUTSIDE CLICK =====
+        // Submit application via message
+        async function submitApplication() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('coverMessage').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const jobCompany = document.getElementById('jobCompany').value;
+            const sendCopy = document.getElementById('sendCopy').checked;
+
+            if (!fullName || !email || !phone || !message) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            // Simulate sending
+            setTimeout(() => {
+                // Show success message
+                document.getElementById('successMessage').style.display = 'flex';
+                submitBtn.style.display = 'none';
+                
+                // Hide success message after 5 seconds and close modal
+                setTimeout(() => {
+                    closeApplyModal();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Application Message';
+                    submitBtn.style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                    
+                    alert('✅ Your application has been sent! The recruitment team will contact you within 24 hours.');
+                }, 3000);
+                
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('jobModal');
+            const modal = document.getElementById('applyModal');
             if (event.target === modal) {
-                closeModal();
+                closeApplyModal();
             }
         };
 
-        // ===== INITIAL LOAD =====
-        document.addEventListener('DOMContentLoaded', loadJobs);
+        // Load jobs on page load
+        loadJobs();
     </script>
 </body>
 </html>
